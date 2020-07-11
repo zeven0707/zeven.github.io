@@ -1,0 +1,986 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>第 3 页 | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+        <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop    col-lg-8 col-lg-offset-1
+                    col-md-8 col-md-offset-1
+                    col-sm-12
+                    col-xs-12">
+            
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/22/oracle查看被弃用的参数/"><span>[Oracle]oracle查看被弃用的参数</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/oracle查看被弃用的参数/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T13:01:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <p><code>SELECT name from v$parameter WHERE isdeprecated = &#39;TRUE&#39; ORDER BY name;</code></p>
+<p>11GR2</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">14:20:09 SYS@ boston&gt; SELECT name from v$parameter WHERE isdeprecated = 'TRUE' ORDER BY name;</span><br><span class="line">NAME</span><br><span class="line"><span class="comment">--------------------------------------------------------------------------------</span></span><br><span class="line">active_instance_count</span><br><span class="line">background_dump_dest</span><br><span class="line">buffer_pool_keep</span><br><span class="line">buffer_pool_recycle</span><br><span class="line">commit_write</span><br><span class="line">cursor_space_for_time</span><br><span class="line">fast_start_io_target</span><br><span class="line">global_context_pool_size</span><br><span class="line">instance_groups</span><br><span class="line">lock_name_space</span><br><span class="line">log_archive_local_first</span><br><span class="line">log_archive_start</span><br><span class="line">max_enabled_roles</span><br><span class="line">parallel_automatic_tuning</span><br><span class="line">parallel_io_cap_enabled</span><br><span class="line">parallel_server</span><br><span class="line">parallel_server_instances</span><br><span class="line">plsql_debug</span><br><span class="line">plsql_v2_compatibility</span><br><span class="line">remote_os_authent</span><br><span class="line">resource_manager_cpu_allocation</span><br><span class="line">serial_reuse</span><br><span class="line">sql_trace</span><br><span class="line">standby_archive_dest</span><br><span class="line">user_dump_dest</span><br><span class="line"></span><br><span class="line">25 rows selected.</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/oracle查看被弃用的参数/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/22/oracle进程pmon、smon、dbw、lgwr、ckpt、mmon、mmnl、reco、arcn/"><span>[Oracle]oracle后台进程pmon、smon、dbw、lgwr、ckpt、mmon、mmnl、reco、arcn</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/oracle进程pmon、smon、dbw、lgwr、ckpt、mmon、mmnl、reco、arcn/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T12:59:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、pmon-group"><a href="#1、pmon-group" class="headerlink" title="1、pmon group"></a>1、pmon group</h1><pre><code>pmon组包括：pmon、cleanup main process（clmn）、cleanup helper process（clnn）进程
+这些进程用于监控和清理其他进程。pmon group监视buffer cache的清理和客户端进程资源的释放。例如，pmon group可以重置活动事务表的状态，释放不需要的锁，从活动进程列表中移除终止进程的id。</code></pre><h2 id="1-1、PMON进程：全称process-monitor-process。"><a href="#1-1、PMON进程：全称process-monitor-process。" class="headerlink" title="1.1、PMON进程：全称process monitor process。"></a>1.1、PMON进程：全称process monitor process。</h2><pre><code>检查其他后端进程是否终止。如果一个服务进程或者dispatcher进程非正常终止，pmon group执行进程恢复。进程终止有很多种：系统杀掉或者alter system kill session语句杀掉。</code></pre><h2 id="1-2、CLMN进程：cleanup-main-process。"><a href="#1-2、CLMN进程：cleanup-main-process。" class="headerlink" title="1.2、CLMN进程：cleanup main process。"></a>1.2、CLMN进程：cleanup main process。</h2><pre><code>pomn进程委派给clmn清除工作。clmn周期性执行已经超时的终止进程、终止会话、事物、网络连接、空闲会话、附加事物、附加网络连接的清理工作。</code></pre><h2 id="1-3、clnn：cleanup-helper-process。"><a href="#1-3、clnn：cleanup-helper-process。" class="headerlink" title="1.3、clnn：cleanup helper process。"></a>1.3、clnn：cleanup helper process。</h2><pre><code>clmn进程委派clnn完成清理工作。clnn进程协助清理终止的进程和会话
+可以通过查看V$CLEANUP_PROCESS或者 V$DEAD_CLEANUP视图来查看clmn清理的元数据。如果V$CLEANUP_PROCESS.STATE 值为busy，那么表示当前正在执行清理工作。
+数据库资源隔离：pmon group可以自动的隔离损坏的未修复的资源，这样可以避免实例强制终止。可以通过 V$QUARANTINE视图查看元数据。</code></pre><h1 id="2、PMAN：process-manager"><a href="#2、PMAN：process-manager" class="headerlink" title="2、PMAN：process manager"></a>2、PMAN：process manager</h1><pre><code>监视shared server、pooled server、job queue等进程
+pman监控、启动、停止下面的进程：
+  Dispatcher and shared server processes
+  Connection broker and pooled server processes for database resident connection pools
+  Job queue processes
+  Restartable background processes</code></pre><h1 id="3、LREG：listener-registration-process。"><a href="#3、LREG：listener-registration-process。" class="headerlink" title="3、LREG：listener registration process。"></a>3、LREG：listener registration process。</h1><pre><code>用于注册oralce实例信息和分配器信息到oracle net listener。当实例启动，LREG轮询listener来确定是否正常运行。如果listener运行，LREG传递给它相关参数。如果没有运行，LREG进程周期性尝试连接它。</code></pre><p>** 在12c之前，pmon进程执行监听注册。</p>
+<h1 id="4、SMON：system-monitor-process。"><a href="#4、SMON：system-monitor-process。" class="headerlink" title="4、SMON：system monitor process。"></a>4、SMON：system monitor process。</h1><pre><code>smon负责各个系统级别的清理工作
+执行实例恢复（如果实例在启动时有必要的话）。在rac数据库，一个数据库实例的smon进程能够执行一个失败的实例的恢复。
+恢复被终止的事物（因为file-read或者表空间离线错误在实例恢复的过程中跳过的事务),当表空间或者文件online之后，smon恢复事务。
+清理不用的临时段。例如：当创建索引的时候分配extent，如果操作失败，smon清理临时空间。
+合并属于字典管理的表空间的相邻空闲段</code></pre><h1 id="5、DBW-database-writer-process。"><a href="#5、DBW-database-writer-process。" class="headerlink" title="5、DBW:database writer process。"></a>5、DBW:database writer process。</h1><pre><code>dbw把db buffer的内容写入数据文件。一个进程DBW0对于大多数系统就足够用了，但是可以配置多个进程：DBW1-DBW9,DBWa-DBWz,BW36-BW99来提高系统修改数据的性能。但是对于单处理器的系统来说，配置多个进程也不起作用。
+DBW写脏块的条件：
+当服务进程在buffer内找不到可用的buffer块时，服务进程发信号给DBW让其刷脏块。DBW可以在执行其他进程时异步刷新脏块。
+DBW周期性执行刷脏来推进checkpoint，checkponit位置用于redo线程实例恢复开始的位置。checkpoint的日志位置由buffer cache最老的脏块决定。
+在许多情况下，dbw刷脏是遍历所有磁盘的。因此，DBW相比于顺序写的LGWR性能慢。</code></pre><h1 id="6、LGWR：log-wirter-process。"><a href="#6、LGWR：log-wirter-process。" class="headerlink" title="6、LGWR：log wirter process。"></a>6、LGWR：log wirter process。</h1><pre><code>写redo的buffer数据到online redo log。
+执行条件：
+用户commit
+online redo log switch
+每3s执行一次
+redo log buffer占用了buffered data的1/3或者是占用了1M
+DBW</code></pre><h1 id="7、ckpt：checkpoint-process"><a href="#7、ckpt：checkpoint-process" class="headerlink" title="7、ckpt：checkpoint process"></a>7、ckpt：checkpoint process</h1><pre><code>将checkpoint information更新到控制文件和数据文件的头信息里，并向dbw进程发送信号使其写数据到磁盘。
+checkpoint information包括信息：检查点、scn、开始恢复的在线redo日志的位置</code></pre><h1 id="8、mmon：manageability-monitor-process"><a href="#8、mmon：manageability-monitor-process" class="headerlink" title="8、mmon：manageability monitor process"></a>8、mmon：manageability monitor process</h1><pre><code>执行和automatic workload repository（awr）相关的任务。
+mmnl:manageability monitor lite process：当ash的buffer满了,把sga下的ash的buffer数据写到磁盘。</code></pre><h1 id="9、RECO：recoverer-process"><a href="#9、RECO：recoverer-process" class="headerlink" title="9、RECO：recoverer process"></a>9、RECO：recoverer process</h1><pre><code>自动连接到存在可疑分布式事务的其他的数据库。当RECO重建了数据库之间的连接，它自动解决可疑事务，移除每个数据库的等待事务表的任意行（与前面解决事务相关的行）。</code></pre><h1 id="10、ARCn：Archiiver-processes"><a href="#10、ARCn：Archiiver-processes" class="headerlink" title="10、ARCn：Archiiver processes"></a>10、ARCn：Archiiver processes</h1><pre><code>在redo log切换之后，拷贝online redo log到离线存储。该进程还能用于收集事务redo数据传送到standby数据库目的地。</code></pre>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/oracle进程pmon、smon、dbw、lgwr、ckpt、mmon、mmnl、reco、arcn/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/22/dns配置oracle scan ip地址/"><span>[Oracle]DNS配置oracle scan ip</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/dns配置oracle scan ip地址/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T01:40:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、关闭防火墙开启相应的服务"><a href="#1、关闭防火墙开启相应的服务" class="headerlink" title="1、关闭防火墙开启相应的服务"></a>1、关闭防火墙开启相应的服务</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost  ~]#setenforce  0</span><br><span class="line">[root@localhost  ~]#iptables  -F</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、主节点安装dns"><a href="#2、主节点安装dns" class="headerlink" title="2、主节点安装dns"></a>2、主节点安装dns</h1><p><code>yum -y install bind bind-chroot bind-utils</code></p>
+<h1 id="3、修改配置文件"><a href="#3、修改配置文件" class="headerlink" title="3、修改配置文件"></a>3、修改配置文件</h1><h2 id="3-1、-etc-named-conf—–主配置文件-服务器主要运行参数"><a href="#3-1、-etc-named-conf—–主配置文件-服务器主要运行参数" class="headerlink" title="3.1、/etc/named.conf—–主配置文件,服务器主要运行参数"></a>3.1、/etc/named.conf—–主配置文件,服务器主要运行参数</h2><p>修改dns主配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">options &#123;</span><br><span class="line">        listen-on port 53 &#123; 192.168.168.178;127.0.0.1 &#125;;</span><br><span class="line">        listen-on-v6 port 53 &#123; ::1; &#125;;</span><br><span class="line">        directory       &quot;&#x2F;var&#x2F;named&quot;;</span><br><span class="line">        dump-file       &quot;&#x2F;var&#x2F;named&#x2F;data&#x2F;cache_dump.db&quot;;</span><br><span class="line">        statistics-file &quot;&#x2F;var&#x2F;named&#x2F;data&#x2F;named_stats.txt&quot;;</span><br><span class="line">        memstatistics-file &quot;&#x2F;var&#x2F;named&#x2F;data&#x2F;named_mem_stats.txt&quot;;</span><br><span class="line">        allow-query     &#123; any; &#125;;</span><br><span class="line">        forwarders &#123; 8.8.8.8; &#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2、-etc-named-rfc1912-zones—–区域文件，主要指定要解析哪个域名"><a href="#3-2、-etc-named-rfc1912-zones—–区域文件，主要指定要解析哪个域名" class="headerlink" title="3.2、/etc/named.rfc1912.zones—–区域文件，主要指定要解析哪个域名"></a>3.2、/etc/named.rfc1912.zones—–区域文件，主要指定要解析哪个域名</h2><p>vim /etc/named.rfc1912.zones</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 首先对文件中正向解析的区域进行修改</span><br><span class="line">zone &quot;oracle.com&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;node.conf&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F; 设置好域名格式以及相应的数据文件接下来进行反向解析区域的配置</span><br><span class="line">zone  &quot;168.168.192.in-addr.arpa&quot;  IN&#123;</span><br><span class="line">          type master;</span><br><span class="line">          file &quot;node.txt&quot;;</span><br><span class="line">          allow-update &#123; none; &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3、配置完成之后校验一下文件配置是否正确"><a href="#3-3、配置完成之后校验一下文件配置是否正确" class="headerlink" title="3.3、配置完成之后校验一下文件配置是否正确"></a>3.3、配置完成之后校验一下文件配置是否正确</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node4 named]# named-checkconf</span><br><span class="line">[root@node4 named]#</span><br><span class="line">没有任何输出表示 /etc/named.conf没有语法错误</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-4、-var-named-xxx-xx-——-数据文件，用来正向和反向的解析"><a href="#3-4、-var-named-xxx-xx-——-数据文件，用来正向和反向的解析" class="headerlink" title="3.4、/var/named/xxx.xx ——-数据文件，用来正向和反向的解析"></a>3.4、/var/named/xxx.xx ——-数据文件，用来正向和反向的解析</h2><p>主文件及区域文件修改完成后接下来进行数据文件的修改,切换到/var/named目录下,对数据文件进行相应的选项配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/named/</span><br><span class="line">cp named.empty  node.conf</span><br></pre></td></tr></table></figure>
+
+<p>首先对其正向解析的数据文件进行配置<br>vim node.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$TTL 3H</span><br><span class="line">@       IN SOA dns.oracle.com. rname.invalid. (</span><br><span class="line">                                        0       ; serial</span><br><span class="line">                                        1D      ; refresh</span><br><span class="line">                                        1H      ; retry</span><br><span class="line">                                        1W      ; expire</span><br><span class="line">                                        3H )    ; minimum</span><br><span class="line">    IN            NS    dns.oracle.com.</span><br><span class="line">dns IN  A 192.168.168.178</span><br><span class="line">scan IN  A 192.168.168.111</span><br><span class="line">scan IN A 192.168.168.112</span><br><span class="line">scan IN A 192.168.168.113</span><br></pre></td></tr></table></figure>
+
+<p>对反向解析的数据文件进行配置，反向解析数据文件里面只有SOA、NS、PTR资源记录，所有A记录都要改为PTR记录，名称为IP地址，IP地址可以写全也可以简写，如果写全则是IP地址反写加上.in-addr.arpa.例如：116.2.16.172.in-addr.arpa. PTR资源记录的值为域名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cp named.empty  node.txt</span><br><span class="line">vim node.txt</span><br><span class="line"></span><br><span class="line">$TTL 3H</span><br><span class="line">@       IN SOA dns.oracle.com. rname.invalid. (</span><br><span class="line">                                        0       ; serial</span><br><span class="line">                                        1D      ; refresh</span><br><span class="line">                                        1H      ; retry</span><br><span class="line">                                        1W      ; expire</span><br><span class="line">                                        3H )    ; minimum</span><br><span class="line">    IN  NS      dns.oracle.com.</span><br><span class="line">178 IN PTR dns.oracle.com.</span><br><span class="line">111 IN PTR scan.oracle.com.</span><br><span class="line">112 IN PTR scan.oracle.com.</span><br><span class="line">113 IN PTR scan.oracle.com.</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-5、解析文件参数详解"><a href="#3-5、解析文件参数详解" class="headerlink" title="3.5、解析文件参数详解"></a>3.5、解析文件参数详解</h2><p>区域解析库文件第一个记录必须是SOA记录，必须有NS记录并且正解区域要有NS记录的A记录，反解则不需要有NS记录对应的A记录。<br>$TTL表示宏定义，TTL(Time- To-Live)，dns记录在本地DNS服务器上保留的时间<br>@符号可代表区域文件/etc/named.conf里面定义的区域名称，即：”gfs.com.”。<br>2018030422 ;标识序列号，十进制数字，不能超过10位，通常使用日期<br>2H ;刷新时间，即每隔多久到主服务器检查一次，此处为2小时，实验环境可以设置小一点<br>4M ;重试时间，应该小于刷新时间，此处为4分钟，实验环境可以设置小一点<br>1D ;过期时间，此处为1天<br>2D ;主服务器挂后，从服务器至多工作的时间，此处为2天)<br>这个文件里所有的域名结尾的点号一定不能省略。<br>区域解析库文件是放在/var/named目录下，由named进程是以named用户运行，因此区域解析库文件的属组应设置为named。</p>
+<p>（1）A记录（Address）正向解析<br>A记录是将一个主机名（全称域名FQDN）和一个IP地址关联起来。这也是大多数客户端程序默认的查询类型。<br>（2）PTR记录（Pointer）反向解析<br>PTR记录将一个IP地址对应到主机名（全称域名FQDN）。这些记录保存在in-addr.arpa域中。<br>（3）CNAME记录(Canonical Name)别名<br>别名记录，也称为规范名字(Canonical Name)。这种记录允许您将多个名字映射到同一台计算机。<br>（4）MX记录（Mail eXchange）<br>MX记录是邮件交换记录，它指向一个邮件服务器，用于电子邮件系统发邮件时根据 收信人的地址后缀来定位邮件服务器。MX记录也叫做邮件路由记录，用户可以将该域名下的邮件服务器指向到自己的mail server上，然后即可自行操控所有的邮箱设置。<br>当有多个MX记录（即有多个邮件服务器）时，则需要设置数值来确定其优先级。通过设置优先级数字来指明首选服务器，数字越小表示优先级越高。<br>（5）NS记录（Name Server）<br>NS（Name Server）记录是域名服务器记录，也称为授权服务器，用来指定该域名由哪个DNS服务器来进行解析。<br>将网站的NS记录指向到目标地址，在设置NS记录的同时还需要设置目标网站的指向，否则NS记录将无法正常解析<br>NS记录优先于A记录。即，如果一个主机地址同时存在NS记录和A记录，则A记录不生效。<br>（6）AAAA记录 IPV6解析记录<br>该记录是将域名解析到一个指定的IPV6的IP上。</p>
+<h2 id="3-6、相应的数据配置文件完成后对数据文件的属主进行修改"><a href="#3-6、相应的数据配置文件完成后对数据文件的属主进行修改" class="headerlink" title="3.6、相应的数据配置文件完成后对数据文件的属主进行修改"></a>3.6、相应的数据配置文件完成后对数据文件的属主进行修改</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost  named]#chown  named  node._</span><br><span class="line">[root@node4 named]# ll node._</span><br><span class="line">\-rw-r-----. 1 named root 286 Nov 22 16:12 node.conf</span><br><span class="line">\-rw-r-----. 1 named root 310 Nov 22 16:12 node.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-7、配置完成后检测解析文件是否正确"><a href="#3-7、配置完成后检测解析文件是否正确" class="headerlink" title="3.7、配置完成后检测解析文件是否正确"></a>3.7、配置完成后检测解析文件是否正确</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node4 named]# named-checkzone "oracle.com" node.conf</span><br><span class="line">zone gfs.com/IN: loaded serial 0</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-8、检测反向解析库配置有没有错误"><a href="#3-8、检测反向解析库配置有没有错误" class="headerlink" title="3.8、检测反向解析库配置有没有错误"></a>3.8、检测反向解析库配置有没有错误</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node4 named]# named-checkzone "168.168.192.in-addr.arpa" node.txt</span><br><span class="line">zone 30.0.10.in-addr.arpa/IN: loaded serial 0</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<h1 id="4、修改完成后启动dns服务"><a href="#4、修改完成后启动dns服务" class="headerlink" title="4、修改完成后启动dns服务"></a>4、修改完成后启动dns服务</h1><p><code>systemctl start named.service</code></p>
+<h1 id="5、在客户端配置dns信息"><a href="#5、在客户端配置dns信息" class="headerlink" title="5、在客户端配置dns信息"></a>5、在客户端配置dns信息</h1><h2 id="5-1、修改-etc-NetworkManager-NetworkManager-conf-文件，防止重启网卡后dns被重置，在main部分添加-“dns-none”-选项"><a href="#5-1、修改-etc-NetworkManager-NetworkManager-conf-文件，防止重启网卡后dns被重置，在main部分添加-“dns-none”-选项" class="headerlink" title="5.1、修改 /etc/NetworkManager/NetworkManager.conf 文件，防止重启网卡后dns被重置，在main部分添加 “dns=none” 选项"></a>5.1、修改 /etc/NetworkManager/NetworkManager.conf 文件，防止重启网卡后dns被重置，在main部分添加 “dns=none” 选项</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[main]</span><br><span class="line">plugins&#x3D;ifcfg-rh</span><br><span class="line">dns&#x3D;none</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-2、NetworkManager重新装载上面修改的配置"><a href="#5-2、NetworkManager重新装载上面修改的配置" class="headerlink" title="5.2、NetworkManager重新装载上面修改的配置"></a>5.2、NetworkManager重新装载上面修改的配置</h2><p><code>systemctl restart NetworkManager.service</code></p>
+<h2 id="5-3、之后修改-etc-resolv-conf配置文件"><a href="#5-3、之后修改-etc-resolv-conf配置文件" class="headerlink" title="5.3、之后修改/etc/resolv.conf配置文件"></a>5.3、之后修改/etc/resolv.conf配置文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]# more &#x2F;etc&#x2F;resolv.conf</span><br><span class="line"></span><br><span class="line"># Generated by NetworkManager</span><br><span class="line"></span><br><span class="line">nameserver 192.168.168.178</span><br><span class="line"></span><br><span class="line">[root@node2 ~]# &#x2F;etc&#x2F;init.d&#x2F;network restart</span><br><span class="line">Restarting network (via systemctl):                        [  OK  ]</span><br><span class="line">[root@node2 ~]# more &#x2F;etc&#x2F;resolv.conf</span><br><span class="line"># Generated by NetworkManager</span><br><span class="line"></span><br><span class="line">nameserver 202.106.0.20</span><br><span class="line">nameserver 8.8.8.8</span><br><span class="line">[root@node2 ~]# </span><br><span class="line">[root@node2 ~]# ls</span><br><span class="line">anaconda-ks.cfg  Desktop  Documents  Downloads  initial-setup-ks.cfg  Music  Pictures  Public  Templates  Videos</span><br><span class="line">[root@node2 ~]# vim &#x2F;etc&#x2F;NetworkManager&#x2F;NetworkManager.conf </span><br><span class="line">[root@node2 ~]# </span><br><span class="line">[root@node2 ~]# systemctl restart NetworkManager.service</span><br><span class="line">[root@node2 ~]# vim &#x2F;etc&#x2F;resolv.conf</span><br><span class="line">[root@node2 ~]# </span><br><span class="line">[root@node2 ~]# more &#x2F;etc&#x2F;resolv.conf</span><br><span class="line"># Generated by NetworkManager</span><br><span class="line"></span><br><span class="line">nameserver 192.168.168.178</span><br><span class="line">[root@node2 ~]# &#x2F;etc&#x2F;init.d&#x2F;network restart</span><br><span class="line">Restarting network (via systemctl):                        [  OK  ][root@node2 ~]# more &#x2F;etc&#x2F;resolv.conf</span><br><span class="line"></span><br><span class="line"># Generated by NetworkManager</span><br><span class="line"></span><br><span class="line">nameserver 192.168.168.178</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-4、测试dns是否能正常解析"><a href="#5-4、测试dns是否能正常解析" class="headerlink" title="5.4、测试dns是否能正常解析"></a>5.4、测试dns是否能正常解析</h2><p>正向解析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]#  dig -t A scan.oracle.com</span><br><span class="line"></span><br><span class="line">; \&lt;\&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-61.el7_5.1 \&lt;\&lt;&gt;&gt; -t A scan.oracle.com</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER\&lt;\&lt;- opcode: QUERY, status: NOERROR, id: 40900</span><br><span class="line">;; flags: qr aa rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 1, ADDITIONAL: 2</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;scan.oracle.com.               IN      A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">scan.oracle.com.        10800   IN      A       192.168.168.111</span><br><span class="line">scan.oracle.com.        10800   IN      A       192.168.168.112</span><br><span class="line">scan.oracle.com.        10800   IN      A       192.168.168.113</span><br><span class="line"></span><br><span class="line">;; AUTHORITY SECTION:</span><br><span class="line">oracle.com.             10800   IN      NS      dns.oracle.com.</span><br><span class="line"></span><br><span class="line">;; ADDITIONAL SECTION:</span><br><span class="line">dns.oracle.com.         10800   IN      A       192.168.168.178</span><br><span class="line"></span><br><span class="line">;; Query time: 3 msec</span><br><span class="line">;; SERVER: 192.168.168.178#53(192.168.168.178)</span><br><span class="line">;; WHEN: 一 9月 16 16:35:48 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 126</span><br></pre></td></tr></table></figure>
+
+<p>反向解析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]# dig -x 192.168.168.111</span><br><span class="line"></span><br><span class="line">; \&lt;\&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-61.el7_5.1 \&lt;\&lt;&gt;&gt; -x 192.168.168.111</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER\&lt;\&lt;- opcode: QUERY, status: NOERROR, id: 6223</span><br><span class="line">;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 2</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;111.168.168.192.in-addr.arpa.  IN      PTR</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">111.168.168.192.in-addr.arpa. 10800 IN  PTR     scan.oracle.com.</span><br><span class="line"></span><br><span class="line">;; AUTHORITY SECTION:</span><br><span class="line">168.168.192.in-addr.arpa. 10800 IN      NS      dns.oracle.com.</span><br><span class="line"></span><br><span class="line">;; ADDITIONAL SECTION:</span><br><span class="line">dns.oracle.com.         10800   IN      A       192.168.168.178</span><br><span class="line"></span><br><span class="line">;; Query time: 2 msec</span><br><span class="line">;; SERVER: 192.168.168.178#53(192.168.168.178)</span><br><span class="line">;; WHEN: 一 9月 16 16:36:14 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 120</span><br></pre></td></tr></table></figure>
+
+<p>多次ping域名scan.oracle.com，解析为不同的ip地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@dax-mysql-slave ~]# ping scan.oracle.com</span><br><span class="line">PING scan.oracle.com (192.168.168.111) 56(84) bytes of data.</span><br><span class="line">^C</span><br><span class="line">\--- scan.oracle.com ping statistics ---</span><br><span class="line">2 packets transmitted, 0 received, 100% packet loss, time 1037ms</span><br><span class="line"></span><br><span class="line">[root@dax-mysql-slave ~]# ping scan.oracle.com</span><br><span class="line">PING scan.oracle.com (192.168.168.111) 56(84) bytes of data.</span><br><span class="line">^C</span><br><span class="line">\--- scan.oracle.com ping statistics ---</span><br><span class="line">1 packets transmitted, 0 received, 100% packet loss, time 0ms</span><br><span class="line"></span><br><span class="line">[root@dax-mysql-slave ~]# ping scan.oracle.com</span><br><span class="line">PING scan.oracle.com (192.168.168.112) 56(84) bytes of data.</span><br><span class="line">^C</span><br><span class="line">\--- scan.oracle.com ping statistics ---</span><br><span class="line">1 packets transmitted, 0 received, 100% packet loss, time 0ms</span><br><span class="line"></span><br><span class="line">[root@dax-mysql-slave ~]# ping scan.oracle.com</span><br><span class="line">PING scan.oracle.com (192.168.168.113) 56(84) bytes of data.</span><br><span class="line">64 bytes from dax-mysql-slave (192.168.168.113): icmp_seq&#x3D;1 ttl&#x3D;64 time&#x3D;0.041 ms</span><br><span class="line">^C</span><br><span class="line">\--- scan.oracle.com ping statistics ---</span><br><span class="line">1 packets transmitted, 1 received, 0% packet loss, time 0ms</span><br><span class="line">rtt min&#x2F;avg&#x2F;max&#x2F;mdev &#x3D; 0.041&#x2F;0.041&#x2F;0.041&#x2F;0.000 ms</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/dns配置oracle scan ip地址/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/21/oracle adg role transaction(角色切换)/"><span>[Oracle]oracle adg role transaction(角色切换)</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/oracle adg role transaction(角色切换)/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T15:54:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、如果保护模式使maximum-protection-mode，在主库宕掉的情况下使用failover必须将备库的保护模式切换为maximium-performance才能执行切换操作"><a href="#1、如果保护模式使maximum-protection-mode，在主库宕掉的情况下使用failover必须将备库的保护模式切换为maximium-performance才能执行切换操作" class="headerlink" title="1、如果保护模式使maximum protection mode，在主库宕掉的情况下使用failover必须将备库的保护模式切换为maximium performance才能执行切换操作"></a>1、如果保护模式使maximum protection mode，在主库宕掉的情况下使用failover必须将备库的保护模式切换为maximium performance才能执行切换操作</h1><p><code>ALTER DATABASE SET STANDBY DATABASE TO MAXIMIZE PERFORMANCE;</code></p>
+<h1 id="2、手动执行switchover进行角色切换"><a href="#2、手动执行switchover进行角色切换" class="headerlink" title="2、手动执行switchover进行角色切换"></a>2、手动执行switchover进行角色切换</h1><h2 id="2-1、确认主库的状态，是否可以切换为备库角色"><a href="#2-1、确认主库的状态，是否可以切换为备库角色" class="headerlink" title="2.1、确认主库的状态，是否可以切换为备库角色"></a>2.1、确认主库的状态，是否可以切换为备库角色</h2><p><code>SELECT SWITCHOVER_STATUS FROM V$DATABASE;</code><br>只有值为TO STANDBY或者SESSIONS ACTIVE才表示主库可以被切换为备库，如果不是这两个值，则不能进行切换（可能redo transport配置问题或者功能异常）</p>
+<h2 id="2-2、开始主库执行切换"><a href="#2-2、开始主库执行切换" class="headerlink" title="2.2、开始主库执行切换"></a>2.2、开始主库执行切换</h2><p><code>SQL&gt; ALTER DATABASE COMMIT TO SWITCHOVER TO PHYSICAL STANDBY WITH SESSION SHUTDOWN;</code><br>如果2.1查到的值为to standy,那么执行上面的语句可以省略WITH SESSION SHUTDOWN</p>
+<h2 id="2-3、关闭数据库，并启动到mount状态"><a href="#2-3、关闭数据库，并启动到mount状态" class="headerlink" title="2.3、关闭数据库，并启动到mount状态"></a>2.3、关闭数据库，并启动到mount状态</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SHUTDOWN ABORT;</span><br><span class="line">SQL&gt; STARTUP MOUNT;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4、从库查询切换状态是否可以切换为主库"><a href="#2-4、从库查询切换状态是否可以切换为主库" class="headerlink" title="2.4、从库查询切换状态是否可以切换为主库"></a>2.4、从库查询切换状态是否可以切换为主库</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT SWITCHOVER_STATUS FROM V$DATABASE;</span><br><span class="line">SWITCHOVER_STATUS</span><br><span class="line"><span class="comment">-----------------</span></span><br><span class="line">TO_PRIMARY</span><br></pre></td></tr></table></figure>
+
+<p>只有值为TO_PRIMARY或者SESSIONS ACTIVE才表示备库可以切换为主库角色，如果不是这两个值，需要确认redo apply是否激活和redo transport状态是否正常。</p>
+<h2 id="2-5、备库执行切换为主库角色"><a href="#2-5、备库执行切换为主库角色" class="headerlink" title="2.5、备库执行切换为主库角色"></a>2.5、备库执行切换为主库角色</h2><p><code>SQL&gt; ALTER DATABASE COMMIT TO SWITCHOVER TO PRIMARY WITH SESSION SHUTDOWN;</code><br>如果2.4查到的值为to_primary，可以省略WITH SESSION SHUTDOWN</p>
+<h2 id="2-6、打开新的主库"><a href="#2-6、打开新的主库" class="headerlink" title="2.6、打开新的主库"></a>2.6、打开新的主库</h2><p><code>ALTER DATABASE OPEN;</code></p>
+<h2 id="2-7、在新的从库启用redo-apply"><a href="#2-7、在新的从库启用redo-apply" class="headerlink" title="2.7、在新的从库启用redo apply"></a>2.7、在新的从库启用redo apply</h2><p><code>ALTER DATABASE RECOVER MANAGED STANDBY DATABASE USING CURRENT LOGFILE DISCONNECT FROM SESSION;</code></p>
+<h1 id="3、当主库宕机无法启动，使用failover的方式切换备库为主库"><a href="#3、当主库宕机无法启动，使用failover的方式切换备库为主库" class="headerlink" title="3、当主库宕机无法启动，使用failover的方式切换备库为主库"></a>3、当主库宕机无法启动，使用failover的方式切换备库为主库</h1><h2 id="3-1、如果主库是处在mount状态，没办法open的情况下，可以使用下面命令把未传送到备库的archive和redo发送到备库，以确保数据不丢失"><a href="#3-1、如果主库是处在mount状态，没办法open的情况下，可以使用下面命令把未传送到备库的archive和redo发送到备库，以确保数据不丢失" class="headerlink" title="3.1、如果主库是处在mount状态，没办法open的情况下，可以使用下面命令把未传送到备库的archive和redo发送到备库，以确保数据不丢失"></a>3.1、如果主库是处在mount状态，没办法open的情况下，可以使用下面命令把未传送到备库的archive和redo发送到备库，以确保数据不丢失</h2><p><code>SQL&gt; ALTER SYSTEM FLUSH REDO TO target_db_name;</code><br>target_db_name为备库的DB_UNIQUE_NAME</p>
+<h2 id="3-2、如果主库不能够被mount，但是主库的操作系统可以被正常访问-备库查看每个日志线程的最高日志序列号"><a href="#3-2、如果主库不能够被mount，但是主库的操作系统可以被正常访问-备库查看每个日志线程的最高日志序列号" class="headerlink" title="3.2、如果主库不能够被mount，但是主库的操作系统可以被正常访问,备库查看每个日志线程的最高日志序列号"></a>3.2、如果主库不能够被mount，但是主库的操作系统可以被正常访问,备库查看每个日志线程的最高日志序列号</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">03:48:57 SYS@ cbislave&gt; SELECT UNIQUE THREAD# AS THREAD, MAX(SEQUENCE#) OVER (PARTITION BY thread#) AS LAST from V$ARCHIVED_LOG;</span><br><span class="line">    THREAD       LAST</span><br><span class="line"><span class="comment">---------- ----------</span></span><br><span class="line">         1         45</span><br></pre></td></tr></table></figure>
+
+<p>主库的归档日志对应为<br><code>-rw-r----- 1 oracle oinstall 172M Sep  6 03:48 1_45_1017616040.dbf</code><br>把当前45号及以后的归档拷贝到从库，并把丢失的日志注册到从库，注册命令如下：<br><code>SQL&gt; ALTER DATABASE REGISTER PHYSICAL LOGFILE &#39;filespec1&#39;;</code></p>
+<h2 id="3-3、查看和解决归档日志间隙"><a href="#3-3、查看和解决归档日志间隙" class="headerlink" title="3.3、查看和解决归档日志间隙"></a>3.3、查看和解决归档日志间隙</h2><p>查看视图v$ARCHIVE_GAP,来查看备库是否有redo gap</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT THREAD#, LOW_SEQUENCE#, HIGH_SEQUENCE# FROM V$ARCHIVE_GAP;</span><br><span class="line">THREAD<span class="comment">#    LOW_SEQUENCE# HIGH_SEQUENCE#</span></span><br><span class="line"><span class="comment">---------- ------------- --------------</span></span><br><span class="line">         1            90             92</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中线程1存在序列号为90、91、92的归档日志间隙，如果可以在主库找到对应的归档日志，拷贝到备库，进行日志注册<br><code>SQL&gt; ALTER DATABASE REGISTER PHYSICAL LOGFILE &#39;filespec1&#39;;</code></p>
+<h2 id="3-4、如果3-2和3-3的步骤都没办法操作（比如主节点没办法访问），那么只能执行后面的切换，会丢失数据"><a href="#3-4、如果3-2和3-3的步骤都没办法操作（比如主节点没办法访问），那么只能执行后面的切换，会丢失数据" class="headerlink" title="3.4、如果3.2和3.3的步骤都没办法操作（比如主节点没办法访问），那么只能执行后面的切换，会丢失数据"></a>3.4、如果3.2和3.3的步骤都没办法操作（比如主节点没办法访问），那么只能执行后面的切换，会丢失数据</h2><h2 id="3-5、备库停止redo-apply"><a href="#3-5、备库停止redo-apply" class="headerlink" title="3.5、备库停止redo apply"></a>3.5、备库停止redo apply</h2><p><code>SQL&gt; ALTER DATABASE RECOVER MANAGED STANDBY DATABASE CANCEL;</code></p>
+<h2 id="3-6、结束应用所有收到的redo-data"><a href="#3-6、结束应用所有收到的redo-data" class="headerlink" title="3.6、结束应用所有收到的redo data"></a>3.6、结束应用所有收到的redo data</h2><p><code>SQL&gt; ALTER DATABASE RECOVER MANAGED STANDBY DATABASE FINISH;</code></p>
+<p>如果这一步没有报错，进行下一步操作。如果提示错误，一些收到的redo data没有被应用，试着解决提示的错误在执行下一步。如果3.2、3.3、3.4提到的日志间隙没有解决也会提示对应的日志间隙的错误。如果错误不能解决，在备库执行下面语句（面临数据丢失)<br><code>SQL&gt; ALTER DATABASE ACTIVATE PHYSICAL STANDBY DATABASE;</code></p>
+<h2 id="3-7、备库查看切换状态"><a href="#3-7、备库查看切换状态" class="headerlink" title="3.7、备库查看切换状态"></a>3.7、备库查看切换状态</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT SWITCHOVER_STATUS FROM V$DATABASE;</span><br><span class="line">SWITCHOVER_STATUS</span><br><span class="line"><span class="comment">-----------------</span></span><br><span class="line">TO PRIMARY</span><br></pre></td></tr></table></figure>
+
+<p>值为TO PRIMARY或者session active表示可以切换为主库角色。</p>
+<h2 id="3-8、备库切换为主库角色"><a href="#3-8、备库切换为主库角色" class="headerlink" title="3.8、备库切换为主库角色"></a>3.8、备库切换为主库角色</h2><p><code>SQL&gt; ALTER DATABASE COMMIT TO SWITCHOVER TO PRIMARY WITH SESSION SHUTDOWN;</code><br>3.7查到的值为to_primary，可以省略WITH SESSION SHUTDOWN</p>
+<h2 id="3-9、打开新的主库"><a href="#3-9、打开新的主库" class="headerlink" title="3.9、打开新的主库"></a>3.9、打开新的主库</h2><p><code>SQL&gt; ALTER DATABASE OPEN;</code></p>
+<h2 id="3-10、新的主库起来之后建议执行以下全库备份"><a href="#3-10、新的主库起来之后建议执行以下全库备份" class="headerlink" title="3.10、新的主库起来之后建议执行以下全库备份"></a>3.10、新的主库起来之后建议执行以下全库备份</h2><h1 id="4、经过上面3的步骤之后，旧的主库（如果能起来的话）不可用了，但是可以使用flashback-database方法切换为备库"><a href="#4、经过上面3的步骤之后，旧的主库（如果能起来的话）不可用了，但是可以使用flashback-database方法切换为备库" class="headerlink" title="4、经过上面3的步骤之后，旧的主库（如果能起来的话）不可用了，但是可以使用flashback database方法切换为备库"></a>4、经过上面3的步骤之后，旧的主库（如果能起来的话）不可用了，但是可以使用flashback database方法切换为备库</h1><h2 id="4-1、在新的主库（旧的备库）上查看旧的备库切换为新的额主库的scn值"><a href="#4-1、在新的主库（旧的备库）上查看旧的备库切换为新的额主库的scn值" class="headerlink" title="4.1、在新的主库（旧的备库）上查看旧的备库切换为新的额主库的scn值"></a>4.1、在新的主库（旧的备库）上查看旧的备库切换为新的额主库的scn值</h2><p><code>SQL&gt; SELECT TO_CHAR(STANDBY_BECAME_PRIMARY_SCN) FROM V$DATABASE;</code></p>
+<h2 id="4-2、在旧的主库上执行闪回，将其闪回到4-1查询到的scn号"><a href="#4-2、在旧的主库上执行闪回，将其闪回到4-1查询到的scn号" class="headerlink" title="4.2、在旧的主库上执行闪回，将其闪回到4.1查询到的scn号"></a>4.2、在旧的主库上执行闪回，将其闪回到4.1查询到的scn号</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SHUTDOWN IMMEDIATE;</span><br><span class="line">SQL&gt; STARTUP MOUNT;</span><br><span class="line">SQL&gt; FLASHBACK DATABASE TO SCN standby_became_primary_scn;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-3、下面切换旧的主库为物理备库"><a href="#4-3、下面切换旧的主库为物理备库" class="headerlink" title="4.3、下面切换旧的主库为物理备库"></a>4.3、下面切换旧的主库为物理备库</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; ALTER DATABASE CONVERT TO PHYSICAL STANDBY;</span><br><span class="line">如果语句执行成功，会将当前的控制文件转换为standby控制文件</span><br><span class="line">SQL&gt; SHUTDOWN IMMEDIATE;</span><br><span class="line">SQL&gt; STARTUP MOUNT;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-4、开始向新的备库（旧的主库）传输redo"><a href="#4-4、开始向新的备库（旧的主库）传输redo" class="headerlink" title="4.4、开始向新的备库（旧的主库）传输redo"></a>4.4、开始向新的备库（旧的主库）传输redo</h2><p>在新的主库上先执行下面语句</p>
+<h3 id="4-4-1、查看归档地址状态"><a href="#4-4-1、查看归档地址状态" class="headerlink" title="4.4.1、查看归档地址状态"></a>4.4.1、查看归档地址状态</h3><p><code>SQL&gt; SELECT DEST_ID, DEST_NAME, STATUS, PROTECTION_MODE, DESTINATION,ERROR,SRL FROM V$ARCHIVE_DEST_STATUS;</code></p>
+<h3 id="4-4-2、如果有必要启用地址"><a href="#4-4-2、如果有必要启用地址" class="headerlink" title="4.4.2、如果有必要启用地址"></a>4.4.2、如果有必要启用地址</h3><p><code>SQL&gt; ALTER SYSTEM SET LOG_ARCHIVE_DEST_STATE_n=ENABLE;</code></p>
+<h3 id="4-4-3、执行日志切换，确保新的备库可以收到redo"><a href="#4-4-3、执行日志切换，确保新的备库可以收到redo" class="headerlink" title="4.4.3、执行日志切换，确保新的备库可以收到redo"></a>4.4.3、执行日志切换，确保新的备库可以收到redo</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; ALTER SYSTEM SWITCH LOGFILE;</span><br><span class="line">SQL&gt; SELECT DEST_ID, DEST_NAME, STATUS, PROTECTION_MODE, DESTINATION, ERROR,SRL FROM V$ARCHIVE_DEST_STATUS;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-5、新的备库启动redo-apply"><a href="#4-5、新的备库启动redo-apply" class="headerlink" title="4.5、新的备库启动redo apply"></a>4.5、新的备库启动redo apply</h2><p><code>SQL&gt; ALTER DATABASE RECOVER MANAGED STANDBY DATABASE USING CURRENT LOGFILE DISCONNECT;</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/oracle adg role transaction(角色切换)/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/21/oracle exp-11.2.0.1导出空表的临时解决方案/"><span>[Oracle]oracle exp-11.2.0.1导出空表的临时解决方案</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/oracle exp-11.2.0.1导出空表的临时解决方案/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T15:34:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、如果是新建表，可以在新建表之前，关闭oracle11g的延迟创建段功能"><a href="#1、如果是新建表，可以在新建表之前，关闭oracle11g的延迟创建段功能" class="headerlink" title="1、如果是新建表，可以在新建表之前，关闭oracle11g的延迟创建段功能"></a>1、如果是新建表，可以在新建表之前，关闭oracle11g的延迟创建段功能</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">11:19:05 SYS@ boston&gt; show parameter deferred</span><br><span class="line">NAME                                 TYPE        VALUE</span><br><span class="line"><span class="comment">------------------------------------ ----------- ------------------------------</span></span><br><span class="line">deferred_segment_creation            boolean     TRUE</span><br><span class="line">11:19:11 SYS@ boston&gt; alter system set deferred_segment_creation=false;</span><br><span class="line">System altered.</span><br><span class="line">Elapsed: 00:00:00.06</span><br><span class="line">11:19:20 SYS@ boston&gt; show parameter deferred</span><br><span class="line">NAME                                 TYPE        VALUE</span><br><span class="line"><span class="comment">------------------------------------ ----------- ------------------------------</span></span><br><span class="line">deferred_segment_creation            boolean     FALSE</span><br></pre></td></tr></table></figure>
+
+<p>创建新表默认分配segment</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">11:20:32 TE@ boston&gt; create table test4 (id int);</span><br><span class="line">Table created.</span><br><span class="line">Elapsed: 00:00:00.20</span><br><span class="line">11:21:38 TE@ boston&gt; select table_name,segment_created from user_tables where table_name='TEST4';</span><br><span class="line">TABLE_NAME                     SEG</span><br><span class="line"><span class="comment">------------------------------ ---</span></span><br><span class="line">TEST4                          YES</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、如果是在deferred-segment-creation为true的情况下创建的表，那么只能手动给表添加segment"><a href="#2、如果是在deferred-segment-creation为true的情况下创建的表，那么只能手动给表添加segment" class="headerlink" title="2、如果是在deferred_segment_creation为true的情况下创建的表，那么只能手动给表添加segment"></a>2、如果是在deferred_segment_creation为true的情况下创建的表，那么只能手动给表添加segment</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">11:22:12 TE@ boston&gt; select table_name,segment_created from user_tables where segment_created='NO';</span><br><span class="line">TABLE_NAME                     SEG</span><br><span class="line"><span class="comment">------------------------------ ---</span></span><br><span class="line">TEST1                          NO</span><br><span class="line">在sql查询语句中直接拼接上allocate extent语句</span><br><span class="line">11:25:32 TE@ boston&gt; select 'alter table '||table_name||' allocate extent;' from user_tables where segment_created='NO';</span><br><span class="line">'ALTERTABLE'||TABLE_NAME||'ALLOCATEEXTENT;'</span><br><span class="line"><span class="comment">-----------------------------------------------------------</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> TEST1 <span class="keyword">allocate</span> <span class="keyword">extent</span>;</span><br><span class="line">Elapsed: 00:00:00.14</span><br></pre></td></tr></table></figure>
+
+<p>然后手动执行拼接后的sql，如果语句较多可以编辑到文档中</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">11:25:58 TE@ boston&gt; alter table TEST1 allocate extent;</span><br><span class="line">Table altered.</span><br><span class="line">Elapsed: 00:00:00.10</span><br></pre></td></tr></table></figure>
+
+<p>执行完成之后，查看空表已经被分配了新的段</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">11:26:13 TE@ boston&gt; select table_name,segment_created from user_tables;</span><br><span class="line"></span><br><span class="line">TABLE_NAME                     SEG</span><br><span class="line"><span class="comment">------------------------------ ---</span></span><br><span class="line">TEST1                          YES</span><br><span class="line">TEST4                          YES</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/oracle exp-11.2.0.1导出空表的临时解决方案/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/21/oracle exp版本11.2.0.1和11.2.0.3及更高版本的区别/"><span>[Oracle]oracle exp版本11.2.0.1和11.2.0.4区别</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/oracle exp版本11.2.0.1和11.2.0.3及更高版本的区别/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T15:32:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、对于没有分配segment的空表来说，使用不同版本exp导出时，结果存在差异"><a href="#1、对于没有分配segment的空表来说，使用不同版本exp导出时，结果存在差异" class="headerlink" title="1、对于没有分配segment的空表来说，使用不同版本exp导出时，结果存在差异"></a>1、对于没有分配segment的空表来说，使用不同版本exp导出时，结果存在差异</h1><p>exp-11.2.0.1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-master bin]$ .&#x2F;exp te&#x2F;te12345678@boston177 file&#x3D;&#x2F;tmp&#x2F;daochu.dmp log&#x3D;&#x2F;tmp&#x2F;daochu.log</span><br><span class="line">Export: Release 11.2.0.1.0 - Production on Wed Sep 4 22:46:08 2019</span><br><span class="line">Copyright (c) 1982, 2009, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Export done in ZHS16GBK character set and AL16UTF16 NCHAR character set</span><br><span class="line">About to export specified users ...</span><br><span class="line">. exporting pre-schema procedural objects and actions</span><br><span class="line">. exporting foreign function library names for user TE </span><br><span class="line">. exporting PUBLIC type synonyms</span><br><span class="line">. exporting private type synonyms</span><br><span class="line">. exporting object type definitions for user TE </span><br><span class="line">About to export TE&#39;s objects ...</span><br><span class="line">. exporting database links</span><br><span class="line">. exporting sequence numbers</span><br><span class="line">. exporting cluster definitions</span><br><span class="line">. about to export TE&#39;s tables via Conventional Path ...</span><br><span class="line">. . exporting table                          TEST1</span><br><span class="line">EXP-00003: no storage definition found for segment(0, 0)</span><br><span class="line">. exporting synonyms</span><br><span class="line">. exporting views</span><br><span class="line">. exporting stored procedures</span><br><span class="line">. exporting operators</span><br><span class="line">. exporting referential integrity constraints</span><br><span class="line">. exporting triggers</span><br><span class="line">. exporting indextypes</span><br><span class="line">. exporting bitmap, functional and extensible indexes</span><br><span class="line">. exporting posttables actions</span><br><span class="line">. exporting materialized views</span><br><span class="line">. exporting snapshot logs</span><br><span class="line">. exporting job queues</span><br><span class="line">. exporting refresh groups and children</span><br><span class="line">. exporting dimensions</span><br><span class="line">. exporting post-schema procedural objects and actions</span><br><span class="line">. exporting statistics</span><br><span class="line">Export terminated successfully with warnings.</span><br></pre></td></tr></table></figure>
+
+<p>11.2.0.1版本的exp导出时，如果表没有被分配segment，导出时会提示错误EXP-00003</p>
+<p>exp-11.2.0.3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[oracle@node3 bin]$ .&#x2F;exp te&#x2F;te12345678@boston177 file&#x3D;&#x2F;tmp&#x2F;daochu.dmp log&#x3D;&#x2F;tmp&#x2F;daochu.log</span><br><span class="line">Export: Release 11.2.0.3.0 - Production on Thu Sep 5 11:02:34 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Export done in ZHS16GBK character set and AL16UTF16 NCHAR character set</span><br><span class="line">About to export specified users ...</span><br><span class="line">. exporting pre-schema procedural objects and actions</span><br><span class="line">. exporting foreign function library names for user TE </span><br><span class="line">. exporting PUBLIC type synonyms</span><br><span class="line">. exporting private type synonyms</span><br><span class="line">. exporting object type definitions for user TE </span><br><span class="line">About to export TE&#39;s objects ...</span><br><span class="line">. exporting database links</span><br><span class="line">. exporting sequence numbers</span><br><span class="line">. exporting cluster definitions</span><br><span class="line">. about to export TE&#39;s tables via Conventional Path ...</span><br><span class="line">. . exporting table                          TEST1          0 rows exported</span><br><span class="line">. exporting synonyms</span><br><span class="line">. exporting views</span><br><span class="line">. exporting stored procedures</span><br><span class="line">. exporting operators</span><br><span class="line">. exporting referential integrity constraints</span><br><span class="line">. exporting triggers</span><br><span class="line">. exporting indextypes</span><br><span class="line">. exporting bitmap, functional and extensible indexes</span><br><span class="line">. exporting posttables actions</span><br><span class="line">. exporting materialized views</span><br><span class="line">. exporting snapshot logs</span><br><span class="line">. exporting job queues</span><br><span class="line">. exporting refresh groups and children</span><br><span class="line">. exporting dimensions</span><br><span class="line">. exporting post-schema procedural objects and actions</span><br><span class="line">. exporting statistics</span><br><span class="line">Export terminated successfully without warnings.</span><br></pre></td></tr></table></figure>
+
+<p>使用11.2.0.3以及高版本的11.2.0.4导出数据都可以直接导出未分配segment的空表</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/oracle exp版本11.2.0.1和11.2.0.3及更高版本的区别/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/21/ORACLE EXP导出提示EXP-00091 Exporting questionable statistics/"><span>[Oracle]ORACLE EXP导出提示EXP-00091 Exporting questionable statistics</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/ORACLE EXP导出提示EXP-00091 Exporting questionable statistics/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T15:30:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、问题原因"><a href="#1、问题原因" class="headerlink" title="1、问题原因"></a>1、问题原因</h1><p>该提示是因为当前的环境变量NLS_LANG和数据库字符language不一致造成的，查看当前的数据字符集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">10:56:39 SYS@ boston&gt; Select userenv('LANGUAGE') FROM DUAL;</span><br><span class="line">USERENV('LANGUAGE')</span><br><span class="line"><span class="comment">----------------------------------------------------</span></span><br><span class="line">AMERICAN_AMERICA.ZHS16GBK</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、查看当前的环境变量NLS-LANG"><a href="#2、查看当前的环境变量NLS-LANG" class="headerlink" title="2、查看当前的环境变量NLS_LANG"></a>2、查看当前的环境变量NLS_LANG</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">[oracle@node3 bin]$ echo $NLS_LANG</span><br><span class="line"></span><br><span class="line">[oracle@node3 bin]$</span><br><span class="line">值为空，设置该值于数据库字符集语言一致，再次使用exp导出</span><br><span class="line">[oracle@node3 bin]$ export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK</span><br><span class="line">[oracle@node3 bin]$ ./exp test/Test12345678@boston177 file=/tmp/daochu.dmp log=/tmp/daochu.log</span><br><span class="line">Export: Release 11.2.0.3.0 - Production on Thu Sep 5 10:57:41 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Export done in ZHS16GBK character set and AL16UTF16 NCHAR character set</span><br><span class="line">About to export specified users ...</span><br><span class="line">. exporting pre-schema procedural objects and actions</span><br><span class="line">. exporting foreign function library names for user TEST</span><br><span class="line">. exporting PUBLIC type synonyms</span><br><span class="line">. exporting private type synonyms</span><br><span class="line">. exporting object type definitions for user TEST</span><br><span class="line">About to export TEST's objects ...</span><br><span class="line">. exporting database links</span><br><span class="line">. exporting sequence numbers</span><br><span class="line">. exporting cluster definitions</span><br><span class="line">. about to export TEST's tables via Conventional Path ...</span><br><span class="line">. . exporting table                           TEST          3 rows exported</span><br><span class="line">. . exporting table                          TEST1          0 rows exported</span><br><span class="line">. . exporting table                          TEST2          0 rows exported</span><br><span class="line">. exporting synonyms</span><br><span class="line">. exporting views</span><br><span class="line">. exporting stored procedures</span><br><span class="line">. exporting operators</span><br><span class="line">. exporting referential integrity constraints</span><br><span class="line">. exporting triggers</span><br><span class="line">. exporting indextypes</span><br><span class="line">. exporting bitmap, functional and extensible indexes</span><br><span class="line">. exporting posttables actions</span><br><span class="line">. exporting materialized views</span><br><span class="line">. exporting snapshot logs</span><br><span class="line">. exporting job queues</span><br><span class="line">. exporting refresh groups and children</span><br><span class="line">. exporting dimensions</span><br><span class="line">. exporting post-schema procedural objects and actions</span><br><span class="line">. exporting statistics</span><br><span class="line">Export terminated successfully without warnings.</span><br></pre></td></tr></table></figure>
+<p>导出正常</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/ORACLE EXP导出提示EXP-00091 Exporting questionable statistics/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/21/expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508/"><span>[Oracle]expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T15:25:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、使用expdp导出命令"><a href="#1、使用expdp导出命令" class="headerlink" title="1、使用expdp导出命令"></a>1、使用expdp导出命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">With the Partitioning, Real Application Clusters, Automatic Storage Management, OLAP,</span><br><span class="line">Data Mining and Real Application Testing options</span><br><span class="line">Starting "ZEVEN"."SYS_EXPORT_SCHEMA_01":  zeven/********</span><br><span class="line">dumpfile=zeven.dmpdirectory=exp_data_dir cluster=n </span><br><span class="line">ORA-39014: One or more workers have prematurely exited.</span><br><span class="line">ORA-39029: worker 1 with process name "DW00" prematurely terminated</span><br><span class="line">ORA-31671: Worker process DW00 had an unhandled exception.</span><br><span class="line">ORA-04063: package body "SYS.KUPW$WORKER" has errors</span><br><span class="line">ORA-06508: PL/SQL: could not find program unit being called: "SYS.KUPW$WORKER"</span><br><span class="line">ORA-06512: at line 2</span><br><span class="line">Job "ZEVEN"."SYS_EXPORT_SCHEMA_01" stopped due to fatal error at Tue Sep 3 14:29:49 2019 elapsed 0 00:00:30</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、查看SYS-KUPW-WORKE包的状态"><a href="#2、查看SYS-KUPW-WORKE包的状态" class="headerlink" title="2、查看SYS.KUPW$WORKE包的状态"></a>2、查看SYS.KUPW$WORKE包的状态</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">15:19:08 SYS@ oibs11&gt; select owner,object_name,object_type,status from dba_objects where status &lt;&gt; 'VALID' order by object_name;</span><br><span class="line"></span><br><span class="line">OWNER							     OBJECT_NAME													            OBJECT_TYPE			     STATUS</span><br><span class="line"><span class="comment">------------------------------------------------------------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------------------------------------- --------------</span></span><br><span class="line">.....</span><br><span class="line">SYS							     KUPW$WORKER													            PACKAGE BODY			     INVALID</span><br><span class="line">......</span><br><span class="line">10 rows selected.</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、根据mos提示执行下面脚本"><a href="#3、根据mos提示执行下面脚本" class="headerlink" title="3、根据mos提示执行下面脚本"></a>3、根据mos提示执行下面脚本</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">15:15:33 SYS@ oibs11&gt; @?/rdbms/admin/prvtbpw.plb;</span><br><span class="line">Warning: Package Body created <span class="keyword">with</span> compilation errors.</span><br><span class="line">Elapsed: <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.72</span></span><br><span class="line"><span class="number">15</span>:<span class="number">16</span>:<span class="number">05</span> <span class="keyword">SYS</span>@ oibs11&gt; <span class="keyword">show</span> <span class="keyword">errors</span>;</span><br><span class="line">Errors for PACKAGE BODY KUPW$WORKER:</span><br><span class="line">LINE/COL ERROR</span><br><span class="line"><span class="comment">-------- -----------------------------------------------------------------</span></span><br><span class="line">22308/5  PL/SQL: SQL Statement ignored</span><br><span class="line">22308/34 PL/SQL: ORA-00942: table or view does not exist</span><br></pre></td></tr></table></figure>
+
+<p>提示报错，表或者视图不存在，执行下面两个脚本</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@?/rdbms/admin/catdpb.sql</span><br><span class="line">@?/rdbms/admin/utlrp.sql</span><br></pre></td></tr></table></figure>
+
+<p>执行正常，再次查看包的状态,包恢复正常</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">15:35:14 SYS@ boston&gt; select owner,object_name,object_type,status from dba_objects where status = 'VALID' and object_name = 'KUPW$WORKER';</span><br><span class="line"></span><br><span class="line">OWNER			       OBJECT_NAME															OBJECT_TYPE	    STATUS</span><br><span class="line"><span class="comment">------------------------------ -------------------------------------------------------------------------------------------------------------------------------- ------------------- -------</span></span><br><span class="line">SYS			       KUPW$WORKER															PACKAGE 	    VALID</span><br><span class="line">SYS			       KUPW$WORKER															PACKAGE BODY	    VALID</span><br></pre></td></tr></table></figure>
+
+<h1 id="4、再次执行导出服务，恢复正常"><a href="#4、再次执行导出服务，恢复正常" class="headerlink" title="4、再次执行导出服务，恢复正常"></a>4、再次执行导出服务，恢复正常</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave tmp]$ expdp te/te12345678  dumpfile=zeven.dmp directory=exp_data_dir cluster=n logfile=expdp_zeven.log</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Sep 3 15:10:46 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Starting "TE"."SYS_EXPORT_SCHEMA_01":  te/******** dumpfile=zeven.dmp directory=exp_data_dir cluster=n logfile=expdp_zeven.log</span><br><span class="line">Estimate in progress using BLOCKS method...</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA</span><br><span class="line">Total estimation using BLOCKS method: 0 KB</span><br><span class="line">Processing object type SCHEMA_EXPORT/USER</span><br><span class="line">Processing object type SCHEMA_EXPORT/SYSTEM_GRANT</span><br><span class="line">Processing object type SCHEMA_EXPORT/ROLE_GRANT</span><br><span class="line">Processing object type SCHEMA_EXPORT/DEFAULT_ROLE</span><br><span class="line">Processing object type SCHEMA_EXPORT/PASSWORD_HISTORY</span><br><span class="line">Processing object type SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/TABLE</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/COMMENT</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/INDEX/INDEX</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS</span><br><span class="line">. . exported "TE"."TEST1"                                    0 KB       0 rows</span><br><span class="line">Master table "TE"."SYS_EXPORT_SCHEMA_01" successfully loaded/unloaded</span><br><span class="line">******************************************************************************</span><br><span class="line">Dump file set for TE.SYS_EXPORT_SCHEMA_01 is:</span><br><span class="line">  /tmp/backup/zeven.dmp</span><br><span class="line">Job "TE"."SYS_EXPORT_SCHEMA_01" successfully completed at Tue Sep 3 15:11:06 2019 elapsed 0 00:00:19</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/21/ORA-00845报错/"><span>[Oracle]oracle启动报错ORA-00845</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/ORA-00845报错/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T15:22:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、当oracle下pfile文件中设置的memory-target参数设置的值大于-dev-shm参数时就会提示错误"><a href="#1、当oracle下pfile文件中设置的memory-target参数设置的值大于-dev-shm参数时就会提示错误" class="headerlink" title="1、当oracle下pfile文件中设置的memory_target参数设置的值大于/dev/shm参数时就会提示错误"></a>1、当oracle下pfile文件中设置的memory_target参数设置的值大于/dev/shm参数时就会提示错误</h1><p><code>ORA-00845: MEMORY_TARGET not supported on this system</code></p>
+<h1 id="2、这是需要调整-dev-shm参数使其大于或者等于memory-target参数"><a href="#2、这是需要调整-dev-shm参数使其大于或者等于memory-target参数" class="headerlink" title="2、这是需要调整/dev/shm参数使其大于或者等于memory_target参数"></a>2、这是需要调整/dev/shm参数使其大于或者等于memory_target参数</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mount -t tmpfs shmfs -o size=22288M /dev/shm</span><br><span class="line">mount -o remount,size=22288M /dev/shm</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、为保证系统重启，参数恢复为默认，需要添加到-etc-fstab下："><a href="#3、为保证系统重启，参数恢复为默认，需要添加到-etc-fstab下：" class="headerlink" title="3、为保证系统重启，参数恢复为默认，需要添加到/etc/fstab下："></a>3、为保证系统重启，参数恢复为默认，需要添加到/etc/fstab下：</h1><p><code>tmpfs /dev/shm tmpfs  defaults,size=22288M      0 0</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/ORA-00845报错/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/21/oracle11.2.0.4数据库修改用户名称/"><span>[Oracle]oracle11.2.0.4数据库修改用户名称</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/oracle11.2.0.4数据库修改用户名称/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T15:19:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <p>1、用sysdba账号登入数据库，然后查询到要更改的用户信息</p>
+<p><code>SELECT user#,name FROM user$;</code></p>
+<p>2、更改用户名并提交</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">USER</span>$ <span class="keyword">SET</span> <span class="keyword">NAME</span>=<span class="string">'VTEBANK'</span> <span class="keyword">WHERE</span> <span class="keyword">user</span><span class="comment">#=84;</span></span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
+
+<p>3、强制刷新</p>
+<p><code>ALTER SYSTEM CHECKPOINT;</code><br><code>ALTER SYSTEM FLUSH SHARED_POOL;</code></p>
+<p>4、更新用户的密码</p>
+<p><code>ALTER USER VTEBANK IDENTIFIED BY VTEBANK;</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/oracle11.2.0.4数据库修改用户名称/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+
+<nav class="pagination">
+  
+  <a href="/page/2/" class="pagination-prev">上一页</a>
+  
+  
+  <a href="/page/4/" class="pagination-next">下一页</a>
+  
+</nav>
+            </main>
+            <div class="sidebar
+                    col-lg-3 col-lg-offset-0
+                    col-md-3 col-md-offset-0
+                    col-sm-12
+                    col-xs-12
+                    sidebar-container
+                ">
+
+                <div class="sidebar-container">
+
+
+
+<div class="search-container">
+<form class="site-search-form">
+    <span class="glyphicon glyphicon-search"></span><input type="text" id="local-search-input" class="st-search-input" placeholder="Search..." />
+</form>
+<div id="local-search-result" class="local-search-result-cls"></div>
+</div>
+<script type="text/javascript" id="local.search.active">
+var inputArea       = document.querySelector("#local-search-input");
+inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script>
+
+
+
+
+    <div class="categories-container" style="margin-top:40px;">
+        <p>归档:</p>
+            
+    </div>
+
+
+
+
+    <div class="social-container" style="margin-top:40px;">
+        <p>Links:</p>
+            
+                
+                    <li class="social-item"><i class="fa fa-fw fa-github"></i><a href="https://github.com/zeven0707">GitHub</a></li>
+                
+            
+    </div>
+
+</div>
+            </div>
+          </div>
+        </div>
+        
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

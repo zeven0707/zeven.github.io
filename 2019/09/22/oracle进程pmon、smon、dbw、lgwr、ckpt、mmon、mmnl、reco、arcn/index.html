@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>[Oracle]oracle后台进程pmon、smon、dbw、lgwr、ckpt、mmon、mmnl、reco、arcn | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+  <meta name="description" content="1、pmon grouppmon组包括：pmon、cleanup main process（clmn）、cleanup helper process（clnn）进程
+这些进程用于监控和清理其他进程。pmon group监视buffer cache的清理和客户端进程资源的释放。例如，pmon grou">
+  
+
+  
+  
+  <meta name="keywords" content="oracle">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="[Oracle]oracle后台进程pmon、smon、dbw、lgwr、ckpt、mmon、mmnl、reco、arcn"/>
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+          <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container" style="position: inherit;">
+            <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><span>[Oracle]oracle后台进程pmon、smon、dbw、lgwr、ckpt、mmon、mmnl、reco、arcn</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/oracle进程pmon、smon、dbw、lgwr、ckpt、mmon、mmnl、reco、arcn/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T12:59:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、pmon-group"><a href="#1、pmon-group" class="headerlink" title="1、pmon group"></a>1、pmon group</h1><pre><code>pmon组包括：pmon、cleanup main process（clmn）、cleanup helper process（clnn）进程
+这些进程用于监控和清理其他进程。pmon group监视buffer cache的清理和客户端进程资源的释放。例如，pmon group可以重置活动事务表的状态，释放不需要的锁，从活动进程列表中移除终止进程的id。</code></pre><h2 id="1-1、PMON进程：全称process-monitor-process。"><a href="#1-1、PMON进程：全称process-monitor-process。" class="headerlink" title="1.1、PMON进程：全称process monitor process。"></a>1.1、PMON进程：全称process monitor process。</h2><pre><code>检查其他后端进程是否终止。如果一个服务进程或者dispatcher进程非正常终止，pmon group执行进程恢复。进程终止有很多种：系统杀掉或者alter system kill session语句杀掉。</code></pre><h2 id="1-2、CLMN进程：cleanup-main-process。"><a href="#1-2、CLMN进程：cleanup-main-process。" class="headerlink" title="1.2、CLMN进程：cleanup main process。"></a>1.2、CLMN进程：cleanup main process。</h2><pre><code>pomn进程委派给clmn清除工作。clmn周期性执行已经超时的终止进程、终止会话、事物、网络连接、空闲会话、附加事物、附加网络连接的清理工作。</code></pre><h2 id="1-3、clnn：cleanup-helper-process。"><a href="#1-3、clnn：cleanup-helper-process。" class="headerlink" title="1.3、clnn：cleanup helper process。"></a>1.3、clnn：cleanup helper process。</h2><pre><code>clmn进程委派clnn完成清理工作。clnn进程协助清理终止的进程和会话
+可以通过查看V$CLEANUP_PROCESS或者 V$DEAD_CLEANUP视图来查看clmn清理的元数据。如果V$CLEANUP_PROCESS.STATE 值为busy，那么表示当前正在执行清理工作。
+数据库资源隔离：pmon group可以自动的隔离损坏的未修复的资源，这样可以避免实例强制终止。可以通过 V$QUARANTINE视图查看元数据。</code></pre><h1 id="2、PMAN：process-manager"><a href="#2、PMAN：process-manager" class="headerlink" title="2、PMAN：process manager"></a>2、PMAN：process manager</h1><pre><code>监视shared server、pooled server、job queue等进程
+pman监控、启动、停止下面的进程：
+  Dispatcher and shared server processes
+  Connection broker and pooled server processes for database resident connection pools
+  Job queue processes
+  Restartable background processes</code></pre><h1 id="3、LREG：listener-registration-process。"><a href="#3、LREG：listener-registration-process。" class="headerlink" title="3、LREG：listener registration process。"></a>3、LREG：listener registration process。</h1><pre><code>用于注册oralce实例信息和分配器信息到oracle net listener。当实例启动，LREG轮询listener来确定是否正常运行。如果listener运行，LREG传递给它相关参数。如果没有运行，LREG进程周期性尝试连接它。</code></pre><p>** 在12c之前，pmon进程执行监听注册。</p>
+<h1 id="4、SMON：system-monitor-process。"><a href="#4、SMON：system-monitor-process。" class="headerlink" title="4、SMON：system monitor process。"></a>4、SMON：system monitor process。</h1><pre><code>smon负责各个系统级别的清理工作
+执行实例恢复（如果实例在启动时有必要的话）。在rac数据库，一个数据库实例的smon进程能够执行一个失败的实例的恢复。
+恢复被终止的事物（因为file-read或者表空间离线错误在实例恢复的过程中跳过的事务),当表空间或者文件online之后，smon恢复事务。
+清理不用的临时段。例如：当创建索引的时候分配extent，如果操作失败，smon清理临时空间。
+合并属于字典管理的表空间的相邻空闲段</code></pre><h1 id="5、DBW-database-writer-process。"><a href="#5、DBW-database-writer-process。" class="headerlink" title="5、DBW:database writer process。"></a>5、DBW:database writer process。</h1><pre><code>dbw把db buffer的内容写入数据文件。一个进程DBW0对于大多数系统就足够用了，但是可以配置多个进程：DBW1-DBW9,DBWa-DBWz,BW36-BW99来提高系统修改数据的性能。但是对于单处理器的系统来说，配置多个进程也不起作用。
+DBW写脏块的条件：
+当服务进程在buffer内找不到可用的buffer块时，服务进程发信号给DBW让其刷脏块。DBW可以在执行其他进程时异步刷新脏块。
+DBW周期性执行刷脏来推进checkpoint，checkponit位置用于redo线程实例恢复开始的位置。checkpoint的日志位置由buffer cache最老的脏块决定。
+在许多情况下，dbw刷脏是遍历所有磁盘的。因此，DBW相比于顺序写的LGWR性能慢。</code></pre><h1 id="6、LGWR：log-wirter-process。"><a href="#6、LGWR：log-wirter-process。" class="headerlink" title="6、LGWR：log wirter process。"></a>6、LGWR：log wirter process。</h1><pre><code>写redo的buffer数据到online redo log。
+执行条件：
+用户commit
+online redo log switch
+每3s执行一次
+redo log buffer占用了buffered data的1/3或者是占用了1M
+DBW</code></pre><h1 id="7、ckpt：checkpoint-process"><a href="#7、ckpt：checkpoint-process" class="headerlink" title="7、ckpt：checkpoint process"></a>7、ckpt：checkpoint process</h1><pre><code>将checkpoint information更新到控制文件和数据文件的头信息里，并向dbw进程发送信号使其写数据到磁盘。
+checkpoint information包括信息：检查点、scn、开始恢复的在线redo日志的位置</code></pre><h1 id="8、mmon：manageability-monitor-process"><a href="#8、mmon：manageability-monitor-process" class="headerlink" title="8、mmon：manageability monitor process"></a>8、mmon：manageability monitor process</h1><pre><code>执行和automatic workload repository（awr）相关的任务。
+mmnl:manageability monitor lite process：当ash的buffer满了,把sga下的ash的buffer数据写到磁盘。</code></pre><h1 id="9、RECO：recoverer-process"><a href="#9、RECO：recoverer-process" class="headerlink" title="9、RECO：recoverer process"></a>9、RECO：recoverer process</h1><pre><code>自动连接到存在可疑分布式事务的其他的数据库。当RECO重建了数据库之间的连接，它自动解决可疑事务，移除每个数据库的等待事务表的任意行（与前面解决事务相关的行）。</code></pre><h1 id="10、ARCn：Archiiver-processes"><a href="#10、ARCn：Archiiver-processes" class="headerlink" title="10、ARCn：Archiiver processes"></a>10、ARCn：Archiiver processes</h1><pre><code>在redo log切换之后，拷贝online redo log到离线存储。该进程还能用于收集事务redo数据传送到standby数据库目的地。</code></pre>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    
+  
+</article>
+   
+    <div id="toc" class="toc-article ">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、pmon-group"><span class="toc-number">1.</span> <span class="toc-text">1、pmon group</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1、PMON进程：全称process-monitor-process。"><span class="toc-number">1.1.</span> <span class="toc-text">1.1、PMON进程：全称process monitor process。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2、CLMN进程：cleanup-main-process。"><span class="toc-number">1.2.</span> <span class="toc-text">1.2、CLMN进程：cleanup main process。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3、clnn：cleanup-helper-process。"><span class="toc-number">1.3.</span> <span class="toc-text">1.3、clnn：cleanup helper process。</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、PMAN：process-manager"><span class="toc-number">2.</span> <span class="toc-text">2、PMAN：process manager</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、LREG：listener-registration-process。"><span class="toc-number">3.</span> <span class="toc-text">3、LREG：listener registration process。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、SMON：system-monitor-process。"><span class="toc-number">4.</span> <span class="toc-text">4、SMON：system monitor process。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5、DBW-database-writer-process。"><span class="toc-number">5.</span> <span class="toc-text">5、DBW:database writer process。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6、LGWR：log-wirter-process。"><span class="toc-number">6.</span> <span class="toc-text">6、LGWR：log wirter process。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7、ckpt：checkpoint-process"><span class="toc-number">7.</span> <span class="toc-text">7、ckpt：checkpoint process</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8、mmon：manageability-monitor-process"><span class="toc-number">8.</span> <span class="toc-text">8、mmon：manageability monitor process</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9、RECO：recoverer-process"><span class="toc-number">9.</span> <span class="toc-text">9、RECO：recoverer process</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10、ARCn：Archiiver-processes"><span class="toc-number">10.</span> <span class="toc-text">10、ARCn：Archiiver processes</span></a></li></ol>
+</div>
+
+
+  
+
+	<!-- async load  -->
+	<script>
+			function async(u, c) {
+				var d = document, t = 'script',
+						o = d.createElement(t),
+						s = d.getElementsByTagName(t)[0];
+				o.src = u;
+				if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+				s.parentNode.insertBefore(o, s);
+			}
+	</script>
+	<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+	<script>
+			async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+					anchors.options = {
+						visible: 'hover',
+						placement: 'left',
+						// icon: '#'
+					};
+					anchors.add().remove('.article-title').remove('.subheading').remove('.sidebar-container h5');
+			})
+	</script>
+	<style>
+			/* place left on bigger screen */
+			@media all and (min-width: 800px) {
+					.anchorjs-link{
+							position: absolute;
+							left: -0.75em;
+							font-size: 1.1em;
+							margin-top : -0.1em;
+					}
+			}
+	</style>
+
+
+
+
+<!-- UY BEGIN -->
+	<div id="gitment-container"></div>
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script src="/js/web-pinyin.js"></script>
+	<script>
+		function toUnicode(s){ 
+			return s.replace(/([\u4E00-\u9FA5]|[\uFE30-\uFFA0])/g,function(){
+			return "\\u" + RegExp["$1"].charCodeAt(0).toString(16);
+			});
+		}
+		var title = '[Oracle]oracle后台进程pmon、smon、dbw、lgwr、ckpt、mmon、mmnl、reco、arcn'
+		var GitHub_id = 'zeven0707'
+		var client_id = '2b0cc50fd55624b20d70'
+		var client_secret = '489e4e840e0186f96ad172932b583e2fe68729c8'
+		var repo = 'zeven0707.github.io'
+		var gitment = new Gitment({
+		// id: '页面 ID', // 可选。默认为 location.href
+		// id:"11" ,
+		id: title,
+		title: title,
+		owner: GitHub_id,//'你的 GitHub ID',
+		repo: repo,//'存储评论的 repo',
+		oauth: {
+			client_id: client_id,//'你的 client ID',
+			client_secret: client_secret,//'你的 client secret',
+		},
+		})
+		gitment.render('gitment-container')
+	</script>
+<!-- UY END -->
+
+
+
+
+            </main>
+          </div>
+        </div>
+       
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

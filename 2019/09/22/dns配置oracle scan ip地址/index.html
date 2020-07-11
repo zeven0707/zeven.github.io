@@ -1,0 +1,351 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>[Oracle]DNS配置oracle scan ip | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+  <meta name="description" content="1、关闭防火墙开启相应的服务12[root@localhost  ~]#setenforce  0[root@localhost  ~]#iptables  -F
+
+2、主节点安装dnsyum -y install bind bind-chroot bind-utils
+3、修改配置文件3.1、/e">
+  
+
+  
+  
+  <meta name="keywords" content="oracle">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="[Oracle]DNS配置oracle scan ip"/>
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+          <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container" style="position: inherit;">
+            <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><span>[Oracle]DNS配置oracle scan ip</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/dns配置oracle scan ip地址/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T01:40:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、关闭防火墙开启相应的服务"><a href="#1、关闭防火墙开启相应的服务" class="headerlink" title="1、关闭防火墙开启相应的服务"></a>1、关闭防火墙开启相应的服务</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost  ~]#setenforce  0</span><br><span class="line">[root@localhost  ~]#iptables  -F</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、主节点安装dns"><a href="#2、主节点安装dns" class="headerlink" title="2、主节点安装dns"></a>2、主节点安装dns</h1><p><code>yum -y install bind bind-chroot bind-utils</code></p>
+<h1 id="3、修改配置文件"><a href="#3、修改配置文件" class="headerlink" title="3、修改配置文件"></a>3、修改配置文件</h1><h2 id="3-1、-etc-named-conf—–主配置文件-服务器主要运行参数"><a href="#3-1、-etc-named-conf—–主配置文件-服务器主要运行参数" class="headerlink" title="3.1、/etc/named.conf—–主配置文件,服务器主要运行参数"></a>3.1、/etc/named.conf—–主配置文件,服务器主要运行参数</h2><p>修改dns主配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">options &#123;</span><br><span class="line">        listen-on port 53 &#123; 192.168.168.178;127.0.0.1 &#125;;</span><br><span class="line">        listen-on-v6 port 53 &#123; ::1; &#125;;</span><br><span class="line">        directory       &quot;&#x2F;var&#x2F;named&quot;;</span><br><span class="line">        dump-file       &quot;&#x2F;var&#x2F;named&#x2F;data&#x2F;cache_dump.db&quot;;</span><br><span class="line">        statistics-file &quot;&#x2F;var&#x2F;named&#x2F;data&#x2F;named_stats.txt&quot;;</span><br><span class="line">        memstatistics-file &quot;&#x2F;var&#x2F;named&#x2F;data&#x2F;named_mem_stats.txt&quot;;</span><br><span class="line">        allow-query     &#123; any; &#125;;</span><br><span class="line">        forwarders &#123; 8.8.8.8; &#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2、-etc-named-rfc1912-zones—–区域文件，主要指定要解析哪个域名"><a href="#3-2、-etc-named-rfc1912-zones—–区域文件，主要指定要解析哪个域名" class="headerlink" title="3.2、/etc/named.rfc1912.zones—–区域文件，主要指定要解析哪个域名"></a>3.2、/etc/named.rfc1912.zones—–区域文件，主要指定要解析哪个域名</h2><p>vim /etc/named.rfc1912.zones</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 首先对文件中正向解析的区域进行修改</span><br><span class="line">zone &quot;oracle.com&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;node.conf&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F; 设置好域名格式以及相应的数据文件接下来进行反向解析区域的配置</span><br><span class="line">zone  &quot;168.168.192.in-addr.arpa&quot;  IN&#123;</span><br><span class="line">          type master;</span><br><span class="line">          file &quot;node.txt&quot;;</span><br><span class="line">          allow-update &#123; none; &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3、配置完成之后校验一下文件配置是否正确"><a href="#3-3、配置完成之后校验一下文件配置是否正确" class="headerlink" title="3.3、配置完成之后校验一下文件配置是否正确"></a>3.3、配置完成之后校验一下文件配置是否正确</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node4 named]# named-checkconf</span><br><span class="line">[root@node4 named]#</span><br><span class="line">没有任何输出表示 /etc/named.conf没有语法错误</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-4、-var-named-xxx-xx-——-数据文件，用来正向和反向的解析"><a href="#3-4、-var-named-xxx-xx-——-数据文件，用来正向和反向的解析" class="headerlink" title="3.4、/var/named/xxx.xx ——-数据文件，用来正向和反向的解析"></a>3.4、/var/named/xxx.xx ——-数据文件，用来正向和反向的解析</h2><p>主文件及区域文件修改完成后接下来进行数据文件的修改,切换到/var/named目录下,对数据文件进行相应的选项配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/named/</span><br><span class="line">cp named.empty  node.conf</span><br></pre></td></tr></table></figure>
+
+<p>首先对其正向解析的数据文件进行配置<br>vim node.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$TTL 3H</span><br><span class="line">@       IN SOA dns.oracle.com. rname.invalid. (</span><br><span class="line">                                        0       ; serial</span><br><span class="line">                                        1D      ; refresh</span><br><span class="line">                                        1H      ; retry</span><br><span class="line">                                        1W      ; expire</span><br><span class="line">                                        3H )    ; minimum</span><br><span class="line">    IN            NS    dns.oracle.com.</span><br><span class="line">dns IN  A 192.168.168.178</span><br><span class="line">scan IN  A 192.168.168.111</span><br><span class="line">scan IN A 192.168.168.112</span><br><span class="line">scan IN A 192.168.168.113</span><br></pre></td></tr></table></figure>
+
+<p>对反向解析的数据文件进行配置，反向解析数据文件里面只有SOA、NS、PTR资源记录，所有A记录都要改为PTR记录，名称为IP地址，IP地址可以写全也可以简写，如果写全则是IP地址反写加上.in-addr.arpa.例如：116.2.16.172.in-addr.arpa. PTR资源记录的值为域名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cp named.empty  node.txt</span><br><span class="line">vim node.txt</span><br><span class="line"></span><br><span class="line">$TTL 3H</span><br><span class="line">@       IN SOA dns.oracle.com. rname.invalid. (</span><br><span class="line">                                        0       ; serial</span><br><span class="line">                                        1D      ; refresh</span><br><span class="line">                                        1H      ; retry</span><br><span class="line">                                        1W      ; expire</span><br><span class="line">                                        3H )    ; minimum</span><br><span class="line">    IN  NS      dns.oracle.com.</span><br><span class="line">178 IN PTR dns.oracle.com.</span><br><span class="line">111 IN PTR scan.oracle.com.</span><br><span class="line">112 IN PTR scan.oracle.com.</span><br><span class="line">113 IN PTR scan.oracle.com.</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-5、解析文件参数详解"><a href="#3-5、解析文件参数详解" class="headerlink" title="3.5、解析文件参数详解"></a>3.5、解析文件参数详解</h2><p>区域解析库文件第一个记录必须是SOA记录，必须有NS记录并且正解区域要有NS记录的A记录，反解则不需要有NS记录对应的A记录。<br>$TTL表示宏定义，TTL(Time- To-Live)，dns记录在本地DNS服务器上保留的时间<br>@符号可代表区域文件/etc/named.conf里面定义的区域名称，即：”gfs.com.”。<br>2018030422 ;标识序列号，十进制数字，不能超过10位，通常使用日期<br>2H ;刷新时间，即每隔多久到主服务器检查一次，此处为2小时，实验环境可以设置小一点<br>4M ;重试时间，应该小于刷新时间，此处为4分钟，实验环境可以设置小一点<br>1D ;过期时间，此处为1天<br>2D ;主服务器挂后，从服务器至多工作的时间，此处为2天)<br>这个文件里所有的域名结尾的点号一定不能省略。<br>区域解析库文件是放在/var/named目录下，由named进程是以named用户运行，因此区域解析库文件的属组应设置为named。</p>
+<p>（1）A记录（Address）正向解析<br>A记录是将一个主机名（全称域名FQDN）和一个IP地址关联起来。这也是大多数客户端程序默认的查询类型。<br>（2）PTR记录（Pointer）反向解析<br>PTR记录将一个IP地址对应到主机名（全称域名FQDN）。这些记录保存在in-addr.arpa域中。<br>（3）CNAME记录(Canonical Name)别名<br>别名记录，也称为规范名字(Canonical Name)。这种记录允许您将多个名字映射到同一台计算机。<br>（4）MX记录（Mail eXchange）<br>MX记录是邮件交换记录，它指向一个邮件服务器，用于电子邮件系统发邮件时根据 收信人的地址后缀来定位邮件服务器。MX记录也叫做邮件路由记录，用户可以将该域名下的邮件服务器指向到自己的mail server上，然后即可自行操控所有的邮箱设置。<br>当有多个MX记录（即有多个邮件服务器）时，则需要设置数值来确定其优先级。通过设置优先级数字来指明首选服务器，数字越小表示优先级越高。<br>（5）NS记录（Name Server）<br>NS（Name Server）记录是域名服务器记录，也称为授权服务器，用来指定该域名由哪个DNS服务器来进行解析。<br>将网站的NS记录指向到目标地址，在设置NS记录的同时还需要设置目标网站的指向，否则NS记录将无法正常解析<br>NS记录优先于A记录。即，如果一个主机地址同时存在NS记录和A记录，则A记录不生效。<br>（6）AAAA记录 IPV6解析记录<br>该记录是将域名解析到一个指定的IPV6的IP上。</p>
+<h2 id="3-6、相应的数据配置文件完成后对数据文件的属主进行修改"><a href="#3-6、相应的数据配置文件完成后对数据文件的属主进行修改" class="headerlink" title="3.6、相应的数据配置文件完成后对数据文件的属主进行修改"></a>3.6、相应的数据配置文件完成后对数据文件的属主进行修改</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost  named]#chown  named  node._</span><br><span class="line">[root@node4 named]# ll node._</span><br><span class="line">\-rw-r-----. 1 named root 286 Nov 22 16:12 node.conf</span><br><span class="line">\-rw-r-----. 1 named root 310 Nov 22 16:12 node.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-7、配置完成后检测解析文件是否正确"><a href="#3-7、配置完成后检测解析文件是否正确" class="headerlink" title="3.7、配置完成后检测解析文件是否正确"></a>3.7、配置完成后检测解析文件是否正确</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node4 named]# named-checkzone "oracle.com" node.conf</span><br><span class="line">zone gfs.com/IN: loaded serial 0</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-8、检测反向解析库配置有没有错误"><a href="#3-8、检测反向解析库配置有没有错误" class="headerlink" title="3.8、检测反向解析库配置有没有错误"></a>3.8、检测反向解析库配置有没有错误</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node4 named]# named-checkzone "168.168.192.in-addr.arpa" node.txt</span><br><span class="line">zone 30.0.10.in-addr.arpa/IN: loaded serial 0</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<h1 id="4、修改完成后启动dns服务"><a href="#4、修改完成后启动dns服务" class="headerlink" title="4、修改完成后启动dns服务"></a>4、修改完成后启动dns服务</h1><p><code>systemctl start named.service</code></p>
+<h1 id="5、在客户端配置dns信息"><a href="#5、在客户端配置dns信息" class="headerlink" title="5、在客户端配置dns信息"></a>5、在客户端配置dns信息</h1><h2 id="5-1、修改-etc-NetworkManager-NetworkManager-conf-文件，防止重启网卡后dns被重置，在main部分添加-“dns-none”-选项"><a href="#5-1、修改-etc-NetworkManager-NetworkManager-conf-文件，防止重启网卡后dns被重置，在main部分添加-“dns-none”-选项" class="headerlink" title="5.1、修改 /etc/NetworkManager/NetworkManager.conf 文件，防止重启网卡后dns被重置，在main部分添加 “dns=none” 选项"></a>5.1、修改 /etc/NetworkManager/NetworkManager.conf 文件，防止重启网卡后dns被重置，在main部分添加 “dns=none” 选项</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[main]</span><br><span class="line">plugins&#x3D;ifcfg-rh</span><br><span class="line">dns&#x3D;none</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-2、NetworkManager重新装载上面修改的配置"><a href="#5-2、NetworkManager重新装载上面修改的配置" class="headerlink" title="5.2、NetworkManager重新装载上面修改的配置"></a>5.2、NetworkManager重新装载上面修改的配置</h2><p><code>systemctl restart NetworkManager.service</code></p>
+<h2 id="5-3、之后修改-etc-resolv-conf配置文件"><a href="#5-3、之后修改-etc-resolv-conf配置文件" class="headerlink" title="5.3、之后修改/etc/resolv.conf配置文件"></a>5.3、之后修改/etc/resolv.conf配置文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]# more &#x2F;etc&#x2F;resolv.conf</span><br><span class="line"></span><br><span class="line"># Generated by NetworkManager</span><br><span class="line"></span><br><span class="line">nameserver 192.168.168.178</span><br><span class="line"></span><br><span class="line">[root@node2 ~]# &#x2F;etc&#x2F;init.d&#x2F;network restart</span><br><span class="line">Restarting network (via systemctl):                        [  OK  ]</span><br><span class="line">[root@node2 ~]# more &#x2F;etc&#x2F;resolv.conf</span><br><span class="line"># Generated by NetworkManager</span><br><span class="line"></span><br><span class="line">nameserver 202.106.0.20</span><br><span class="line">nameserver 8.8.8.8</span><br><span class="line">[root@node2 ~]# </span><br><span class="line">[root@node2 ~]# ls</span><br><span class="line">anaconda-ks.cfg  Desktop  Documents  Downloads  initial-setup-ks.cfg  Music  Pictures  Public  Templates  Videos</span><br><span class="line">[root@node2 ~]# vim &#x2F;etc&#x2F;NetworkManager&#x2F;NetworkManager.conf </span><br><span class="line">[root@node2 ~]# </span><br><span class="line">[root@node2 ~]# systemctl restart NetworkManager.service</span><br><span class="line">[root@node2 ~]# vim &#x2F;etc&#x2F;resolv.conf</span><br><span class="line">[root@node2 ~]# </span><br><span class="line">[root@node2 ~]# more &#x2F;etc&#x2F;resolv.conf</span><br><span class="line"># Generated by NetworkManager</span><br><span class="line"></span><br><span class="line">nameserver 192.168.168.178</span><br><span class="line">[root@node2 ~]# &#x2F;etc&#x2F;init.d&#x2F;network restart</span><br><span class="line">Restarting network (via systemctl):                        [  OK  ][root@node2 ~]# more &#x2F;etc&#x2F;resolv.conf</span><br><span class="line"></span><br><span class="line"># Generated by NetworkManager</span><br><span class="line"></span><br><span class="line">nameserver 192.168.168.178</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-4、测试dns是否能正常解析"><a href="#5-4、测试dns是否能正常解析" class="headerlink" title="5.4、测试dns是否能正常解析"></a>5.4、测试dns是否能正常解析</h2><p>正向解析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]#  dig -t A scan.oracle.com</span><br><span class="line"></span><br><span class="line">; \&lt;\&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-61.el7_5.1 \&lt;\&lt;&gt;&gt; -t A scan.oracle.com</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER\&lt;\&lt;- opcode: QUERY, status: NOERROR, id: 40900</span><br><span class="line">;; flags: qr aa rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 1, ADDITIONAL: 2</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;scan.oracle.com.               IN      A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">scan.oracle.com.        10800   IN      A       192.168.168.111</span><br><span class="line">scan.oracle.com.        10800   IN      A       192.168.168.112</span><br><span class="line">scan.oracle.com.        10800   IN      A       192.168.168.113</span><br><span class="line"></span><br><span class="line">;; AUTHORITY SECTION:</span><br><span class="line">oracle.com.             10800   IN      NS      dns.oracle.com.</span><br><span class="line"></span><br><span class="line">;; ADDITIONAL SECTION:</span><br><span class="line">dns.oracle.com.         10800   IN      A       192.168.168.178</span><br><span class="line"></span><br><span class="line">;; Query time: 3 msec</span><br><span class="line">;; SERVER: 192.168.168.178#53(192.168.168.178)</span><br><span class="line">;; WHEN: 一 9月 16 16:35:48 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 126</span><br></pre></td></tr></table></figure>
+
+<p>反向解析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]# dig -x 192.168.168.111</span><br><span class="line"></span><br><span class="line">; \&lt;\&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-61.el7_5.1 \&lt;\&lt;&gt;&gt; -x 192.168.168.111</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER\&lt;\&lt;- opcode: QUERY, status: NOERROR, id: 6223</span><br><span class="line">;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 2</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;111.168.168.192.in-addr.arpa.  IN      PTR</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">111.168.168.192.in-addr.arpa. 10800 IN  PTR     scan.oracle.com.</span><br><span class="line"></span><br><span class="line">;; AUTHORITY SECTION:</span><br><span class="line">168.168.192.in-addr.arpa. 10800 IN      NS      dns.oracle.com.</span><br><span class="line"></span><br><span class="line">;; ADDITIONAL SECTION:</span><br><span class="line">dns.oracle.com.         10800   IN      A       192.168.168.178</span><br><span class="line"></span><br><span class="line">;; Query time: 2 msec</span><br><span class="line">;; SERVER: 192.168.168.178#53(192.168.168.178)</span><br><span class="line">;; WHEN: 一 9月 16 16:36:14 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 120</span><br></pre></td></tr></table></figure>
+
+<p>多次ping域名scan.oracle.com，解析为不同的ip地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@dax-mysql-slave ~]# ping scan.oracle.com</span><br><span class="line">PING scan.oracle.com (192.168.168.111) 56(84) bytes of data.</span><br><span class="line">^C</span><br><span class="line">\--- scan.oracle.com ping statistics ---</span><br><span class="line">2 packets transmitted, 0 received, 100% packet loss, time 1037ms</span><br><span class="line"></span><br><span class="line">[root@dax-mysql-slave ~]# ping scan.oracle.com</span><br><span class="line">PING scan.oracle.com (192.168.168.111) 56(84) bytes of data.</span><br><span class="line">^C</span><br><span class="line">\--- scan.oracle.com ping statistics ---</span><br><span class="line">1 packets transmitted, 0 received, 100% packet loss, time 0ms</span><br><span class="line"></span><br><span class="line">[root@dax-mysql-slave ~]# ping scan.oracle.com</span><br><span class="line">PING scan.oracle.com (192.168.168.112) 56(84) bytes of data.</span><br><span class="line">^C</span><br><span class="line">\--- scan.oracle.com ping statistics ---</span><br><span class="line">1 packets transmitted, 0 received, 100% packet loss, time 0ms</span><br><span class="line"></span><br><span class="line">[root@dax-mysql-slave ~]# ping scan.oracle.com</span><br><span class="line">PING scan.oracle.com (192.168.168.113) 56(84) bytes of data.</span><br><span class="line">64 bytes from dax-mysql-slave (192.168.168.113): icmp_seq&#x3D;1 ttl&#x3D;64 time&#x3D;0.041 ms</span><br><span class="line">^C</span><br><span class="line">\--- scan.oracle.com ping statistics ---</span><br><span class="line">1 packets transmitted, 1 received, 0% packet loss, time 0ms</span><br><span class="line">rtt min&#x2F;avg&#x2F;max&#x2F;mdev &#x3D; 0.041&#x2F;0.041&#x2F;0.041&#x2F;0.000 ms</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    
+  
+</article>
+   
+    <div id="toc" class="toc-article ">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、关闭防火墙开启相应的服务"><span class="toc-number">1.</span> <span class="toc-text">1、关闭防火墙开启相应的服务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、主节点安装dns"><span class="toc-number">2.</span> <span class="toc-text">2、主节点安装dns</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、修改配置文件"><span class="toc-number">3.</span> <span class="toc-text">3、修改配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1、-etc-named-conf—–主配置文件-服务器主要运行参数"><span class="toc-number">3.1.</span> <span class="toc-text">3.1、&#x2F;etc&#x2F;named.conf—–主配置文件,服务器主要运行参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2、-etc-named-rfc1912-zones—–区域文件，主要指定要解析哪个域名"><span class="toc-number">3.2.</span> <span class="toc-text">3.2、&#x2F;etc&#x2F;named.rfc1912.zones—–区域文件，主要指定要解析哪个域名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3、配置完成之后校验一下文件配置是否正确"><span class="toc-number">3.3.</span> <span class="toc-text">3.3、配置完成之后校验一下文件配置是否正确</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4、-var-named-xxx-xx-——-数据文件，用来正向和反向的解析"><span class="toc-number">3.4.</span> <span class="toc-text">3.4、&#x2F;var&#x2F;named&#x2F;xxx.xx ——-数据文件，用来正向和反向的解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5、解析文件参数详解"><span class="toc-number">3.5.</span> <span class="toc-text">3.5、解析文件参数详解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6、相应的数据配置文件完成后对数据文件的属主进行修改"><span class="toc-number">3.6.</span> <span class="toc-text">3.6、相应的数据配置文件完成后对数据文件的属主进行修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-7、配置完成后检测解析文件是否正确"><span class="toc-number">3.7.</span> <span class="toc-text">3.7、配置完成后检测解析文件是否正确</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-8、检测反向解析库配置有没有错误"><span class="toc-number">3.8.</span> <span class="toc-text">3.8、检测反向解析库配置有没有错误</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、修改完成后启动dns服务"><span class="toc-number">4.</span> <span class="toc-text">4、修改完成后启动dns服务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5、在客户端配置dns信息"><span class="toc-number">5.</span> <span class="toc-text">5、在客户端配置dns信息</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1、修改-etc-NetworkManager-NetworkManager-conf-文件，防止重启网卡后dns被重置，在main部分添加-“dns-none”-选项"><span class="toc-number">5.1.</span> <span class="toc-text">5.1、修改 &#x2F;etc&#x2F;NetworkManager&#x2F;NetworkManager.conf 文件，防止重启网卡后dns被重置，在main部分添加 “dns&#x3D;none” 选项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2、NetworkManager重新装载上面修改的配置"><span class="toc-number">5.2.</span> <span class="toc-text">5.2、NetworkManager重新装载上面修改的配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3、之后修改-etc-resolv-conf配置文件"><span class="toc-number">5.3.</span> <span class="toc-text">5.3、之后修改&#x2F;etc&#x2F;resolv.conf配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4、测试dns是否能正常解析"><span class="toc-number">5.4.</span> <span class="toc-text">5.4、测试dns是否能正常解析</span></a></li></ol></li></ol>
+</div>
+
+
+  
+
+	<!-- async load  -->
+	<script>
+			function async(u, c) {
+				var d = document, t = 'script',
+						o = d.createElement(t),
+						s = d.getElementsByTagName(t)[0];
+				o.src = u;
+				if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+				s.parentNode.insertBefore(o, s);
+			}
+	</script>
+	<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+	<script>
+			async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+					anchors.options = {
+						visible: 'hover',
+						placement: 'left',
+						// icon: '#'
+					};
+					anchors.add().remove('.article-title').remove('.subheading').remove('.sidebar-container h5');
+			})
+	</script>
+	<style>
+			/* place left on bigger screen */
+			@media all and (min-width: 800px) {
+					.anchorjs-link{
+							position: absolute;
+							left: -0.75em;
+							font-size: 1.1em;
+							margin-top : -0.1em;
+					}
+			}
+	</style>
+
+
+
+
+<!-- UY BEGIN -->
+	<div id="gitment-container"></div>
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script src="/js/web-pinyin.js"></script>
+	<script>
+		function toUnicode(s){ 
+			return s.replace(/([\u4E00-\u9FA5]|[\uFE30-\uFFA0])/g,function(){
+			return "\\u" + RegExp["$1"].charCodeAt(0).toString(16);
+			});
+		}
+		var title = '[Oracle]DNS配置oracle scan ip'
+		var GitHub_id = 'zeven0707'
+		var client_id = '2b0cc50fd55624b20d70'
+		var client_secret = '489e4e840e0186f96ad172932b583e2fe68729c8'
+		var repo = 'zeven0707.github.io'
+		var gitment = new Gitment({
+		// id: '页面 ID', // 可选。默认为 location.href
+		// id:"11" ,
+		id: title,
+		title: title,
+		owner: GitHub_id,//'你的 GitHub ID',
+		repo: repo,//'存储评论的 repo',
+		oauth: {
+			client_id: client_id,//'你的 client ID',
+			client_secret: client_secret,//'你的 client secret',
+		},
+		})
+		gitment.render('gitment-container')
+	</script>
+<!-- UY END -->
+
+
+
+
+            </main>
+          </div>
+        </div>
+       
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

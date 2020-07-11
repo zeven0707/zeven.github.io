@@ -1,0 +1,954 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>第 13 页 | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+        <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop    col-lg-8 col-lg-offset-1
+                    col-md-8 col-md-offset-1
+                    col-sm-12
+                    col-xs-12">
+            
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/12/mysql 切割慢日志另附定期切割日志脚本/"><span>[Mysql] mysql切割慢日志</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/12/mysql 切割慢日志另附定期切割日志脚本/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-12T11:04:10.000Z">
+          2018-09-12
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="0、去查看一个测试库的慢日志文件发现有11g的大小，根本没有办法使用mysqldumpslow去查询，因此想要先对日志进行切割："><a href="#0、去查看一个测试库的慢日志文件发现有11g的大小，根本没有办法使用mysqldumpslow去查询，因此想要先对日志进行切割：" class="headerlink" title="0、去查看一个测试库的慢日志文件发现有11g的大小，根本没有办法使用mysqldumpslow去查询，因此想要先对日志进行切割："></a>0、去查看一个测试库的慢日志文件发现有11g的大小，根本没有办法使用mysqldumpslow去查询，因此想要先对日志进行切割：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">split几个主要参数：</span><br><span class="line">-b 	分割后的文档大小，单位是byte</span><br><span class="line">-C 	分割后的文档，单行最大byte数</span><br><span class="line">-d 	使用数字作为后缀，同时使用-a length指定后缀长度</span><br><span class="line">-l 	分割后文档的行数</span><br></pre></td></tr></table></figure>
+<h3 id="1、使用split，按大小切割日志文件，每个文件1G大小，切割后的文件名前缀为test-log，不指定后缀会使用默认后缀名aa-ab-ac…-等"><a href="#1、使用split，按大小切割日志文件，每个文件1G大小，切割后的文件名前缀为test-log，不指定后缀会使用默认后缀名aa-ab-ac…-等" class="headerlink" title="1、使用split，按大小切割日志文件，每个文件1G大小，切割后的文件名前缀为test.log，不指定后缀会使用默认后缀名aa,ab,ac….等"></a>1、使用split，按大小切割日志文件，每个文件1G大小，切割后的文件名前缀为test.log，不指定后缀会使用默认后缀名aa,ab,ac….等</h3><p>split slow.log -b 1G test.log</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ls -ltrh test.log*</span><br><span class="line">-rw-r--r-- 1 root  root  1.0G Sep 12 03:08 test.logaa</span><br><span class="line">-rw-r--r-- 1 root  root  1.0G Sep 12 03:09 test.logab</span><br><span class="line">-rw-r--r-- 1 root  root  1.0G Sep 12 03:10 test.logac</span><br><span class="line">-rw-r--r-- 1 root  root  1.0G Sep 12 03:11 test.logad</span><br><span class="line">-rw-r--r-- 1 root  root  1.0G Sep 12 03:12 test.logae</span><br><span class="line">-rw-r--r-- 1 root  root  1.0G Sep 12 03:13 test.logaf</span><br><span class="line">-rw-r--r-- 1 root  root  1.0G Sep 12 03:14 test.logag</span><br><span class="line">-rw-r--r-- 1 root  root  1.0G Sep 12 03:15 test.logah</span><br><span class="line">-rw-r--r-- 1 root  root  1.0G Sep 12 03:16 test.logai</span><br><span class="line">-rw-r--r-- 1 root  root  1.0G Sep 12 03:17 test.logaj</span><br><span class="line">-rw-r--r-- 1 root  root  270M Sep 12 03:17 test.logak</span><br></pre></td></tr></table></figure>
+<h3 id="2、如果需要指定后缀可使用-d-a-参数（n）代表指定附加后缀的个数，比如切割test-logaa日志文件："><a href="#2、如果需要指定后缀可使用-d-a-参数（n）代表指定附加后缀的个数，比如切割test-logaa日志文件：" class="headerlink" title="2、如果需要指定后缀可使用-d -a  参数（n）代表指定附加后缀的个数，比如切割test.logaa日志文件："></a>2、如果需要指定后缀可使用-d -a <n> 参数（n）代表指定附加后缀的个数，比如切割test.logaa日志文件：</h3><p>split test.logaa -b 100M -d -a 2 logaa</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> ll logaa*</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:03 logaa00</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:03 logaa01</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:03 logaa02</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:03 logaa03</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:03 logaa04</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:03 logaa05</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:03 logaa06</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:03 logaa07</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:03 logaa08</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:04 logaa09</span><br><span class="line">-rw-r--r-- 1 root root  24M Sep 12 09:04 logaa10</span><br></pre></td></tr></table></figure>
+<p>split test.logab -b 100M -d -a 4 logab</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ls -ltrh logab*</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:05 logab0000</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:05 logab0001</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:05 logab0002</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:05 logab0003</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:05 logab0004</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:05 logab0005</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:05 logab0006</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:05 logab0007</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:06 logab0008</span><br><span class="line">-rw-r--r-- 1 root root 100M Sep 12 09:06 logab0009</span><br><span class="line">-rw-r--r-- 1 root root  24M Sep 12 09:06 logab0010</span><br></pre></td></tr></table></figure>
+<h3 id="4、按行切割日志文件，查看准备切割的文件有多少行："><a href="#4、按行切割日志文件，查看准备切割的文件有多少行：" class="headerlink" title="4、按行切割日志文件，查看准备切割的文件有多少行："></a>4、按行切割日志文件，查看准备切割的文件有多少行：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat logab0001 |wc -l</span><br><span class="line">505</span><br></pre></td></tr></table></figure>
+<p>按每个文件60行切割<br>split logab0001 -l 60 logab0001</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ll logab0001*</span><br><span class="line">-rw-r--r-- 1 root root 104857600 Sep 12 09:05 logab0001</span><br><span class="line">-rw-r--r-- 1 root root  11922880 Sep 12 09:10 logab0001aa</span><br><span class="line">-rw-r--r-- 1 root root  12506422 Sep 12 09:10 logab0001ab</span><br><span class="line">-rw-r--r-- 1 root root  12506026 Sep 12 09:10 logab0001ac</span><br><span class="line">-rw-r--r-- 1 root root  12506635 Sep 12 09:10 logab0001ad</span><br><span class="line">-rw-r--r-- 1 root root  12506065 Sep 12 09:10 logab0001ae</span><br><span class="line">-rw-r--r-- 1 root root  12506313 Sep 12 09:10 logab0001af</span><br><span class="line">-rw-r--r-- 1 root root  12506206 Sep 12 09:10 logab0001ag</span><br><span class="line">-rw-r--r-- 1 root root  12506325 Sep 12 09:10 logab0001ah</span><br><span class="line">-rw-r--r-- 1 root root   5390728 Sep 12 09:10 logab0001ai</span><br></pre></td></tr></table></figure>
+<p>查看每个文件的行数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">for i in &#96;ls logab0001*&#96;;do echo &quot;$i文件行数&quot;&#96;cat $i|wc -l&#96; ;done </span><br><span class="line">logab0001文件行数505</span><br><span class="line">logab0001aa文件行数60</span><br><span class="line">logab0001ab文件行数60</span><br><span class="line">logab0001ac文件行数60</span><br><span class="line">logab0001ad文件行数60</span><br><span class="line">logab0001ae文件行数60</span><br><span class="line">logab0001af文件行数60</span><br><span class="line">logab0001ag文件行数60</span><br><span class="line">logab0001ah文件行数60</span><br><span class="line">logab0001ai文件行数25</span><br></pre></td></tr></table></figure>
+<h3 id="5、按每行字节数切割"><a href="#5、按每行字节数切割" class="headerlink" title="5、按每行字节数切割"></a>5、按每行字节数切割</h3><p>指定每行字节数最多不超过2000000个字节<br>split logab0001aa -C 2000000 testlog</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ls -lthr testlog*</span><br><span class="line">-rw-r--r-- 1 root root  1.5M Sep 12 10:19 testlogaa</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:19 testlogab</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:19 testlogac</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:19 testlogad</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:19 testlogae</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:19 testlogaf</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:19 testlogag</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:19 testlogah</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:19 testlogai</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:19 testlogaj</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:19 testlogak</span><br></pre></td></tr></table></figure>
+<p>查看某一行的字节数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@dax-mysql-slave log]# sed &#39;1p&#39; testlogaa|wc -c</span><br><span class="line">1960374</span><br></pre></td></tr></table></figure>
+<p>字节数小于2000000</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf testlog*</span><br></pre></td></tr></table></figure>
+<p>删除生成的日志文件，生成每行字节最大不超过1500000的日志文件：<br>split logab0001aa -C 1500000 testlog</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ls -lthr testlog*</span><br><span class="line">-rw-r--r-- 1 root root  449K Sep 12 10:22 testlogaa</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:22 testlogab</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:22 testlogac</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:22 testlogad</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:22 testlogae</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:22 testlogaf</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:22 testlogag</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:22 testlogah</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:22 testlogai</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:22 testlogaj</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:22 testlogak</span><br><span class="line">-rw-r--r-- 1 root root 1018K Sep 12 10:22 testlogal</span><br></pre></td></tr></table></figure>
+<p>查看某一行的字节数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@dax-mysql-slave log]# sed &#39;1p&#39; testlogaa|wc -c</span><br><span class="line">918219</span><br></pre></td></tr></table></figure>
+<p>字节数小于1500000</p>
+<h3 id="6、上面产生11g的慢日志文件主要是由于日志没有定期切割造成的，因此写了个脚本，定期对慢日志进行切割："><a href="#6、上面产生11g的慢日志文件主要是由于日志没有定期切割造成的，因此写了个脚本，定期对慢日志进行切割：" class="headerlink" title="6、上面产生11g的慢日志文件主要是由于日志没有定期切割造成的，因此写了个脚本，定期对慢日志进行切割："></a>6、上面产生11g的慢日志文件主要是由于日志没有定期切割造成的，因此写了个脚本，定期对慢日志进行切割：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">#mysql慢日志所在路径</span><br><span class="line">slowlogpath&#x3D;&#x2F;data&#x2F;mysql&#x2F;log</span><br><span class="line">#mysql慢日志文件名</span><br><span class="line">slowlogname&#x3D;slow.log</span><br><span class="line">#当前系统时间</span><br><span class="line">stamp&#x3D;&#96;date +&#39;%Y%m%d&#39;&#96;</span><br><span class="line">#与当前系统时间对比，七天前的时间</span><br><span class="line">oldstamp&#x3D;&#96;date +&quot;%Y%m%d&quot; -d &quot;-7 day&quot;&#96;</span><br><span class="line">#mysql用户名</span><br><span class="line">username&#x3D;root</span><br><span class="line">#mysql用户名密码</span><br><span class="line">password&#x3D;12345678</span><br><span class="line">#mysql安装路径</span><br><span class="line">dbpath&#x3D;&#x2F;data&#x2F;mysql&#x2F;bin</span><br><span class="line">#移动mysql慢日志</span><br><span class="line">mv $&#123;slowlogpath&#125;&#x2F;$&#123;slowlogname&#125;  $&#123;slowlogpath&#125;&#x2F;$&#123;stamp&#125;_$&#123;slowlogname&#125;</span><br><span class="line">#重新生成slow日志文件：</span><br><span class="line">$&#123;dbpath&#125;&#x2F;mysqladmin -u $&#123;username&#125; -p$&#123;password&#125; flush-logs slow</span><br><span class="line">#删除7天前的日志文件</span><br><span class="line">if [ -e $&#123;slowlogpath&#125;&#x2F;$&#123;oldstamp&#125;_$&#123;slowlogname&#125; ];then</span><br><span class="line">   sudo rm -rf $&#123;slowlogpath&#125;&#x2F;$&#123;oldstamp&#125;_$&#123;slowlogname&#125;</span><br><span class="line">else</span><br><span class="line">   :</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>将脚本添加到定时任务：<br>crontab -l</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 1 * * * sh &#x2F;data&#x2F;script&#x2F;split_mysqlslowlog.sh</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a><a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/12/mysql 切割慢日志另附定期切割日志脚本/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/12/mysqldumpslow参数详解/"><span>[Mysql] mysqldumpslow参数详解</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/12/mysqldumpslow参数详解/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-12T08:35:10.000Z">
+          2018-09-12
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、mysql慢查询日志包含了执行花费较长时间的查询语句信息。"><a href="#1、mysql慢查询日志包含了执行花费较长时间的查询语句信息。" class="headerlink" title="1、mysql慢查询日志包含了执行花费较长时间的查询语句信息。"></a>1、mysql慢查询日志包含了执行花费较长时间的查询语句信息。</h3><p>mysqldumpslow解析慢日志文件并打印出内容摘要。<br>mysqldumpslow进行分组查询，除了有特殊数值和字符串数据值之外。当现实摘要输出是，将数值抽象化为n（数字）和s（字符串）。参数-a和-n可以用于修改抽象化行为。</p>
+<h3 id="0、-a-表示不使用抽象的字符串s，数字n替换查询sql语句的内容"><a href="#0、-a-表示不使用抽象的字符串s，数字n替换查询sql语句的内容" class="headerlink" title="0、-a 表示不使用抽象的字符串s，数字n替换查询sql语句的内容"></a>0、-a 表示不使用抽象的字符串s，数字n替换查询sql语句的内容</h3><p>不指定-a参数，查询结果中数值和字符串分别用n和s代替<br>/data/mysql/bin/mysqldumpslow -t 2  /data/mysql/log/slow.log </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;log&#x2F;slow.log</span><br><span class="line">Count: 7  Time&#x3D;132.03s (924s)  Lock&#x3D;94.51s (661s)  Rows&#x3D;0.0 (0), root[root]@localhost</span><br><span class="line">  UPDATE test SET state &#x3D; &#39;S&#39; where state&#x3D;&#39;S&#39; and id in (select id from (select id from test ORDER BY id ASC LIMIT N,N) as tmp)</span><br><span class="line">Count: 7  Time&#x3D;81.63s (571s)  Lock&#x3D;75.80s (530s)  Rows&#x3D;0.0 (0), root[root]@localhost</span><br><span class="line">  UPDATE test SET state &#x3D; &#39;S&#39; where state&#x3D;&#39;S&#39; and id &gt;&#x3D;N and id &lt;&#x3D; N</span><br></pre></td></tr></table></figure>
+<p>添加-a参数，查询结果中数值和字符串用各自的对应值表示，未被抽象化：<br>/data/mysql/bin/mysqldumpslow -a -t 2  /data/mysql/log/slow.log </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;log&#x2F;slow.log</span><br><span class="line">Count: 1  Time&#x3D;244.60s (244s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;0.0 (0), root[root]@localhost</span><br><span class="line">  UPDATE test SET state &#x3D; &#39;CANCELLED&#39; where state&#x3D;&#39;CANCEL&#39; and id in (select id from (select id from test ORDER BY id ASC LIMIT 1,1000000) as tmp)</span><br><span class="line">Count: 1  Time&#x3D;230.44s (230s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;0.0 (0), root[root]@localhost</span><br><span class="line">  UPDATE test SET state &#x3D; &#39;CANCELLED&#39; where state&#x3D;&#39;CANCEL&#39; and id in (select id from (select id from test ORDER BY id ASC LIMIT 4000000,1000000) as tmp)</span><br></pre></td></tr></table></figure>
+<h3 id="2、-n-名称中抽象化数字的最少个数"><a href="#2、-n-名称中抽象化数字的最少个数" class="headerlink" title="2、-n 名称中抽象化数字的最少个数"></a>2、-n 名称中抽象化数字的最少个数</h3><h3 id="3、–debug-写入调试信息"><a href="#3、–debug-写入调试信息" class="headerlink" title="3、–debug 写入调试信息"></a>3、–debug 写入调试信息</h3><h3 id="4、-g-后面可以写正则表达式匹配，大小写不敏感。根据个人需要，过滤需要的关键字："><a href="#4、-g-后面可以写正则表达式匹配，大小写不敏感。根据个人需要，过滤需要的关键字：" class="headerlink" title="4、-g 后面可以写正则表达式匹配，大小写不敏感。根据个人需要，过滤需要的关键字："></a>4、-g 后面可以写正则表达式匹配，大小写不敏感。根据个人需要，过滤需要的关键字：</h3><p>/data/mysql/bin/mysqldumpslow -t 5 -l -g ‘test’  /data/mysql/log/slow.log</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;log&#x2F;slow.log</span><br><span class="line">Count: 7  Time&#x3D;226.54s (1585s)  Lock&#x3D;94.51s (661s)  Rows&#x3D;0.0 (0), root[root]@localhost</span><br><span class="line">  UPDATE test SET state &#x3D; &#39;S&#39; where state&#x3D;&#39;S&#39; and id in (select id from (select id from test ORDER BY id ASC LIMIT N,N) as tmp)</span><br><span class="line">Count: 7  Time&#x3D;157.43s (1101s)  Lock&#x3D;75.80s (530s)  Rows&#x3D;0.0 (0), root[root]@localhost</span><br><span class="line">  UPDATE test SET state &#x3D; &#39;S&#39; where state&#x3D;&#39;S&#39; and id &gt;&#x3D;N and id &lt;&#x3D; N</span><br><span class="line">Count: 35  Time&#x3D;59.29s (2075s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;9207179.6 (322251287), root[root]@localhost</span><br><span class="line">  SELECT &#x2F;*!N SQL_NO_CACHE *&#x2F; * FROM &#96;test&#96;</span><br><span class="line">Count: 1  Time&#x3D;44.68s (44s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;2.0 (2), root[root]@localhost</span><br><span class="line">  select distinct state from test  order by id</span><br><span class="line">Count: 2  Time&#x3D;27.04s (54s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;2.0 (4), root[root]@localhost</span><br><span class="line">  select distinct state from test where id in (select id from (select id from test ORDER BY id ASC LIMIT N,N) as tmp)</span><br></pre></td></tr></table></figure>
+<h3 id="5、–help-显示帮助信息并退出"><a href="#5、–help-显示帮助信息并退出" class="headerlink" title="5、–help 显示帮助信息并退出"></a>5、–help 显示帮助信息并退出</h3><h3 id="6、-h-日志文件名中服务的主机名"><a href="#6、-h-日志文件名中服务的主机名" class="headerlink" title="6、-h 日志文件名中服务的主机名"></a>6、-h 日志文件名中服务的主机名</h3><p>使用-h hostname参数，可使用通配符去过滤慢日志<br>查看当前目录下的慢日志文件名称：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ll *-slow.log</span><br><span class="line">-rw-r--r-- 1 root  root   583 Sep 12 06:21 10.0.7.4-slow.log</span><br><span class="line">-rw-r----- 1 mysql mysql 1889 Sep 12 05:51 test-slow.log</span><br></pre></td></tr></table></figure>
+<p>如果使用<em>-slow.log去过滤慢日志，会把所有-slow.log为后缀的文件都过滤。<br>mysqldumpslow -a -t 20 -h dax-mysql-slave  /data/mysql/log/</em>-slow.log</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;log&#x2F;10.0.7.4-slow.log &#x2F;data&#x2F;mysql&#x2F;log&#x2F;test-slow.log</span><br><span class="line">Count: 1  Time&#x3D;137.68s (137s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;5.0 (5), root[root]@localhost</span><br><span class="line">  SELECT * FROM test WHERE trade_asset &#x3D; &#39;BCH&#39; AND price_asset &#x3D; &#39;ETH&#39; AND broker_id &#x3D; &#39;1022668762972741633&#39; AND  state in (&#39;WAITING&#39;, &#39;PROCESSING&#39;) order by id limit 5</span><br><span class="line">Count: 1  Time&#x3D;120.01s (120s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;15.0 (15), repl[repl]@[10.0.7.51]</span><br><span class="line">  SELECT * FROM test WHERE trade_asset &#x3D; &#39;BCH&#39; AND price_asset &#x3D; &#39;ETH&#39; AND broker_id &#x3D; &#39;1022668762972741633&#39; AND  state in (&#39;WAITING&#39;, &#39;PROCESSING&#39;) order by id limit 20</span><br><span class="line">Count: 2  Time&#x3D;90.84s (181s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;10.0 (20), 2users@2hosts</span><br><span class="line">  SELECT * FROM test WHERE trade_asset &#x3D; &#39;BCH&#39; AND price_asset &#x3D; &#39;ETH&#39; AND broker_id &#x3D; &#39;1022668762972741633&#39; AND  state in (&#39;WAITING&#39;, &#39;PROCESSING&#39;) order by id limit 10</span><br><span class="line">Count: 1  Time&#x3D;82.82s (82s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;12.0 (12), repl[repl]@[10.0.7.51]</span><br><span class="line">  SELECT * FROM test WHERE trade_asset &#x3D; &#39;BCH&#39; AND price_asset &#x3D; &#39;ETH&#39; AND broker_id &#x3D; &#39;1022668762972741633&#39; AND  state in (&#39;WAITING&#39;, &#39;PROCESSING&#39;) order by id limit 12</span><br><span class="line">Died at &#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqldumpslow line 161, &lt;&gt; chunk 5.</span><br></pre></td></tr></table></figure>
+<p>也可以指定匹配主机范围：<br>mysqldumpslow -a -t 20 -h dax-mysql-slave  /data/mysql/log/10.0.7.*-slow.log</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;log&#x2F;10.0.7.4-slow.log</span><br><span class="line">Count: 1  Time&#x3D;82.82s (82s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;12.0 (12), repl[repl]@[10.0.7.51]</span><br><span class="line">  SELECT * FROM test WHERE trade_asset &#x3D; &#39;BCH&#39; AND price_asset &#x3D; &#39;ETH&#39; AND broker_id &#x3D; &#39;1022668762972741633&#39; AND  state in (&#39;WAITING&#39;, &#39;PROCESSING&#39;) order by id limit 12</span><br><span class="line">Died at &#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqldumpslow line 161, &lt;&gt; chunk 1.</span><br></pre></td></tr></table></figure>
+<p>-h 后面如果不加任何参数，会匹配出test-slow.log为日志文件名的日志：<br>[root@dax-mysql-slave log]# mysqldumpslow -a -t 20 -h   /data/mysql/log/*-slow.log</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;log&#x2F;test-slow.log</span><br><span class="line">Count: 1  Time&#x3D;137.68s (137s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;5.0 (5), root[root]@localhost</span><br><span class="line">  SELECT * FROM test WHERE trade_asset &#x3D; &#39;BCH&#39; AND price_asset &#x3D; &#39;ETH&#39; AND broker_id &#x3D; &#39;1022668762972741633&#39; AND  state in (&#39;WAITING&#39;, &#39;PROCESSING&#39;) order by id limit 5</span><br><span class="line">Count: 1  Time&#x3D;120.01s (120s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;15.0 (15), repl[repl]@[10.0.7.51]</span><br><span class="line">  SELECT * FROM test WHERE trade_asset &#x3D; &#39;BCH&#39; AND price_asset &#x3D; &#39;ETH&#39; AND broker_id &#x3D; &#39;1022668762972741633&#39; AND  state in (&#39;WAITING&#39;, &#39;PROCESSING&#39;) order by id limit 20</span><br><span class="line">Count: 2  Time&#x3D;90.84s (181s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;10.0 (20), 2users@2hosts</span><br><span class="line">  SELECT * FROM test WHERE trade_asset &#x3D; &#39;BCH&#39; AND price_asset &#x3D; &#39;ETH&#39; AND broker_id &#39;1022668762972741633&#39; AND  state in (&#39;WAITING&#39;, &#39;PROCESSING&#39;) order by id limit 10</span><br><span class="line">Died at &#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqldumpslow line 161, &lt;&gt; chunk 4.</span><br></pre></td></tr></table></figure>
+<p>-h 后面不加任何参数，日志文件名使用过滤条件会报错：<br>[root@dax-mysql-slave log]# mysqldumpslow -a -t 20 -h  /data/mysql/log/10.0.7.*-slow.log</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;data&#x2F;&#x2F;data&#x2F;mysql&#x2F;log&#x2F;10.0.7.4-slow.log-slow.log</span><br><span class="line">Can&#39;t open &#x2F;data&#x2F;mysql&#x2F;data&#x2F;&#x2F;data&#x2F;mysql&#x2F;log&#x2F;10.0.7.4-slow.log-slow.log: No such file or directory at &#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqldumpslow line 91.</span><br><span class="line">Died at &#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqldumpslow line 161.</span><br></pre></td></tr></table></figure>
+<h3 id="7、-i-服务的实例名（官方文档说通过mysql-server启动查看服务实例名，测试之后未找到）"><a href="#7、-i-服务的实例名（官方文档说通过mysql-server启动查看服务实例名，测试之后未找到）" class="headerlink" title="7、-i 服务的实例名（官方文档说通过mysql.server启动查看服务实例名，测试之后未找到）"></a>7、-i 服务的实例名（官方文档说通过mysql.server启动查看服务实例名，测试之后未找到）</h3><h3 id="8、-l-不从总时间内减去锁时间"><a href="#8、-l-不从总时间内减去锁时间" class="headerlink" title="8、-l 不从总时间内减去锁时间"></a>8、-l 不从总时间内减去锁时间</h3><h3 id="9、-r-反转排序顺序"><a href="#9、-r-反转排序顺序" class="headerlink" title="9、-r 反转排序顺序"></a>9、-r 反转排序顺序</h3><h3 id="10、-s-何种方式排序：t，at：按查询时间或平均查询时间排序-l，al：按锁定时间或平均锁定时间排序-r，ar：按发送的行或发送的平均行排序-c：按计数排序-默认情况下，按平均查询时间（相当于-s-at）排序。"><a href="#10、-s-何种方式排序：t，at：按查询时间或平均查询时间排序-l，al：按锁定时间或平均锁定时间排序-r，ar：按发送的行或发送的平均行排序-c：按计数排序-默认情况下，按平均查询时间（相当于-s-at）排序。" class="headerlink" title="10、-s 何种方式排序：t，at：按查询时间或平均查询时间排序;l，al：按锁定时间或平均锁定时间排序;r，ar：按发送的行或发送的平均行排序;c：按计数排序;默认情况下，按平均查询时间（相当于-s at）排序。"></a>10、-s 何种方式排序：t，at：按查询时间或平均查询时间排序;l，al：按锁定时间或平均锁定时间排序;r，ar：按发送的行或发送的平均行排序;c：按计数排序;默认情况下，按平均查询时间（相当于-s at）排序。</h3><p>按总时间排序：<br>/data/mysql/bin/mysqldumpslow -s t -t 5 -l  /data/mysql/log/slow.log </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Count: 50831  Time&#x3D;1.49s (75892s)  Lock&#x3D;0.00s (4s)  Rows&#x3D;1.0 (50831), cdax[cdax]@4hosts</span><br><span class="line">  SELECT count(N) FROM test WHERE (trade_asset &#x3D; &#39;S&#39; AND price_asset &#x3D; &#39;S&#39; AND broker_id &#x3D; &#39;S&#39; AND broker_uid &#x3D; N AND state IN (&#39;S&#39;, &#39;S&#39;) AND create_time &gt;&#x3D; &#39;S&#39; AND create_time &lt;&#x3D; &#39;S&#39;)</span><br><span class="line">Count: 12053  Time&#x3D;1.14s (13735s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;1.0 (12053), 2users@5hosts</span><br><span class="line">  SELECT count(N) FROM test WHERE (trade_asset &#x3D; &#39;S&#39; AND price_asset &#x3D; &#39;S&#39; AND broker_id &#x3D; &#39;S&#39; AND broker_uid &#x3D; N AND state IN (&#39;S&#39;, &#39;S&#39;))</span><br><span class="line">Count: 6674  Time&#x3D;1.52s (10151s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;9.9 (66259), 2users@5hosts</span><br><span class="line">  SELECT id, order_no, broker_id, broker_uid, plat_id, trade_asset, price_asset, trade_type, order_type, price, number, client_order_no, traded_number, over_number, traded_money, fee_asset, fee, broker_fee, cloud_fee, create_time, update_time, state, send_state, error_code, error_msg FROM test WHERE (trade_asset &#x3D; &#39;S&#39; AND price_asset &#x3D; &#39;S&#39; AND broker_id &#x3D; &#39;S&#39; AND broker_uid &#x3D; N AND state IN (&#39;S&#39;, &#39;S&#39;)) order by create_time desc LIMIT N</span><br><span class="line">Count: 84  Time&#x3D;40.42s (3394s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;1.0 (84), 42users@42hosts</span><br><span class="line">  SELECT member_id, member_host, member_port, member_state, @@group_replication_single_primary_mode FROM performance_schema.replication_group_members WHERE channel_name &#x3D; &#39;S&#39;</span><br><span class="line">Count: 16300  Time&#x3D;0.20s (3291s)  Lock&#x3D;0.00s (1s)  Rows&#x3D;1.0 (16300), cdax[cdax]@[10.1.110.9]</span><br><span class="line">  SELECT count(N) FROM test WHERE (state &#x3D; &#39;S&#39; AND send_state &#x3D; &#39;S&#39; AND update_time &lt; &#39;S&#39;)</span><br></pre></td></tr></table></figure>
+<p>按平均时间排序：<br>/data/mysql/bin/mysqldumpslow -s at -t 5 -l  /data/mysql/log/slow.log </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;log&#x2F;slow.log</span><br><span class="line">Count: 7  Time&#x3D;226.54s (1585s)  Lock&#x3D;94.51s (661s)  Rows&#x3D;0.0 (0), root[root]@localhost</span><br><span class="line">  UPDATE test SET state &#x3D; &#39;S&#39; where state&#x3D;&#39;S&#39; and id in (select id from (select id from test ORDER BY id ASC LIMIT N,N) as tmp)</span><br><span class="line">Count: 7  Time&#x3D;157.43s (1101s)  Lock&#x3D;75.80s (530s)  Rows&#x3D;0.0 (0), root[root]@localhost</span><br><span class="line">  UPDATE test SET state &#x3D; &#39;S&#39; where state&#x3D;&#39;S&#39; and id &gt;&#x3D;N and id &lt;&#x3D; N</span><br><span class="line">Count: 35  Time&#x3D;79.40s (2779s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;18592104.7 (650723665), root[root]@localhost</span><br><span class="line">  SELECT &#x2F;*!N SQL_NO_CACHE *&#x2F; * FROM &#96;finance_detail&#96;</span><br><span class="line">Count: 35  Time&#x3D;59.29s (2075s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;9207179.6 (322251287), root[root]@localhost</span><br><span class="line">  SELECT &#x2F;*!N SQL_NO_CACHE *&#x2F; * FROM &#96;test&#96;</span><br><span class="line">Count: 1  Time&#x3D;44.68s (44s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;2.0 (2), root[root]@localhost</span><br><span class="line">  select distinct state from test  order by id</span><br></pre></td></tr></table></figure>
+<p>按锁表时间排序<br>[root@mw-mysql-2 ~]# /data/mysql/bin/mysqldumpslow -s l -t 5 -l  /data/mysql/log/slow.log </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;log&#x2F;slow.log</span><br><span class="line">Count: 7  Time&#x3D;226.54s (1585s)  Lock&#x3D;94.51s (661s)  Rows&#x3D;0.0 (0), root[root]@localhost</span><br><span class="line">  UPDATE test SET state &#x3D; &#39;S&#39; where state&#x3D;&#39;S&#39; and id in (select id from (select id from test ORDER BY id ASC LIMIT N,N) as tmp)</span><br><span class="line">Count: 7  Time&#x3D;157.43s (1101s)  Lock&#x3D;75.80s (530s)  Rows&#x3D;0.0 (0), root[root]@localhost</span><br><span class="line">  UPDATE test SET state &#x3D; &#39;S&#39; where state&#x3D;&#39;S&#39; and id &gt;&#x3D;N and id &lt;&#x3D; N</span><br><span class="line">Count: 50831  Time&#x3D;1.49s (75892s)  Lock&#x3D;0.00s (4s)  Rows&#x3D;1.0 (50831), cdax[cdax]@4hosts</span><br><span class="line">  SELECT count(N) FROM test WHERE (trade_asset &#x3D; &#39;S&#39; AND price_asset &#x3D; &#39;S&#39; AND broker_id &#x3D; &#39;S&#39; AND broker_uid &#x3D; N AND state IN (&#39;S&#39;, &#39;S&#39;) AND create_time &gt;&#x3D; &#39;S&#39; AND create_time &lt;&#x3D; &#39;S&#39;)</span><br><span class="line">Count: 16300  Time&#x3D;0.20s (3291s)  Lock&#x3D;0.00s (1s)  Rows&#x3D;1.0 (16300), cdax[cdax]@[10.1.110.9]</span><br><span class="line">  SELECT count(N) FROM test WHERE (state &#x3D; &#39;S&#39; AND send_state &#x3D; &#39;S&#39; AND update_time &lt; &#39;S&#39;)</span><br><span class="line">Count: 12053  Time&#x3D;1.14s (13735s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;1.0 (12053), 2users@5hosts</span><br><span class="line">  SELECT count(N) FROM test WHERE (trade_asset &#x3D; &#39;S&#39; AND price_asset &#x3D; &#39;S&#39; AND broker_id &#x3D; &#39;S&#39; AND broker_uid &#x3D; N AND state IN (&#39;S&#39;, &#39;S&#39;))</span><br></pre></td></tr></table></figure>
+<p>按锁表平均时间排序<br>[root@mw-mysql-2 ~]# /data/mysql/bin/mysqldumpslow -s al -t 5 -l  /data/mysql/log/slow.log </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;log&#x2F;slow.log</span><br><span class="line">Count: 7  Time&#x3D;226.54s (1585s)  Lock&#x3D;94.51s (661s)  Rows&#x3D;0.0 (0), root[root]@localhost</span><br><span class="line">  UPDATE test SET state &#x3D; &#39;S&#39; where state&#x3D;&#39;S&#39; and id in (select id from (select id from test ORDER BY id ASC LIMIT N,N) as tmp)</span><br><span class="line">Count: 7  Time&#x3D;157.43s (1101s)  Lock&#x3D;75.80s (530s)  Rows&#x3D;0.0 (0), root[root]@localhost</span><br><span class="line">  UPDATE test SET state &#x3D; &#39;S&#39; where state&#x3D;&#39;S&#39; and id &gt;&#x3D;N and id &lt;&#x3D; N</span><br><span class="line">Count: 1  Time&#x3D;44.68s (44s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;2.0 (2), root[root]@localhost</span><br><span class="line">  select distinct state from test  order by id</span><br><span class="line">Count: 1  Time&#x3D;0.98s (0s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;1.0 (1), root[root]@localhost</span><br><span class="line">  select count(*) from test where broker_id &#x3D; &#39;S&#39; AND broker_uid &#x3D; N</span><br><span class="line">Count: 2  Time&#x3D;27.04s (54s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;2.0 (4), root[root]@localhost</span><br><span class="line">  select distinct state from test where id in (select id from (select id from test ORDER BY id ASC LIMIT N,N) as tmp)</span><br></pre></td></tr></table></figure>
+<p>按返回行排序<br>/data/mysql/bin/mysqldumpslow -s r -t 5 -l  /data/mysql/log/slow.log </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;log&#x2F;slow.log</span><br><span class="line">Count: 35  Time&#x3D;79.40s (2779s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;18592104.7 (650723665), root[root]@localhost</span><br><span class="line">  SELECT &#x2F;*!N SQL_NO_CACHE *&#x2F; * FROM &#96;finance_detail&#96;</span><br><span class="line">Count: 35  Time&#x3D;59.29s (2075s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;9207179.6 (322251287), root[root]@localhost</span><br><span class="line">  SELECT &#x2F;*!N SQL_NO_CACHE *&#x2F; * FROM &#96;test&#96;</span><br><span class="line">Count: 4  Time&#x3D;7.10s (28s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;1121601.2 (4486405), root[root]@localhost</span><br><span class="line">  SELECT &#x2F;*!N SQL_NO_CACHE *&#x2F; * FROM &#96;mq_produce_log_1&#96;</span><br><span class="line">Count: 4  Time&#x3D;4.29s (17s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;1121591.2 (4486365), root[root]@localhost</span><br><span class="line">  SELECT &#x2F;*!N SQL_NO_CACHE *&#x2F; * FROM &#96;mq_produce_log_2&#96;</span><br><span class="line">Count: 4  Time&#x3D;4.72s (18s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;1121587.5 (4486350), root[root]@localhost</span><br><span class="line">  SELECT &#x2F;*!N SQL_NO_CACHE *&#x2F; * FROM &#96;mq_produce_log_3&#96;</span><br></pre></td></tr></table></figure>
+<p>按平均返回行排序<br>/data/mysql/bin/mysqldumpslow -s ar -t 5 -l  /data/mysql/log/slow.log </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;log&#x2F;slow.log</span><br><span class="line">Count: 35  Time&#x3D;79.40s (2779s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;18592104.7 (650723665), root[root]@localhost</span><br><span class="line">  SELECT &#x2F;*!N SQL_NO_CACHE *&#x2F; * FROM &#96;finance_detail&#96;</span><br><span class="line">Count: 35  Time&#x3D;59.29s (2075s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;9207179.6 (322251287), root[root]@localhost</span><br><span class="line">  SELECT &#x2F;*!N SQL_NO_CACHE *&#x2F; * FROM &#96;test&#96;</span><br><span class="line">Count: 4  Time&#x3D;7.10s (28s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;1121601.2 (4486405), root[root]@localhost</span><br><span class="line">  SELECT &#x2F;*!N SQL_NO_CACHE *&#x2F; * FROM &#96;mq_produce_log_1&#96;</span><br><span class="line">Count: 4  Time&#x3D;4.29s (17s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;1121591.2 (4486365), root[root]@localhost</span><br><span class="line">  SELECT &#x2F;*!N SQL_NO_CACHE *&#x2F; * FROM &#96;mq_produce_log_2&#96;</span><br><span class="line">Count: 4  Time&#x3D;4.72s (18s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;1121587.5 (4486350), root[root]@localhost</span><br><span class="line">  SELECT &#x2F;*!N SQL_NO_CACHE *&#x2F; * FROM &#96;mq_produce_log_3&#96;</span><br></pre></td></tr></table></figure>
+<p>按查询次数排序<br>/data/mysql/bin/mysqldumpslow -s c -t 5 -l  /data/mysql/log/slow.log </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;log&#x2F;slow.log</span><br><span class="line">Count: 50831  Time&#x3D;1.49s (75892s)  Lock&#x3D;0.00s (4s)  Rows&#x3D;1.0 (50831), cdax[cdax]@4hosts</span><br><span class="line">  SELECT count(N) FROM test WHERE (trade_asset &#x3D; &#39;S&#39; AND price_asset &#x3D; &#39;S&#39; AND broker_id &#x3D; &#39;S&#39; AND broker_uid &#x3D; N AND state IN (&#39;S&#39;, &#39;S&#39;) AND create_time &gt;&#x3D; &#39;S&#39; AND create_time &lt;&#x3D; &#39;S&#39;)</span><br><span class="line">Count: 16300  Time&#x3D;0.20s (3291s)  Lock&#x3D;0.00s (1s)  Rows&#x3D;1.0 (16300), cdax[cdax]@[10.1.110.9]</span><br><span class="line">  SELECT count(N) FROM test WHERE (state &#x3D; &#39;S&#39; AND send_state &#x3D; &#39;S&#39; AND update_time &lt; &#39;S&#39;)</span><br><span class="line">Count: 12053  Time&#x3D;1.14s (13735s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;1.0 (12053), 2users@5hosts</span><br><span class="line">  SELECT count(N) FROM test WHERE (trade_asset &#x3D; &#39;S&#39; AND price_asset &#x3D; &#39;S&#39; AND broker_id &#x3D; &#39;S&#39; AND broker_uid &#x3D; N AND state IN (&#39;S&#39;, &#39;S&#39;))</span><br><span class="line">Count: 6674  Time&#x3D;1.52s (10151s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;9.9 (66259), 2users@5hosts</span><br><span class="line">  SELECT id, order_no, broker_id, broker_uid, plat_id, trade_asset, price_asset, trade_type, order_type, price, number, client_order_no, traded_number, over_number, traded_money, fee_asset, fee, broker_fee, cloud_fee, create_time, update_time, state, send_state, error_code, error_msg FROM test WHERE (trade_asset &#x3D; &#39;S&#39; AND price_asset &#x3D; &#39;S&#39; AND broker_id &#x3D; &#39;S&#39; AND broker_uid &#x3D; N AND state IN (&#39;S&#39;, &#39;S&#39;)) order by create_time desc LIMIT N</span><br><span class="line">Count: 619  Time&#x3D;1.20s (741s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;10.0 (6181), cdax[cdax]@[10.1.110.9]</span><br><span class="line">  SELECT  id,order_no,broker_id,broker_uid,plat_id,trade_asset,price_asset,trade_type,order_type,price,number,client_order_no,traded_number,over_number,traded_money,fee_asset,fee,broker_fee,cloud_fee,create_time,update_time,state,send_state,error_code,error_msg  FROM test  WHERE       (  state &#x3D; &#39;S&#39;</span><br><span class="line">  and send_state &#x3D; &#39;S&#39;</span><br><span class="line">  and update_time &lt; &#39;S&#39; ) LIMIT N</span><br></pre></td></tr></table></figure>
+<p>添加-r参数对取到值反转排序：<br>/data/mysql/bin/mysqldumpslow -s c -t 5 -l -r  /data/mysql/log/slow.log </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Reading mysql slow query log from &#x2F;data&#x2F;mysql&#x2F;log&#x2F;slow.log</span><br><span class="line">Count: 619  Time&#x3D;1.20s (741s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;10.0 (6181), cdax[cdax]@[10.1.110.9]</span><br><span class="line">  SELECT  id,order_no,broker_id,broker_uid,plat_id,trade_asset,price_asset,trade_type,order_type,price,number,client_order_no,traded_number,over_number,traded_money,fee_asset,fee,broker_fee,cloud_fee,create_time,update_time,state,send_state,error_code,error_msg  FROM test  WHERE       (  state &#x3D; &#39;S&#39;</span><br><span class="line">  and send_state &#x3D; &#39;S&#39;</span><br><span class="line">  and update_time &lt; &#39;S&#39; ) LIMIT N</span><br><span class="line">Count: 6674  Time&#x3D;1.52s (10151s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;9.9 (66259), 2users@5hosts</span><br><span class="line">  SELECT id, order_no, broker_id, broker_uid, plat_id, trade_asset, price_asset, trade_type, order_type, price, number, client_order_no, traded_number, over_number, traded_money, fee_asset, fee, broker_fee, cloud_fee, create_time, update_time, state, send_state, error_code, error_msg FROM test WHERE (trade_asset &#x3D; &#39;S&#39; AND price_asset &#x3D; &#39;S&#39; AND broker_id &#x3D; &#39;S&#39; AND broker_uid &#x3D; N AND state IN (&#39;S&#39;, &#39;S&#39;)) order by create_time desc LIMIT N</span><br><span class="line">Count: 12053  Time&#x3D;1.14s (13735s)  Lock&#x3D;0.00s (0s)  Rows&#x3D;1.0 (12053), 2users@5hosts</span><br><span class="line">  SELECT count(N) FROM test WHERE (trade_asset &#x3D; &#39;S&#39; AND price_asset &#x3D; &#39;S&#39; AND broker_id &#x3D; &#39;S&#39; AND broker_uid &#x3D; N AND state IN (&#39;S&#39;, &#39;S&#39;))</span><br><span class="line">Count: 16300  Time&#x3D;0.20s (3291s)  Lock&#x3D;0.00s (1s)  Rows&#x3D;1.0 (16300), cdax[cdax]@[10.1.110.9]</span><br><span class="line">  SELECT count(N) FROM test WHERE (state &#x3D; &#39;S&#39; AND send_state &#x3D; &#39;S&#39; AND update_time &lt; &#39;S&#39;)</span><br><span class="line">Count: 50831  Time&#x3D;1.49s (75892s)  Lock&#x3D;0.00s (4s)  Rows&#x3D;1.0 (50831), cdax[cdax]@4hosts</span><br><span class="line">  SELECT count(N) FROM test WHERE (trade_asset &#x3D; &#39;S&#39; AND price_asset &#x3D; &#39;S&#39; AND broker_id &#x3D; &#39;S&#39; AND broker_uid &#x3D; N AND state IN (&#39;S&#39;, &#39;S&#39;) AND create_time &gt;&#x3D; &#39;S&#39; AND create_time &lt;&#x3D; &#39;S&#39;)</span><br></pre></td></tr></table></figure>
+<h3 id="11、-t-按指定数字显示行输出"><a href="#11、-t-按指定数字显示行输出" class="headerlink" title="11、-t 按指定数字显示行输出"></a>11、-t 按指定数字显示行输出</h3><h3 id="12、–verbose-详细模式"><a href="#12、–verbose-详细模式" class="headerlink" title="12、–verbose 详细模式"></a>12、–verbose 详细模式</h3><h3 id="13、如果不小心删掉了slow-log可通过flush-log参数来重新生成慢日志文件（定期做日志切割的时候可能会用到）"><a href="#13、如果不小心删掉了slow-log可通过flush-log参数来重新生成慢日志文件（定期做日志切割的时候可能会用到）" class="headerlink" title="13、如果不小心删掉了slow.log可通过flush-log参数来重新生成慢日志文件（定期做日志切割的时候可能会用到）"></a>13、如果不小心删掉了slow.log可通过flush-log参数来重新生成慢日志文件（定期做日志切割的时候可能会用到）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -u root -ptest flush-logs slow</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/12/mysqldumpslow参数详解/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/11/mysql limit参数详解及使用过程遇到的问题/"><span>[Mysql] mysql limit参数详解及使用过程遇到的问题</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/11/mysql limit参数详解及使用过程遇到的问题/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-11T11:08:40.000Z">
+          2018-09-11
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="前提：开发反应一条sql查询很慢，查看sql执行计划："><a href="#前提：开发反应一条sql查询很慢，查看sql执行计划：" class="headerlink" title="前提：开发反应一条sql查询很慢，查看sql执行计划："></a>前提：开发反应一条sql查询很慢，查看sql执行计划：</h3><p><img src="https://i.imgur.com/0g4vJQi.png" alt=""><br>查看到没有走设置的索引，而是走了主键索引，尝试去掉limit行限制之后：<br><img src="https://i.imgur.com/cHs3D6a.png" alt=""><br>发现去掉limit走索引正常。<br>是用group by和limit测试执行计划是否正常：<br><img src="https://i.imgur.com/taIuBAg.png" alt=""><br><img src="https://i.imgur.com/zmycRJf.png" alt=""><br>group by与limit组合会影响执行计划。<br>只使用limit，去掉order by和group by实验：<br><img src="https://i.imgur.com/ur8UNHg.png" alt=""><br><img src="https://i.imgur.com/W5mAiMg.png" alt=""><br>执行计划没有受影响。<br>结论：order by、group by与limit在一起执行的时候要注意执行计划是否影响，如果不得不使用该组合，担心执行计划被更改，建议使用force index(index_name)，或者多次测试执行计划不会被影响再放到生产环境里。<br>下面介绍官方文档就limit参数的解释：</p>
+<h3 id="0、如果是想要在结果集中获取固定的行数，在查询语句中使用limit子句，而不是获取全部的数据之后扔掉额外的数据。"><a href="#0、如果是想要在结果集中获取固定的行数，在查询语句中使用limit子句，而不是获取全部的数据之后扔掉额外的数据。" class="headerlink" title="0、如果是想要在结果集中获取固定的行数，在查询语句中使用limit子句，而不是获取全部的数据之后扔掉额外的数据。"></a>0、如果是想要在结果集中获取固定的行数，在查询语句中使用limit子句，而不是获取全部的数据之后扔掉额外的数据。</h3><h3 id="1、如果使用limit子句选择少数行，正常情况下倾向于进行全表扫描的时候，mysql会使用索引。"><a href="#1、如果使用limit子句选择少数行，正常情况下倾向于进行全表扫描的时候，mysql会使用索引。" class="headerlink" title="1、如果使用limit子句选择少数行，正常情况下倾向于进行全表扫描的时候，mysql会使用索引。"></a>1、如果使用limit子句选择少数行，正常情况下倾向于进行全表扫描的时候，mysql会使用索引。</h3><h3 id="2、如果使用order-by与limit-row-count组合，mysql只要找到排序结果row-count行数就会停止排序，而不是把所有的结果排序。排序使用索引效率更高。如果一个文件排序必须完成，在row-count行被找到之前，选择不带限制语句的所有行对他们进行排序。在初始化行被找到之后，mysql将不在对结果集排序。如果order-by列多行值相同，服务器返回这些行没有任何顺序，根据全部的执行计划会有所不同。换句话说，这些行的排序顺序是不确定的相对于非排序列。"><a href="#2、如果使用order-by与limit-row-count组合，mysql只要找到排序结果row-count行数就会停止排序，而不是把所有的结果排序。排序使用索引效率更高。如果一个文件排序必须完成，在row-count行被找到之前，选择不带限制语句的所有行对他们进行排序。在初始化行被找到之后，mysql将不在对结果集排序。如果order-by列多行值相同，服务器返回这些行没有任何顺序，根据全部的执行计划会有所不同。换句话说，这些行的排序顺序是不确定的相对于非排序列。" class="headerlink" title="2、如果使用order by与limit row_count组合，mysql只要找到排序结果row_count行数就会停止排序，而不是把所有的结果排序。排序使用索引效率更高。如果一个文件排序必须完成，在row_count行被找到之前，选择不带限制语句的所有行对他们进行排序。在初始化行被找到之后，mysql将不在对结果集排序。如果order by列多行值相同，服务器返回这些行没有任何顺序，根据全部的执行计划会有所不同。换句话说，这些行的排序顺序是不确定的相对于非排序列。"></a>2、如果使用order by与limit row_count组合，mysql只要找到排序结果row_count行数就会停止排序，而不是把所有的结果排序。排序使用索引效率更高。如果一个文件排序必须完成，在row_count行被找到之前，选择不带限制语句的所有行对他们进行排序。在初始化行被找到之后，mysql将不在对结果集排序。如果order by列多行值相同，服务器返回这些行没有任何顺序，根据全部的执行计划会有所不同。换句话说，这些行的排序顺序是不确定的相对于非排序列。</h3><p>limit会影响执行计划，因此orderby带有limit和不带有limit返回行会是不同排序。</p>
+<h3 id="3、官方文档的实验如下："><a href="#3、官方文档的实验如下：" class="headerlink" title="3、官方文档的实验如下："></a>3、官方文档的实验如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM ratings ORDER BY category;</span><br><span class="line">+----+----------+--------+</span><br><span class="line">| id | category | rating |</span><br><span class="line">+----+----------+--------+</span><br><span class="line">|  1 |        1 |    4.5 |</span><br><span class="line">|  5 |        1 |    3.2 |</span><br><span class="line">|  3 |        2 |    3.7 |</span><br><span class="line">|  4 |        2 |    3.5 |</span><br><span class="line">|  6 |        2 |    3.5 |</span><br><span class="line">|  2 |        3 |    5.0 |</span><br><span class="line">|  7 |        3 |    2.7 |</span><br><span class="line">+----+----------+--------+</span><br></pre></td></tr></table></figure>
+<p>带有limit子句会影响每一个行category的返回值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM ratings ORDER BY category LIMIT 5;</span><br><span class="line">+----+----------+--------+</span><br><span class="line">| id | category | rating |</span><br><span class="line">+----+----------+--------+</span><br><span class="line">|  1 |        1 |    4.5 |</span><br><span class="line">|  5 |        1 |    3.2 |</span><br><span class="line">|  4 |        2 |    3.5 |</span><br><span class="line">|  3 |        2 |    3.7 |</span><br><span class="line">|  6 |        2 |    3.5 |</span><br><span class="line">+----+----------+--------+</span><br></pre></td></tr></table></figure>
+<p>对于带有limit和不带有limit的子句返回相同的行排序是很重要的，增加合适的列在order by子句中确保顺序。例如在order by后加一个id的排序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM ratings ORDER BY category, id;</span><br><span class="line">+----+----------+--------+</span><br><span class="line">| id | category | rating |</span><br><span class="line">+----+----------+--------+</span><br><span class="line">|  1 |        1 |    4.5 |</span><br><span class="line">|  5 |        1 |    3.2 |</span><br><span class="line">|  3 |        2 |    3.7 |</span><br><span class="line">|  4 |        2 |    3.5 |</span><br><span class="line">|  6 |        2 |    3.5 |</span><br><span class="line">|  2 |        3 |    5.0 |</span><br><span class="line">|  7 |        3 |    2.7 |</span><br><span class="line">+----+----------+--------+</span><br><span class="line">mysql&gt; SELECT * FROM ratings ORDER BY category, id LIMIT 5;</span><br><span class="line">+----+----------+--------+</span><br><span class="line">| id | category | rating |</span><br><span class="line">+----+----------+--------+</span><br><span class="line">|  1 |        1 |    4.5 |</span><br><span class="line">|  5 |        1 |    3.2 |</span><br><span class="line">|  3 |        2 |    3.7 |</span><br><span class="line">|  4 |        2 |    3.5 |</span><br><span class="line">|  6 |        2 |    3.5 |</span><br><span class="line">+----+----------+--------+</span><br></pre></td></tr></table></figure>
+<p>4、根据官方文档提供的信息，自己动手实验，创建测试数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">create table ratings (id int,category int,rating varchar(10));</span><br><span class="line">insert into ratings values(5,1,&#39;3.2&#39;),(1,1,&#39;4.5&#39;),(4,2,&#39;3.5&#39;),(3,2,&#39;3.7&#39;),(6,2,&#39;3.5&#39;),(7,3,&#39;2.7&#39;),(2,3,&#39;5.0&#39;);</span><br><span class="line">root@db 08:47:  [test]&gt; SELECT * FROM ratings order by category;</span><br><span class="line">+------+----------+--------+</span><br><span class="line">| id   | category | rating |</span><br><span class="line">+------+----------+--------+</span><br><span class="line">|    5 |        1 | 3.2    |</span><br><span class="line">|    1 |        1 | 4.5    |</span><br><span class="line">|    4 |        2 | 3.5    |</span><br><span class="line">|    3 |        2 | 3.7    |</span><br><span class="line">|    6 |        2 | 3.5    |</span><br><span class="line">|    7 |        3 | 2.7    |</span><br><span class="line">|    2 |        3 | 5.0    |</span><br><span class="line">+------+----------+--------+</span><br><span class="line">7 rows in set (0.00 sec)</span><br><span class="line">root@db 08:47:  [test]&gt; SELECT * FROM ratings order by category limit 5;</span><br><span class="line">+------+----------+--------+</span><br><span class="line">| id   | category | rating |</span><br><span class="line">+------+----------+--------+</span><br><span class="line">|    5 |        1 | 3.2    |</span><br><span class="line">|    1 |        1 | 4.5    |</span><br><span class="line">|    4 |        2 | 3.5    |</span><br><span class="line">|    3 |        2 | 3.7    |</span><br><span class="line">|    6 |        2 | 3.5    |</span><br><span class="line">+------+----------+--------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>id列没有做任何排序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@db 08:47:  [test]&gt; SELECT * FROM ratings order by category,id;</span><br><span class="line">+------+----------+--------+</span><br><span class="line">| id   | category | rating |</span><br><span class="line">+------+----------+--------+</span><br><span class="line">|    1 |        1 | 4.5    |</span><br><span class="line">|    5 |        1 | 3.2    |</span><br><span class="line">|    3 |        2 | 3.7    |</span><br><span class="line">|    4 |        2 | 3.5    |</span><br><span class="line">|    6 |        2 | 3.5    |</span><br><span class="line">|    2 |        3 | 5.0    |</span><br><span class="line">|    7 |        3 | 2.7    |</span><br><span class="line">+------+----------+--------+</span><br><span class="line">7 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>在order by后多加一个id列，category和id列都按大小做了排序。</p>
+<p>5、尝试在对id列添加主键索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">root@db 09:10:  [test]&gt; alter table ratings add primary key(id);</span><br><span class="line">Query OK, 0 rows affected (0.11 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line">root@db 09:10:  [test]&gt; SELECT * FROM ratings order by category;</span><br><span class="line">+----+----------+--------+</span><br><span class="line">| id | category | rating |</span><br><span class="line">+----+----------+--------+</span><br><span class="line">|  1 |        1 | 4.5    |</span><br><span class="line">|  5 |        1 | 3.2    |</span><br><span class="line">|  3 |        2 | 3.7    |</span><br><span class="line">|  4 |        2 | 3.5    |</span><br><span class="line">|  6 |        2 | 3.5    |</span><br><span class="line">|  2 |        3 | 5.0    |</span><br><span class="line">|  7 |        3 | 2.7    |</span><br><span class="line">+----+----------+--------+</span><br><span class="line">7 rows in set (0.00 sec)</span><br><span class="line">root@db 09:10:  [test]&gt; SELECT * FROM ratings order by category limit 5;</span><br><span class="line">+----+----------+--------+</span><br><span class="line">| id | category | rating |</span><br><span class="line">+----+----------+--------+</span><br><span class="line">|  1 |        1 | 4.5    |</span><br><span class="line">|  5 |        1 | 3.2    |</span><br><span class="line">|  3 |        2 | 3.7    |</span><br><span class="line">|  4 |        2 | 3.5    |</span><br><span class="line">|  6 |        2 | 3.5    |</span><br><span class="line">+----+----------+--------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>添加主键之后id和category列都按大小排序。</p>
+<h3 id="6、如果使用limit-row-count和distinct联合，mysql停止查询一旦找到row-count唯一行数。"><a href="#6、如果使用limit-row-count和distinct联合，mysql停止查询一旦找到row-count唯一行数。" class="headerlink" title="6、如果使用limit row_count和distinct联合，mysql停止查询一旦找到row_count唯一行数。"></a>6、如果使用limit row_count和distinct联合，mysql停止查询一旦找到row_count唯一行数。</h3><h3 id="7、一些情况下，group-by通过顺序读取索引来解决（或者在索引上做一个排序），然后统计信息直到索引值发生变化。在一些情况下，limit-row-count不计算任何不必要group-by值。"><a href="#7、一些情况下，group-by通过顺序读取索引来解决（或者在索引上做一个排序），然后统计信息直到索引值发生变化。在一些情况下，limit-row-count不计算任何不必要group-by值。" class="headerlink" title="7、一些情况下，group by通过顺序读取索引来解决（或者在索引上做一个排序），然后统计信息直到索引值发生变化。在一些情况下，limit row_count不计算任何不必要group by值。"></a>7、一些情况下，group by通过顺序读取索引来解决（或者在索引上做一个排序），然后统计信息直到索引值发生变化。在一些情况下，limit row_count不计算任何不必要group by值。</h3><h3 id="8、只要mysql发送需要的行数据到客户端，并中止查询除非使用sql-cal-found-rows函数。在这种情况下，可以使用select-found-rows-获取行数。"><a href="#8、只要mysql发送需要的行数据到客户端，并中止查询除非使用sql-cal-found-rows函数。在这种情况下，可以使用select-found-rows-获取行数。" class="headerlink" title="8、只要mysql发送需要的行数据到客户端，并中止查询除非使用sql_cal_found_rows函数。在这种情况下，可以使用select found_rows()获取行数。"></a>8、只要mysql发送需要的行数据到客户端，并中止查询除非使用sql_cal_found_rows函数。在这种情况下，可以使用select found_rows()获取行数。</h3><h3 id="9、limit-0快速返回一个空集。对于检查查询有效性很用帮助。"><a href="#9、limit-0快速返回一个空集。对于检查查询有效性很用帮助。" class="headerlink" title="9、limit 0快速返回一个空集。对于检查查询有效性很用帮助。"></a>9、limit 0快速返回一个空集。对于检查查询有效性很用帮助。</h3><h3 id="10、如果服务使用临时表来解决查询，使用limit-row-count子句来计算需要多少空间。"><a href="#10、如果服务使用临时表来解决查询，使用limit-row-count子句来计算需要多少空间。" class="headerlink" title="10、如果服务使用临时表来解决查询，使用limit row_count子句来计算需要多少空间。"></a>10、如果服务使用临时表来解决查询，使用limit row_count子句来计算需要多少空间。</h3><h3 id="11、如果order-by没有用索引并且limit子句存在，优化器为了避免合并文件会使用内存filesort操作对内存内的行排序。"><a href="#11、如果order-by没有用索引并且limit子句存在，优化器为了避免合并文件会使用内存filesort操作对内存内的行排序。" class="headerlink" title="11、如果order by没有用索引并且limit子句存在，优化器为了避免合并文件会使用内存filesort操作对内存内的行排序。"></a>11、如果order by没有用索引并且limit子句存在，优化器为了避免合并文件会使用内存filesort操作对内存内的行排序。</h3>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/11/mysql limit参数详解及使用过程遇到的问题/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/10/mysql-Lock wait timeout exceeded; try restarting transaction/"><span>[Mysql] mysql-Lock wait timeout exceeded; try restarting transaction</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/10/mysql-Lock wait timeout exceeded; try restarting transaction/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-10T14:19:03.000Z">
+          2018-09-10
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、mysql执行一条update语句报错："><a href="#1、mysql执行一条update语句报错：" class="headerlink" title="1、mysql执行一条update语句报错："></a>1、mysql执行一条update语句报错：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction</span><br></pre></td></tr></table></figure>
+<p>查看当前系统锁等待超时时间:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;%lock_wait_timeout%&#39;;</span><br><span class="line">+--------------------------+-------+</span><br><span class="line">| Variable_name            | Value |</span><br><span class="line">+--------------------------+-------+</span><br><span class="line">| innodb_lock_wait_timeout | 30    |</span><br><span class="line">| lock_wait_timeout        | 60    |</span><br><span class="line">+--------------------------+-------+</span><br></pre></td></tr></table></figure>
+<p>innodb事务锁等待超时事件30s，其他非innodb事务锁等待事件超时为60s，</p>
+<h3 id="2、查看造成事务阻塞的信息："><a href="#2、查看造成事务阻塞的信息：" class="headerlink" title="2、查看造成事务阻塞的信息："></a>2、查看造成事务阻塞的信息：</h3><p>select * from information_schema.innodb_trx\G；查看innodb_trx各列参数，点击<a href="https://zeven0707.github.io/2018/09/10/mysql%20innodb_trx%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/" target="_blank" rel="noopener">此处</a><br><img src="https://i.imgur.com/FxQAYyR.png" alt=""><br>线程id为1308的事务被线程id为1311的事务阻塞，查看不到线程id为1311正在执行的语句</p>
+<h3 id="3、查看事务锁信息，记录了当前锁的相关信息；查看innodb-lock各列参数，点击此处："><a href="#3、查看事务锁信息，记录了当前锁的相关信息；查看innodb-lock各列参数，点击此处：" class="headerlink" title="3、查看事务锁信息，记录了当前锁的相关信息；查看innodb_lock各列参数，点击此处："></a>3、查看事务锁信息，记录了当前锁的相关信息；查看innodb_lock各列参数，点击<a href="https://zeven0707.github.io/2018/09/10/mysql%20innodb_locks%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/" target="_blank" rel="noopener">此处</a>：</h3><p>select * from information_schema.innodb_locks\G<br><img src="https://i.imgur.com/DlBpbOe.png" alt=""></p>
+<h3 id="4、查看线程id为1311的线程信息，select-from-information-schema-processlist-where-id-1311-G，"><a href="#4、查看线程id为1311的线程信息，select-from-information-schema-processlist-where-id-1311-G，" class="headerlink" title="4、查看线程id为1311的线程信息，select * from information_schema.processlist where id=1311\G，"></a>4、查看线程id为1311的线程信息，select * from information_schema.processlist where id=1311\G，</h3><p><img src="https://i.imgur.com/chR1kiv.png" alt=""><br>该事务command为sleep，表示事务sql语句已经执行完成，但是锁仍然存在，没有释放手动kill掉该线程，在执行其他操作正常。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill 1311</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/10/mysql-Lock wait timeout exceeded; try restarting transaction/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/10/mysql innodb_locks参数详解/"><span>[Mysql] mysql show innodb_locks详解</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/10/mysql innodb_locks参数详解/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-10T11:50:03.000Z">
+          2018-09-10
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、INFORMATION-SCHEMA-INNODB-LOCKS-提供innodb事务去请求但没有获取到的锁信息和事务阻塞其他事务的锁信息。执行命令如下："><a href="#1、INFORMATION-SCHEMA-INNODB-LOCKS-提供innodb事务去请求但没有获取到的锁信息和事务阻塞其他事务的锁信息。执行命令如下：" class="headerlink" title="1、INFORMATION_SCHEMA INNODB_LOCKS 提供innodb事务去请求但没有获取到的锁信息和事务阻塞其他事务的锁信息。执行命令如下："></a>1、INFORMATION_SCHEMA INNODB_LOCKS 提供innodb事务去请求但没有获取到的锁信息和事务阻塞其他事务的锁信息。执行命令如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from information_schema.innodb_locks\G</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/PCfQYeg.png" alt=""></p>
+<h3 id="2、innodb-locks各列参数详解："><a href="#2、innodb-locks各列参数详解：" class="headerlink" title="2、innodb_locks各列参数详解："></a>2、innodb_locks各列参数详解：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">lock_id:innodb唯一lock id。把他当做一个不透明的字符串。虽然lock_id当前包含trx_id，lock_id的数据格式在任何时间都肯能改变。不要写用于解析lock_id值得应用程序。</span><br><span class="line">lock_trx_id：持有锁的事务id。查询事务信息，与innodb_trx表中trx_id列匹配。</span><br><span class="line">lock_mode:锁请求。该值包括： S, X, IS, IX, GAP, AUTO_INC, and UNKNOWN。锁模式标识符可以组合用于识别特定的锁模式。查看更多信息，点击[此处]((https:&#x2F;&#x2F;dev.mysql.com&#x2F;doc&#x2F;refman&#x2F;8.0&#x2F;en&#x2F;innodb-locking.html))</span><br><span class="line">lock_type:锁类型。行锁为record，表锁为table。</span><br><span class="line">lock_table:被锁的表名，或者包含锁记录的表名。</span><br><span class="line">lock_index:lock_type为行锁时，该值为索引名，否则为空。</span><br><span class="line">lock_space:lock_type为行锁时，该值为锁记录的表空间的id，否则为空。</span><br><span class="line">lock_page：lock_type为行锁时，该值为锁记录页数量，否则为空。</span><br><span class="line">lock_rec:lock_type为行锁时，页内锁记录的堆数，否则为空。</span><br><span class="line">lock_data：与锁相关的数据。如果lock_type为行锁时，该值是锁记录的主键值，否则为空。这列包含锁定行的主键列的值，转化为一个有效的字符串，如果没有主键，lock_data是唯一innodb内部行id号。如果是键值或者范围大于索引的最大值会使用间隙锁，lock_data表示为supremum pseudo-record。当包含锁记录的页不在buffer pool内，innodb不去从磁盘获取页，为了避免不必要的磁盘操作，lock_data为空。</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/10/mysql innodb_locks参数详解/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/10/mysql innodb_trx参数详解/"><span>[Mysql] mysql innodb_trx参数详解</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/10/mysql innodb_trx参数详解/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-10T07:54:05.000Z">
+          2018-09-10
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、innodb-trx表提供了当前innodb引擎内每个事务的信息（只读事务除外），包括当一个事务启动，事务是否在等待一个锁，以及交易正在执行的语句（如果有的话）。查询语句："><a href="#1、innodb-trx表提供了当前innodb引擎内每个事务的信息（只读事务除外），包括当一个事务启动，事务是否在等待一个锁，以及交易正在执行的语句（如果有的话）。查询语句：" class="headerlink" title="1、innodb_trx表提供了当前innodb引擎内每个事务的信息（只读事务除外），包括当一个事务启动，事务是否在等待一个锁，以及交易正在执行的语句（如果有的话）。查询语句："></a>1、innodb_trx表提供了当前innodb引擎内每个事务的信息（只读事务除外），包括当一个事务启动，事务是否在等待一个锁，以及交易正在执行的语句（如果有的话）。查询语句：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from information_schema.innodb_trx;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/QEeh4UJ.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from information_schema.innodb_trx\G</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/MLfEIgP.png" alt=""></p>
+<h3 id="2、innodb-trx表列信息详解："><a href="#2、innodb-trx表列信息详解：" class="headerlink" title="2、innodb_trx表列信息详解："></a>2、innodb_trx表列信息详解：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">trx_id：唯一事务id号，只读事务和非锁事务是不会创建id的。</span><br><span class="line">TRX_WEIGHT：事务的高度，代表修改的行数（不一定准确）和被事务锁住的行数。为了解决死锁，innodb会选择一个高度最小的事务来当做牺牲品进行回滚。已经被更改的非交易型表的事务权重比其他事务高，即使改变的行和锁住的行比其他事务低。</span><br><span class="line">TRX_STATE：事务的执行状态，值一般分为：RUNNING, LOCK WAIT, ROLLING BACK, and COMMITTING.</span><br><span class="line">TRX_STARTED：事务的开始时间</span><br><span class="line">TRX_REQUESTED_LOCK_ID:如果trx_state是lockwait,显示事务当前等待锁的id，不是则为空。想要获取锁的信息，根据该lock_id，以innodb_locks表中lock_id列匹配条件进行查询，获取相关信息。</span><br><span class="line">TRX_WAIT_STARTED：如果trx_state是lockwait,该值代表事务开始等待锁的时间；否则为空。</span><br><span class="line">TRX_MYSQL_THREAD_ID：mysql线程id。想要获取该线程的信息，根据该thread_id，以INFORMATION_SCHEMA.PROCESSLIST表的id列为匹配条件进行查询。</span><br><span class="line">TRX_QUERY：事务正在执行的sql语句。</span><br><span class="line">TRX_OPERATION_STATE：事务当前的操作状态，没有则为空。</span><br><span class="line">TRX_TABLES_IN_USE：事务在处理当前sql语句使用innodb引擎表的数量。</span><br><span class="line">TRX_TABLES_LOCKED：当前sql语句有行锁的innodb表的数量。（因为只是行锁，不是表锁，表仍然可以被多个事务读和写）</span><br><span class="line">TRX_LOCK_STRUCTS：事务保留锁的数量。</span><br><span class="line">TRX_LOCK_MEMORY_BYTES：在内存中事务索结构占得空间大小。</span><br><span class="line">TRX_ROWS_LOCKED：事务行锁最准确的数量。这个值可能包括对于事务在物理上存在，实际不可见的删除标记的行。</span><br><span class="line">TRX_ROWS_MODIFIED：事务修改和插入的行数</span><br><span class="line">TRX_CONCURRENCY_TICKETS：该值代表当前事务在被清掉之前可以多少工作，由 innodb_concurrency_tickets系统变量值指定。</span><br><span class="line">TRX_ISOLATION_LEVEL：事务隔离等级。</span><br><span class="line">TRX_UNIQUE_CHECKS：当前事务唯一性检查启用还是禁用。当批量数据导入时，这个参数是关闭的。</span><br><span class="line">TRX_FOREIGN_KEY_CHECKS：当前事务的外键坚持是启用还是禁用。当批量数据导入时，这个参数是关闭的。</span><br><span class="line">TRX_LAST_FOREIGN_KEY_ERROR：最新一个外键错误信息，没有则为空。</span><br><span class="line">TRX_ADAPTIVE_HASH_LATCHED：自适应哈希索引是否被当前事务阻塞。当自适应哈希索引查找系统分区，一个单独的事务不会阻塞全部的自适应hash索引。自适应hash索引分区通过 innodb_adaptive_hash_index_parts参数控制，默认值为8。</span><br><span class="line">TRX_ADAPTIVE_HASH_TIMEOUT：是否为了自适应hash索引立即放弃查询锁，或者通过调用mysql函数保留它。当没有自适应hash索引冲突，该值为0并且语句保持锁直到结束。在冲突过程中，该值被计数为0，每句查询完之后立即释放门闩。当自适应hash索引查询系统被分区（由 innodb_adaptive_hash_index_parts参数控制），值保持为0。</span><br><span class="line">TRX_IS_READ_ONLY：值为1表示事务是read only。</span><br><span class="line">TRX_AUTOCOMMIT_NON_LOCKING：值为1表示事务是一个select语句，该语句没有使用for update或者shared mode锁，并且执行开启了autocommit，因此事务只包含一个语句。当TRX_AUTOCOMMIT_NON_LOCKING和TRX_IS_READ_ONLY同时为1，innodb通过降低事务开销和改变表数据库来优化事务。</span><br></pre></td></tr></table></figure>
+<h3 id="3、注意事项"><a href="#3、注意事项" class="headerlink" title="3、注意事项"></a>3、注意事项</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">该表用于当系统负载较高时，诊断性能问题。</span><br><span class="line">查询该表必须有process权限。</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/10/mysql innodb_trx参数详解/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/09/mysql show processlist详解/"><span>[Mysql] mysql show processlist详解</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/09/mysql show processlist详解/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-09T14:50:03.000Z">
+          2018-09-09
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="0、show-processlist查看正在运行的线程，如果你有process权限，能够看到所有的线程，如果没有权限只能看到自己的线程。"><a href="#0、show-processlist查看正在运行的线程，如果你有process权限，能够看到所有的线程，如果没有权限只能看到自己的线程。" class="headerlink" title="0、show processlist查看正在运行的线程，如果你有process权限，能够看到所有的线程，如果没有权限只能看到自己的线程。"></a>0、show processlist查看正在运行的线程，如果你有process权限，能够看到所有的线程，如果没有权限只能看到自己的线程。</h3><p>有管理员权限的用户，如下图所示：<br><img src="https://i.imgur.com/CwMY5kv.png" alt=""><br>没有管理权限的用户，如下图所示：：<br><img src="https://i.imgur.com/iJ8OO2x.png" alt=""><br>如果不加full关键字，每条语句的info信息栏只能显示前100个字符。<br>如果看到“too many connections”的错误信息，想要看看什么线程正在运行，使用show processlist语句是很有用的。mysql数据库会额外保持一个连接，供具有connection_admin或者super权限用户的使用，用以确保管理员能随时连接进来检查系统状况（假设你没有将此权限授予所有用户）。<br>show processlist输出列详解：</p>
+<h3 id="1、id：连接标识符，与INFORMATION-SCHEMA-PROCESSLIST表的id列显示的是同类型的值，如下图所示："><a href="#1、id：连接标识符，与INFORMATION-SCHEMA-PROCESSLIST表的id列显示的是同类型的值，如下图所示：" class="headerlink" title="1、id：连接标识符，与INFORMATION_SCHEMA PROCESSLIST表的id列显示的是同类型的值，如下图所示："></a>1、id：连接标识符，与INFORMATION_SCHEMA PROCESSLIST表的id列显示的是同类型的值，如下图所示：</h3><p><img src="https://i.imgur.com/Hl57tcb.png" alt=""><br>Performance_Schema threads表的processlist_id列也是相同值，由connection_id())函数返回值。<br><img src="https://i.imgur.com/CwS1fUD.png" alt=""><br>通过kill 语句可以杀掉查询到的线程，执行命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill id号</span><br></pre></td></tr></table></figure>
+<h3 id="2、user-代表数据库用户，如果是system-user代表非客户端线程，是服务器发起的处理内部事务的线程。这些线程可能是io线程、复制从库的sql线程、延迟行处理线程。对于system-user，host列没有任何信息。-unauthenticated-user是有客户端发起的，但是尚未对客户端用户进行验证的线程。event-scheduler-是监控调度事件的线程。"><a href="#2、user-代表数据库用户，如果是system-user代表非客户端线程，是服务器发起的处理内部事务的线程。这些线程可能是io线程、复制从库的sql线程、延迟行处理线程。对于system-user，host列没有任何信息。-unauthenticated-user是有客户端发起的，但是尚未对客户端用户进行验证的线程。event-scheduler-是监控调度事件的线程。" class="headerlink" title="2、user: 代表数据库用户，如果是system user代表非客户端线程，是服务器发起的处理内部事务的线程。这些线程可能是io线程、复制从库的sql线程、延迟行处理线程。对于system user，host列没有任何信息。 unauthenticated user是有客户端发起的，但是尚未对客户端用户进行验证的线程。event_scheduler 是监控调度事件的线程。"></a>2、user: 代表数据库用户，如果是system user代表非客户端线程，是服务器发起的处理内部事务的线程。这些线程可能是io线程、复制从库的sql线程、延迟行处理线程。对于system user，host列没有任何信息。 unauthenticated user是有客户端发起的，但是尚未对客户端用户进行验证的线程。event_scheduler 是监控调度事件的线程。</h3><h3 id="3、host：发起线程的客户的主机名（对于system-user，host这一列为空）。tcp-ip连接的主机名是：hostname：client-port格式，用这种格式来更方面查看客户端在做什么操作。"><a href="#3、host：发起线程的客户的主机名（对于system-user，host这一列为空）。tcp-ip连接的主机名是：hostname：client-port格式，用这种格式来更方面查看客户端在做什么操作。" class="headerlink" title="3、host：发起线程的客户的主机名（对于system user，host这一列为空）。tcp/ip连接的主机名是：hostname：client_port格式，用这种格式来更方面查看客户端在做什么操作。"></a>3、host：发起线程的客户的主机名（对于system user，host这一列为空）。tcp/ip连接的主机名是：hostname：client_port格式，用这种格式来更方面查看客户端在做什么操作。</h3><h3 id="4、db：如果指定了库名，会使用当前的库名；如果没有则为空。"><a href="#4、db：如果指定了库名，会使用当前的库名；如果没有则为空。" class="headerlink" title="4、db：如果指定了库名，会使用当前的库名；如果没有则为空。"></a>4、db：如果指定了库名，会使用当前的库名；如果没有则为空。</h3><h3 id="5、command：线程的命令类型。下面列举几种常见的线程命令，如果想查看详细信息点击此处"><a href="#5、command：线程的命令类型。下面列举几种常见的线程命令，如果想查看详细信息点击此处" class="headerlink" title="5、command：线程的命令类型。下面列举几种常见的线程命令，如果想查看详细信息点击此处"></a>5、command：线程的命令类型。下面列举几种常见的线程命令，如果想查看详细信息点击<a href="https://dev.mysql.com/doc/refman/8.0/en/thread-commands.html" target="_blank" rel="noopener">此处</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">connect：从复制已经连接到主库</span><br><span class="line">connect out：从复制正在连接到主库</span><br><span class="line">create db：正在执行一个创建库的操作。</span><br><span class="line">execute：正在执行一个准备好的语句。</span><br><span class="line">field list：提取表列信息线程</span><br><span class="line">kill：当前线程被其他线程杀掉。</span><br><span class="line">query：正在整型一条语句。</span><br><span class="line">quit：线程被终止。</span><br><span class="line">refresh：刷新表、日志、缓存、重置状态变量值或从服务信息线程。</span><br><span class="line">shutdown：关闭服务线程</span><br><span class="line">sleep：等待客户端发送一条新语句线程。</span><br><span class="line">table dump：发送表内容到从服务器</span><br><span class="line">statics：获取当前服务状态信息。</span><br><span class="line">如果一个线程耗时比较久，需要重点关注造成该线程。</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、time：当前线程耗时。对于slave-sql-线程，该值代表最后一次复制时间的时间戳和从服务器的真正时间的秒数。"><a href="#6、time：当前线程耗时。对于slave-sql-线程，该值代表最后一次复制时间的时间戳和从服务器的真正时间的秒数。" class="headerlink" title="6、time：当前线程耗时。对于slave sql 线程，该值代表最后一次复制时间的时间戳和从服务器的真正时间的秒数。"></a>6、time：当前线程耗时。对于slave sql 线程，该值代表最后一次复制时间的时间戳和从服务器的真正时间的秒数。</h3><h3 id="7、state：行为，事件，状态指明当前线程在做什么。下面列举几种常见状态值，查看详细信息点击此处"><a href="#7、state：行为，事件，状态指明当前线程在做什么。下面列举几种常见状态值，查看详细信息点击此处" class="headerlink" title="7、state：行为，事件，状态指明当前线程在做什么。下面列举几种常见状态值，查看详细信息点击此处"></a>7、state：行为，事件，状态指明当前线程在做什么。下面列举几种常见状态值，查看详细信息点击<a href="https://dev.mysql.com/doc/refman/8.0/en/general-thread-states.html" target="_blank" rel="noopener">此处</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">after create：执行完create table函数之后，创建表的线程（包括内部临时表），即使因为某些错误创建表失败，该状态也会显示。</span><br><span class="line">analyzing：统计myisam表键分布（例如执行analyze table）</span><br><span class="line">checking permissions：检查是否有权限执行该语句。</span><br><span class="line">check tables：执行表检查操作。</span><br><span class="line">cleaning up：线程正在处理一条命名，准备释放内存重置某些状态变量。</span><br><span class="line">closing tables:刷新更改的表到磁盘，关闭使用的表。该操作应该快速完成，如果没有，请确保是否有足够的磁盘空间或者磁盘io是否太高。</span><br><span class="line">copy to tmp table:处理alter table语句。该状态发生在表新结构被创建之后，行数据被拷贝到表之前。</span><br><span class="line">copying to group table：该执行语句中order by和group by有不同的关键字，行被组处理拷贝到临时表。</span><br><span class="line">copying to tmp table：正在复制内存中的临时表。</span><br><span class="line">altering table：正在执行alter table</span><br><span class="line">Copying to tmp table on disk:正在拷贝临时表到磁盘。临时结果变得太大，因此，线程将临时表从内存转到磁盘来节省内存。</span><br><span class="line">creating index：对myisam表进行alter table ... enable keys操作</span><br><span class="line">creating sort index:使用内部临时表处理一个select语句。</span><br><span class="line">creating table：正在创建表（包括创建临时表）</span><br><span class="line">creating tmp table：在内存或磁盘创建一个临时表。如果一个表刚开始再内存创建，之后转到磁盘，该状态会变为：Copying to tmp table on disk。</span><br><span class="line">committing alter table to storage engine：alter table已经执行完成，正在提交 结果。</span><br><span class="line">executing：已经开始执行一个语句</span><br><span class="line">freeing items：已经执行了一个命令，该状态通常在cleaning up之后。</span><br><span class="line">query end：，在freeing items状态之前，处理一个查询之后</span><br><span class="line">logging slow query：写语句到slow-query日志</span><br><span class="line">sending data：正在读取和处理一个select语句的行，并发送数据到客户端，因为可能会发生物理读，该状态可能是给定生命周期时间最长的。</span><br><span class="line">update：准备更新表</span><br><span class="line">updating：正在搜索更新的行，并更新他们</span><br><span class="line">system lock：调用了mysql_lock_tables()函数，线程状态一直没有更新。产生该问题原因很多：</span><br><span class="line">比如：请求或等待一个表的内部或者外部系统锁。当innodb等待一个表锁等级为lock tables时会发生。如果这个问题是由请求外部锁，并且你没有用多个mysqld服务访问相同的myisam引擎表，你可以通过参数 --skip-external-locking禁用外部系统锁。但是外部锁默认情况下是禁用的，因此该参数可能没有影响。对于show profile命令，该状态代表正在请求锁（不是在等待锁）</span><br><span class="line">对于系统表锁状态是Locking system tables。</span><br><span class="line">waiting for commit lock：flush tables with read lock正在等待一个commit 锁</span><br><span class="line">waiting for tables：线程收到通知，表的底层架构已经更改，需要重新打开表后去一个新的结构。但是重新打开一个表，需要等待其他正在访问该表的线程。</span><br><span class="line">通常在其他线程使用flush tables或者执行下面语句: FLUSH TABLES tbl_name, ALTER TABLE, RENAME TABLE, REPAIR TABLE, ANALYZE TABLE, or OPTIMIZE TABLE. 时会发生此通知。</span><br></pre></td></tr></table></figure>
+<h3 id="8、info：正在执行的语句，如果没有语句则为空。语句可能是发送的服务端的，或一个内部语句（如果一个语句执行其他语句）例如：call调用一个（select语句）存储过程，info值会显示select语句。"><a href="#8、info：正在执行的语句，如果没有语句则为空。语句可能是发送的服务端的，或一个内部语句（如果一个语句执行其他语句）例如：call调用一个（select语句）存储过程，info值会显示select语句。" class="headerlink" title="8、info：正在执行的语句，如果没有语句则为空。语句可能是发送的服务端的，或一个内部语句（如果一个语句执行其他语句）例如：call调用一个（select语句）存储过程，info值会显示select语句。"></a>8、info：正在执行的语句，如果没有语句则为空。语句可能是发送的服务端的，或一个内部语句（如果一个语句执行其他语句）例如：call调用一个（select语句）存储过程，info值会显示select语句。</h3><h3 id="9、另外使用mysqladmin-processlist也可以查看进程信息，如下图所示："><a href="#9、另外使用mysqladmin-processlist也可以查看进程信息，如下图所示：" class="headerlink" title="9、另外使用mysqladmin processlist也可以查看进程信息，如下图所示："></a>9、另外使用mysqladmin processlist也可以查看进程信息，如下图所示：</h3><p><img src="https://i.imgur.com/72IPvk1.png" alt=""></p>
+<h3 id="10、如果想通过sql命令去获取自己设定的行，可按以下方法设置："><a href="#10、如果想通过sql命令去获取自己设定的行，可按以下方法设置：" class="headerlink" title="10、如果想通过sql命令去获取自己设定的行，可按以下方法设置："></a>10、如果想通过sql命令去获取自己设定的行，可按以下方法设置：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from information_schema.processlist where state !&#x3D;&#39; &#39;;</span><br><span class="line">![](https:&#x2F;&#x2F;i.imgur.com&#x2F;pGGuMER.png)</span><br></pre></td></tr></table></figure>
+<p>可根据自己需求添加条件。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/09/mysql show processlist详解/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/09/mysql update一条语句过程遇到的问题/"><span>[Mysql] mysql update一条语句过程遇到的问题</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/09/mysql update一条语句过程遇到的问题/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-09T08:55:03.000Z">
+          2018-09-09
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、因为业务已停掉不担心会出现大量的锁等待事件，因此也没有考虑批量去更新（数据量有1700万左右），直接尝试去跑这一条update语句，第一次跑出现以下问题："><a href="#1、因为业务已停掉不担心会出现大量的锁等待事件，因此也没有考虑批量去更新（数据量有1700万左右），直接尝试去跑这一条update语句，第一次跑出现以下问题：" class="headerlink" title="1、因为业务已停掉不担心会出现大量的锁等待事件，因此也没有考虑批量去更新（数据量有1700万左右），直接尝试去跑这一条update语句，第一次跑出现以下问题："></a>1、因为业务已停掉不担心会出现大量的锁等待事件，因此也没有考虑批量去更新（数据量有1700万左右），直接尝试去跑这一条update语句，第一次跑出现以下问题：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UPDATE trade_order SET state &#x3D; &#39;CANCELLED&#39; where state&#x3D;&#39;CANCEL&#39;;</span><br><span class="line">error：Multi-statement TRANSACTION required more THAN &#39;max_binlog_cache_size&#39; bytes of STORAGE; increase this mysqld variable AND try again</span><br></pre></td></tr></table></figure>
+<h3 id="2、查看binlog-cache-size，最大值为1G："><a href="#2、查看binlog-cache-size，最大值为1G：" class="headerlink" title="2、查看binlog_cache_size，最大值为1G："></a>2、查看binlog_cache_size，最大值为1G：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#39;%binlog_cache_size%&#39;;</span><br><span class="line">+-----------------------+------------+</span><br><span class="line">| Variable_name         | Value      |</span><br><span class="line">+-----------------------+------------+</span><br><span class="line">| binlog_cache_size     | 4194304    |</span><br><span class="line">| max_binlog_cache_size | 1073741824 |</span><br><span class="line">+-----------------------+------------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<h3 id="3、尝试去调高max-binlog-cache-size，在此执行update语句："><a href="#3、尝试去调高max-binlog-cache-size，在此执行update语句：" class="headerlink" title="3、尝试去调高max_binlog_cache_size，在此执行update语句："></a>3、尝试去调高max_binlog_cache_size，在此执行update语句：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set global max_binlog_cache_size&#x3D;4073741824;</span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.00 sec)</span><br><span class="line">mysql&gt; show variables like &#39;%binlog_cache_size%&#39;;</span><br><span class="line">+-----------------------+------------+</span><br><span class="line">| Variable_name         | Value      |</span><br><span class="line">+-----------------------+------------+</span><br><span class="line">| binlog_cache_size     | 4194304    |</span><br><span class="line">| max_binlog_cache_size | 4073738240 |</span><br><span class="line">+-----------------------+------------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<h3 id="4、将至调到4G、8G去执行该语句，均报以上的错误，考虑用批量更新的方法去处理该update问题，尝试每次更新500万数据，binlog-cache-size仍然不满足，每次更新100万，执行正常："><a href="#4、将至调到4G、8G去执行该语句，均报以上的错误，考虑用批量更新的方法去处理该update问题，尝试每次更新500万数据，binlog-cache-size仍然不满足，每次更新100万，执行正常：" class="headerlink" title="4、将至调到4G、8G去执行该语句，均报以上的错误，考虑用批量更新的方法去处理该update问题，尝试每次更新500万数据，binlog_cache_size仍然不满足，每次更新100万，执行正常："></a>4、将至调到4G、8G去执行该语句，均报以上的错误，考虑用批量更新的方法去处理该update问题，尝试每次更新500万数据，binlog_cache_size仍然不满足，每次更新100万，执行正常：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; UPDATE trade_order SET state &#x3D; &#39;CANCELLED&#39; where state&#x3D;&#39;CANCEL&#39; and id &gt;&#x3D;1 and id &lt;&#x3D; 1000000;</span><br><span class="line">Query OK, 974190 rows affected (2 min 3.48 sec)</span><br><span class="line">Rows matched: 974190  Changed: 974190  Warnings: 0</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">mysql&gt; UPDATE trade_order SET state &#x3D; &#39;CANCELLED&#39; where state&#x3D;&#39;CANCEL&#39; and id &gt;&#x3D;16000000 and id &lt;&#x3D; 17000000;</span><br><span class="line">Query OK, 982238 rows affected (2 min 37.44 sec)</span><br><span class="line">Rows matched: 982238  Changed: 982238  Warnings: 0</span><br></pre></td></tr></table></figure>
+<p>每100万更新耗时为2min 40s左右</p>
+<h3 id="5、上述方法适用于当前表有主键id且递增的情况。如果该id值从其他关联表获取，可考虑一下方法："><a href="#5、上述方法适用于当前表有主键id且递增的情况。如果该id值从其他关联表获取，可考虑一下方法：" class="headerlink" title="5、上述方法适用于当前表有主键id且递增的情况。如果该id值从其他关联表获取，可考虑一下方法："></a>5、上述方法适用于当前表有主键id且递增的情况。如果该id值从其他关联表获取，可考虑一下方法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; UPDATE trade_order SET state &#x3D; &#39;CANCELLED&#39; where state&#x3D;&#39;CANCEL&#39; and id in (select id from (select id from trade_order ORDER BY id ASC LIMIT 1,1000000) as tmp);</span><br></pre></td></tr></table></figure>
+<p>该方法涉及到一个子查询，总体执行速度会下降，根据取值范围和当前实际更新的行数，耗时在4min左右：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE trade_order SET state &#x3D; &#39;CANCELLED&#39; where state&#x3D;&#39;CANCEL&#39; and id in (select id from (select id from trade_order ORDER BY id ASC LIMIT 1,1000000) as tmp);</span><br><span class="line">Query OK, 981631 rows affected (3 min 49.27 sec)</span><br><span class="line">Rows matched: 981631  Changed: 981631  Warnings: 0</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/09/mysql update一条语句过程遇到的问题/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/08/mysql报错-[ERROR] InnoDB-Unable to lock -ibdata1/"><span>[Mysql] mysql报错：[ERROR] InnoDB: Unable to lock ./ibdata1</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/08/mysql报错-[ERROR] InnoDB-Unable to lock -ibdata1/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-07T16:08:03.000Z">
+          2018-09-08
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、-登录mysql报错："><a href="#1、-登录mysql报错：" class="headerlink" title="1、 登录mysql报错："></a>1、 登录mysql报错：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">Enter password: </span><br><span class="line">ERROR 2002 (HY000): Can&#39;t connect to local MySQL server through socket &#39;&#x2F;data&#x2F;mysql&#x2F;tmp&#x2F;mysql.sock&#39; (2)</span><br></pre></td></tr></table></figure>
+<h3 id="2、netstat-tunlp-grep-3306发现mysql进程不存在，尝试去启动mysql："><a href="#2、netstat-tunlp-grep-3306发现mysql进程不存在，尝试去启动mysql：" class="headerlink" title="2、netstat -tunlp|grep 3306发现mysql进程不存在，尝试去启动mysql："></a>2、netstat -tunlp|grep 3306发现mysql进程不存在，尝试去启动mysql：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;init.d&#x2F;mysql restart</span><br><span class="line"> ERROR! MySQL server PID file could not be found!</span><br><span class="line">Starting MySQL....................................................................................^C</span><br><span class="line">启动失败，按ctrl+c退出。</span><br></pre></td></tr></table></figure>
+<h3 id="3、查看log日志，一直在刷错误日志"><a href="#3、查看log日志，一直在刷错误日志" class="headerlink" title="3、查看log日志，一直在刷错误日志"></a>3、查看log日志，一直在刷错误日志</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ERROR] InnoDB: Unable to lock .&#x2F;ibdata1 error: 11</span><br><span class="line">[Note] InnoDB: Check that you do not already have</span><br></pre></td></tr></table></figure>
+<h3 id="4、查看磁盘使用情况"><a href="#4、查看磁盘使用情况" class="headerlink" title="4、查看磁盘使用情况"></a>4、查看磁盘使用情况</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">&#x2F;dev&#x2F;sdc1       1.1T   59G  967G   6% &#x2F;data</span><br><span class="line">数据目录还有很多空间。</span><br></pre></td></tr></table></figure>
+<h3 id="5、查看mysql进程"><a href="#5、查看mysql进程" class="headerlink" title="5、查看mysql进程"></a>5、查看mysql进程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">shell&gt;ps -ef|grep mysql</span><br><span class="line">mysql      1486 130771  2 05:16 pts&#x2F;0    00:00:01 &#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqld --basedir&#x3D;&#x2F;data&#x2F;mysql --datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F;data --plugin-dir&#x3D;&#x2F;data&#x2F;mysql&#x2F;lib&#x2F;plugin --user&#x3D;mysql --log-error&#x3D;&#x2F;data&#x2F;mysql&#x2F;log&#x2F;error.log --open-files-limit&#x3D;65535 --pid-file&#x3D;&#x2F;data&#x2F;mysql&#x2F;tmp&#x2F;mysql.pid --socket&#x3D;&#x2F;data&#x2F;mysql&#x2F;tmp&#x2F;mysql.sock --port&#x3D;3306</span><br><span class="line">root      77736      1  0 Jul25 ?        00:00:00 &#x2F;bin&#x2F;sh &#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqld_safe --datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F;data --pid-file&#x3D;&#x2F;data&#x2F;mysql&#x2F;tmp&#x2F;mysql.pid</span><br><span class="line">mysql    128601  77736 85 05:13 ?        00:03:49 &#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqld --basedir&#x3D;&#x2F;data&#x2F;mysql --datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F;data --plugin-dir&#x3D;&#x2F;data&#x2F;mysql&#x2F;lib&#x2F;plugin --user&#x3D;mysql --log-error&#x3D;&#x2F;data&#x2F;mysql&#x2F;log&#x2F;error.log --open-files-limit&#x3D;65535 --pid-file&#x3D;&#x2F;data&#x2F;mysql&#x2F;tmp&#x2F;mysql.pid --socket&#x3D;&#x2F;data&#x2F;mysql&#x2F;tmp&#x2F;mysql.sock --port&#x3D;3306</span><br><span class="line">root     130771      1  0 05:16 pts&#x2F;0    00:00:00 &#x2F;bin&#x2F;sh &#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqld_safe --datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F;data --pid-file&#x3D;&#x2F;data&#x2F;mysql&#x2F;tmp&#x2F;mysql.pid</span><br></pre></td></tr></table></figure>
+<h3 id="6、top查看进程运行情况"><a href="#6、top查看进程运行情况" class="headerlink" title="6、top查看进程运行情况"></a>6、top查看进程运行情况</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Tasks: 187 total,   1 running, 186 sleeping,   0 stopped,   0 zombie</span><br><span class="line">%Cpu(s):  0.4 us,  0.3 sy,  0.0 ni, 99.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</span><br><span class="line">KiB Mem : 32930580 total, 21548588 free,  7218592 used,  4163400 buff&#x2F;cache</span><br><span class="line">KiB Swap:        0 total,        0 free,        0 used. 24748960 avail Mem </span><br><span class="line"></span><br><span class="line">   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND                                                                             </span><br><span class="line">128601 mysql     20   0 21.711g 4.678g  12784 S   2.6 14.9   3:50.26 mysqld</span><br></pre></td></tr></table></figure>
+<h3 id="7、杀掉进程128601"><a href="#7、杀掉进程128601" class="headerlink" title="7、杀掉进程128601"></a>7、杀掉进程128601</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kill -9 128601</span><br><span class="line">&#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqld_safe: line 198:  1486 Killed                  nohup &#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqld --basedir&#x3D;&#x2F;data&#x2F;mysql --datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F;data --plugin-dir&#x3D;&#x2F;data&#x2F;mysql&#x2F;lib&#x2F;plugin --user&#x3D;mysql --log-error&#x3D;&#x2F;data&#x2F;mysql&#x2F;log&#x2F;error.log --open-files-limit&#x3D;65535 --pid-file&#x3D;&#x2F;data&#x2F;mysql&#x2F;tmp&#x2F;mysql.pid --socket&#x3D;&#x2F;data&#x2F;mysql&#x2F;tmp&#x2F;mysql.sock --port&#x3D;3306 &lt; &#x2F;dev&#x2F;null &gt; &#x2F;dev&#x2F;null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<p>因为mysql的守护进程存在，会自动启动mysql进程，再次登录数据库<br>mysql -uroot -p,登录正常。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/08/mysql报错-[ERROR] InnoDB-Unable to lock -ibdata1/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/07/云交易所建库、修改多个表的语句/"><span>[Mysql] mysql批量建库、修改多库中同一命名个表</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/07/云交易所建库、修改多个表的语句/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-07T15:37:03.000Z">
+          2018-09-07
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、批量删除数据库"><a href="#1、批量删除数据库" class="headerlink" title="1、批量删除数据库"></a>1、批量删除数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i in test_ETH_BTC test_BTC_USDT test_ETH_USDT test_BCH_BTC test_BCH_ETH test_BCH_USDT test_ETC_BTC test_ETC_ETH test_ETC_USDT test_LTC_BTC test_LTC_ETH test_LTC_USDT test_OMG_BTC test_OMG_ETH test_OMG_USDT test_ACT_BTC test_ACT_ETH test_ACT_USDT ;</span><br><span class="line">do</span><br><span class="line">mysql -u root -ptest -e &quot;drop database $i&quot;;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h3 id="2、批量创建数据库"><a href="#2、批量创建数据库" class="headerlink" title="2、批量创建数据库"></a>2、批量创建数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i in test_ETH_BTC test_BTC_USDT test_ETH_USDT test_BCH_BTC test_BCH_ETH test_BCH_USDT test_ETC_BTC test_ETC_ETH test_ETC_USDT test_LTC_BTC test_LTC_ETH test_LTC_USDT test_OMG_BTC test_OMG_ETH test_OMG_USDT test_ACT_BTC test_ACT_ETH test_ACT_USDT ;</span><br><span class="line">do</span><br><span class="line">mysql -u root -ptest -e &quot;create database $i&quot;;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h3 id="3、批量在多个库中创建多个表"><a href="#3、批量在多个库中创建多个表" class="headerlink" title="3、批量在多个库中创建多个表"></a>3、批量在多个库中创建多个表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">for i in test_ETH_BTC test_BTC_USDT test_ETH_USDT test_BCH_BTC test_BCH_ETH test_BCH_USDT test_ETC_BTC test_ETC_ETH test_ETC_USDT test_LTC_BTC test_LTC_ETH test_LTC_USDT test_OMG_BTC test_OMG_ETH test_OMG_USDT test_ACT_BTC test_ACT_ETH test_ACT_USDT ;</span><br><span class="line">do</span><br><span class="line">for j in &#123;0..19&#125;</span><br><span class="line">do </span><br><span class="line">sql&#x3D;&quot;CREATE TABLE \&#96;match_record_$&#123;j&#125;\&#96; (</span><br><span class="line">  \&#96;id\&#96; bigint(20) NOT NULL AUTO_INCREMENT ,</span><br><span class="line">  \&#96;symbol\&#96; varchar(30) NOT NULL COMMENT &#39;交易对&#39;,</span><br><span class="line">  \&#96;price\&#96; decimal(30,15) NOT NULL COMMENT &#39;成交价格&#39;,</span><br><span class="line">  \&#96;quantity\&#96; decimal(30,15) NOT NULL COMMENT &#39;成交量&#39;,</span><br><span class="line">  \&#96;buy_match_seq\&#96; int(11) NOT NULL COMMENT &#39;买入成交序号&#39;,</span><br><span class="line">  \&#96;buy_tx_no\&#96; varchar(32) NOT NULL COMMENT &#39;买入交易单号&#39;,</span><br><span class="line">  \&#96;sell_match_seq\&#96; int(11) NOT NULL COMMENT &#39;卖出成交序号&#39;,</span><br><span class="line">  \&#96;sell_tx_no\&#96; varchar(32) NOT NULL COMMENT &#39;卖出交易单号&#39;,</span><br><span class="line">  \&#96;is_maker\&#96; tinyint(1) NOT NULL COMMENT &#39;买入方是否为maker&#39;,</span><br><span class="line">  \&#96;create_time\&#96; bigint(20) NOT NULL COMMENT &#39;成交时间戳&#39;,</span><br><span class="line">  PRIMARY KEY (\&#96;id\&#96;),</span><br><span class="line">  UNIQUE KEY \&#96;uniq_idsymbol\&#96; (\&#96;id\&#96;,\&#96;symbol\&#96;),</span><br><span class="line">  UNIQUE KEY \&#96;uniq_txno\&#96; (\&#96;buy_tx_no\&#96;,\&#96;sell_tx_no\&#96;),</span><br><span class="line">  KEY \&#96;idx_create_time\&#96; (\&#96;create_time\&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4 COMMENT&#x3D;&#39;成交记录表&#39;;</span><br><span class="line">&quot;</span><br><span class="line">mysql -uroot -ptest -D $i -e&quot;$&#123;sql&#125;&quot;;</span><br><span class="line">done</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h3 id="4、批量修改多个库中的一个同名表做ddl语句操作"><a href="#4、批量修改多个库中的一个同名表做ddl语句操作" class="headerlink" title="4、批量修改多个库中的一个同名表做ddl语句操作"></a>4、批量修改多个库中的一个同名表做ddl语句操作</h3><p>对表增加列，添加唯一索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for i in test_ETH_BTC test_BTC_USDT test_ETH_USDT test_BCH_BTC test_BCH_ETH test_BCH_USDT test_ETC_BTC test_ETC_ETH test_ETC_USDT test_LTC_BTC test_LTC_ETH test_LTC_USDT test_OMG_BTC test_OMG_ETH test_OMG_USDT test_ACT_BTC test_ACT_ETH test_ACT_USDT ;</span><br><span class="line">do</span><br><span class="line">symbol&#x3D;&#96;echo &quot;$i&quot;| awk -F &#39;test_&#39; &#39;&#123;print $2&#125;&#39;&#96;</span><br><span class="line">sql&#x3D;&quot;alter table match_record_0 add column symbol varchar(30) NOT NULL COMMENT &#39;交易对&#39; default &#39;&quot;$&#123;symbol&#125;&quot;&#39;&quot;</span><br><span class="line">alter1&#x3D;&quot;alter table match_record_0 add UNIQUE KEY \&#96;uniq_idsymbol\&#96; (\&#96;id\&#96;,\&#96;symbol\&#96;)&quot;</span><br><span class="line">alter2&#x3D;&quot;alter table match_record_0 add UNIQUE KEY \&#96;uniq_txno\&#96; (\&#96;buy_tx_no\&#96;,\&#96;sell_tx_no\&#96;)&quot;</span><br><span class="line">mysql -u root -ptest -D $i -e&quot;$&#123;sql&#125;;$&#123;alter1&#125;;$&#123;alter2&#125;&quot;;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>对表删除列，删除唯一索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for i in test_ETH_BTC test_BTC_USDT test_ETH_USDT test_BCH_BTC test_BCH_ETH test_BCH_USDT test_ETC_BTC test_ETC_ETH test_ETC_USDT test_LTC_BTC test_LTC_ETH test_LTC_USDT test_OMG_BTC test_OMG_ETH test_OMG_USDT test_ACT_BTC test_ACT_ETH test_ACT_USDT ;</span><br><span class="line">do</span><br><span class="line">symbol&#x3D;&#96;echo &quot;$i&quot;| awk -F &#39;test_&#39; &#39;&#123;print $2&#125;&#39;&#96;</span><br><span class="line">sql&#x3D;&quot;alter table match_record_0 drop column symbol&quot;</span><br><span class="line">alter1&#x3D;&quot;alter table match_record_0 drop index \&#96;uniq_idsymbol\&#96;&quot;</span><br><span class="line">alter2&#x3D;&quot;alter table match_record_0 drop index \&#96;uniq_txno\&#96;&quot;</span><br><span class="line">mysql -u root -ptest -D $i -e&quot;$&#123;sql&#125;;$&#123;alter1&#125;;$&#123;alter2&#125;&quot;;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/07/云交易所建库、修改多个表的语句/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+
+<nav class="pagination">
+  
+  <a href="/page/12/" class="pagination-prev">上一页</a>
+  
+  
+  <a href="/page/14/" class="pagination-next">下一页</a>
+  
+</nav>
+            </main>
+            <div class="sidebar
+                    col-lg-3 col-lg-offset-0
+                    col-md-3 col-md-offset-0
+                    col-sm-12
+                    col-xs-12
+                    sidebar-container
+                ">
+
+                <div class="sidebar-container">
+
+
+
+<div class="search-container">
+<form class="site-search-form">
+    <span class="glyphicon glyphicon-search"></span><input type="text" id="local-search-input" class="st-search-input" placeholder="Search..." />
+</form>
+<div id="local-search-result" class="local-search-result-cls"></div>
+</div>
+<script type="text/javascript" id="local.search.active">
+var inputArea       = document.querySelector("#local-search-input");
+inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script>
+
+
+
+
+    <div class="categories-container" style="margin-top:40px;">
+        <p>归档:</p>
+            
+    </div>
+
+
+
+
+    <div class="social-container" style="margin-top:40px;">
+        <p>Links:</p>
+            
+                
+                    <li class="social-item"><i class="fa fa-fw fa-github"></i><a href="https://github.com/zeven0707">GitHub</a></li>
+                
+            
+    </div>
+
+</div>
+            </div>
+          </div>
+        </div>
+        
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

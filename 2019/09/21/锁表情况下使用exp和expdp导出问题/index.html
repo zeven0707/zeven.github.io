@@ -1,0 +1,327 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>[Oracle] 锁表情况下使用exp和expdp导出 | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+  <meta name="description" content="1、共享锁lock table test in share mode;exp和expdp均可正常导出
+123456789exp test&amp;#x2F;Test1234 file&amp;#x3D;&amp;#x2F;tmp&amp;#x2F;test2.dmp  tables&amp;#x3D;testExport: Release">
+  
+
+  
+  
+  <meta name="keywords" content="oracle">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="[Oracle] 锁表情况下使用exp和expdp导出"/>
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+          <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container" style="position: inherit;">
+            <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><span>[Oracle] 锁表情况下使用exp和expdp导出</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/锁表情况下使用exp和expdp导出问题/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T09:25:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、共享锁"><a href="#1、共享锁" class="headerlink" title="1、共享锁"></a>1、共享锁</h1><p>lock table test in share mode;<br>exp和expdp均可正常导出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">exp test&#x2F;Test1234 file&#x3D;&#x2F;tmp&#x2F;test2.dmp  tables&#x3D;test</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Jun 4 15:57:35 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Export done in ZHS16GBK character set and AL16UTF16 NCHAR character set</span><br><span class="line">About to export specified tables via Conventional Path ...</span><br><span class="line">. . exporting table                           TEST          3 rows exported</span><br><span class="line">Export terminated successfully without warnings.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave tmp]$ expdp test&#x2F;Test1234 dumpfile&#x3D;expdp5.test directory&#x3D;exp_data_dir tables&#x3D;test</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Jun 4 15:59:45 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Starting &quot;TEST&quot;.&quot;SYS_EXPORT_TABLE_01&quot;: test&#x2F;******** dumpfile&#x3D;expdp5.test directory&#x3D;exp_data_dir tables&#x3D;test</span><br><span class="line">Estimate in progress using BLOCKS method...</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;TABLE_DATA</span><br><span class="line">Total estimation using BLOCKS method: 64 KB</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;TABLE</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;INDEX&#x2F;INDEX</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;INDEX&#x2F;STATISTICS&#x2F;INDEX_STATISTICS</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;STATISTICS&#x2F;TABLE_STATISTICS</span><br><span class="line">. . exported &quot;TEST&quot;.&quot;TEST&quot;                               5.031 KB       3 rows</span><br><span class="line">Master table &quot;TEST&quot;.&quot;SYS_EXPORT_TABLE_01&quot; successfully loaded&#x2F;unloaded</span><br><span class="line">******************************************************************************</span><br><span class="line">Dump file set for TEST.SYS_EXPORT_TABLE_01 is:</span><br><span class="line">  &#x2F;tmp&#x2F;backup&#x2F;expdp5.test</span><br><span class="line">Job &quot;TEST&quot;.&quot;SYS_EXPORT_TABLE_01&quot; successfully completed at Tue Jun 4 15:59:49 2019 elapsed 0 00:00:03</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、排他锁"><a href="#2、排他锁" class="headerlink" title="2、排他锁"></a>2、排他锁</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">15:58:19 TEST@ boston&gt; lock table test in exclusive mode;</span><br><span class="line">Table(s) Locked.</span><br><span class="line">Elapsed: 00:00:00.00</span><br></pre></td></tr></table></figure>
+
+<p>exp可正常导出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave tmp]$ exp test&#x2F;Test1234 file&#x3D;&#x2F;tmp&#x2F;test4.dmp  tables&#x3D;test</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Jun 4 16:00:51 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Export done in ZHS16GBK character set and AL16UTF16 NCHAR character set</span><br><span class="line">About to export specified tables via Conventional Path ...</span><br><span class="line">. . exporting table                           TEST          3 rows exported</span><br><span class="line">Export terminated successfully without warnings.</span><br></pre></td></tr></table></figure>
+
+<p>expdp导出进程被锁，直到排它锁被释放</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave tmp]$ expdp test&#x2F;Test1234 dumpfile&#x3D;expdp6.test directory&#x3D;exp_data_dir tables&#x3D;test</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Jun 4 16:01:30 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Starting &quot;TEST&quot;.&quot;SYS_EXPORT_TABLE_01&quot;:  test&#x2F;******** dumpfile&#x3D;expdp6.test directory&#x3D;exp_data_dir tables&#x3D;test</span><br><span class="line">Estimate in progress using BLOCKS method...</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;TABLE_DATA</span><br><span class="line">Total estimation using BLOCKS method: 64 KB</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;TABLE</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;INDEX&#x2F;INDEX</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;INDEX&#x2F;STATISTICS&#x2F;INDEX_STATISTICS</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;STATISTICS&#x2F;TABLE_STATISTICS</span><br></pre></td></tr></table></figure>
+
+<p>下面设置当然用户下的表空间为只读</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">16:03:04 TEST@ boston&gt; select default_tablespace from user_users;</span><br><span class="line">DEFAULT_TABLESPACE</span><br><span class="line"><span class="comment">------------------------------</span></span><br><span class="line">USERS</span><br><span class="line">16:03:04 TEST@ boston&gt; alter tablespace users read only;</span><br></pre></td></tr></table></figure>
+
+<p>exp导出正常，expdp报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave tmp]$ exp test&#x2F;Test1234 file&#x3D;&#x2F;tmp&#x2F;test4.dmp  tables&#x3D;test</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Jun 4 16:04:37 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Export done in ZHS16GBK character set and AL16UTF16 NCHAR character set</span><br><span class="line">About to export specified tables via Conventional Path ...</span><br><span class="line">. . exporting table                           TEST          3 rows exported</span><br><span class="line">Export terminated successfully without warnings.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave tmp]$ expdp test&#x2F;Test1234 dumpfile&#x3D;expdp7.test directory&#x3D;exp_data_dir tables&#x3D;test</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Jun 4 16:04:42 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">ORA-31626: job does not exist</span><br><span class="line">ORA-31633: unable to create master table &quot;TEST.SYS_EXPORT_TABLE_05&quot;</span><br><span class="line">ORA-06512: at &quot;SYS.DBMS_SYS_ERROR&quot;, line 95</span><br><span class="line">ORA-06512: at &quot;SYS.KUPV$FT&quot;, line 1038</span><br><span class="line">ORA-01647: tablespace &#39;USERS&#39; is read-only, cannot allocate space in it</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    
+  
+</article>
+   
+    <div id="toc" class="toc-article ">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、共享锁"><span class="toc-number">1.</span> <span class="toc-text">1、共享锁</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、排他锁"><span class="toc-number">2.</span> <span class="toc-text">2、排他锁</span></a></li></ol>
+</div>
+
+
+  
+
+	<!-- async load  -->
+	<script>
+			function async(u, c) {
+				var d = document, t = 'script',
+						o = d.createElement(t),
+						s = d.getElementsByTagName(t)[0];
+				o.src = u;
+				if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+				s.parentNode.insertBefore(o, s);
+			}
+	</script>
+	<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+	<script>
+			async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+					anchors.options = {
+						visible: 'hover',
+						placement: 'left',
+						// icon: '#'
+					};
+					anchors.add().remove('.article-title').remove('.subheading').remove('.sidebar-container h5');
+			})
+	</script>
+	<style>
+			/* place left on bigger screen */
+			@media all and (min-width: 800px) {
+					.anchorjs-link{
+							position: absolute;
+							left: -0.75em;
+							font-size: 1.1em;
+							margin-top : -0.1em;
+					}
+			}
+	</style>
+
+
+
+
+<!-- UY BEGIN -->
+	<div id="gitment-container"></div>
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script src="/js/web-pinyin.js"></script>
+	<script>
+		function toUnicode(s){ 
+			return s.replace(/([\u4E00-\u9FA5]|[\uFE30-\uFFA0])/g,function(){
+			return "\\u" + RegExp["$1"].charCodeAt(0).toString(16);
+			});
+		}
+		var title = '[Oracle] 锁表情况下使用exp和expdp导出'
+		var GitHub_id = 'zeven0707'
+		var client_id = '2b0cc50fd55624b20d70'
+		var client_secret = '489e4e840e0186f96ad172932b583e2fe68729c8'
+		var repo = 'zeven0707.github.io'
+		var gitment = new Gitment({
+		// id: '页面 ID', // 可选。默认为 location.href
+		// id:"11" ,
+		id: title,
+		title: title,
+		owner: GitHub_id,//'你的 GitHub ID',
+		repo: repo,//'存储评论的 repo',
+		oauth: {
+			client_id: client_id,//'你的 client ID',
+			client_secret: client_secret,//'你的 client secret',
+		},
+		})
+		gitment.render('gitment-container')
+	</script>
+<!-- UY END -->
+
+
+
+
+            </main>
+          </div>
+        </div>
+       
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

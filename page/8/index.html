@@ -1,0 +1,990 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>第 8 页 | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+        <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop    col-lg-8 col-lg-offset-1
+                    col-md-8 col-md-offset-1
+                    col-sm-12
+                    col-xs-12">
+            
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/01/23/oracle设置用户名密码复杂性校验/"><span>[Oracle] oracle设置用户名密码复杂性校验</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/01/23/oracle设置用户名密码复杂性校验/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-01-23T08:02:00.000Z">
+          2019-01-23
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、在-ORACLE-HOME-rdbms-admin-目录下存在一个文件utlpwdmg-sql-里面有默认的配置可以直接执行，也可根据自己的需求修改配置文件再执行该脚本："><a href="#1、在-ORACLE-HOME-rdbms-admin-目录下存在一个文件utlpwdmg-sql-里面有默认的配置可以直接执行，也可根据自己的需求修改配置文件再执行该脚本：" class="headerlink" title="1、在$ORACLE_HOME/rdbms/admin/目录下存在一个文件utlpwdmg.sql,里面有默认的配置可以直接执行，也可根据自己的需求修改配置文件再执行该脚本："></a>1、在$ORACLE_HOME/rdbms/admin/目录下存在一个文件utlpwdmg.sql,里面有默认的配置可以直接执行，也可根据自己的需求修改配置文件再执行该脚本：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql&gt;@?&#x2F;rdbms&#x2F;admin&#x2F;utlpwdmg.sql</span><br></pre></td></tr></table></figure>
+<h4 id="2、执行完成之后，再次修改密码使用简单的密码，将提示28003错误："><a href="#2、执行完成之后，再次修改密码使用简单的密码，将提示28003错误：" class="headerlink" title="2、执行完成之后，再次修改密码使用简单的密码，将提示28003错误："></a>2、执行完成之后，再次修改密码使用简单的密码，将提示28003错误：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">14:16:23 SYS@ boston&gt; alter user test identified by oracle;</span><br><span class="line">alter user test identified by oracle</span><br><span class="line">*</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-28003: password verification for the specified password failed</span><br><span class="line">ORA-20001: Password length less than 8</span><br></pre></td></tr></table></figure>
+<h4 id="3、查看修改后的概要文件下的参数"><a href="#3、查看修改后的概要文件下的参数" class="headerlink" title="3、查看修改后的概要文件下的参数"></a>3、查看修改后的概要文件下的参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM dba_profiles s WHERE s.profile&#x3D;&#39;DEFAULT&#39; AND resource_name like &#39;PASSWORD%&#39;;</span><br><span class="line"></span><br><span class="line">PROFILE 		       RESOURCE_NAME			RESOURCE LIMIT</span><br><span class="line">------------------------------ -------------------------------- -------- ----------------------------------------</span><br><span class="line">DEFAULT 		       PASSWORD_LIFE_TIME		PASSWORD 180</span><br><span class="line">DEFAULT 		       PASSWORD_REUSE_TIME		PASSWORD UNLIMITED</span><br><span class="line">DEFAULT 		       PASSWORD_REUSE_MAX		PASSWORD UNLIMITED</span><br><span class="line">DEFAULT 		       PASSWORD_VERIFY_FUNCTION 	PASSWORD VERIFY_FUNCTION_11G</span><br><span class="line">DEFAULT 		       PASSWORD_LOCK_TIME		PASSWORD 1</span><br><span class="line">DEFAULT 		       PASSWORD_GRACE_TIME		PASSWORD 7</span><br></pre></td></tr></table></figure>
+<h4 id="4、现在重置密码的时候，密码还是可以复用的，因为PASSWORD-REUSE-TIME和PASSWORD-REUSE-MAX参数没有限制："><a href="#4、现在重置密码的时候，密码还是可以复用的，因为PASSWORD-REUSE-TIME和PASSWORD-REUSE-MAX参数没有限制：" class="headerlink" title="4、现在重置密码的时候，密码还是可以复用的，因为PASSWORD_REUSE_TIME和PASSWORD_REUSE_MAX参数没有限制："></a>4、现在重置密码的时候，密码还是可以复用的，因为PASSWORD_REUSE_TIME和PASSWORD_REUSE_MAX参数没有限制：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">15:04:58 SYS@ boston&gt; alter user test identified by Testdb123</span><br><span class="line">User altered.</span><br><span class="line">Elapsed: 00:00:00.11</span><br><span class="line">15:06:04 SYS@ boston&gt; alter user test identified by Testdb123;</span><br><span class="line">User altered.</span><br></pre></td></tr></table></figure>
+<h4 id="5、下面修改PASSWORD-REUSE-TIME-用户名可以在多长时间之后可以复用-或者密码修改过多少次之后可以复用以前的旧密码（PASSWORD-REUSE-MAX）"><a href="#5、下面修改PASSWORD-REUSE-TIME-用户名可以在多长时间之后可以复用-或者密码修改过多少次之后可以复用以前的旧密码（PASSWORD-REUSE-MAX）" class="headerlink" title="5、下面修改PASSWORD_REUSE_TIME(用户名可以在多长时间之后可以复用)或者密码修改过多少次之后可以复用以前的旧密码（PASSWORD_REUSE_MAX）"></a>5、下面修改PASSWORD_REUSE_TIME(用户名可以在多长时间之后可以复用)或者密码修改过多少次之后可以复用以前的旧密码（PASSWORD_REUSE_MAX）</h4><p>，官方文档提示，只修改两个参数中的任意一个，另一个参数为unlimited，结果是用户永远不能复用密码：</p>
+<h5 id="5-1、只单独修改PASSWORD-REUSE-TIME"><a href="#5-1、只单独修改PASSWORD-REUSE-TIME" class="headerlink" title="5.1、只单独修改PASSWORD_REUSE_TIME"></a>5.1、只单独修改PASSWORD_REUSE_TIME</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">15:13:17 SYS@ boston&gt; ALTER PROFILE DEFAULT LIMIT PASSWORD_REUSE_TIME 1;</span><br><span class="line">Profile altered.</span><br><span class="line">Elapsed: 00:00:00.08</span><br><span class="line">15:13:18 SYS@ boston&gt; SELECT * FROM dba_profiles s WHERE s.profile&#x3D;&#39;DEFAULT&#39; AND resource_name like &#39;PASSWORD%&#39;;</span><br><span class="line"></span><br><span class="line">PROFILE 		       RESOURCE_NAME			RESOURCE LIMIT</span><br><span class="line">------------------------------ -------------------------------- -------- ----------------------------------------</span><br><span class="line">DEFAULT 		       PASSWORD_LIFE_TIME		PASSWORD 180</span><br><span class="line">DEFAULT 		       PASSWORD_REUSE_TIME		PASSWORD 1</span><br><span class="line">DEFAULT 		       PASSWORD_REUSE_MAX		PASSWORD UNLIMITED</span><br><span class="line">DEFAULT 		       PASSWORD_VERIFY_FUNCTION 	PASSWORD VERIFY_FUNCTION_11G</span><br><span class="line">DEFAULT 		       PASSWORD_LOCK_TIME		PASSWORD 1</span><br><span class="line">DEFAULT 		       PASSWORD_GRACE_TIME		PASSWORD 7</span><br><span class="line">再次修改用户已经提示</span><br><span class="line">15:13:22 SYS@ boston&gt; alter user test identified by Testdb123;</span><br><span class="line">alter user test identified by Testdb123</span><br><span class="line">*</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-28007: the password cannot be reused</span><br><span class="line">Elapsed: 00:00:00.02</span><br></pre></td></tr></table></figure>
+<h5 id="5-2、只单独修改PASSWORD-REUSE-MAX"><a href="#5-2、只单独修改PASSWORD-REUSE-MAX" class="headerlink" title="5.2、只单独修改PASSWORD_REUSE_MAX"></a>5.2、只单独修改PASSWORD_REUSE_MAX</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">ALTER PROFILE DEFAULT LIMIT PASSWORD_REUSE_TIME UNLIMITED;</span><br><span class="line">ALTER PROFILE DEFAULT LIMIT PASSWORD_REUSE_MAX 5;</span><br><span class="line">ALTER PROFILE DEFAULT LIMIT PASSWORD_REUSE_TIME UNLIMITED;</span><br><span class="line">Profile altered.</span><br><span class="line">Elapsed: 00:00:00.05</span><br><span class="line">15:19:26 SYS@ boston&gt; ALTER PROFILE DEFAULT LIMIT PASSWORD_REUSE_MAX 5;</span><br><span class="line">Profile altered.</span><br><span class="line">Elapsed: 00:00:00.03</span><br><span class="line">15:19:26 SYS@ boston&gt; SELECT * FROM dba_profiles s WHERE s.profile&#x3D;&#39;DEFAULT&#39; AND resource_name like &#39;PASSWORD%&#39;;</span><br><span class="line">PROFILE 		       RESOURCE_NAME			RESOURCE LIMIT</span><br><span class="line">------------------------------ -------------------------------- -------- ----------------------------------------</span><br><span class="line">DEFAULT 		       PASSWORD_LIFE_TIME		PASSWORD 180</span><br><span class="line">DEFAULT 		       PASSWORD_REUSE_TIME		PASSWORD UNLIMITED</span><br><span class="line">DEFAULT 		       PASSWORD_REUSE_MAX		PASSWORD 5</span><br><span class="line">DEFAULT 		       PASSWORD_VERIFY_FUNCTION 	PASSWORD VERIFY_FUNCTION_11G</span><br><span class="line">DEFAULT 		       PASSWORD_LOCK_TIME		PASSWORD 1</span><br><span class="line">DEFAULT 		       PASSWORD_GRACE_TIME		PASSWORD 7</span><br><span class="line">6 rows selected.</span><br><span class="line">Elapsed: 00:00:00.01</span><br><span class="line">15:19:29 SYS@ boston&gt; alter user test identified by Testdb123;</span><br><span class="line">alter user test identified by Testdb123</span><br><span class="line">*</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-28007: the password cannot be reused</span><br></pre></td></tr></table></figure>
+<h5 id="5-3、下面同时修改这两个参数："><a href="#5-3、下面同时修改这两个参数：" class="headerlink" title="5.3、下面同时修改这两个参数："></a>5.3、下面同时修改这两个参数：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">15:21:45 SYS@ boston&gt; ALTER PROFILE DEFAULT LIMIT PASSWORD_REUSE_TIME 1;</span><br><span class="line">Profile altered.</span><br><span class="line">Elapsed: 00:00:00.05</span><br><span class="line">15:21:46 SYS@ boston&gt; SELECT * FROM dba_profiles s WHERE s.profile&#x3D;&#39;DEFAULT&#39; AND resource_name like &#39;PASSWORD%&#39;;</span><br><span class="line"></span><br><span class="line">PROFILE 		       RESOURCE_NAME			RESOURCE LIMIT</span><br><span class="line">------------------------------ -------------------------------- -------- ----------------------------------------</span><br><span class="line">DEFAULT 		       PASSWORD_LIFE_TIME		PASSWORD 180</span><br><span class="line">DEFAULT 		       PASSWORD_REUSE_TIME		PASSWORD 1</span><br><span class="line">DEFAULT 		       PASSWORD_REUSE_MAX		PASSWORD 5</span><br><span class="line">DEFAULT 		       PASSWORD_VERIFY_FUNCTION 	PASSWORD VERIFY_FUNCTION_11G</span><br><span class="line">DEFAULT 		       PASSWORD_LOCK_TIME		PASSWORD 1</span><br><span class="line">DEFAULT 		       PASSWORD_GRACE_TIME		PASSWORD 7</span><br><span class="line">设置一天之后，并且修改5次不同密码之后才能复用之前的密码，下面为了满足要求，修改系统时间：</span><br><span class="line">15:23:00 SYS@ boston&gt; select sysdate from dual;</span><br><span class="line">SYSDATE</span><br><span class="line">-------------------</span><br><span class="line">2019:01:23 15:23:04</span><br><span class="line">[oracle@dax-mysql-slave admin]$ date -s 20190125</span><br><span class="line">date: 无法设置日期: 不允许的操作</span><br><span class="line">2019年 01月 25日 星期五 00:00:00 CST</span><br><span class="line">[oracle@dax-mysql-slave admin]$ exit</span><br><span class="line">登出</span><br><span class="line">[root@dax-mysql-slave ~]# date -s 20190125</span><br><span class="line">2019年 01月 25日 星期五 00:00:00 CST</span><br><span class="line">[root@dax-mysql-slave ~]# su - oracle</span><br><span class="line">上一次登录：三 1月 23 13:44:53 CST 2019pts&#x2F;2 上</span><br><span class="line">[oracle@dax-mysql-slave ~]$ date</span><br><span class="line">2019年 01月 25日 星期五 00:00:06 CST</span><br><span class="line">[oracle@dax-mysql-slave ~]$ sql</span><br><span class="line">00:00:26 SYS@ boston&gt; select sysdate from dual;</span><br><span class="line">SYSDATE</span><br><span class="line">-------------------</span><br><span class="line">2019:01:25 00:00:34</span><br><span class="line">Elapsed: 00:00:00.00</span><br><span class="line">00:00:34 SYS@ boston&gt; SELECT * FROM dba_profiles s WHERE s.profile&#x3D;&#39;DEFAULT&#39; AND resource_name like &#39;PASSWORD%&#39;;</span><br><span class="line">PROFILE 		       RESOURCE_NAME			RESOURCE LIMIT</span><br><span class="line">------------------------------ -------------------------------- -------- ----------------------------------------</span><br><span class="line">DEFAULT 		       PASSWORD_LIFE_TIME		PASSWORD 180</span><br><span class="line">DEFAULT 		       PASSWORD_REUSE_TIME		PASSWORD 1</span><br><span class="line">DEFAULT 		       PASSWORD_REUSE_MAX		PASSWORD 5</span><br><span class="line">DEFAULT 		       PASSWORD_VERIFY_FUNCTION 	PASSWORD VERIFY_FUNCTION_11G</span><br><span class="line">DEFAULT 		       PASSWORD_LOCK_TIME		PASSWORD 1</span><br><span class="line">DEFAULT 		       PASSWORD_GRACE_TIME		PASSWORD 7</span><br><span class="line">6 rows selected.</span><br><span class="line">Elapsed: 00:00:00.03</span><br><span class="line">修改5次不同的密码：</span><br><span class="line">00:04:17 SYS@ boston&gt; alter user test identified by Testdb128;</span><br><span class="line">User altered.</span><br><span class="line">Elapsed: 00:00:00.08</span><br><span class="line">00:04:29 SYS@ boston&gt; alter user test identified by Testdb129;</span><br><span class="line">User altered.</span><br><span class="line">Elapsed: 00:00:00.03</span><br><span class="line">00:04:33 SYS@ boston&gt; alter user test identified by Testdb130;</span><br><span class="line">User altered.</span><br><span class="line">Elapsed: 00:00:00.04</span><br><span class="line">00:04:37 SYS@ boston&gt; alter user test identified by Testdb131;</span><br><span class="line">User altered.</span><br><span class="line">Elapsed: 00:00:00.04</span><br><span class="line">00:04:39 SYS@ boston&gt; alter user test identified by Testdb132;</span><br><span class="line">User altered.</span><br><span class="line">修改5次之后再次修改为以前的密码，修改正常：</span><br><span class="line">Elapsed: 00:00:00.04</span><br><span class="line">00:04:40 SYS@ boston&gt; alter user test identified by Testdb123;</span><br><span class="line">User altered.</span><br><span class="line">再次修改为上面修改的新的密码，提示不能复用：</span><br><span class="line">Elapsed: 00:00:00.05</span><br><span class="line">00:04:46 SYS@ boston&gt; alter user test identified by Testdb130;</span><br><span class="line">alter user test identified by Testdb130</span><br><span class="line">*</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-28007: the password cannot be reused</span><br><span class="line">Elapsed: 00:00:00.02</span><br><span class="line">00:04:56 SYS@ boston&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="6、还原上面的操作，在oracle下面有一个还原脚本，执行下面命令："><a href="#6、还原上面的操作，在oracle下面有一个还原脚本，执行下面命令：" class="headerlink" title="6、还原上面的操作，在oracle下面有一个还原脚本，执行下面命令："></a>6、还原上面的操作，在oracle下面有一个还原脚本，执行下面命令：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql&gt;@?&#x2F;rdbms&#x2F;admin&#x2F;undopwd.sql</span><br></pre></td></tr></table></figure>
+<p>上面的脚本把PASSWORD_LIFE_TIME、PASSWORD_REUSE_TIME等参数改为了unlimitd，但是PASSWORD_VERIFY_FUNCTION的限制函数VERIFY_FUNCTION_11G仍然存在，如果不把这个清空，密码的复杂度校验仍然存在，清空密码复杂度校验执行下面操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql&gt;alter profile default limit PASSWORD_VERIFY_FUNCTION null;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/01/23/oracle设置用户名密码复杂性校验/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/01/23/修改oracle用户密码永不过期/"><span>[Oracle] 修改oracle用户密码永不过期</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/01/23/修改oracle用户密码永不过期/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-01-23T08:01:00.000Z">
+          2019-01-23
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、查看用户有无过期"><a href="#1、查看用户有无过期" class="headerlink" title="1、查看用户有无过期"></a>1、查看用户有无过期</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select username,account_status,expiry_date from dba_users;</span><br></pre></td></tr></table></figure>
+<h4 id="2、查看用户使用概要文件"><a href="#2、查看用户使用概要文件" class="headerlink" title="2、查看用户使用概要文件"></a>2、查看用户使用概要文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT username,PROFILE FROM dba_users;</span><br></pre></td></tr></table></figure>
+<h4 id="3、查看概要文件密码有效期"><a href="#3、查看概要文件密码有效期" class="headerlink" title="3、查看概要文件密码有效期"></a>3、查看概要文件密码有效期</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM dba_profiles s WHERE s.profile&#x3D;&#39;DEFAULT&#39; AND resource_name like &#39;PASSWORD%&#39;;</span><br></pre></td></tr></table></figure>
+<h4 id="4、修改概要文件有效期"><a href="#4、修改概要文件有效期" class="headerlink" title="4、修改概要文件有效期"></a>4、修改概要文件有效期</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;</span><br></pre></td></tr></table></figure>
+<h4 id="5、再次查看用户过期时间，expiry-date字段已经变为空"><a href="#5、再次查看用户过期时间，expiry-date字段已经变为空" class="headerlink" title="5、再次查看用户过期时间，expiry_date字段已经变为空"></a>5、再次查看用户过期时间，expiry_date字段已经变为空</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select username,account_status,expiry_date from dba_users;</span><br></pre></td></tr></table></figure>
+<h4 id="6、rac环境在任意一个节点执行即可。"><a href="#6、rac环境在任意一个节点执行即可。" class="headerlink" title="6、rac环境在任意一个节点执行即可。"></a>6、rac环境在任意一个节点执行即可。</h4>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/01/23/修改oracle用户密码永不过期/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/01/22/mysql参数NO_AUTO_CREATE_USER/"><span>[Mysql] mysql参数NO_AUTO_CREATE_USER</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/01/22/mysql参数NO_AUTO_CREATE_USER/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-01-22T06:34:00.000Z">
+          2019-01-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、sql-mode存在NO-AUTO-CREATE-USER情况下："><a href="#1、sql-mode存在NO-AUTO-CREATE-USER情况下：" class="headerlink" title="1、sql_mode存在NO_AUTO_CREATE_USER情况下："></a>1、sql_mode存在NO_AUTO_CREATE_USER情况下：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@db 01:05:  [(none)]&gt; show variables like &#39;%sql_mode%&#39;;</span><br><span class="line">+---------------+------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Variable_name | Value                                                                                                                  |</span><br><span class="line">+---------------+------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| sql_mode      | STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+---------------+------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.01 sec)</span><br><span class="line"></span><br><span class="line">root@db 01:05:  [(none)]&gt; select host,user from mysql.user;</span><br><span class="line">+-----------+---------------+</span><br><span class="line">| host      | user          |</span><br><span class="line">+-----------+---------------+</span><br><span class="line">| %         | zabbix        |</span><br><span class="line">| localhost | mysql.session |</span><br><span class="line">| localhost | mysql.sys     |</span><br><span class="line">| localhost | root          |</span><br><span class="line">| localhost | zabbix        |</span><br><span class="line">+-----------+---------------+</span><br><span class="line">5 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+<p>在包含NO_AUTO_CREATE_USER的情况下，使用grant去授权一个不存在的用户，必须要使用identified by参数或者identified with插件指定密码，才能够创建用户并授权成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@db 01:07:  [(none)]&gt; grant all privileges on *.* to testuser;</span><br><span class="line">ERROR 1133 (42000): Can&#39;t find any matching row in the user table</span><br><span class="line">root@db 01:07:  [(none)]&gt; grant all privileges on *.* to testuser identified by &#39;testuser&#39;;</span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.01 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、sql-mode不存在NO-AUTO-CREATE-USER情况下"><a href="#2、sql-mode不存在NO-AUTO-CREATE-USER情况下" class="headerlink" title="2、sql_mode不存在NO_AUTO_CREATE_USER情况下"></a>2、sql_mode不存在NO_AUTO_CREATE_USER情况下</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@db 01:14:  [(none)]&gt; set @@sql_mode&#x3D;&quot;STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION&quot;;</span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.00 sec)</span><br><span class="line">root@db 01:17:  [(none)]&gt; show variables like &#39;%sql_mode%&#39;;</span><br><span class="line">+---------------+----------------------------------------------------------------------------------------------------+</span><br><span class="line">| Variable_name | Value                                                                                              |</span><br><span class="line">+---------------+----------------------------------------------------------------------------------------------------+</span><br><span class="line">| sql_mode      | STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+---------------+----------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.01 sec)</span><br><span class="line">root@db 01:17:  [(none)]&gt; grant all privileges on *.* to testuser1;</span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.01 sec)</span><br></pre></td></tr></table></figure>
+<p>没有密码也能够创建该用户，并授权成功，使用该用户没有密码可以直接登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@db 01:17:  [(none)]&gt; select host,user from mysql.user;</span><br><span class="line">+-----------+---------------+</span><br><span class="line">| host      | user          |</span><br><span class="line">+-----------+---------------+</span><br><span class="line">| %         | testuser      |</span><br><span class="line">| %         | testuser1     |</span><br><span class="line">| %         | zabbix        |</span><br><span class="line">| localhost | mysql.session |</span><br><span class="line">| localhost | mysql.sys     |</span><br><span class="line">| localhost | root          |</span><br><span class="line">| localhost | zabbix        |</span><br><span class="line">+-----------+---------------+</span><br><span class="line">7 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<h4 id="3、总结："><a href="#3、总结：" class="headerlink" title="3、总结："></a>3、总结：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NO_AUTO_CREATE_USER参数在未来将会被弃用，被弃用的原因是基于对复制安全性的考虑。而基于复制安全性的考虑，对用户进行管理操作的更好方法是使用：CREATE USER IF NOT EXISTS, DROP USER IF EXISTS, 和ALTER USER IF EXISTS而不是grant命令。这些语句可以保证复制的安全性当从库存在和主库的不同权限。</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/01/22/mysql参数NO_AUTO_CREATE_USER/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/01/14/sqlserver2017数据导入sqlserver2016/"><span>[Sqlserver] Sqlserver2017数据库导入低版本sqlserver2016数据库</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/01/14/sqlserver2017数据导入sqlserver2016/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-01-14T06:54:00.000Z">
+          2019-01-14
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、源库操作"><a href="#1、源库操作" class="headerlink" title="1、源库操作"></a>1、源库操作</h4><p>通过sqlserver manager studio登录sqlserver2017，对要备份的库进行操作：tasks–&gt;Generate scripts<br><img src="https://i.imgur.com/3QLtong.jpg" alt=""><br>点击下一步Next：<br><img src="https://i.imgur.com/TgGqSV7.png" alt=""><br>可以选择要备份整个库，还是只备份这个库的某个对象，我们这里备份整个库：<br><img src="https://i.imgur.com/Qrh498i.png" alt=""><br>点击下一步，点击advanced，进行编辑，将Script for server version修改为要目标库的版本（sqlserver2016）,Type of data to script改为Schema and data：<br><img src="https://i.imgur.com/JKIEDUd.png" alt=""><br>修改备份的路径，点击next:<br><img src="https://i.imgur.com/ncNCo1R.jpg" alt=""><br>开始导出数据：<br><img src="https://i.imgur.com/9iFyYH9.png" alt=""></p>
+<h4 id="2、目标库操作"><a href="#2、目标库操作" class="headerlink" title="2、目标库操作"></a>2、目标库操作</h4><p>数据导出完成之后，将备份的数据拷贝到目标端服务器，目录根据自己需求定义，然后通过management studio登录sqlserver2016数据库（这里安装sqlserver2016的过程中，发现没有自带managerment studio管理软件，需要自己单独安装，sqlserver2016 management studio下载链接，点击<a href="https://download.microsoft.com/download/9/3/3/933EA6DD-58C5-4B78-8BEC-2DF389C72BE0/SSMS-Setup-ENU.exe" target="_blank" rel="noopener">此处</a></p>
+<p>登录management studio打开拷贝过来的脚本，修改脚本：<br>将数据路径和日志路径修改为本地的sqlserver路径，如果database已经建立了，可以把create database参数改为use<br><img src="https://i.imgur.com/3JeTUFi.jpg" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/sqlserver/">sqlserver</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/01/14/sqlserver2017数据导入sqlserver2016/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/01/09/oracle 修改字符集/"><span>[Oracle] oracle修改字符集</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/01/09/oracle 修改字符集/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-01-09T10:54:00.000Z">
+          2019-01-09
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="0、查看数据库字符集"><a href="#0、查看数据库字符集" class="headerlink" title="0、查看数据库字符集"></a>0、查看数据库字符集</h4><p>1)数据库服务器字符集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from nls_database_parameters;</span><br></pre></td></tr></table></figure>
+<p>来源于props$，是表示数据库的字符集。<br>2)客户端字符集环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from nls_instance_parameters;</span><br></pre></td></tr></table></figure>
+<p>其来源于v$parameter，表示客户端的字符集的设置，可能是参数文件，环境变量或者是注册表<br>3)会话字符集环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from nls_session_parameters;</span><br></pre></td></tr></table></figure>
+<p>来源于v$nls_parameters，表示会话自己的设置，可能是会话的环境变量或者是alter session完成，如果会话没有特殊的设置，将与nls_instance_parameters一致。</p>
+<h4 id="1、字符集由AL32UTF8修改为ZHS16GBK"><a href="#1、字符集由AL32UTF8修改为ZHS16GBK" class="headerlink" title="1、字符集由AL32UTF8修改为ZHS16GBK"></a>1、字符集由AL32UTF8修改为ZHS16GBK</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">13:51:26 SYS@ boston&gt; select * from nls_database_parameters;</span><br><span class="line"></span><br><span class="line">PARAMETER                                                    VALUE</span><br><span class="line">------------------------------------------------------------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line">NLS_LANGUAGE                                                 AMERICAN</span><br><span class="line">NLS_TERRITORY                                                AMERICA</span><br><span class="line">NLS_CURRENCY                                                 $</span><br><span class="line">NLS_ISO_CURRENCY                                             AMERICA</span><br><span class="line">NLS_NUMERIC_CHARACTERS                                       .,</span><br><span class="line">NLS_CHARACTERSET                                             AL32UTF8</span><br><span class="line">NLS_CALENDAR                                                 GREGORIAN</span><br><span class="line">NLS_DATE_FORMAT                                              DD-MON-RR</span><br><span class="line">NLS_DATE_LANGUAGE                                            AMERICAN</span><br><span class="line">NLS_SORT                                                     BINARY</span><br><span class="line">NLS_TIME_FORMAT                                              HH.MI.SSXFF AM</span><br><span class="line">NLS_TIMESTAMP_FORMAT                                         DD-MON-RR HH.MI.SSXFF AM</span><br><span class="line">NLS_TIME_TZ_FORMAT                                           HH.MI.SSXFF AM TZR</span><br><span class="line">NLS_TIMESTAMP_TZ_FORMAT                                      DD-MON-RR HH.MI.SSXFF AM TZR</span><br><span class="line">NLS_DUAL_CURRENCY                                            $</span><br><span class="line">NLS_COMP                                                     BINARY</span><br><span class="line">NLS_LENGTH_SEMANTICS                                         BYTE</span><br><span class="line">NLS_NCHAR_CONV_EXCP                                          FALSE</span><br><span class="line">NLS_NCHAR_CHARACTERSET                                       AL16UTF16</span><br><span class="line">NLS_RDBMS_VERSION                                            11.2.0.4.0</span><br></pre></td></tr></table></figure>
+<p>提示要修改的新的字符集必须大于旧的字符集才可以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">13:51:36 SYS@ boston&gt; ALTER DATABASE CHARACTER SET ZHS16GBK;</span><br><span class="line">ALTER DATABASE CHARACTER SET ZHS16GBK</span><br><span class="line">*</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-12712: new character set must be a superset of old character set</span><br></pre></td></tr></table></figure>
+<p>跳过超集的检查</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">13:59:34 SYS@ boston&gt; alter system enable restricted session; </span><br><span class="line">System altered.</span><br><span class="line">Elapsed: 00:00:02.05</span><br><span class="line">13:59:48 SYS@ boston&gt; ALTER DATABASE character set INTERNAL_USE ZHS16GBK;</span><br><span class="line">ALTER DATABASE character set INTERNAL_USE ZHS16GBK</span><br><span class="line">*</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-12721: operation cannot execute when other sessions are active</span><br></pre></td></tr></table></figure>
+<p>查看当前活动的会话</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">14:02:48 SYS@ boston&gt; select sid, serial#,program ,status from v$session;</span><br><span class="line"></span><br><span class="line">       SID    SERIAL# PROGRAM                                                                                          STATUS</span><br><span class="line">---------- ---------- ------------------------------------------------------------------------------------------------ ----------------</span><br><span class="line">         1          1 oracle@dax-mysql-slave (VKTM)                                                                    ACTIVE</span><br><span class="line">         2          1 oracle@dax-mysql-slave (DIA0)                                                                    ACTIVE</span><br><span class="line">         3          1 oracle@dax-mysql-slave (CKPT)                                                                    ACTIVE</span><br><span class="line">         4          3 oracle@dax-mysql-slave (MMNL)                                                                    ACTIVE</span><br><span class="line">         6         11 oracle@dax-mysql-slave (SMCO)                                                                    ACTIVE</span><br><span class="line">       101          1 oracle@dax-mysql-slave (GEN0)                                                                    ACTIVE</span><br><span class="line">       102          1 oracle@dax-mysql-slave (MMAN)                                                                    ACTIVE</span><br><span class="line">       103          1 oracle@dax-mysql-slave (SMON)                                                                    ACTIVE</span><br><span class="line">       105       1603 sqlplus@dax-mysql-slave (TNS V1-V3)                                                              ACTIVE</span><br><span class="line">       201          1 oracle@dax-mysql-slave (PMON)                                                                    ACTIVE</span><br><span class="line">       202          1 oracle@dax-mysql-slave (DIAG)                                                                    ACTIVE</span><br><span class="line">       203          1 oracle@dax-mysql-slave (DBW0)                                                                    ACTIVE</span><br><span class="line">       204          1 oracle@dax-mysql-slave (RECO)                                                                    ACTIVE</span><br><span class="line">       207        145 sqlplus@dax-mysql-slave (TNS V1-V3)                                                              INACTIVE</span><br><span class="line">       301        291 oracle@dax-mysql-slave (W000)                                                                    ACTIVE</span><br><span class="line">       302          1 oracle@dax-mysql-slave (PSP0)                                                                    ACTIVE</span><br><span class="line">       303          1 oracle@dax-mysql-slave (DBRM)                                                                    ACTIVE</span><br><span class="line">       304          1 oracle@dax-mysql-slave (LGWR)                                                                    ACTIVE</span><br><span class="line">       305          3 oracle@dax-mysql-slave (MMON)                                                                    ACTIVE</span><br><span class="line">       306        199 sqlplus@dax-mysql-slave (TNS V1-V3)                                                              INACTIVE</span><br></pre></td></tr></table></figure>
+<p>查看当前会话的sid</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">14:02:56 SYS@ boston&gt; select userenv(&#39;sid&#39;) from dual;</span><br><span class="line">USERENV(&#39;SID&#39;)</span><br><span class="line">--------------</span><br><span class="line">           105</span><br></pre></td></tr></table></figure>
+<p>尝试杀掉sqlplus连接进来的两个inactive的会话</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">14:06:46 SYS@ boston&gt; alter system kill session &#39;207,145&#39;;</span><br><span class="line">System altered.</span><br><span class="line">Elapsed: 00:00:00.00</span><br><span class="line">14:07:11 SYS@ boston&gt; alter system kill session &#39;306,199&#39;;</span><br><span class="line">System altered.</span><br><span class="line"></span><br><span class="line">14:07:27 SYS@ boston&gt; select sid, serial#,program ,status from v$session;</span><br><span class="line"></span><br><span class="line">       SID    SERIAL# PROGRAM                                                                                          STATUS</span><br><span class="line">---------- ---------- ------------------------------------------------------------------------------------------------ ----------------</span><br><span class="line">         1          1 oracle@dax-mysql-slave (VKTM)                                                                    ACTIVE</span><br><span class="line">         2          1 oracle@dax-mysql-slave (DIA0)                                                                    ACTIVE</span><br><span class="line">         3          1 oracle@dax-mysql-slave (CKPT)                                                                    ACTIVE</span><br><span class="line">         4          3 oracle@dax-mysql-slave (MMNL)                                                                    ACTIVE</span><br><span class="line">         6         11 oracle@dax-mysql-slave (SMCO)                                                                    ACTIVE</span><br><span class="line">       101          1 oracle@dax-mysql-slave (GEN0)                                                                    ACTIVE</span><br><span class="line">       102          1 oracle@dax-mysql-slave (MMAN)                                                                    ACTIVE</span><br><span class="line">       103          1 oracle@dax-mysql-slave (SMON)                                                                    ACTIVE</span><br><span class="line">       105       1603 sqlplus@dax-mysql-slave (TNS V1-V3)                                                              ACTIVE</span><br><span class="line">       201          1 oracle@dax-mysql-slave (PMON)                                                                    ACTIVE</span><br><span class="line">       202          1 oracle@dax-mysql-slave (DIAG)                                                                    ACTIVE</span><br><span class="line">       203          1 oracle@dax-mysql-slave (DBW0)                                                                    ACTIVE</span><br><span class="line">       204          1 oracle@dax-mysql-slave (RECO)                                                                    ACTIVE</span><br><span class="line">       207        145 sqlplus@dax-mysql-slave (TNS V1-V3)                                                              KILLED</span><br><span class="line">       302          1 oracle@dax-mysql-slave (PSP0)                                                                    ACTIVE</span><br><span class="line">       303          1 oracle@dax-mysql-slave (DBRM)                                                                    ACTIVE</span><br><span class="line">       304          1 oracle@dax-mysql-slave (LGWR)                                                                    ACTIVE</span><br><span class="line">       305          3 oracle@dax-mysql-slave (MMON)                                                                    ACTIVE</span><br><span class="line">       306        199 sqlplus@dax-mysql-slave (TNS V1-V3)                                                              KILLED</span><br></pre></td></tr></table></figure>
+<p>再次执行仍然提示有活动会话</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">14:07:29 SYS@ boston&gt;  ALTER DATABASE character set INTERNAL_USE ZHS16GBK;</span><br><span class="line"> ALTER DATABASE character set INTERNAL_USE ZHS16GBK</span><br><span class="line">*</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-12721: operation cannot execute when other sessions are active</span><br></pre></td></tr></table></figure>
+<p>重启数据库再次修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">14:10:54 SYS@ boston&gt; shutdown immeidate</span><br><span class="line">SP2-0717: illegal SHUTDOWN option</span><br><span class="line">14:11:02 SYS@ boston&gt; shutdown immediate</span><br><span class="line">Database closed.</span><br><span class="line">Database dismounted.</span><br><span class="line">ORACLE instance shut down.</span><br><span class="line">14:11:16 SYS@ boston&gt; startup</span><br><span class="line">ORACLE instance started.</span><br><span class="line"></span><br><span class="line">Total System Global Area 1603411968 bytes</span><br><span class="line">Fixed Size                  2253664 bytes</span><br><span class="line">Variable Size             503319712 bytes</span><br><span class="line">Database Buffers         1090519040 bytes</span><br><span class="line">Redo Buffers                7319552 bytes</span><br><span class="line">Database mounted.</span><br><span class="line">Database opened.</span><br><span class="line">14:11:46 SYS@ boston&gt; select sid, serial#,program ,status from v$session;</span><br><span class="line">       SID    SERIAL# PROGRAM                                                                                          STATUS</span><br><span class="line">---------- ---------- ------------------------------------------------------------------------------------------------ ----------------</span><br><span class="line">         1          1 oracle@dax-mysql-slave (VKTM)                                                                    ACTIVE</span><br><span class="line">         2          1 oracle@dax-mysql-slave (DIA0)                                                                    ACTIVE</span><br><span class="line">         3          1 oracle@dax-mysql-slave (CKPT)                                                                    ACTIVE</span><br><span class="line">         4          1 oracle@dax-mysql-slave (MMNL)                                                                    ACTIVE</span><br><span class="line">       101          1 oracle@dax-mysql-slave (GEN0)                                                                    ACTIVE</span><br><span class="line">       102          1 oracle@dax-mysql-slave (MMAN)                                                                    ACTIVE</span><br><span class="line">       103          1 oracle@dax-mysql-slave (SMON)                                                                    ACTIVE</span><br><span class="line">       201          1 oracle@dax-mysql-slave (PMON)                                                                    ACTIVE</span><br><span class="line">       202          1 oracle@dax-mysql-slave (DIAG)                                                                    ACTIVE</span><br><span class="line">       203          1 oracle@dax-mysql-slave (DBW0)                                                                    ACTIVE</span><br><span class="line">       204          1 oracle@dax-mysql-slave (RECO)                                                                    ACTIVE</span><br><span class="line">       301          5 sqlplus@dax-mysql-slave (TNS V1-V3)                                                              ACTIVE</span><br><span class="line">       302          1 oracle@dax-mysql-slave (PSP0)                                                                    ACTIVE</span><br><span class="line">       303          1 oracle@dax-mysql-slave (DBRM)                                                                    ACTIVE</span><br><span class="line">       304          1 oracle@dax-mysql-slave (LGWR)                                                                    ACTIVE</span><br><span class="line">       305          1 oracle@dax-mysql-slave (MMON)                                                                    ACTIVE</span><br><span class="line">16 rows selected.</span><br><span class="line"></span><br><span class="line">Elapsed: 00:00:00.03</span><br><span class="line">14:11:47 SYS@ boston&gt;  alter system enable restricted session; </span><br><span class="line">System altered.</span><br><span class="line">Elapsed: 00:00:02.04</span><br><span class="line">14:12:00 SYS@ boston&gt;  ALTER DATABASE character set INTERNAL_USE ZHS16GBK;</span><br><span class="line">Database altered.</span><br></pre></td></tr></table></figure>
+<p>修改完成再次重启数据库，（修改完字符集之后关闭数据库会花费很长时间）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">14:12:13 SYS@ boston&gt; shutdown immediate</span><br><span class="line">Database closed.</span><br><span class="line">Database dismounted.</span><br><span class="line">ORACLE instance shut down.</span><br><span class="line">14:18:21 SYS@ boston&gt; startup</span><br><span class="line">ORACLE instance started.</span><br><span class="line"></span><br><span class="line">Total System Global Area 1603411968 bytes</span><br><span class="line">Fixed Size                  2253664 bytes</span><br><span class="line">Variable Size             503319712 bytes</span><br><span class="line">Database Buffers         1090519040 bytes</span><br><span class="line">Redo Buffers                7319552 bytes</span><br><span class="line">Database mounted.</span><br><span class="line">Database opened.</span><br></pre></td></tr></table></figure>
+<p>查看字符集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">14:19:40 SYS@ boston&gt; select * from nls_database_parameters;</span><br><span class="line"></span><br><span class="line">PARAMETER                      VALUE</span><br><span class="line">------------------------------ --------------------------------------------------------------------------------</span><br><span class="line">NLS_LANGUAGE                   AMERICAN</span><br><span class="line">NLS_TERRITORY                  AMERICA</span><br><span class="line">NLS_CURRENCY                   $</span><br><span class="line">NLS_ISO_CURRENCY               AMERICA</span><br><span class="line">NLS_NUMERIC_CHARACTERS         .,</span><br><span class="line">NLS_CHARACTERSET               ZHS16GBK</span><br><span class="line">NLS_CALENDAR                   GREGORIAN</span><br><span class="line">NLS_DATE_FORMAT                DD-MON-RR</span><br><span class="line">NLS_DATE_LANGUAGE              AMERICAN</span><br><span class="line">NLS_SORT                       BINARY</span><br><span class="line">NLS_TIME_FORMAT                HH.MI.SSXFF AM</span><br><span class="line">NLS_TIMESTAMP_FORMAT           DD-MON-RR HH.MI.SSXFF AM</span><br><span class="line">NLS_TIME_TZ_FORMAT             HH.MI.SSXFF AM TZR</span><br><span class="line">NLS_TIMESTAMP_TZ_FORMAT        DD-MON-RR HH.MI.SSXFF AM TZR</span><br><span class="line">NLS_DUAL_CURRENCY              $</span><br><span class="line">NLS_COMP                       BINARY</span><br><span class="line">NLS_LENGTH_SEMANTICS           BYTE</span><br><span class="line">NLS_NCHAR_CONV_EXCP            FALSE</span><br><span class="line">NLS_NCHAR_CHARACTERSET         AL16UTF16</span><br><span class="line">NLS_RDBMS_VERSION              11.2.0.4.0</span><br><span class="line">20 rows selected.</span><br></pre></td></tr></table></figure>
+<p>字符集修改完成,数据库的字符集更改会出现乱码，操作要慎重。</p>
+<h4 id="2、数据库字符集由ZHS16GBK改为AL32UTF8"><a href="#2、数据库字符集由ZHS16GBK改为AL32UTF8" class="headerlink" title="2、数据库字符集由ZHS16GBK改为AL32UTF8"></a>2、数据库字符集由ZHS16GBK改为AL32UTF8</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">15:01:20 SYS@ boston&gt; select * from nls_database_parameters;</span><br><span class="line"></span><br><span class="line">PARAMETER                      VALUE</span><br><span class="line">------------------------------ --------------------------------------------------------------------------------</span><br><span class="line">NLS_LANGUAGE                   AMERICAN</span><br><span class="line">NLS_TERRITORY                  AMERICA</span><br><span class="line">NLS_CURRENCY                   $</span><br><span class="line">NLS_ISO_CURRENCY               AMERICA</span><br><span class="line">NLS_NUMERIC_CHARACTERS         .,</span><br><span class="line">NLS_CHARACTERSET               ZHS16GBK</span><br><span class="line">NLS_CALENDAR                   GREGORIAN</span><br><span class="line">NLS_DATE_FORMAT                DD-MON-RR</span><br><span class="line">NLS_DATE_LANGUAGE              AMERICAN</span><br><span class="line">NLS_SORT                       BINARY</span><br><span class="line">NLS_TIME_FORMAT                HH.MI.SSXFF AM</span><br><span class="line">NLS_TIMESTAMP_FORMAT           DD-MON-RR HH.MI.SSXFF AM</span><br><span class="line">NLS_TIME_TZ_FORMAT             HH.MI.SSXFF AM TZR</span><br><span class="line">NLS_TIMESTAMP_TZ_FORMAT        DD-MON-RR HH.MI.SSXFF AM TZR</span><br><span class="line">NLS_DUAL_CURRENCY              $</span><br><span class="line">NLS_COMP                       BINARY</span><br><span class="line">NLS_LENGTH_SEMANTICS           BYTE</span><br><span class="line">NLS_NCHAR_CONV_EXCP            FALSE</span><br><span class="line">NLS_NCHAR_CHARACTERSET         AL16UTF16</span><br><span class="line">NLS_RDBMS_VERSION              11.2.0.4.0</span><br><span class="line">20 rows selected.</span><br><span class="line">15:05:51 SYS@ boston&gt; alter system enable restricted session; </span><br><span class="line">System altered.</span><br><span class="line">Elapsed: 00:00:02.06</span><br><span class="line">15:07:05 SYS@ boston&gt; ALTER DATABASE character set  AL32UTF8; </span><br><span class="line">ALTER DATABASE character set  AL32UTF8</span><br><span class="line">*</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-12712: new character set must be a superset of old character set</span><br><span class="line">Elapsed: 00:00:00.00</span><br></pre></td></tr></table></figure>
+<p>这个报错证明AL32UTF8字符集并不是ZHS16GBK超集。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">15:07:12 SYS@ boston&gt; ALTER DATABASE character set INTERNAL_USE AL32UTF8; </span><br><span class="line">ALTER DATABASE character set INTERNAL_USE AL32UTF8</span><br><span class="line">*</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-12721: operation cannot execute when other sessions are active</span><br><span class="line"></span><br><span class="line">Elapsed: 00:00:00.01</span><br><span class="line">15:07:23 SYS@ boston&gt; select sid, serial#,program ,status from v$session;</span><br><span class="line"></span><br><span class="line">       SID    SERIAL# PROGRAM                                          STATUS</span><br><span class="line">---------- ---------- ------------------------------------------------ --------</span><br><span class="line">         1          1 oracle@dax-mysql-slave (VKTM)                    ACTIVE</span><br><span class="line">         2          1 oracle@dax-mysql-slave (DIA0)                    ACTIVE</span><br><span class="line">         3          1 oracle@dax-mysql-slave (CKPT)                    ACTIVE</span><br><span class="line">         4          3 oracle@dax-mysql-slave (MMNL)                    ACTIVE</span><br><span class="line">         7          5 oracle@dax-mysql-slave (SMCO)                    ACTIVE</span><br><span class="line">       101          1 oracle@dax-mysql-slave (GEN0)                    ACTIVE</span><br><span class="line">       102          1 oracle@dax-mysql-slave (MMAN)                    ACTIVE</span><br><span class="line">       103          1 oracle@dax-mysql-slave (SMON)                    ACTIVE</span><br><span class="line">       104         27 oracle@dax-mysql-slave (W000)                    ACTIVE</span><br><span class="line">       201          1 oracle@dax-mysql-slave (PMON)                    ACTIVE</span><br><span class="line">       202          1 oracle@dax-mysql-slave (DIAG)                    ACTIVE</span><br><span class="line">       203          1 oracle@dax-mysql-slave (DBW0)                    ACTIVE</span><br><span class="line">       204          1 oracle@dax-mysql-slave (RECO)                    ACTIVE</span><br><span class="line">       205         15 sqlplus@dax-mysql-slave (TNS V1-V3)              INACTIVE</span><br><span class="line">       301         15 sqlplus@dax-mysql-slave (TNS V1-V3)              INACTIVE</span><br><span class="line">       302          1 oracle@dax-mysql-slave (PSP0)                    ACTIVE</span><br><span class="line">       303          1 oracle@dax-mysql-slave (DBRM)                    ACTIVE</span><br><span class="line">       304          1 oracle@dax-mysql-slave (LGWR)                    ACTIVE</span><br><span class="line">       305          3 oracle@dax-mysql-slave (MMON)                    ACTIVE</span><br><span class="line">       306        139 sqlplus@dax-mysql-slave (TNS V1-V3)              ACTIVE</span><br><span class="line"></span><br><span class="line">20 rows selected.</span><br><span class="line">Elapsed: 00:00:00.01</span><br><span class="line">15:07:36 SYS@ boston&gt; shutdown immediate</span><br><span class="line">Database closed.</span><br><span class="line">Database dismounted.</span><br><span class="line">ORACLE instance shut down.</span><br><span class="line">15:07:55 SYS@ boston&gt; startup</span><br><span class="line">ORACLE instance started.</span><br><span class="line"></span><br><span class="line">Total System Global Area 1603411968 bytes</span><br><span class="line">Fixed Size                  2253664 bytes</span><br><span class="line">Variable Size             503319712 bytes</span><br><span class="line">Database Buffers         1090519040 bytes</span><br><span class="line">Redo Buffers                7319552 bytes</span><br><span class="line">Database mounted.</span><br><span class="line">Database opened.</span><br><span class="line">15:08:38 SYS@ boston&gt; </span><br><span class="line">15:13:24 SYS@ boston&gt; select * from nls_database_parameters;</span><br><span class="line"></span><br><span class="line">PARAMETER                      VALUE</span><br><span class="line">------------------------------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line">NLS_LANGUAGE                   AMERICAN</span><br><span class="line">NLS_TERRITORY                  AMERICA</span><br><span class="line">NLS_CURRENCY                   $</span><br><span class="line">NLS_ISO_CURRENCY               AMERICA</span><br><span class="line">NLS_NUMERIC_CHARACTERS         .,</span><br><span class="line">NLS_CHARACTERSET               AL32UTF8</span><br><span class="line">NLS_CALENDAR                   GREGORIAN</span><br><span class="line">NLS_DATE_FORMAT                DD-MON-RR</span><br><span class="line">NLS_DATE_LANGUAGE              AMERICAN</span><br><span class="line">NLS_SORT                       BINARY</span><br><span class="line">NLS_TIME_FORMAT                HH.MI.SSXFF AM</span><br><span class="line">NLS_TIMESTAMP_FORMAT           DD-MON-RR HH.MI.SSXFF AM</span><br><span class="line">NLS_TIME_TZ_FORMAT             HH.MI.SSXFF AM TZR</span><br><span class="line">NLS_TIMESTAMP_TZ_FORMAT        DD-MON-RR HH.MI.SSXFF AM TZR</span><br><span class="line">NLS_DUAL_CURRENCY              $</span><br><span class="line">NLS_COMP                       BINARY</span><br><span class="line">NLS_LENGTH_SEMANTICS           BYTE</span><br><span class="line">NLS_NCHAR_CONV_EXCP            FALSE</span><br><span class="line">NLS_NCHAR_CHARACTERSET         AL16UTF16</span><br><span class="line">NLS_RDBMS_VERSION              11.2.0.4.0</span><br></pre></td></tr></table></figure>
+<p>字符集修改完成</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/01/09/oracle 修改字符集/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/01/09/linux操作系统字符集与ssh工具字符集配置问题/"><span>[Linux] linux操作系统字符集与ssh工具字符集配置问题</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/01/09/linux操作系统字符集与ssh工具字符集配置问题/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-01-09T09:26:00.000Z">
+          2019-01-09
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、操作系统字符集设置"><a href="#1、操作系统字符集设置" class="headerlink" title="1、操作系统字符集设置"></a>1、操作系统字符集设置</h4><p>centos6和7的字符集文件位置不同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CentOS6.x 字符集配置文件在&#x2F;etc&#x2F;syscconfig&#x2F;i18n</span><br><span class="line">CentOS7.x 字符集配置文件在&#x2F;etc&#x2F;locale.conf</span><br></pre></td></tr></table></figure>
+<p>以centos7为例，修改字符集<br>cat /etc/locale.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LANG&#x3D;&quot;zh_CN.UTF-8&quot;</span><br></pre></td></tr></table></figure>
+<p>修改为GBK字符集<br>cat /etc/locale.conf </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">LANG&#x3D;&quot;zh_CN.GBK&quot;</span><br><span class="line">[root@dax-mysql-slave ~]# locale</span><br><span class="line">LANG&#x3D;zh_CN.GBK</span><br><span class="line">LC_CTYPE&#x3D;&quot;zh_CN.GBK&quot;</span><br><span class="line">LC_NUMERIC&#x3D;&quot;zh_CN.GBK&quot;</span><br><span class="line">LC_TIME&#x3D;&quot;zh_CN.GBK&quot;</span><br><span class="line">LC_COLLATE&#x3D;&quot;zh_CN.GBK&quot;</span><br><span class="line">LC_MONETARY&#x3D;&quot;zh_CN.GBK&quot;</span><br><span class="line">LC_MESSAGES&#x3D;&quot;zh_CN.GBK&quot;</span><br><span class="line">LC_PAPER&#x3D;&quot;zh_CN.GBK&quot;</span><br><span class="line">LC_NAME&#x3D;&quot;zh_CN.GBK&quot;</span><br><span class="line">LC_ADDRESS&#x3D;&quot;zh_CN.GBK&quot;</span><br><span class="line">LC_TELEPHONE&#x3D;&quot;zh_CN.GBK&quot;</span><br><span class="line">LC_MEASUREMENT&#x3D;&quot;zh_CN.GBK&quot;</span><br><span class="line">LC_IDENTIFICATION&#x3D;&quot;zh_CN.GBK&quot;</span><br><span class="line">LC_ALL&#x3D;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、系统字符集为utf-8，securecrt工具的字符集为gb2312，oracle字符集为ZHS16GBK"><a href="#2、系统字符集为utf-8，securecrt工具的字符集为gb2312，oracle字符集为ZHS16GBK" class="headerlink" title="2、系统字符集为utf-8，securecrt工具的字符集为gb2312，oracle字符集为ZHS16GBK"></a>2、系统字符集为utf-8，securecrt工具的字符集为gb2312，oracle字符集为ZHS16GBK</h4><p><img src="https://i.imgur.com/qiqFOFM.png" alt=""><br><img src="https://i.imgur.com/hnIJGRu.png" alt=""><br>如果使用securtcrt工具，设置该工具字符集为gb2312（小于gbk字符集）<br><img src="https://i.imgur.com/BEZzuce.png" alt=""><br>进入操作系统如果操作系统有中文字符，会出现乱码的情况<br><img src="https://i.imgur.com/sUxX2Hi.png" alt=""><br>分别查看以utf8编码的文件和ansi编码的文件<br><img src="https://i.imgur.com/CAvtn4b.png" alt=""><br>以gb2312字符集连接进来的securecrt工具，查看ansi编码的文件正常，查看utf8编码的文件乱码。<br>使用securecrt工具查看数据库中存在中文的数据：<br><img src="https://i.imgur.com/EjipMxx.png" alt=""></p>
+<h4 id="3、系统字符集为utf-8，securecrt工具的字符集为urf-8，oracle字符集为ZH16GBK"><a href="#3、系统字符集为utf-8，securecrt工具的字符集为urf-8，oracle字符集为ZH16GBK" class="headerlink" title="3、系统字符集为utf-8，securecrt工具的字符集为urf-8，oracle字符集为ZH16GBK"></a>3、系统字符集为utf-8，securecrt工具的字符集为urf-8，oracle字符集为ZH16GBK</h4><p><img src="https://i.imgur.com/Eyu5H7h.png" alt=""><br><img src="https://i.imgur.com/GBmN4p3.png" alt=""><br><img src="https://i.imgur.com/hnIJGRu.png" alt=""><br>进入操作系统如果操作系统有中文字符，显示正常：<br><img src="https://i.imgur.com/OBz5GMU.png" alt=""><br>分别查看以utf8编码的文件和ansi编码的文件<br><img src="https://i.imgur.com/Lt98yEo.png" alt=""><br>以utf-8字符集连接进来的securecrt工具，查看ansi编码的文件乱码，查看utf8编码的文件正常。<br>使用securecrt工具查看数据库中存在中文的数据：<br><img src="https://i.imgur.com/HlJeZs7.png" alt=""><br>查看带有中文的数据全部显示乱码</p>
+<h4 id="4、结论："><a href="#4、结论：" class="headerlink" title="4、结论："></a>4、结论：</h4><p>使用ssh工具连接到服务器是要注意连接工具的字符集，如果只在系统级别操作，要注意保持工具字符集和操作系统字符集的一致性。如果要查询数据库里面带有中文的相关数据，要注意保持工具字符集和操作系统字符集的一致性，否则查询结果会出现乱码。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/01/09/linux操作系统字符集与ssh工具字符集配置问题/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/01/09/mysql大小写敏感参数/"><span>[Mysql] mysql大小写敏感参数</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/01/09/mysql大小写敏感参数/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-01-09T09:22:00.000Z">
+          2019-01-09
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、lower-case-file-system"><a href="#1、lower-case-file-system" class="headerlink" title="1、lower_case_file_system"></a>1、lower_case_file_system</h4><p>value=ON|OFF</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">该参数代表mysql数据目录所在的文件系统下的文件名的大小写是否敏感，off代表大小写铭感，on代表大小写不敏感。该变量是个只读参数，只代表一个文件系统属性，进行设置对文件系统没有任何影响。</span><br></pre></td></tr></table></figure>
+<h4 id="2、lower-case-table-names"><a href="#2、lower-case-table-names" class="headerlink" title="2、lower_case_table_names"></a>2、lower_case_table_names</h4><p>value=0|1|2<br>不同值代表的含义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">默认值为0，如果设置为0，表名是被指定存储的并且会进行大小写敏感的比较。</span><br><span class="line">如果设置为1，表名存为小写，不进行大小写敏感的比较。</span><br><span class="line">如果设置为2，表名按指定的存储，但是按小写的方式比较。这个参数同时适用于库名和表别名。</span><br></pre></td></tr></table></figure>
+<p>不同操作系统的默认值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如果是windows，值默认为1。</span><br><span class="line">如果是macos，值默认是2。</span><br><span class="line">如果是linux默认是0，且不支持设置为2，如果这是为2，服务端会强制用0替代。</span><br></pre></td></tr></table></figure>
+<p>使用过程要注意的问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1)如果MySQL服务运行在操作系统（windows或者macos）上，mysql的数据目录所在的文件系统是大小写不敏感的，因此不能设置lower_case_table_names为0。这种组合是不被支持的，当执行INSERT INTO...SELECT...FROM tbl_name操作时，因为tb1_name的小写，会导致系统hang主。</span><br><span class="line">2)在myisam表中，使用不同的字母大小写访问表，会引起索引损坏。</span><br><span class="line">3)如果在一个大小写不明感的文件系统上设置lower_case_table_names&#x3D;0，会打印error信息并退出服务。</span><br><span class="line">4)如果使用innodb引擎表，不管什么平台，都需要设置该参数为1，强制将名称转换为小写。</span><br><span class="line">5)数据库禁止启动的时候使用的lower_case_table_names的值与数据库初始化时的值不一致。这个限制是因为，当数据库初始化时候，数据字典表字段的排序是基于当时的值定义的。如果重启以不同的lower_case_table_names值启动，会导致在标识符的排序和比较引起不一致性。</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/01/09/mysql大小写敏感参数/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/12/21/单实例rman备份异机恢复到rac环境/"><span>[Oracle] 单实例rman备份异机恢复到rac环境</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/12/21/单实例rman备份异机恢复到rac环境/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-12-21T03:11:00.000Z">
+          2018-12-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、查询DBID信息"><a href="#1、查询DBID信息" class="headerlink" title="1、查询DBID信息"></a>1、查询DBID信息</h4><p>DBID是DataBase IDentifier的缩写，是数据库的唯一标识符。这个DBID在数据文件头和控制文件都是存在的，可以用于标示数据文件的归属。对于不同数据库来说，DBID应当不同，而db_name则可能是相同的。一般在nocatalog模式并且控制文件丢失时才需要这个。<br>查看源库的dbid</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SYS@ testcadb&gt; select name,dbid from v$database;</span><br><span class="line">NAME		DBID</span><br><span class="line">--------- ----------</span><br><span class="line">TESTCADB  2313387174</span><br></pre></td></tr></table></figure>
+<h4 id="2、查看源库的数据文件路径"><a href="#2、查看源库的数据文件路径" class="headerlink" title="2、查看源库的数据文件路径"></a>2、查看源库的数据文件路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SYS@ testcadb&gt; select file_id,file_name from dba_data_files;</span><br><span class="line">FILE_ID FILE_NAME</span><br><span class="line"></span><br><span class="line"> 4 &#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;users01.dbf</span><br><span class="line"> 3 &#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;undotbs01.dbf</span><br><span class="line"> 2 &#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;sysaux01.dbf</span><br><span class="line"> 1 &#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;system01.dbf</span><br><span class="line"> 5 &#x2F;home&#x2F;oracle&#x2F;oradata&#x2F;orcl&#x2F;ebank_data.dbf</span><br></pre></td></tr></table></figure>
+<h4 id="3、查看临时表空间数据文件"><a href="#3、查看临时表空间数据文件" class="headerlink" title="3、查看临时表空间数据文件"></a>3、查看临时表空间数据文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SYS@ testcadb&gt; select * from dba_temp_files;</span><br><span class="line">FILE_NAME																					           FILE_ID TABLESPACE_NAME			 BYTES	   BLOCKS STATUS  RELATIVE_FNO AUT   MAXBYTES  MAXBLOCKS INCREMENT_BY USER_BYTES USER_BLOCKS</span><br><span class="line">-----------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line">&#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;temp01.dbf 															         1 TEMP			      20971520	     2560 ONLINE	     1 YES 3.4360E+10	 4194302	   80	19922944	2432</span><br><span class="line">&#x2F;home&#x2F;oracle&#x2F;oradata&#x2F;orcl&#x2F;test_temp01.dbf																	         2 TEST_TEMP			      33554432	     4096 ONLINE	     1 YES 2147483648	  262144	 4096	32505856	3968</span><br></pre></td></tr></table></figure>
+<h4 id="4、查看日志文件路径："><a href="#4、查看日志文件路径：" class="headerlink" title="4、查看日志文件路径："></a>4、查看日志文件路径：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sql &gt; select a.bytes&#x2F;1024&#x2F;1024,b.member,b.group#,a.thread# from v$log a,v$logfile b where a.group#&#x3D;b.group#;</span><br><span class="line">A.BYTES&#x2F;1024&#x2F;1024 MEMBER																			      GROUP#	  THREAD#</span><br><span class="line">50 &#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;redo03.log													           3		1</span><br><span class="line">50 &#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;redo02.log													           2		1</span><br><span class="line">50 &#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;redo01.log													           1		1</span><br></pre></td></tr></table></figure>
+<h4 id="5、开始备份数据库（非归档模式的数据库需要在mount状态下执行）"><a href="#5、开始备份数据库（非归档模式的数据库需要在mount状态下执行）" class="headerlink" title="5、开始备份数据库（非归档模式的数据库需要在mount状态下执行）"></a>5、开始备份数据库（非归档模式的数据库需要在mount状态下执行）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; mkdir -p &#x2F;tmp&#x2F;backup&#x2F;</span><br><span class="line">shell &gt; rman target &#x2F;</span><br><span class="line">RMAN&gt; run &#123;</span><br><span class="line"> allocate channel c1 device type disk;  </span><br><span class="line"> backup incremental level 0 format &#39;&#x2F;tmp&#x2F;backup&#x2F;db_full_%U.bkp&#39; tag &#39;2018-12-19-FULL&#39; database plus archivelog;  </span><br><span class="line"> release channel c1;</span><br><span class="line">&#125;</span><br><span class="line">备份控制文件</span><br><span class="line">RMAN&gt; backup current controlfile format &#39;&#x2F;tmp&#x2F;backup&#x2F;control20181219.bak&#39;;</span><br><span class="line">备份pfile文件</span><br><span class="line">RMAN&gt; backup spfile format &#39;&#x2F;tmp&#x2F;backup&#x2F;spfile20181219.bak&#39;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="6、拷贝源库备份文件到目标库服务器"><a href="#6、拷贝源库备份文件到目标库服务器" class="headerlink" title="6、拷贝源库备份文件到目标库服务器"></a>6、拷贝源库备份文件到目标库服务器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; scp &#x2F;tmp&#x2F;backup&#x2F;* oracle@hostip*:&#x2F;home&#x2F;oracle&#x2F;backup&#x2F;</span><br></pre></td></tr></table></figure>
+<h4 id="7、以下操作都是在目标节点上执行"><a href="#7、以下操作都是在目标节点上执行" class="headerlink" title="7、以下操作都是在目标节点上执行"></a>7、以下操作都是在目标节点上执行</h4><h4 id="8、查看文件权限，如果权限不对需要修改"><a href="#8、查看文件权限，如果权限不对需要修改" class="headerlink" title="8、查看文件权限，如果权限不对需要修改"></a>8、查看文件权限，如果权限不对需要修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; chown oracle.oinstall &#x2F;home&#x2F;oracle&#x2F;backup&#x2F;*</span><br></pre></td></tr></table></figure>
+<h4 id="9、在节点1上执行恢复spfile文件："><a href="#9、在节点1上执行恢复spfile文件：" class="headerlink" title="9、在节点1上执行恢复spfile文件："></a>9、在节点1上执行恢复spfile文件：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">生成临时pfile文件</span><br><span class="line">shell &gt; echo &#39;db_name&#x3D;testcadb&#39; &gt; $ORACLE_HOME&#x2F;dbs&#x2F;inittestcadb1.ora  </span><br><span class="line">声明ORACLE_SID</span><br><span class="line">shell &gt; export ORACLE_SID&#x3D;testcadb1</span><br><span class="line">shell &gt; rman target &#x2F;</span><br><span class="line">以临时pfile文件启动库到nomount：</span><br><span class="line">rman &gt; startup nomount  pfile&#x3D;&#39;&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1&#x2F;dbs&#x2F;inittestcadb1.ora&#39;;</span><br><span class="line">设置dbid</span><br><span class="line">rman &gt; set DBID&#x3D;2313387174;</span><br><span class="line">从备份中恢复spfile文件</span><br><span class="line">rman &gt; restore spfile to &#39;&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1&#x2F;dbs&#x2F;spfileoibs1.ora&#39; from &#39;&#x2F;home&#x2F;oracle&#x2F;backup&#x2F;spfile20181218.bak&#39;;</span><br></pre></td></tr></table></figure>
+<p>操作结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[oracle@rac1 backup]$ rman target &#x2F;</span><br><span class="line">恢复管理器: Release 11.2.0.4.0 - Production on 星期五 9月 23 14:13:35 2016</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">RMAN&gt; startup nomount  pfile&#x3D;&#39;&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1&#x2F;dbs&#x2F;inittestcadb1.ora&#39;;</span><br><span class="line">Oracle instance started</span><br><span class="line">Total System Global Area     371654656 bytes</span><br><span class="line">Fixed Size                     2253304 bytes</span><br><span class="line">Variable Size                314576392 bytes</span><br><span class="line">Database Buffers              50331648 bytes</span><br><span class="line">Redo Buffers                   4493312 bytes</span><br><span class="line"></span><br><span class="line">RMAN&gt; set DBID&#x3D;2313387174;</span><br><span class="line">executing command: SET DBID</span><br><span class="line"></span><br><span class="line">RMAN&gt; restore spfile to &#39;&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1&#x2F;dbs&#x2F;spfiletestcadb1.ora&#39; from &#39;&#x2F;home&#x2F;oracle&#x2F;backup&#x2F;spfile20181219.bak&#39;;</span><br><span class="line">Starting restore at 2018:12:19 10:25:18</span><br><span class="line">using target database control file instead of recovery catalog</span><br><span class="line">allocated channel: ORA_DISK_1</span><br><span class="line">channel ORA_DISK_1: SID&#x3D;134 device type&#x3D;DISK</span><br><span class="line">channel ORA_DISK_1: restoring spfile from AUTOBACKUP &#x2F;home&#x2F;oracle&#x2F;backup&#x2F;spfile20181218.bak</span><br><span class="line">channel ORA_DISK_1: SPFILE restore from AUTOBACKUP complete</span><br><span class="line">Finished restore at 2018:12:19 10:25:20</span><br></pre></td></tr></table></figure>
+
+<p>根据生成的spfile文件生成pfile文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[oracle@rac1 backup]$ sqlplus &#x2F; as sysdba</span><br><span class="line">sql &gt; create pfile from spfile;</span><br></pre></td></tr></table></figure>
+<p>对生成的pfile文件进行修改<br>vim /u01/app/oracle/product/11.2.0.4/dbhome_1/dbs/inittestcadb1.ora</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">*.__db_cache_size&#x3D;969567232</span><br><span class="line">*.__java_pool_size&#x3D;16777216</span><br><span class="line">*.__large_pool_size&#x3D;184549376</span><br><span class="line">*.__oracle_base&#x3D;&#39;&#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#39;#ORACLE_BASE set from environment</span><br><span class="line">*.__pga_aggregate_target&#x3D;1617245696</span><br><span class="line">*.__sga_target&#x3D;1925868544</span><br><span class="line">*.__shared_io_pool_size&#x3D;0</span><br><span class="line">*.__shared_pool_size&#x3D;704643072</span><br><span class="line">*.__streams_pool_size&#x3D;0</span><br><span class="line">*.aq_tm_processes&#x3D;0</span><br><span class="line">*.audit_file_dest&#x3D;&#39;&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;admin&#x2F;testcadb&#x2F;adump&#39;</span><br><span class="line">*.audit_trail&#x3D;&#39;db&#39;</span><br><span class="line">*.compatible&#x3D;&#39;11.2.0.4.0&#39;</span><br><span class="line">*.control_files&#x3D;&#39;+DATA1&#x2F;testcadb&#x2F;control01.ctl&#39;,&#39;+DATA1&#x2F;testcadb&#x2F;control02.ctl&#39;</span><br><span class="line">*.cpu_count&#x3D;3</span><br><span class="line">*.db_block_size&#x3D;8192</span><br><span class="line">*.db_domain&#x3D;&#39;&#39;</span><br><span class="line">*.db_name&#x3D;&#39;testcadb&#39;</span><br><span class="line">*.db_recovery_file_dest&#x3D;&#39;+ARCH&#39;</span><br><span class="line">*.db_recovery_file_dest_size&#x3D;4385144832</span><br><span class="line">*.diagnostic_dest&#x3D;&#39;&#x2F;u01&#x2F;app&#x2F;oracle&#39;</span><br><span class="line">*.dispatchers&#x3D;&#39;(PROTOCOL&#x3D;TCP) (SERVICE&#x3D;testcadbXDB)&#39;</span><br><span class="line">*.job_queue_processes&#x3D;0</span><br><span class="line">*.memory_target&#x3D;3529482752</span><br><span class="line">*.open_cursors&#x3D;300</span><br><span class="line">*.processes&#x3D;400</span><br><span class="line">*.remote_login_passwordfile&#x3D;&#39;EXCLUSIVE&#39;</span><br><span class="line">*.resource_manager_plan&#x3D;&#39;default_plan&#39;</span><br><span class="line">*.sessions&#x3D;445</span><br><span class="line">*.log_archive_dest_1&#x3D;&#39;LOCATION&#x3D;+ARCH&#x2F;testcadb&#x2F;archivelog&#39;</span><br><span class="line">*.log_archive_format&#x3D;&#39;arch_%t_%s_%r.arc&#39;</span><br><span class="line">testcadb1.instance_name&#x3D;&#39;testcadb1&#39;</span><br><span class="line">testcadb2.instance_name&#x3D;&#39;testcadb2&#39;</span><br><span class="line">testcadb1.instance_number&#x3D;1</span><br><span class="line">testcadb2.instance_number&#x3D;2</span><br><span class="line">testcadb1.undo_tablespace&#x3D;&#39;UNDOTBS1&#39;</span><br><span class="line">testcadb2.undo_tablespace&#x3D;&#39;UNDOTBS2&#39;</span><br><span class="line">testcadb2.thread&#x3D;2</span><br><span class="line">testcadb1.thread&#x3D;1</span><br><span class="line">*.remote_listener&#x3D;&#39;racscan:1521&#39;</span><br></pre></td></tr></table></figure>
+<p>停止数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">19:17:48 SYS@ testcadb1&gt; shutdown immediate;</span><br><span class="line">ORA-01507: database not mounted</span><br><span class="line">ORACLE instance shut down.</span><br></pre></td></tr></table></figure>
+<p>根据pfile文件中的设置路径,创建相应目录,oracle用户：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; mkdir -p &#x2F;u01&#x2F;app&#x2F;oracle&#x2F;admin&#x2F;testcadb&#x2F;adump</span><br></pre></td></tr></table></figure>
+<p>grid用户：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; asmcmd</span><br><span class="line">asmcmd&gt; mkdir ***</span><br></pre></td></tr></table></figure>
+<p>修改完成之后以pfile文件重新启动数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql &gt; startup nomount pfile&#x3D;&#39;&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1&#x2F;dbs&#x2F;inittestcadb1.ora&#39;;</span><br></pre></td></tr></table></figure>
+<p>根据pfile文件生成新的spfile文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sql &gt; create spfile&#x3D;&#39;+DATA1&#x2F;testcadb&#x2F;spfiletestcadb.ora&#39; from pfile;</span><br><span class="line">SQL&gt; shutdown abort</span><br><span class="line">ORACLE instance shut down.</span><br></pre></td></tr></table></figure>
+<p>将所有的节点上pfile文件，指向共享文件上的spfile文件<br>rac1节点:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[oracle@rac1 ~]$ echo &quot;SPFILE&#x3D;&#39;+DATA1&#x2F;testcadb&#x2F;spfiletestcadb.ora&#39; &quot; &gt; &#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1&#x2F;dbs&#x2F;inittestcadb1.ora</span><br></pre></td></tr></table></figure>
+<p>rac2节点:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[oracle@rac2 ~]$ echo &quot;SPFILE&#x3D;&#39;+DATA1&#x2F;testcadb&#x2F;spfiletestcadb.ora&#39; &quot; &gt; &#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1&#x2F;dbs&#x2F;inittestcadb2.ora</span><br></pre></td></tr></table></figure>
+
+<h4 id="10、还原数据库的controlfile"><a href="#10、还原数据库的controlfile" class="headerlink" title="10、还原数据库的controlfile"></a>10、还原数据库的controlfile</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[oracle@rac2 ~]$ rman target &#x2F;</span><br><span class="line">rman &gt; startup nomount</span><br></pre></td></tr></table></figure>
+<p>还原控制文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rman &gt; restore controlfile from &#39;&#x2F;home&#x2F;oracle&#x2F;backup&#x2F;control20181219.bak&#39;;</span><br></pre></td></tr></table></figure>
+<p>启动到mount</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rman &gt; alter database mount;</span><br></pre></td></tr></table></figure>
+<h4 id="11、还原数据库，指定备份文件到存放路径"><a href="#11、还原数据库，指定备份文件到存放路径" class="headerlink" title="11、还原数据库，指定备份文件到存放路径"></a>11、还原数据库，指定备份文件到存放路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">rman &gt; catalog start with &#39;&#x2F;home&#x2F;oracle&#x2F;backup&#39;;</span><br><span class="line">rman &gt; list backup summary;</span><br><span class="line">执行下列run脚本(根据数据文件的不同作相应修改)</span><br><span class="line">RMAN&gt; run&#123;</span><br><span class="line">set newname for datafile &#39;&#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;users01.dbf&#39; to &#39;+DATA1&#x2F;testcadb&#x2F;users01.dbf&#39;;</span><br><span class="line">set newname for datafile &#39;&#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;undotbs01.dbf&#39; to &#39;+DATA1&#x2F;testcadb&#x2F;undotbs01.dbf&#39;;</span><br><span class="line">set newname for datafile &#39;&#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;sysaux01.dbf&#39; to &#39;+DATA1&#x2F;testcadb&#x2F;sysaux01.dbf&#39;;</span><br><span class="line">set newname for datafile &#39;&#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;system01.dbf&#39; to &#39;+DATA1&#x2F;testcadb&#x2F;system01.dbf&#39;;</span><br><span class="line">set newname for datafile &#39;&#x2F;home&#x2F;oracle&#x2F;oradata&#x2F;orcl&#x2F;ebank_data.dbf&#39; to &#39;+DATA1&#x2F;testcadb&#x2F;ebank_data.dbf&#39;;</span><br><span class="line">restore database;</span><br><span class="line">switch datafile all;</span><br><span class="line">&#125;</span><br><span class="line">或者：</span><br><span class="line">RMAN&gt; run&#123;</span><br><span class="line">set newname for datafile 1 to &#39;+DATA1&#x2F;testcadb&#x2F;users01.dbf&#39;;</span><br><span class="line">set newname for datafile 2 to &#39;+DATA1&#x2F;testcadb&#x2F;undotbs01.dbf&#39;;</span><br><span class="line">set newname for datafile 3 to &#39;+DATA1&#x2F;testcadb&#x2F;sysaux01.dbf&#39;;</span><br><span class="line">set newname for datafile 4 to &#39;+DATA1&#x2F;testcadb&#x2F;system01.dbf&#39;;</span><br><span class="line">set newname for datafile 5 to &#39;+DATA1&#x2F;testcadb&#x2F;ebank_data.dbf&#39;;</span><br><span class="line">restore database;</span><br><span class="line">switch datafile all;</span><br><span class="line">&#125;</span><br><span class="line">查看备份的归档（如果是非归档模式的备份没有数据）</span><br><span class="line">RMAN&gt; list backup of archivelog all;</span><br><span class="line">根据scn恢复数据库</span><br><span class="line">RMAN&gt; recover database until scn 2896925;</span><br><span class="line">或者如果没有归档，直接恢复数据库</span><br><span class="line">RMAN&gt; recover database;</span><br></pre></td></tr></table></figure>
+<p>尝试打开数据库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; sqlplus &#x2F; as sysdba</span><br><span class="line">sql &gt; alter database open resetlogs;</span><br><span class="line">alter database open resetlogs</span><br><span class="line">*</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-00344: unable to re-create online log &#39;&#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;redo01.log&#39;</span><br><span class="line">ORA-27040: file create error, unable to create file</span><br><span class="line">Linux-x86_64 Error: 2: No such file or directory</span><br><span class="line">Additional information: 1</span><br></pre></td></tr></table></figure>
+<p>提示redolog文件路径错误，重新生成redolog文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">sql &gt; select group#,thread#,members,archived,status from v$log;</span><br><span class="line"></span><br><span class="line">    GROUP#    THREAD#	 MEMBERS ARCHIV STATUS</span><br><span class="line">---------- ---------- ---------- ------ --------------------------------</span><br><span class="line">	 1	    1	       1 NO	CLEARING</span><br><span class="line">	 3	    1	       1 NO	CLEARING_CURRENT</span><br><span class="line">	 2	    1	       1 NO	CLEARING</span><br><span class="line">Elapsed: 00:00:00.03</span><br><span class="line">删除原来的logfile</span><br><span class="line">sql &gt; alter database drop logfile group 1;</span><br><span class="line">新增logfile(要保证redolog路径存在)</span><br><span class="line">sql &gt; alter database add logfile group 1 &#39;+ARCH&#x2F;testcadb&#x2F;redolog&#x2F;redo01.log&#39; size 100M;</span><br><span class="line">sql &gt; alter database drop logfile group 2;</span><br><span class="line">sql &gt; alter database add logfile group 2 &#39;+ARCH&#x2F;testcadb&#x2F;redolog&#x2F;redo02.log&#39; size 100M;</span><br><span class="line">sql &gt; alter database drop logfile group 3;</span><br><span class="line">提示日志无法删除</span><br><span class="line">sql &gt; alter database drop logfile group 3;</span><br><span class="line">alter database drop logfile group 3</span><br><span class="line">*</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-01623: log 3 is current log for instance testcadb1 (thread 1) - cannot drop</span><br><span class="line">ORA-00312: online log 3 thread 1: &#39;&#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;redo03.log&#39;</span><br><span class="line">对文件进行重命名</span><br><span class="line">sql &gt; alter database rename file &#39;&#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;redo03.log&#39; to &#39;+ARCH&#x2F;testcadb&#x2F;redolog&#x2F;redo03.log&#39;;</span><br><span class="line">sql &gt; alter database clear logfile group 3;</span><br><span class="line">因为日志文件大小还是按原来的大小，需要重新建</span><br><span class="line">sql &gt; alter database drop logfile group 3;</span><br><span class="line">sql &gt; alter database add logfile group 3 &#39;+ARCH&#x2F;testcadb&#x2F;redolog&#x2F;redo03.log&#39; size 100M;</span><br><span class="line">打开数据库</span><br><span class="line">sql &gt; alter database open resetlogs;</span><br><span class="line">如果原库版本不一样（源库11.2.0.3目标库11.2.0.4）需要升级数据库</span><br><span class="line">sql &gt; startup mount;</span><br><span class="line">sql &gt; alter database open upgrade;</span><br><span class="line">sql &gt; select status from v$Instance; </span><br><span class="line">sql &gt; @$ORACLE_HOME&#x2F;rdbms&#x2F;admin&#x2F;catupgrd.sql;</span><br></pre></td></tr></table></figure>
+<p>启动库之后临时表空间是不可用的，需要重新配置临时表空间：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sql &gt; select * from dba_temp_files;</span><br><span class="line">select * from dba_temp_files</span><br><span class="line">              *</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-01157: cannot identify&#x2F;lock data file 201 - see DBWR trace file</span><br><span class="line">ORA-01110: data file 201: &#39;&#x2F;home&#x2F;oracle&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;testcadb&#x2F;temp01.dbf&#39;</span><br></pre></td></tr></table></figure>
+<p>更换临时表空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">创建中转临时表空间</span><br><span class="line">sql &gt; create TEMPORARY TABLESPACE TEMP2 TEMPFILE &#39;+DATA1&#x2F;testcadb&#x2F;TEMP02.DBF&#39; SIZE 2048M REUSE AUTOEXTEND ON NEXT 640K MAXSIZE 5120M;</span><br><span class="line">切换默认临时表空间</span><br><span class="line">sql &gt; alter database default temporary tablespace temp2; </span><br><span class="line">sql &gt; </span><br><span class="line">sql &gt; drop tablespace temp including contents and datafiles; </span><br><span class="line">sql &gt; create TEMPORARY TABLESPACE TEMP TEMPFILE &#39;+DATA1&#x2F;testcadb&#x2F;TEMP01.DBF&#39; SIZE 2048M REUSE AUTOEXTEND ON NEXT 640K MAXSIZE 5120M; </span><br><span class="line">sql &gt; alter database default temporary tablespace temp; </span><br><span class="line">或者 sql &gt; alter user *** temporary tablespace temp;（修改单独某个用户的临时表空间）</span><br><span class="line"></span><br><span class="line">sql &gt; drop tablespace temp2 including contents and datafiles; </span><br><span class="line">sql &gt; select * from v$log;</span><br><span class="line">    GROUP#    THREAD#  SEQUENCE#      BYTES  BLOCKSIZE	  MEMBERS ARCHIV STATUS 			  FIRST_CHANGE# FIRST_TIME	    NEXT_CHANGE# NEXT_TIME</span><br><span class="line">---------- ---------- ---------- ---------- ---------- ---------- ------ -------------------------------- ------------- ------------------- ------------ -------------------</span><br><span class="line">	 1	    1	      25  104857600	   512		1 NO	 INACTIVE			       64817466 2018:12:19 14:19:09	64828852 2018:12:19 14:21:47</span><br><span class="line">	 2	    1	      26  104857600	   512		1 NO	 CURRENT			       64828852 2018:12:19 14:21:47   2.8147E+14</span><br><span class="line">	 3	    1	      24   52428800	   512		1 NO	 INACTIVE			       64807090 2018:12:19 14:18:29	64817466 2018:12:19 14:19:09</span><br></pre></td></tr></table></figure>
+<p>添加thread 2对应的logfile，用于分配给节点2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sql &gt; alter database add logfile thread 2 group 4 &#39;+ARCH&#x2F;testcadb&#x2F;redolog&#x2F;redo04.log&#39; size 100m;</span><br><span class="line">sql &gt; alter database add logfile thread 2 group 5 &#39;+ARCH&#x2F;testcadb&#x2F;redolog&#x2F;redo05.log&#39; size 100m;</span><br><span class="line">sql &gt; alter database add logfile thread 2 group 6 &#39;+ARCH&#x2F;testcadb&#x2F;redolog&#x2F;redo06.log&#39; size 100m;</span><br></pre></td></tr></table></figure>
+<p>启动thread2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sql &gt; select thread#,status,enabled from v$thread;</span><br><span class="line">   THREAD# STATUS	ENABLED</span><br><span class="line">---------- ------------ ----------------</span><br><span class="line">	 1 OPEN 	PUBLIC</span><br><span class="line">	 2 CLOSED	DISABLED</span><br><span class="line">sql &gt; alter database enable thread 2;</span><br></pre></td></tr></table></figure>
+<p>配置两个节点信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sql &gt; alter system set thread&#x3D;1 scope&#x3D;spfile sid&#x3D;&#39;testcadb1&#39;;</span><br><span class="line">sql &gt; alter system set thread&#x3D;2 scope&#x3D;spfile sid&#x3D;&#39;testcadb2&#39;;</span><br><span class="line">sql &gt; alter system set instance_number&#x3D;1 scope&#x3D;spfile sid&#x3D;&#39;testcadb1&#39;;</span><br><span class="line">sql &gt; alter system set instance_number&#x3D;2 scope&#x3D;spfile sid&#x3D;&#39;testcadb2&#39;;</span><br><span class="line">sql &gt; alter system set cluster_database_instances&#x3D;2 scope&#x3D;spfile;</span><br><span class="line">sql &gt; alter system set cluster_database&#x3D;true scope&#x3D;spfile;</span><br></pre></td></tr></table></figure>
+<p>为节点2添加undo表空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sql &gt; select substr(file_name,1,60) UNDO_FILES from dba_data_files where tablespace_name &#x3D; &#39;UNDOTBS1&#39; </span><br><span class="line">sql &gt; create undo tablespace undotbs2 datafile &#39;+data1&#x2F;testcadb&#x2F;undotbs02.dbf&#39; size 200M;</span><br><span class="line">sql &gt; alter system set undo_tablespace&#x3D;&#39;undotbs2&#39; scope&#x3D;spfile sid&#x3D;&#39;testcadb2&#39;;</span><br></pre></td></tr></table></figure>
+<p>关闭节点1并重新启动,如果不重新启动节点1，直接启动节点2报一下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ORA-01102: cannot mount database in EXCLUSIVE mode</span><br></pre></td></tr></table></figure>
+
+<p>启动节点2（在节点2操作）<br>节点2：注意audit目录是否存在，不存在手动创建一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; mkdir -p &#x2F;u01&#x2F;app&#x2F;oracle&#x2F;admin&#x2F;testcadb&#x2F;adump</span><br><span class="line">shell &gt; export ORACLE_SID&#x3D;testcadb2</span><br><span class="line">shell &gt; sqlplus &#x2F; as sysdba</span><br><span class="line">sql &gt; startup nomount;</span><br><span class="line">sql &gt; alter database mount;</span><br><span class="line">sql &gt; alter database open;</span><br></pre></td></tr></table></figure>
+<p>至此数据库已经换成完成，但是恢复的数据库还没有注册到集群管理下</p>
+<h4 id="12、将数据库注册到集群下"><a href="#12、将数据库注册到集群下" class="headerlink" title="12、将数据库注册到集群下"></a>12、将数据库注册到集群下</h4><p>在节点1使用oracle用户执行（不要使用grid用户）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[oracle@rac1 ~]$ srvctl add database -d testcadb -o &#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1 -p +DATA1&#x2F;testcadb&#x2F;spfiletestcadb.ora</span><br><span class="line">[oracle@rac1 ~]$ srvctl add instance -d testcadb -i testcadb1 -n rac1</span><br><span class="line">[oracle@rac1 ~]$ srvctl add instance -d testcadb -i testcadb2 -n rac2</span><br></pre></td></tr></table></figure>
+<p>重启数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[oracle@rac1 ~]$ srvctl stop database -d testcadb</span><br><span class="line">#因为启动不是通过srvctl启动的，可能需要进入sqlplus控制台先手动关闭库（两个节点都要运行），然后通过下面命令启动数据库：</span><br><span class="line">[oracle@rac1 ~]$ srvctl start database -d testcadb</span><br></pre></td></tr></table></figure>
+<h4 id="13、查看监听有没有注册到scanip上，如果没有注册到scanip上继续下面的操作"><a href="#13、查看监听有没有注册到scanip上，如果没有注册到scanip上继续下面的操作" class="headerlink" title="13、查看监听有没有注册到scanip上，如果没有注册到scanip上继续下面的操作"></a>13、查看监听有没有注册到scanip上，如果没有注册到scanip上继续下面的操作</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sql &gt; show parameter remote_listener;</span><br><span class="line">NAME				     TYPE	 VALUE</span><br><span class="line">------------------------------------ ----------- ------------------------------</span><br><span class="line">remote_listener 		     string	 racscan:1521</span><br><span class="line">#grid用户执行：</span><br><span class="line">shell &gt; lsnrctl status LISTENER_SCAN1</span><br><span class="line">#如果没有注册监听信息，按下面方法配置</span><br><span class="line">alter system set remote_listener &#x3D; &#39;racscan:1521&#39; sid&#x3D;&#39;*&#39; scope&#x3D;both;</span><br><span class="line">alter system register;</span><br><span class="line">lsnrctl status LISTENER_SCAN1</span><br></pre></td></tr></table></figure>
+
+<h4 id="14、因为恢复过来的数据库没有passwordfile，存在sys用户远程登录问题"><a href="#14、因为恢复过来的数据库没有passwordfile，存在sys用户远程登录问题" class="headerlink" title="14、因为恢复过来的数据库没有passwordfile，存在sys用户远程登录问题"></a>14、因为恢复过来的数据库没有passwordfile，存在sys用户远程登录问题</h4><p>查看remote_login_passwordfile设置值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sql &gt; show parameter remote_login_passwordfile;</span><br><span class="line">NAME				     TYPE	 VALUE</span><br><span class="line">------------------------------------ ----------- ------------------------------</span><br><span class="line">remote_login_passwordfile	     string	 EXCLUSIVE</span><br><span class="line"></span><br><span class="line">修改值使用下面方法，修改完成之后，需要重新启动数据库才能生效：</span><br><span class="line">alter system set remote_login_passwordfile&#x3D;&#39;exclusive&#39; scope&#x3D;spfile sid&#x3D;&#39;*&#39;;</span><br></pre></td></tr></table></figure>
+<p>查看详细的remote_login_passwordfile配置点击<a href="https://zeven0707.github.io/2018/12/21/remote_login_passwordfile&SQLNET.AUTHENTICATION_SERVICES%E5%8F%82%E6%95%B0/" target="_blank" rel="noopener">此处</a><br>remote_login_passwordfile修改完成之后,生成秘钥文件<br>节点1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">orapwd file&#x3D;orapwtestcadb1 password&#x3D;oracle entries&#x3D;100</span><br></pre></td></tr></table></figure>
+<p>节点2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">orapwd file&#x3D;orapwtestcadb2 password&#x3D;oracle entries&#x3D;100</span><br></pre></td></tr></table></figure>
+<p>现在，数据终于可以正常访问了。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/12/21/单实例rman备份异机恢复到rac环境/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/12/21/remote_login_passwordfile&SQLNET.AUTHENTICATION_SERVICES参数/"><span>[Oracle] remote_login_passwordfile&amp;SQLNET.AUTHENTICATION_SERVICES参数</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/12/21/remote_login_passwordfile&SQLNET.AUTHENTICATION_SERVICES参数/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-12-21T02:35:00.000Z">
+          2018-12-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、remote-login-passwordfile参数"><a href="#1、remote-login-passwordfile参数" class="headerlink" title="1、remote_login_passwordfile参数"></a>1、remote_login_passwordfile参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">shared：一个或者多个库都能使用该password file。sys用户不能修改，如果尝试修改sys密码，会提示 &quot;ORA-28046: Password change for SYS disallowed.&quot; ;其他用户有（SYSDBA, SYSOPER, SYSASM, SYSBACKUP, SYSDG, SYSKM）权限的，密码不能更新，如果更新会提示&quot;ORA-01999: password file cannot be updated in SHARED mode.&quot; ;给个别用户授权（SYSDBA, SYSOPER, SYSASM, SYSBACKUP, SYSDG, SYSKM）是不被允许的，否则提示&quot;ORA-01999: password file cannot be updated in SHARED mode.&quot;;如果passwordfile文件不存在，等同于REMOTE_LOGIN_PASSWORDFILE&#x3D;none.</span><br><span class="line"></span><br><span class="line">exclusive：password file只能被一个库使用，文件可以包含sys和非sys用户。如果password file文件不存在，等同于REMOTE_LOGIN_PASSWORDFILE&#x3D;none. </span><br><span class="line">remote_login_passwordfile &#x3D;exclusive时，启用口令文件，允许远程登录；</span><br><span class="line"></span><br><span class="line">none：忽略password file，只能通过本地操作系统验证。</span><br></pre></td></tr></table></figure>
+<p>修改值使用下面方法，因为该值为静态参数，修改完成之后，需要重新启动数据库才能生效：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter system set remote_login_passwordfile&#x3D;&#39;exclusive&#39; scope&#x3D;spfile sid&#x3D;&#39;*&#39;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、SQLNET-AUTHENTICATION-SERVICES参数详解"><a href="#2、SQLNET-AUTHENTICATION-SERVICES参数详解" class="headerlink" title="2、SQLNET.AUTHENTICATION_SERVICES参数详解"></a>2、SQLNET.AUTHENTICATION_SERVICES参数详解</h4><h5 id="2-1、值为none时"><a href="#2-1、值为none时" class="headerlink" title="2.1、值为none时"></a>2.1、值为none时</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#本地验证方式失效</span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus &#x2F; as sysdba</span><br><span class="line">ERROR:</span><br><span class="line">ORA-01017: invalid username&#x2F;password; logon denied</span><br><span class="line">#使用用户名密码方式登录正常：</span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus sys&#x2F;oracle as sysdba</span><br><span class="line">22:51:21 SYS@ boston&gt; exit</span><br><span class="line">Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line"></span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus test&#x2F;oracle@boston</span><br><span class="line">22:52:00 TEST@ boston&gt; exit</span><br><span class="line">Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line"></span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus test&#x2F;oracle@192.168.168.177:1521&#x2F;boston.us.oracle.com</span><br><span class="line">22:53:02 TEST@ 192.168.168.177:1521&#x2F;boston.us.oracle.com&gt; exit</span><br><span class="line">Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br></pre></td></tr></table></figure>
+<h5 id="2-2、值为all时"><a href="#2-2、值为all时" class="headerlink" title="2.2、值为all时"></a>2.2、值为all时</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">网络服务名方式和service_name方式失效</span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus &#x2F; as sysdba</span><br><span class="line">22:54:21 SYS@ boston&gt; </span><br><span class="line"></span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus sys&#x2F;oracle as sysdba</span><br><span class="line">22:54:45 SYS@ boston&gt; </span><br><span class="line"></span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus test&#x2F;oracle@boston</span><br><span class="line">ERROR:</span><br><span class="line">ORA-12641: Authentication service failed to initialize</span><br><span class="line"></span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus test&#x2F;oracle@192.168.168.177:1521&#x2F;boston.us.oracle.com</span><br><span class="line">ERROR:</span><br><span class="line">ORA-12641: Authentication service failed to initialize</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-3、如果SQLNET-AUTHENTICATION-SERVICES-none-的情况下-修改remote-login-passwordfile的值从exclusive改为none-重启数据库使其生效-会报错提示权限不足："><a href="#2-3、如果SQLNET-AUTHENTICATION-SERVICES-none-的情况下-修改remote-login-passwordfile的值从exclusive改为none-重启数据库使其生效-会报错提示权限不足：" class="headerlink" title="2.3、如果SQLNET.AUTHENTICATION_SERVICES=(none)的情况下,修改remote_login_passwordfile的值从exclusive改为none,重启数据库使其生效,会报错提示权限不足："></a>2.3、如果SQLNET.AUTHENTICATION_SERVICES=(none)的情况下,修改remote_login_passwordfile的值从exclusive改为none,重启数据库使其生效,会报错提示权限不足：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">22:58:28 SYS@ boston&gt; alter system set remote_login_passwordfile&#x3D;&#39;NONE&#39; scope&#x3D;spfile;</span><br><span class="line">System altered.</span><br><span class="line">22:58:47 SYS@ boston&gt; shutdown immediate;</span><br><span class="line">Database closed.</span><br><span class="line">Database dismounted.</span><br><span class="line">ORACLE instance shut down.</span><br><span class="line">22:59:15 SYS@ boston&gt; startup </span><br><span class="line">ORA-01031: insufficient privileges</span><br><span class="line">22:59:34 SYS@ boston&gt; exit</span><br><span class="line">Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">尝试重新登录启动数据库</span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus sys&#x2F;oracle  as sysdba</span><br><span class="line">Connected to an idle instance.</span><br><span class="line">22:59:46 SYS@ boston&gt; startup</span><br><span class="line">ORA-01031: insufficient privileges</span><br><span class="line">22:59:48 SYS@ boston&gt; exit</span><br><span class="line">Disconnected</span><br></pre></td></tr></table></figure>
+<p>只能禁用sqlnet.ora文件中的SQLNET.AUTHENTICATION_SERVICES=(none)参数，否则无法启动数据库。</p>
+<h5 id="2-4、启动数据库之后，再次启用sqlnet-ora文件中的SQLNET-AUTHENTICATION-SERVICES-none-参数，如果在数据库开启的状态下，as-sysdba将无法登录，只能使用网络服务名和service-name登录"><a href="#2-4、启动数据库之后，再次启用sqlnet-ora文件中的SQLNET-AUTHENTICATION-SERVICES-none-参数，如果在数据库开启的状态下，as-sysdba将无法登录，只能使用网络服务名和service-name登录" class="headerlink" title="2.4、启动数据库之后，再次启用sqlnet.ora文件中的SQLNET.AUTHENTICATION_SERVICES=(none)参数，如果在数据库开启的状态下，as sysdba将无法登录，只能使用网络服务名和service_name登录"></a>2.4、启动数据库之后，再次启用sqlnet.ora文件中的SQLNET.AUTHENTICATION_SERVICES=(none)参数，如果在数据库开启的状态下，as sysdba将无法登录，只能使用网络服务名和service_name登录</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">oracle@dax-mysql-slave admin]$ sqlplus &#x2F; as sysdba</span><br><span class="line">ERROR:</span><br><span class="line">ORA-01017: invalid username&#x2F;password; logon denied</span><br><span class="line"></span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus sys&#x2F;oracle as sysdba</span><br><span class="line">ERROR:</span><br><span class="line">ORA-01017: invalid username&#x2F;password; logon denied</span><br><span class="line"></span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus test&#x2F;oracle as sysdba</span><br><span class="line">ERROR:</span><br><span class="line">ORA-01017: invalid username&#x2F;password; logon denied</span><br><span class="line"></span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus test&#x2F;oracle@boston as sysdba</span><br><span class="line">ERROR:</span><br><span class="line">ORA-01017: invalid username&#x2F;password; logon denied</span><br><span class="line"></span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus test&#x2F;oracle@boston</span><br><span class="line">10:13:30 TEST@ boston&gt; exit</span><br><span class="line"></span><br><span class="line">[oracle@dax-mysql-slave admin]$ sqlplus test&#x2F;oracle@192.168.168.177:1521&#x2F;boston.us.oracle.com</span><br><span class="line">10:16:49 TEST@ 192.168.168.177:1521&#x2F;boston.us.oracle.com&gt; select * from user_role_privs;</span><br><span class="line"></span><br><span class="line">USERNAME		       GRANTED_ROLE		      ADM DEF OS_</span><br><span class="line">------------------------------ ------------------------------ --- --- ---</span><br><span class="line">TEST			       CONNECT			      NO  YES NO</span><br><span class="line">TEST			       DBA			          NO  YES NO</span><br><span class="line">TEST			       RESOURCE 		      NO  YES NO</span><br><span class="line">Elapsed: 00:00:00.02</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/12/21/remote_login_passwordfile&SQLNET.AUTHENTICATION_SERVICES参数/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/12/17/zabbix监控域名证书过期时间/"><span>[Zabbix] zabbix监控域名证书过期时间</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/12/17/zabbix监控域名证书过期时间/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-12-17T08:32:24.000Z">
+          2018-12-17
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、编辑脚本"><a href="#1、编辑脚本" class="headerlink" title="1、编辑脚本"></a>1、编辑脚本</h4><p>more /usr/local/zabbix/script/check_sslcert_expire_script.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">#传入第一参数指定输入的域名</span><br><span class="line">domain&#x3D;$1</span><br><span class="line">#传入的第二个参数指定https的端口</span><br><span class="line">port&#x3D;$2</span><br><span class="line">#获取证书到期时间</span><br><span class="line">expired_date&#x3D;&#96;echo |openssl s_client -servername $&#123;domain&#125; -connect $&#123;domain&#125;:$&#123;port&#125; 2&gt;&#x2F;dev&#x2F;null | openssl x509 -noout -dates |sed -n &#39;s&#x2F;notAfter&#x3D;&#x2F;&#x2F;p&#39;&#96;</span><br><span class="line">#$&#123;expired_date&#125;参数一定要加上双引号，否则按多个参数处理</span><br><span class="line">#与当前系统日期时间做对比，查看证书过期时间</span><br><span class="line">if [ -n &quot;$&#123;expired_date&#125;&quot; ];then</span><br><span class="line">    expired_seconds&#x3D;&#96;date &#39;+%s&#39; --date &quot;$&#123;expired_date&#125;&quot;&#96;</span><br><span class="line">    now_seconds&#x3D;&#96;date &#39;+%s&#39;&#96;</span><br><span class="line">    echo &quot;($&#123;expired_seconds&#125;-$&#123;now_seconds&#125;)&#x2F;24&#x2F;3600&quot; | bc</span><br><span class="line">else</span><br><span class="line">  :</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、修改zabbix-agentd-conf配置文件，添加下面一行"><a href="#2、修改zabbix-agentd-conf配置文件，添加下面一行" class="headerlink" title="2、修改zabbix_agentd.conf配置文件，添加下面一行"></a>2、修改zabbix_agentd.conf配置文件，添加下面一行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UserParameter&#x3D;check_ssl_cert_expire[*],sh &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;check_sslcert_expire_script.sh  $1 $2</span><br></pre></td></tr></table></figure>
+<p>重新启动agent</p>
+<h4 id="3、检查获取参数是否正常"><a href="#3、检查获取参数是否正常" class="headerlink" title="3、检查获取参数是否正常"></a>3、检查获取参数是否正常</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;bin&#x2F;zabbix_get -s 127.0.0.1 -p 10050 -k check_ssl_cert_expire[www.baidu.com,443]</span><br><span class="line">159</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;bin&#x2F;zabbix_get -s 127.0.0.1 -p 10050 -k check_ssl_cert_expire[www.masterdax.com,443]</span><br><span class="line">85</span><br></pre></td></tr></table></figure>
+<h4 id="4、打开zabbix-web控制台添加模板，监控项"><a href="#4、打开zabbix-web控制台添加模板，监控项" class="headerlink" title="4、打开zabbix,web控制台添加模板，监控项"></a>4、打开zabbix,web控制台添加模板，监控项</h4><p><img src="https://i.imgur.com/jtLWcW3.png" alt=""><br>设置触发器，证书到期时触发报警<br><img src="https://i.imgur.com/OB8yEPD.png" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/zabbix/">zabbix</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/12/17/zabbix监控域名证书过期时间/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+
+<nav class="pagination">
+  
+  <a href="/page/7/" class="pagination-prev">上一页</a>
+  
+  
+  <a href="/page/9/" class="pagination-next">下一页</a>
+  
+</nav>
+            </main>
+            <div class="sidebar
+                    col-lg-3 col-lg-offset-0
+                    col-md-3 col-md-offset-0
+                    col-sm-12
+                    col-xs-12
+                    sidebar-container
+                ">
+
+                <div class="sidebar-container">
+
+
+
+<div class="search-container">
+<form class="site-search-form">
+    <span class="glyphicon glyphicon-search"></span><input type="text" id="local-search-input" class="st-search-input" placeholder="Search..." />
+</form>
+<div id="local-search-result" class="local-search-result-cls"></div>
+</div>
+<script type="text/javascript" id="local.search.active">
+var inputArea       = document.querySelector("#local-search-input");
+inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script>
+
+
+
+
+    <div class="categories-container" style="margin-top:40px;">
+        <p>归档:</p>
+            
+    </div>
+
+
+
+
+    <div class="social-container" style="margin-top:40px;">
+        <p>Links:</p>
+            
+                
+                    <li class="social-item"><i class="fa fa-fw fa-github"></i><a href="https://github.com/zeven0707">GitHub</a></li>
+                
+            
+    </div>
+
+</div>
+            </div>
+          </div>
+        </div>
+        
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

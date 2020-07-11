@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>[Oracle] oracle报错ora01113,ORA-01110尝试恢复数据库，又报错ORA-00279,ORA-00289,ORA-00280 | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+  <meta name="description" content="1、数据库服务器异常宕机，之后重启数据库出现如下报错123456789101116:55:28 SYS@ boston&amp;gt; startup;ORACLE instance started.Total System Global Area 1603411968 bytesFixed Size		 ">
+  
+
+  
+  
+  <meta name="keywords" content="oracle">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="[Oracle] oracle报错ora01113,ORA-01110尝试恢复数据库，又报错ORA-00279,ORA-00289,ORA-00280"/>
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+          <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container" style="position: inherit;">
+            <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><span>[Oracle] oracle报错ora01113,ORA-01110尝试恢复数据库，又报错ORA-00279,ORA-00289,ORA-00280</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/oracle报错ora01113,ORA-01110尝试恢复数据库，又报错ORA-00279/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T14:57:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、数据库服务器异常宕机，之后重启数据库出现如下报错"><a href="#1、数据库服务器异常宕机，之后重启数据库出现如下报错" class="headerlink" title="1、数据库服务器异常宕机，之后重启数据库出现如下报错"></a>1、数据库服务器异常宕机，之后重启数据库出现如下报错</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">16:55:28 SYS@ boston&gt; startup;</span><br><span class="line">ORACLE instance started.</span><br><span class="line"></span><br><span class="line">Total System Global Area 1603411968 bytes</span><br><span class="line">Fixed Size		    2253664 bytes</span><br><span class="line">Variable Size		  587205792 bytes</span><br><span class="line">Database Buffers	 1006632960 bytes</span><br><span class="line">Redo Buffers		    7319552 bytes</span><br><span class="line">Database mounted.</span><br><span class="line">ORA-01113: file 6 needs media recovery</span><br><span class="line">ORA-01110: data file 6: '/home/oracle/test11101.dbf'</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、先将数据文件offline"><a href="#2、先将数据文件offline" class="headerlink" title="2、先将数据文件offline"></a>2、先将数据文件offline</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">16:55:42 SYS@ boston&gt; alter database datafile '/home/oracle/test11101.dbf' offline;</span><br><span class="line">Database altered.</span><br><span class="line">Elapsed: 00:00:00.11</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、尝试恢复数据文件，报错"><a href="#3、尝试恢复数据文件，报错" class="headerlink" title="3、尝试恢复数据文件，报错"></a>3、尝试恢复数据文件，报错</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">16:57:47 SYS@ boston&gt; alter database recover datafile '/home/oracle/test11101.dbf';</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">database</span> <span class="keyword">recover</span> <span class="keyword">datafile</span> <span class="string">'/home/oracle/test11101.dbf'</span></span><br><span class="line">*</span><br><span class="line"><span class="keyword">ERROR</span> <span class="keyword">at</span> line <span class="number">1</span>:</span><br><span class="line">ORA<span class="number">-00279</span>: <span class="keyword">change</span> <span class="number">55845310493</span> <span class="keyword">generated</span> <span class="keyword">at</span> <span class="number">06</span>/<span class="number">25</span>/<span class="number">2019</span> <span class="number">11</span>:<span class="number">00</span>:<span class="number">37</span> needed <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span></span><br><span class="line">ORA<span class="number">-00289</span>: suggestion : /<span class="keyword">data</span>/u01/app/<span class="keyword">oracle</span>/fast_recovery_area/BOSTON/<span class="keyword">archivelog</span>/<span class="number">2019</span>_07_02/o1_mf_1_491_gkp2y4ok_.arc</span><br><span class="line">ORA<span class="number">-00280</span>: <span class="keyword">change</span> <span class="number">55845310493</span> <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span> <span class="keyword">is</span> <span class="keyword">in</span> <span class="keyword">sequence</span> <span class="comment">#491</span></span><br><span class="line">Elapsed: <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.20</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="4、根据提示，使用logfile文件修复数据库"><a href="#4、根据提示，使用logfile文件修复数据库" class="headerlink" title="4、根据提示，使用logfile文件修复数据库"></a>4、根据提示，使用logfile文件修复数据库</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">17:04:09 SYS@ boston&gt; ALTER DATABASE RECOVER LOGFILE '/data/u01/app/oracle/fast_recovery_area/BOSTON/archivelog/2019_07_02/o1_mf_1_491_gkp2y4ok_.arc';</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> <span class="keyword">RECOVER</span> <span class="keyword">LOGFILE</span> <span class="string">'/data/u01/app/oracle/fast_recovery_area/BOSTON/archivelog/2019_07_02/o1_mf_1_491_gkp2y4ok_.arc'</span></span><br><span class="line">*</span><br><span class="line"><span class="keyword">ERROR</span> <span class="keyword">at</span> line <span class="number">1</span>:</span><br><span class="line">ORA<span class="number">-00279</span>: <span class="keyword">change</span> <span class="number">55845334483</span> <span class="keyword">generated</span> <span class="keyword">at</span> <span class="number">07</span>/<span class="number">02</span>/<span class="number">2019</span> <span class="number">15</span>:<span class="number">46</span>:<span class="number">11</span> needed <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span></span><br><span class="line">ORA<span class="number">-00289</span>: suggestion : /<span class="keyword">data</span>/u01/app/<span class="keyword">oracle</span>/fast_recovery_area/BOSTON/<span class="keyword">archivelog</span>/<span class="number">2019</span>_07_02/o1_mf_1_492_gkp4ph5t_.arc</span><br><span class="line">ORA<span class="number">-00280</span>: <span class="keyword">change</span> <span class="number">55845334483</span> <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span> <span class="keyword">is</span> <span class="keyword">in</span> <span class="keyword">sequence</span> <span class="comment">#492</span></span><br><span class="line"></span><br><span class="line">Elapsed: <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.14</span></span><br><span class="line"><span class="number">17</span>:<span class="number">11</span>:<span class="number">25</span> <span class="keyword">SYS</span>@ boston&gt;  <span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> <span class="keyword">RECOVER</span> <span class="keyword">LOGFILE</span> <span class="string">'/data/u01/app/oracle/fast_recovery_area/BOSTON/archivelog/2019_07_02/o1_mf_1_492_gkp4ph5t_.arc'</span>;</span><br><span class="line"> <span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> <span class="keyword">RECOVER</span> <span class="keyword">LOGFILE</span> <span class="string">'/data/u01/app/oracle/fast_recovery_area/BOSTON/archivelog/2019_07_02/o1_mf_1_492_gkp4ph5t_.arc'</span></span><br><span class="line">*</span><br><span class="line"><span class="keyword">ERROR</span> <span class="keyword">at</span> line <span class="number">1</span>:</span><br><span class="line">ORA<span class="number">-00279</span>: <span class="keyword">change</span> <span class="number">55845337765</span> <span class="keyword">generated</span> <span class="keyword">at</span> <span class="number">07</span>/<span class="number">02</span>/<span class="number">2019</span> <span class="number">16</span>:<span class="number">16</span>:<span class="number">14</span> needed <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span></span><br><span class="line">ORA<span class="number">-00289</span>: suggestion : /<span class="keyword">data</span>/u01/app/<span class="keyword">oracle</span>/fast_recovery_area/BOSTON/<span class="keyword">archivelog</span>/<span class="number">2019</span>_07_02/o1_mf_1_493_gkp4pn61_.arc</span><br><span class="line">ORA<span class="number">-00280</span>: <span class="keyword">change</span> <span class="number">55845337765</span> <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span> <span class="keyword">is</span> <span class="keyword">in</span> <span class="keyword">sequence</span> <span class="comment">#493</span></span><br><span class="line"></span><br><span class="line">Elapsed: <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.23</span></span><br><span class="line"><span class="number">17</span>:<span class="number">12</span>:<span class="number">04</span> <span class="keyword">SYS</span>@ boston&gt;  <span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> <span class="keyword">RECOVER</span> <span class="keyword">LOGFILE</span> <span class="string">'/data/u01/app/oracle/fast_recovery_area/BOSTON/archivelog/2019_07_02/o1_mf_1_493_gkp4pn61_.arc'</span>;</span><br><span class="line"> <span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> <span class="keyword">RECOVER</span> <span class="keyword">LOGFILE</span> <span class="string">'/data/u01/app/oracle/fast_recovery_area/BOSTON/archivelog/2019_07_02/o1_mf_1_493_gkp4pn61_.arc'</span></span><br><span class="line">*</span><br><span class="line"><span class="keyword">ERROR</span> <span class="keyword">at</span> line <span class="number">1</span>:</span><br><span class="line">ORA<span class="number">-00279</span>: <span class="keyword">change</span> <span class="number">55845337802</span> <span class="keyword">generated</span> <span class="keyword">at</span> <span class="number">07</span>/<span class="number">02</span>/<span class="number">2019</span> <span class="number">16</span>:<span class="number">16</span>:<span class="number">19</span> needed <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span></span><br><span class="line">ORA<span class="number">-00289</span>: suggestion : /<span class="keyword">data</span>/u01/app/<span class="keyword">oracle</span>/fast_recovery_area/BOSTON/<span class="keyword">archivelog</span>/<span class="number">2019</span>_07_02/o1_mf_1_494_gkp4q3b5_.arc</span><br><span class="line">ORA<span class="number">-00280</span>: <span class="keyword">change</span> <span class="number">55845337802</span> <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span> <span class="keyword">is</span> <span class="keyword">in</span> <span class="keyword">sequence</span> <span class="comment">#494</span></span><br><span class="line"></span><br><span class="line">Elapsed: <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.21</span></span><br><span class="line"><span class="number">17</span>:<span class="number">14</span>:<span class="number">50</span> <span class="keyword">SYS</span>@ boston&gt;  <span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> <span class="keyword">RECOVER</span> <span class="keyword">LOGFILE</span> <span class="string">'/data/u01/app/oracle/fast_recovery_area/BOSTON/archivelog/2019_07_02/o1_mf_1_494_gkp4q3b5_.arc'</span>;</span><br><span class="line"></span><br><span class="line">Database altered.</span><br><span class="line"></span><br><span class="line">Elapsed: 00:00:00.47</span><br><span class="line">17:15:13 SYS@ boston&gt; alter database datafile '/home/oracle/test11101.dbf' online;</span><br><span class="line"></span><br><span class="line">Database altered.</span><br></pre></td></tr></table></figure>
+
+<h1 id="5、至此test11101-dbf数据文件修复完成，尝试打开数据库"><a href="#5、至此test11101-dbf数据文件修复完成，尝试打开数据库" class="headerlink" title="5、至此test11101.dbf数据文件修复完成，尝试打开数据库"></a>5、至此test11101.dbf数据文件修复完成，尝试打开数据库</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">17:15:43 SYS@ boston&gt; alter database open;</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">database</span> <span class="keyword">open</span></span><br><span class="line">*</span><br><span class="line"><span class="keyword">ERROR</span> <span class="keyword">at</span> line <span class="number">1</span>:</span><br><span class="line">ORA<span class="number">-01113</span>: <span class="keyword">file</span> <span class="number">7</span> needs media <span class="keyword">recovery</span></span><br><span class="line">ORA<span class="number">-01110</span>: <span class="keyword">data</span> <span class="keyword">file</span> <span class="number">7</span>: <span class="string">'/home/oracle/zeven01.dbf'</span></span><br><span class="line">Elapsed: <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.16</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="6、提示另一个数据文件也需要恢复"><a href="#6、提示另一个数据文件也需要恢复" class="headerlink" title="6、提示另一个数据文件也需要恢复"></a>6、提示另一个数据文件也需要恢复</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">17:15:52 SYS@ boston&gt; recover databases;</span><br><span class="line">ORA-00905: missing keyword</span><br><span class="line"></span><br><span class="line">17:16:05 SYS@ boston&gt; recover database;（这里选择让auto修复数据库）</span><br><span class="line">ORA-00279: <span class="keyword">change</span> <span class="number">55845310493</span> <span class="keyword">generated</span> <span class="keyword">at</span> <span class="number">06</span>/<span class="number">25</span>/<span class="number">2019</span> <span class="number">11</span>:<span class="number">00</span>:<span class="number">37</span> needed <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span></span><br><span class="line">ORA<span class="number">-00289</span>: suggestion : /<span class="keyword">data</span>/u01/app/<span class="keyword">oracle</span>/fast_recovery_area/BOSTON/<span class="keyword">archivelog</span>/<span class="number">2019</span>_07_02/o1_mf_1_491_gkp2y4ok_.arc</span><br><span class="line">ORA<span class="number">-00280</span>: <span class="keyword">change</span> <span class="number">55845310493</span> <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span> <span class="keyword">is</span> <span class="keyword">in</span> <span class="keyword">sequence</span> <span class="comment">#491</span></span><br><span class="line"></span><br><span class="line"><span class="number">17</span>:<span class="number">19</span>:<span class="number">35</span> Specify <span class="keyword">log</span>: &#123;&lt;RET&gt;=suggested | filename | <span class="keyword">AUTO</span> | <span class="keyword">CANCEL</span>&#125;</span><br><span class="line"><span class="keyword">auto</span></span><br><span class="line">ORA<span class="number">-00279</span>: <span class="keyword">change</span> <span class="number">55845334483</span> <span class="keyword">generated</span> <span class="keyword">at</span> <span class="number">07</span>/<span class="number">02</span>/<span class="number">2019</span> <span class="number">15</span>:<span class="number">46</span>:<span class="number">11</span> needed <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span></span><br><span class="line">ORA<span class="number">-00289</span>: suggestion : /<span class="keyword">data</span>/u01/app/<span class="keyword">oracle</span>/fast_recovery_area/BOSTON/<span class="keyword">archivelog</span>/<span class="number">2019</span>_07_02/o1_mf_1_492_gkp4ph5t_.arc</span><br><span class="line">ORA<span class="number">-00280</span>: <span class="keyword">change</span> <span class="number">55845334483</span> <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span> <span class="keyword">is</span> <span class="keyword">in</span> <span class="keyword">sequence</span> <span class="comment">#492</span></span><br><span class="line"></span><br><span class="line">ORA<span class="number">-00279</span>: <span class="keyword">change</span> <span class="number">55845337765</span> <span class="keyword">generated</span> <span class="keyword">at</span> <span class="number">07</span>/<span class="number">02</span>/<span class="number">2019</span> <span class="number">16</span>:<span class="number">16</span>:<span class="number">14</span> needed <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span></span><br><span class="line">ORA<span class="number">-00289</span>: suggestion : /<span class="keyword">data</span>/u01/app/<span class="keyword">oracle</span>/fast_recovery_area/BOSTON/<span class="keyword">archivelog</span>/<span class="number">2019</span>_07_02/o1_mf_1_493_gkp4pn61_.arc</span><br><span class="line">ORA<span class="number">-00280</span>: <span class="keyword">change</span> <span class="number">55845337765</span> <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span> <span class="keyword">is</span> <span class="keyword">in</span> <span class="keyword">sequence</span> <span class="comment">#493</span></span><br><span class="line"></span><br><span class="line">ORA<span class="number">-00279</span>: <span class="keyword">change</span> <span class="number">55845337802</span> <span class="keyword">generated</span> <span class="keyword">at</span> <span class="number">07</span>/<span class="number">02</span>/<span class="number">2019</span> <span class="number">16</span>:<span class="number">16</span>:<span class="number">19</span> needed <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span></span><br><span class="line">ORA<span class="number">-00289</span>: suggestion : /<span class="keyword">data</span>/u01/app/<span class="keyword">oracle</span>/fast_recovery_area/BOSTON/<span class="keyword">archivelog</span>/<span class="number">2019</span>_07_02/o1_mf_1_494_gkp4q3b5_.arc</span><br><span class="line">ORA<span class="number">-00280</span>: <span class="keyword">change</span> <span class="number">55845337802</span> <span class="keyword">for</span> <span class="keyword">thread</span> <span class="number">1</span> <span class="keyword">is</span> <span class="keyword">in</span> <span class="keyword">sequence</span> <span class="comment">#494</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Log</span> applied.</span><br><span class="line">Media <span class="keyword">recovery</span> complete.</span><br><span class="line"><span class="keyword">oracle</span>修复数据库完成，打开数据库</span><br><span class="line"><span class="number">17</span>:<span class="number">20</span>:<span class="number">02</span> <span class="keyword">SYS</span>@ boston&gt; <span class="keyword">alter</span> <span class="keyword">database</span> <span class="keyword">open</span>;</span><br><span class="line"></span><br><span class="line">Database altered.</span><br></pre></td></tr></table></figure>
+
+<h1 id="7、查看数据文件和表空间均已正常"><a href="#7、查看数据文件和表空间均已正常" class="headerlink" title="7、查看数据文件和表空间均已正常"></a>7、查看数据文件和表空间均已正常</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">17:21:57 SYS@ boston&gt; select file_name,status from dba_data_files;</span><br><span class="line">FILE_NAME																					        STATUS</span><br><span class="line"><span class="comment">--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------</span></span><br><span class="line">/data/u01/app/oracle/oradata/boston/users01.dbf 																        AVAILABLE</span><br><span class="line">/data/u01/app/oracle/oradata/boston/undotbs01.dbf																        AVAILABLE</span><br><span class="line">/data/u01/app/oracle/oradata/boston/sysaux01.dbf																        AVAILABLE</span><br><span class="line">/data/u01/app/oracle/oradata/boston/system01.dbf																        AVAILABLE</span><br><span class="line">/data/u01/app/oracle/oradata/boston/test001.dbf 																        AVAILABLE</span><br><span class="line">/home/oracle/test11101.dbf																			        AVAILABLE</span><br><span class="line">/home/oracle/zeven01.dbf																			        AVAILABLE</span><br><span class="line">7 rows selected.</span><br><span class="line">Elapsed: 00:00:00.04</span><br><span class="line"></span><br><span class="line">17:22:21 SYS@ boston&gt; select tablespace_name,status from dba_tablespaces;</span><br><span class="line">TABLESPACE_NAME 	       STATUS</span><br><span class="line"><span class="comment">------------------------------ ---------</span></span><br><span class="line">SYSTEM			       ONLINE</span><br><span class="line">SYSAUX			       ONLINE</span><br><span class="line">UNDOTBS1		       ONLINE</span><br><span class="line">TEMP			       ONLINE</span><br><span class="line">USERS			       ONLINE</span><br><span class="line">TEST			       ONLINE</span><br><span class="line">TEST11			       ONLINE</span><br><span class="line">ZEVEN			       ONLINE</span><br><span class="line">8 rows selected.</span><br><span class="line">Elapsed: 00:00:00.03</span><br><span class="line">17:22:59 SYS@ boston&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    
+  
+</article>
+   
+    <div id="toc" class="toc-article ">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、数据库服务器异常宕机，之后重启数据库出现如下报错"><span class="toc-number">1.</span> <span class="toc-text">1、数据库服务器异常宕机，之后重启数据库出现如下报错</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、先将数据文件offline"><span class="toc-number">2.</span> <span class="toc-text">2、先将数据文件offline</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、尝试恢复数据文件，报错"><span class="toc-number">3.</span> <span class="toc-text">3、尝试恢复数据文件，报错</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、根据提示，使用logfile文件修复数据库"><span class="toc-number">4.</span> <span class="toc-text">4、根据提示，使用logfile文件修复数据库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5、至此test11101-dbf数据文件修复完成，尝试打开数据库"><span class="toc-number">5.</span> <span class="toc-text">5、至此test11101.dbf数据文件修复完成，尝试打开数据库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6、提示另一个数据文件也需要恢复"><span class="toc-number">6.</span> <span class="toc-text">6、提示另一个数据文件也需要恢复</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7、查看数据文件和表空间均已正常"><span class="toc-number">7.</span> <span class="toc-text">7、查看数据文件和表空间均已正常</span></a></li></ol>
+</div>
+
+
+  
+
+	<!-- async load  -->
+	<script>
+			function async(u, c) {
+				var d = document, t = 'script',
+						o = d.createElement(t),
+						s = d.getElementsByTagName(t)[0];
+				o.src = u;
+				if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+				s.parentNode.insertBefore(o, s);
+			}
+	</script>
+	<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+	<script>
+			async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+					anchors.options = {
+						visible: 'hover',
+						placement: 'left',
+						// icon: '#'
+					};
+					anchors.add().remove('.article-title').remove('.subheading').remove('.sidebar-container h5');
+			})
+	</script>
+	<style>
+			/* place left on bigger screen */
+			@media all and (min-width: 800px) {
+					.anchorjs-link{
+							position: absolute;
+							left: -0.75em;
+							font-size: 1.1em;
+							margin-top : -0.1em;
+					}
+			}
+	</style>
+
+
+
+
+<!-- UY BEGIN -->
+	<div id="gitment-container"></div>
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script src="/js/web-pinyin.js"></script>
+	<script>
+		function toUnicode(s){ 
+			return s.replace(/([\u4E00-\u9FA5]|[\uFE30-\uFFA0])/g,function(){
+			return "\\u" + RegExp["$1"].charCodeAt(0).toString(16);
+			});
+		}
+		var title = '[Oracle] oracle报错ora01113,ORA-01110尝试恢复数据库，又报错ORA-00279,ORA-00289,ORA-00280'
+		var GitHub_id = 'zeven0707'
+		var client_id = '2b0cc50fd55624b20d70'
+		var client_secret = '489e4e840e0186f96ad172932b583e2fe68729c8'
+		var repo = 'zeven0707.github.io'
+		var gitment = new Gitment({
+		// id: '页面 ID', // 可选。默认为 location.href
+		// id:"11" ,
+		id: title,
+		title: title,
+		owner: GitHub_id,//'你的 GitHub ID',
+		repo: repo,//'存储评论的 repo',
+		oauth: {
+			client_id: client_id,//'你的 client ID',
+			client_secret: client_secret,//'你的 client secret',
+		},
+		})
+		gitment.render('gitment-container')
+	</script>
+<!-- UY END -->
+
+
+
+
+            </main>
+          </div>
+        </div>
+       
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

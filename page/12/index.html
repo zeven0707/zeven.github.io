@@ -1,0 +1,1034 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>第 12 页 | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+        <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop    col-lg-8 col-lg-offset-1
+                    col-md-8 col-md-offset-1
+                    col-sm-12
+                    col-xs-12">
+            
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/22/oracle-audit_file_dest和audit_trail参数详解/"><span>[Oracle] oracle-audit_file_dest和audit_trail参数详解</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/22/oracle-audit_file_dest和audit_trail参数详解/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-22T08:22:00.000Z">
+          2018-10-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、AUDIT-FILE-DEST参数："><a href="#1、AUDIT-FILE-DEST参数：" class="headerlink" title="1、AUDIT_FILE_DEST参数："></a>1、AUDIT_FILE_DEST参数：</h4><p>当AUDIT_TRAIL初始化参数被设置为os, xml, or xml,extended，AUDIT_FILE_DEST指定操作系统目录，用于记录跟踪审计。<br>AUDIT_FILE_DEST的第一个默认值为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ORACLE_BASE&#x2F;admin&#x2F;ORACLE_SID&#x2F;adump</span><br></pre></td></tr></table></figure>
+<p>如果第一个值指定的目录不存在或者该值不可用，会启用第二个默认值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ORACLE_HOME&#x2F;rdbms&#x2F;audit</span><br></pre></td></tr></table></figure>
+<p>这两个默认值只适用于unix系统，其他平台系统默认值不同。<br>在多租户cdb模式下,默认值会被追加pdb的guid，用于存储属于pdb的审计记录。<br>例如，pdb的guid为03E1F908EE04252CE053B280E80AAAA3，第一个默认目录是:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ORACLE_BASE&#x2F;admin&#x2F;ORACLE_SID&#x2F;adump&#x2F;03E1F908EE04252CE053B280E80AAAA3</span><br></pre></td></tr></table></figure>
+<p>关于pdb的guid可以通过V$CONTAINERS视图参看。</p>
+<p>如果AUDIT_TRAIL参数设置为xml, or xml,extended，审计记录会以xml的格式存储。如果AUDIT_SYS_OPERATIONS参数启用，用于审计sys用户的记录，审计信息也会强制写入这个位置。<br>在多租户容器数据库，audit_file_dest的值设置范围是cdb。虽然审计记录是每个pdb提供的，但是每个pdb不能修改该初始化参数。</p>
+<h4 id="2、audit-trail参数"><a href="#2、audit-trail参数" class="headerlink" title="2、audit_trail参数"></a>2、audit_trail参数</h4><p>value值详解：<br>none：禁用数据库审计<br>os：开启数据库审计，并将所有审计记录定向到操作系统的审计跟踪。<br>db：开启数据库审计，并将所有审计记录定向到数据库审计跟踪（sys.aud$)<br>db, extended:开启数据库审计，并将所有审计记录定向到数据库审计跟踪（sys.aud$),另外，sys.aud$表中类型为clob的两列（sqlbind和sqltext会被写入数据）<br>xml：开启数据库审计，并将所有审计记录以xml格式写入操作系统文件<br>xml,extended:开启数据库审计，并打印所有的审计记录列，包括SqlText和SqlBind字段</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/22/oracle-audit_file_dest和audit_trail参数详解/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/18/linux区分当前服务器是物理机还是虚拟机/"><span>[Linux] linux区分当前服务器是物理机还是虚拟机方法</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/18/linux区分当前服务器是物理机还是虚拟机/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-18T10:35:00.000Z">
+          2018-10-18
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、查看系统产品名称："><a href="#1、查看系统产品名称：" class="headerlink" title="1、查看系统产品名称："></a>1、查看系统产品名称：</h3><p>dmidecode -s system-product-name<br>物理机：<br><img src="https://i.imgur.com/fV68YVX.png" alt=""><br>Azure微软云服务器<br><img src="https://i.imgur.com/zlsbp4u.png" alt=""><br>aws亚马逊云服务器<br><img src="https://i.imgur.com/5iOdIf3.png" alt=""><br>阿里云服务器<br><img src="https://i.imgur.com/AlWSFW0.png" alt=""><br>使用vmware建立的虚拟机<br><img src="https://i.imgur.com/TpzQH8s.png" alt=""><br>使用kvm建立的虚拟机<br><img src="https://i.imgur.com/Q7h1vEC.png" alt=""></p>
+<h3 id="2、查看scsi供应商："><a href="#2、查看scsi供应商：" class="headerlink" title="2、查看scsi供应商："></a>2、查看scsi供应商：</h3><p>cat /proc/scsi/scsi|grep Vendor<br>物理机：<br><img src="https://i.imgur.com/3ID5hHz.png" alt=""><br>Azure微软云服务器<br><img src="https://i.imgur.com/A9HEqR5.png" alt=""><br>aws亚马逊云服务器（看不到任何信息）<br><img src="https://i.imgur.com/x2Eandx.png" alt=""><br>阿里云服务器<br><img src="https://i.imgur.com/5wt4HXK.png" alt=""><br>使用vmware建立的虚拟机<br><img src="https://i.imgur.com/X1v9alH.png" alt=""><br>使用kvm建立的虚拟机<br><img src="https://i.imgur.com/rFMO9XJ.png" alt=""></p>
+<h3 id="3、查看内核缓冲信息："><a href="#3、查看内核缓冲信息：" class="headerlink" title="3、查看内核缓冲信息："></a>3、查看内核缓冲信息：</h3><p>dmesg | grep -i virtual<br>物理机：<br><img src="https://i.imgur.com/lfLe8yz.png" alt=""><br>Azure微软云服务器<br><img src="https://i.imgur.com/ZP2vlPq.png" alt=""><br>aws亚马逊云服务器<br><img src="https://i.imgur.com/CJijhJv.png" alt=""><br>阿里云服务器<br><img src="https://i.imgur.com/Wy7zTE3.png" alt=""><br>使用vmware建立的虚拟机<br><img src="https://i.imgur.com/8SEgcjn.png" alt=""><br>使用kvm建立的虚拟机<br><img src="https://i.imgur.com/7IacEIc.png" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/18/linux区分当前服务器是物理机还是虚拟机/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/18/mysql忘记root密码，修改密码方法/"><span>[Mysql] mysql忘记root密码，修改密码方法</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/18/mysql忘记root密码，修改密码方法/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-18T02:23:00.000Z">
+          2018-10-18
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、修改my-cnf文件，在-mysqld-下添加’skip-grant-tables’参数："><a href="#1、修改my-cnf文件，在-mysqld-下添加’skip-grant-tables’参数：" class="headerlink" title="1、修改my.cnf文件，在[mysqld]下添加’skip-grant-tables’参数："></a>1、修改my.cnf文件，在[mysqld]下添加’skip-grant-tables’参数：</h3><p>cat /usr/local/mysql/etc/my.cnf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">!include &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;etc&#x2F;mysqld.cnf</span><br><span class="line">port            &#x3D; 3306</span><br><span class="line">basedir         &#x3D; &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;</span><br><span class="line">socket          &#x3D; &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;tmp&#x2F;mysql.sock</span><br><span class="line">pid-file        &#x3D; &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;var&#x2F;mysql.pid</span><br><span class="line">datadir         &#x3D; &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;var&#x2F;</span><br><span class="line">skip-grant-tables</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、重启mysql进程："><a href="#2、重启mysql进程：" class="headerlink" title="2、重启mysql进程："></a>2、重启mysql进程：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;init.d&#x2F;mysql restart</span><br></pre></td></tr></table></figure>
+<h3 id="3、进入mysql控制台，修改mysql密码："><a href="#3、进入mysql控制台，修改mysql密码：" class="headerlink" title="3、进入mysql控制台，修改mysql密码："></a>3、进入mysql控制台，修改mysql密码：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; USE mysql ; </span><br><span class="line">Database changed</span><br><span class="line">mysql&gt;  UPDATE user SET Password &#x3D; password ( &#39;12345678&#39; ) WHERE User &#x3D; &#39;root&#39; ; </span><br><span class="line">Query OK, 1 row affected (0.06 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line">mysql&gt; flush privileges ; </span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">mysql&gt; quit</span><br></pre></td></tr></table></figure>
+<h3 id="4、注释掉my-cnf配置文件下的skip-grant-tables这行参数，重新启动mysql："><a href="#4、注释掉my-cnf配置文件下的skip-grant-tables这行参数，重新启动mysql：" class="headerlink" title="4、注释掉my.cnf配置文件下的skip-grant-tables这行参数，重新启动mysql："></a>4、注释掉my.cnf配置文件下的skip-grant-tables这行参数，重新启动mysql：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;init.d&#x2F;mysql restart</span><br></pre></td></tr></table></figure>
+<h3 id="5、测试密码是否修改成功-能否正常登陆控制台："><a href="#5、测试密码是否修改成功-能否正常登陆控制台：" class="headerlink" title="5、测试密码是否修改成功,能否正常登陆控制台："></a>5、测试密码是否修改成功,能否正常登陆控制台：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p12345678</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/18/mysql忘记root密码，修改密码方法/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/17/mysql--The table is probably corrupted/"><span>[Mysql] ERROR 1805 (HY000): Column count of mysql.user is wrong. Expected 45, found 43. The table is probably corrupted</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/17/mysql--The table is probably corrupted/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-17T09:51:00.000Z">
+          2018-10-17
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、从mysql5-6-msyqldump全备出来数据，导入到mysql5-7的库，导入导出均正常，在5-7的库新增用户时，提示以下错误："><a href="#1、从mysql5-6-msyqldump全备出来数据，导入到mysql5-7的库，导入导出均正常，在5-7的库新增用户时，提示以下错误：" class="headerlink" title="1、从mysql5.6 msyqldump全备出来数据，导入到mysql5.7的库，导入导出均正常，在5.7的库新增用户时，提示以下错误："></a>1、从mysql5.6 msyqldump全备出来数据，导入到mysql5.7的库，导入导出均正常，在5.7的库新增用户时，提示以下错误：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@db 09:21:  [(none)]&gt; grant select,update,delete,insert on *.* to &#39;clevergo&#39;@&#39;%&#39; identified by &#39;123123&#39;;</span><br><span class="line">ERROR 1805 (HY000): Column count of mysql.user is wrong. Expected 45, found 43. The table is probably corrupted</span><br></pre></td></tr></table></figure>
+<h3 id="2、造成该问题是因为把5-6的库数据，全部导入5-7造成的，因此需要使用mysql-upgrade将库升级到最新版本："><a href="#2、造成该问题是因为把5-6的库数据，全部导入5-7造成的，因此需要使用mysql-upgrade将库升级到最新版本：" class="headerlink" title="2、造成该问题是因为把5.6的库数据，全部导入5.7造成的，因此需要使用mysql_upgrade将库升级到最新版本："></a>2、造成该问题是因为把5.6的库数据，全部导入5.7造成的，因此需要使用mysql_upgrade将库升级到最新版本：</h3><p>/data/mysql/bin/mysql_upgrade -uroot -p123456</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">mysql_upgrade: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">Checking if update is needed.</span><br><span class="line">Checking server version.</span><br><span class="line">Running queries to upgrade MySQL server.</span><br><span class="line">Checking system database.</span><br><span class="line">mysql.columns_priv                                 OK</span><br><span class="line">mysql.db                                           OK</span><br><span class="line">mysql.engine_cost                                  OK</span><br><span class="line">mysql.event                                        OK</span><br><span class="line">mysql.func                                         OK</span><br><span class="line">mysql.general_log                                  OK</span><br><span class="line">mysql.gtid_executed                                OK</span><br><span class="line">mysql.help_category                                OK</span><br><span class="line">mysql.help_keyword                                 OK</span><br><span class="line">mysql.help_relation                                OK</span><br><span class="line">mysql.help_topic                                   OK</span><br><span class="line">mysql.innodb_index_stats                           OK</span><br><span class="line">mysql.innodb_table_stats                           OK</span><br><span class="line">mysql.ndb_binlog_index                             OK</span><br><span class="line">mysql.plugin                                       OK</span><br><span class="line">mysql.proc                                         OK</span><br><span class="line">mysql.procs_priv                                   OK</span><br><span class="line">mysql.proxies_priv                                 OK</span><br><span class="line">mysql.server_cost                                  OK</span><br><span class="line">mysql.servers                                      OK</span><br><span class="line">mysql.slave_master_info                            OK</span><br><span class="line">mysql.slave_relay_log_info                         OK</span><br><span class="line">mysql.slave_worker_info                            OK</span><br><span class="line">mysql.slow_log                                     OK</span><br><span class="line">mysql.tables_priv                                  OK</span><br><span class="line">mysql.time_zone                                    OK</span><br><span class="line">mysql.time_zone_leap_second                        OK</span><br><span class="line">mysql.time_zone_name                               OK</span><br><span class="line">mysql.time_zone_transition                         OK</span><br><span class="line">mysql.time_zone_transition_type                    OK</span><br><span class="line">mysql.user                                         OK</span><br><span class="line">The sys schema is already up to date (version 1.5.1).</span><br><span class="line">Found 0 sys functions, but expected 22. Re-installing the sys schema.</span><br><span class="line">Upgrading the sys schema.</span><br><span class="line">Checking databases.</span><br><span class="line">t.t_test                                           OK</span><br><span class="line">Upgrade process completed successfully.</span><br><span class="line">Checking if update is needed.</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、进入mysql，再次执行创建用户："><a href="#3、进入mysql，再次执行创建用户：" class="headerlink" title="3、进入mysql，再次执行创建用户："></a>3、进入mysql，再次执行创建用户：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@db 09:26:  [(none)]&gt; grant select,update,delete,insert on *.* to &#39;clevergo&#39;@&#39;%&#39; identified by &#39;123123&#39;;</span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.01 sec)</span><br><span class="line"></span><br><span class="line">root@db 09:26:  [(none)]&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">root@db 09:26:  [(none)]&gt; select host,user from mysql.user;</span><br><span class="line">+-----------+----------------+</span><br><span class="line">| host      | user           |</span><br><span class="line">+-----------+----------------+</span><br><span class="line">| %         | clevergo       |</span><br><span class="line">| localhost | mysql.session  |</span><br><span class="line">| localhost | mysql.sys      |</span><br><span class="line">| localhost | root           |</span><br><span class="line">+-----------+----------------+</span><br><span class="line">6 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">root@db 09:26:  [(none)]&gt; exit</span><br><span class="line">Bye</span><br></pre></td></tr></table></figure>
+<p>执行成功。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/17/mysql--The table is probably corrupted/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/08/使用mysqldiff和mysqldbcompare比较数据库差异/"><span>[Mysql] 使用mysqldiff和mysqldbcompare检查数据一致性</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/08/使用mysqldiff和mysqldbcompare比较数据库差异/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-08T09:51:24.000Z">
+          2018-10-08
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、官网下载mysql-utilities工具"><a href="#1、官网下载mysql-utilities工具" class="headerlink" title="1、官网下载mysql-utilities工具"></a>1、官网下载mysql-utilities工具</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;cdn.mysql.com&#x2F;archives&#x2F;mysql-utilities&#x2F;mysql-utilities-1.6.5.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="2、解压mysql-utilities工具："><a href="#2、解压mysql-utilities工具：" class="headerlink" title="2、解压mysql-utilities工具："></a>2、解压mysql-utilities工具：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mysql-utilities-1.6.5.tar.gz</span><br><span class="line">cd mysql-utilities-1.6.5&#x2F;</span><br><span class="line">cd scripts&#x2F;</span><br><span class="line">[root@dax-mysql-slave scripts]# ls</span><br><span class="line">mysqlauditadmin.py  mysqlbinlogpurge.py   mysqldbcopy.py    mysqldiff.py       mysqlfrm.py         mysqlmetagrep.py   mysqlrpladmin.py  mysqlrplshow.py      mysqlserverinfo.py  mysqluserclone.py</span><br><span class="line">mysqlauditgrep.py   mysqlbinlogrotate.py  mysqldbexport.py  mysqldiskusage.py  mysqlgrants.py      mysqlprocgrep.py   mysqlrplcheck.py  mysqlrplsync.py      mysqlslavetrx.py</span><br><span class="line">mysqlbinlogmove.py  mysqldbcompare.py     mysqldbimport.py  mysqlfailover.py   mysqlindexcheck.py  mysqlreplicate.py  mysqlrplms.py     mysqlserverclone.py  mysqluc.py</span><br></pre></td></tr></table></figure>
+<p>在scripts目录下存在mysqldiff和mysqldbcompare用于比对数据的脚本</p>
+<h3 id="3、使用mysqldbcompare需要安装connector-python依赖关系："><a href="#3、使用mysqldbcompare需要安装connector-python依赖关系：" class="headerlink" title="3、使用mysqldbcompare需要安装connector-python依赖关系："></a>3、使用mysqldbcompare需要安装connector-python依赖关系：</h3><p>官网下载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;cdn.mysql.com&#x2F;archives&#x2F;mysql-connector-python-2.2&#x2F;mysql-connector-python-2.2.3-0.1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql-connector-python-2.2.3-0.1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<h3 id="4、安装完成之后测试mysqldbcompare能否正常使用："><a href="#4、安装完成之后测试mysqldbcompare能否正常使用：" class="headerlink" title="4、安装完成之后测试mysqldbcompare能否正常使用："></a>4、安装完成之后测试mysqldbcompare能否正常使用：</h3><p> ./mysqldbcompare.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;.&#x2F;mysqldbcompare.py&quot;, line 28, in &lt;module&gt;</span><br><span class="line">    from mysql.utilities.common.tools import check_python_version</span><br><span class="line">ImportError: No module named utilities.common.tools</span><br></pre></td></tr></table></figure>
+<p>将python2.7下的模块，软连接到lib64目录下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s &#x2F;usr&#x2F;lib&#x2F;python2.7&#x2F;site-packages&#x2F;mysql&#x2F;utilities &#x2F;usr&#x2F;lib64&#x2F;python2.7&#x2F;site-packages&#x2F;mysql&#x2F;utilities</span><br></pre></td></tr></table></figure>
+<p>重新测试mysqldbcompare能否正常使用：<br>./mysqldbcompare.py </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Usage: mysqldbcompare --server1&#x3D;user:pass@host:port:socket --server2&#x3D;user:pass@host:port:socket db1:db2</span><br><span class="line"></span><br><span class="line">mysqldbcompare: error: You must specify at least one database to compare or use the --all option to compare all databases.</span><br></pre></td></tr></table></figure>
+<p>提示需要指定对表的库：<br>./mysqldbcompare.py –server1=root:<a href="mailto:12345678@10.0.7.50">12345678@10.0.7.50</a>:3306:/data/mysql/tmp/mysql.sock –server2=root:<a href="mailto:12345678@10.0.7.51">12345678@10.0.7.51</a>:3306:/data/mysql/tmp/mysql.sock test:test<br>或者<br>./mysqldbcompare.py –server1=root:<a href="mailto:12345678@10.0.7.50">12345678@10.0.7.50</a>:3306 –server2=root:<a href="mailto:12345678@10.0.7.51">12345678@10.0.7.51</a>:3306 test:test<br>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"># server1 on 10.0.7.50: ... connected.</span><br><span class="line"># server2 on 10.0.7.51: ... connected.</span><br><span class="line"># Checking databases test on server1 and test on server2</span><br><span class="line">#</span><br><span class="line">ERROR: The list of objects differs among database test and test.</span><br></pre></td></tr></table></figure>
+<h3 id="5、准备测试数据："><a href="#5、准备测试数据：" class="headerlink" title="5、准备测试数据："></a>5、准备测试数据：</h3><p>server1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">root@db 03:40:  [test1]&gt; select * from test;</span><br><span class="line">+----+</span><br><span class="line">| ID |</span><br><span class="line">+----+</span><br><span class="line">|  1 |</span><br><span class="line">|  2 |</span><br><span class="line">|  3 |</span><br><span class="line">|  4 |</span><br><span class="line">|  5 |</span><br><span class="line">|  6 |</span><br><span class="line">+----+</span><br><span class="line">6 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">root@db 03:40:  [test1]&gt; show create table test;</span><br><span class="line">+-------+-------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table | Create Table                                                                                                |</span><br><span class="line">+-------+-------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| test  | CREATE TABLE &#96;test&#96; (</span><br><span class="line">  &#96;ID&#96; int(11) NOT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;ID&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4 |</span><br><span class="line">+-------+-------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>server2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">root@db 03:37:  [test1]&gt; select * from test;</span><br><span class="line">+----+</span><br><span class="line">| ID |</span><br><span class="line">+----+</span><br><span class="line">|  1 |</span><br><span class="line">|  2 |</span><br><span class="line">|  3 |</span><br><span class="line">|  4 |</span><br><span class="line">|  5 |</span><br><span class="line">+----+</span><br><span class="line"></span><br><span class="line">root@db 06:20:  [test1]&gt; show create table test</span><br><span class="line">    -&gt; ;</span><br><span class="line">+-------+-------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table | Create Table                                                                                                |</span><br><span class="line">+-------+-------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| test  | CREATE TABLE &#96;test&#96; (</span><br><span class="line">  &#96;ID&#96; int(11) NOT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;ID&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4 |</span><br><span class="line">+-------+-------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、mysqldiff用于检测表结构的差异，如果某个对比表表结构相同，数据不同，mysqldiff并不会检测出来："><a href="#6、mysqldiff用于检测表结构的差异，如果某个对比表表结构相同，数据不同，mysqldiff并不会检测出来：" class="headerlink" title="6、mysqldiff用于检测表结构的差异，如果某个对比表表结构相同，数据不同，mysqldiff并不会检测出来："></a>6、mysqldiff用于检测表结构的差异，如果某个对比表表结构相同，数据不同，mysqldiff并不会检测出来：</h3><p>./mysqldiff.py –server1=root:<a href="mailto:12345678@10.0.7.50">12345678@10.0.7.50</a>:3306 –server2=root:<a href="mailto:12345678@10.0.7.51">12345678@10.0.7.51</a>:3306 test1:test1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"># server1 on 10.0.7.50: ... connected.</span><br><span class="line"># server2 on 10.0.7.51: ... connected.</span><br><span class="line"># Comparing &#96;test1&#96; to &#96;test1&#96;                                     [PASS]</span><br><span class="line"># Comparing &#96;test1&#96;.&#96;aa&#96; to &#96;test1&#96;.&#96;aa&#96;                           [PASS]</span><br><span class="line"># Comparing &#96;test1&#96;.&#96;test&#96; to &#96;test1&#96;.&#96;test&#96;                       [PASS]</span><br><span class="line"># Success. All objects are the same.</span><br></pre></td></tr></table></figure>
+<p>单独对比某一张表：<br>./mysqldiff.py –server1=root:<a href="mailto:12345678@10.0.7.50">12345678@10.0.7.50</a>:3306 –server2=root:<a href="mailto:12345678@10.0.7.51">12345678@10.0.7.51</a>:3306 test1.test:test1.test</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"># server1 on 10.0.7.50: ... connected.</span><br><span class="line"># server2 on 10.0.7.51: ... connected.</span><br><span class="line"># Comparing test1.test to test1.test                               [PASS]</span><br><span class="line"># Success. All objects are the same.</span><br></pre></td></tr></table></figure>
+<h3 id="7、结构一致，数据内容不一致，使用mysqldbcompare（用于检测数据库字符集，表结构，表数据等）检测："><a href="#7、结构一致，数据内容不一致，使用mysqldbcompare（用于检测数据库字符集，表结构，表数据等）检测：" class="headerlink" title="7、结构一致，数据内容不一致，使用mysqldbcompare（用于检测数据库字符集，表结构，表数据等）检测："></a>7、结构一致，数据内容不一致，使用mysqldbcompare（用于检测数据库字符集，表结构，表数据等）检测：</h3><p>./mysqldbcompare.py –server1=root:<a href="mailto:12345678@10.0.7.50">12345678@10.0.7.50</a>:3306 –server2=root:<a href="mailto:12345678@10.0.7.51">12345678@10.0.7.51</a>:3306 test1 –changes-for=server1 –difftype=sql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"># server1 on 10.0.7.50: ... connected.</span><br><span class="line"># server2 on 10.0.7.51: ... connected.</span><br><span class="line"># Checking databases test1 on server1 and test1 on server2</span><br><span class="line">#</span><br><span class="line">#                                                   Defn    Row     Data   </span><br><span class="line"># Type      Object Name                             Diff    Count   Check  </span><br><span class="line"># ------------------------------------------------------------------------- </span><br><span class="line"># TABLE     aa                                      pass    pass    -       </span><br><span class="line">#           - Compare table checksum                                pass    </span><br><span class="line"># TABLE     test                                    pass    FAIL    ERROR: Row counts are not the same among &#96;test1&#96;.&#96;test&#96; and &#96;test1&#96;.&#96;test&#96;.</span><br><span class="line">#</span><br></pre></td></tr></table></figure>
+<p>提示test1库下面的test表数据不一致。</p>
+<h3 id="8、创建测试数据，表结构不同，数据内容相同："><a href="#8、创建测试数据，表结构不同，数据内容相同：" class="headerlink" title="8、创建测试数据，表结构不同，数据内容相同："></a>8、创建测试数据，表结构不同，数据内容相同：</h3><p>server1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">create table test1 (id int(10) primary key);</span><br><span class="line">insert into test1 values (1),(2),(3),(4),(5);</span><br><span class="line">select * from test1;</span><br><span class="line">+----+</span><br><span class="line">| id |</span><br><span class="line">+----+</span><br><span class="line">|  1 |</span><br><span class="line">|  2 |</span><br><span class="line">|  3 |</span><br><span class="line">|  4 |</span><br><span class="line">|  5 |</span><br><span class="line">+----+</span><br></pre></td></tr></table></figure>
+<p>server2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">create table test1 (id bigint(20));</span><br><span class="line">insert into test1 values (1),(2),(3),(4),(5);</span><br><span class="line">root@db 06:28:  [test1]&gt; select * from test1;</span><br><span class="line">+------+</span><br><span class="line">| id   |</span><br><span class="line">+------+</span><br><span class="line">|    1 |</span><br><span class="line">|    2 |</span><br><span class="line">|    3 |</span><br><span class="line">|    4 |</span><br><span class="line">|    5 |</span><br><span class="line">+------+</span><br></pre></td></tr></table></figure>
+<h3 id="9、使用mysqldiff检测："><a href="#9、使用mysqldiff检测：" class="headerlink" title="9、使用mysqldiff检测："></a>9、使用mysqldiff检测：</h3><p> ./mysqldiff.py –server1=root:<a href="mailto:12345678@10.0.7.50">12345678@10.0.7.50</a>:3306 –server2=root:<a href="mailto:12345678@10.0.7.51">12345678@10.0.7.51</a>:3306 test1.test1:test1.test1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"># server1 on 10.0.7.50: ... connected.</span><br><span class="line"># server2 on 10.0.7.51: ... connected.</span><br><span class="line"># Comparing test1.test1 to test1.test1                             [FAIL]</span><br><span class="line"># Object definitions differ. (--changes-for&#x3D;server1)</span><br><span class="line">#</span><br><span class="line"></span><br><span class="line">--- test1.test1</span><br><span class="line">+++ test1.test1</span><br><span class="line">@@ -1,4 +1,3 @@</span><br><span class="line"> CREATE TABLE &#96;test1&#96; (</span><br><span class="line">-  &#96;id&#96; int(10) NOT NULL,</span><br><span class="line">-  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">+  &#96;id&#96; bigint(20) DEFAULT NULL</span><br><span class="line"> ) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4</span><br><span class="line"># Compare failed. One or more differences found.</span><br></pre></td></tr></table></figure>
+<p>提示表结构存在差异。</p>
+<h3 id="10、使用mysqldbcompare检测："><a href="#10、使用mysqldbcompare检测：" class="headerlink" title="10、使用mysqldbcompare检测："></a>10、使用mysqldbcompare检测：</h3><p>./mysqldbcompare.py –server1=root:<a href="mailto:12345678@10.0.7.50">12345678@10.0.7.50</a>:3306 –server2=root:<a href="mailto:12345678@10.0.7.51">12345678@10.0.7.51</a>:3306 test1 –changes-for=server1 –difftype=sql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"># server1 on 10.0.7.50: ... connected.</span><br><span class="line"># server2 on 10.0.7.51: ... connected.</span><br><span class="line"># Checking databases test1 on server1 and test1 on server2</span><br><span class="line">#</span><br><span class="line">#                                                   Defn    Row     Data   </span><br><span class="line"># Type      Object Name                             Diff    Count   Check  </span><br><span class="line"># ------------------------------------------------------------------------- </span><br><span class="line"># TABLE     aa                                      pass    pass    -       </span><br><span class="line">#           - Compare table checksum                                pass    </span><br><span class="line"># TABLE     test                                    pass    FAIL    ERROR: Row counts are not the same among &#96;test1&#96;.&#96;test&#96; and &#96;test1&#96;.&#96;test&#96;.</span><br><span class="line">#</span><br></pre></td></tr></table></figure>
+<p>当检测到异常之后会直接退出，不进行下面的比较，因此未检测到test1表的内容，加上-t（-t, –run-all-tests   do not abort when a diff test fails）参数，运行测试模式，遇到异常之后仍然执行下面的比较：<br>./mysqldbcompare.py –server1=root:<a href="mailto:12345678@10.0.7.50">12345678@10.0.7.50</a>:3306 –server2=root:<a href="mailto:12345678@10.0.7.51">12345678@10.0.7.51</a>:3306 test1 –changes-for=server1 –difftype=sql -t</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"># WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"># server1 on 10.0.7.50: ... connected.</span><br><span class="line"># server2 on 10.0.7.51: ... connected.</span><br><span class="line"># Checking databases test1 on server1 and test1 on server2</span><br><span class="line">#</span><br><span class="line">#                                                   Defn    Row     Data   </span><br><span class="line"># Type      Object Name                             Diff    Count   Check  </span><br><span class="line"># ------------------------------------------------------------------------- </span><br><span class="line"># TABLE     aa                                      pass    pass    -       </span><br><span class="line">#           - Compare table checksum                                pass    </span><br><span class="line"># TABLE     test                                    pass    FAIL    -       </span><br><span class="line">#           - Compare table checksum                                FAIL    </span><br><span class="line">#           - Find row differences                                  FAIL    </span><br><span class="line">#</span><br><span class="line"># Row counts are not the same among &#96;test1&#96;.&#96;test&#96; and &#96;test1&#96;.&#96;test&#96;.</span><br><span class="line">#</span><br><span class="line"># Transformation for --changes-for&#x3D;server1:</span><br><span class="line">#</span><br><span class="line"></span><br><span class="line">DELETE FROM &#96;test1&#96;.&#96;test&#96; WHERE &#96;ID&#96; &#x3D; &#39;6&#39;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># TABLE     test1                                   FAIL    pass    -       </span><br><span class="line">#           - Compare table checksum                                FAIL    </span><br><span class="line">#           - Find row differences                                  SKIP    </span><br><span class="line">#</span><br><span class="line"># Transformation for --changes-for&#x3D;server1:</span><br><span class="line">#</span><br><span class="line"></span><br><span class="line">ALTER TABLE &#96;test1&#96;.&#96;test1&#96; </span><br><span class="line">  DROP PRIMARY KEY, </span><br><span class="line">  CHANGE COLUMN id id bigint(20) NULL;</span><br><span class="line"></span><br><span class="line"># The table test1 does not have an usable Index or primary key.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Database consistency check failed.</span><br><span class="line">#</span><br><span class="line"># ...done</span><br></pre></td></tr></table></figure>
+
+<h3 id="11、创建两个test库，server1比server2实例多一个gtid-test14的表："><a href="#11、创建两个test库，server1比server2实例多一个gtid-test14的表：" class="headerlink" title="11、创建两个test库，server1比server2实例多一个gtid_test14的表："></a>11、创建两个test库，server1比server2实例多一个gtid_test14的表：</h3><p>server1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">show tables;</span><br><span class="line">+----------------+</span><br><span class="line">| Tables_in_test |</span><br><span class="line">+----------------+</span><br><span class="line">| articles       |</span><br><span class="line">| gtid_test10    |</span><br><span class="line">| gtid_test11    |</span><br><span class="line">| gtid_test12    |</span><br><span class="line">| gtid_test13    |</span><br><span class="line">| gtid_test14    |</span><br><span class="line">| gtid_test15    |</span><br><span class="line">| gtid_test2     |</span><br><span class="line">| gtid_test3     |</span><br><span class="line">| gtid_test4     |</span><br><span class="line">| gtid_test5     |</span><br><span class="line">| gtid_test6     |</span><br><span class="line">| gtid_test7     |</span><br><span class="line">| gtid_test8     |</span><br><span class="line">| gtid_test9     |</span><br><span class="line">| ratings        |</span><br><span class="line">+----------------+</span><br><span class="line">16 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>server2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">show tables;</span><br><span class="line">+----------------+</span><br><span class="line">| Tables_in_test |</span><br><span class="line">+----------------+</span><br><span class="line">| articles       |</span><br><span class="line">| gtid_test10    |</span><br><span class="line">| gtid_test11    |</span><br><span class="line">| gtid_test12    |</span><br><span class="line">| gtid_test13    |</span><br><span class="line">| gtid_test15    |</span><br><span class="line">| gtid_test2     |</span><br><span class="line">| gtid_test3     |</span><br><span class="line">| gtid_test4     |</span><br><span class="line">| gtid_test5     |</span><br><span class="line">| gtid_test6     |</span><br><span class="line">| gtid_test7     |</span><br><span class="line">| gtid_test8     |</span><br><span class="line">| gtid_test9     |</span><br><span class="line">| ratings        |</span><br><span class="line">+----------------+</span><br><span class="line">15 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="12、使用mysqldiff测试："><a href="#12、使用mysqldiff测试：" class="headerlink" title="12、使用mysqldiff测试："></a>12、使用mysqldiff测试：</h3><p> ./mysqldiff.py –server1=root:<a href="mailto:12345678@10.0.7.50">12345678@10.0.7.50</a>:3306 –server2=root:<a href="mailto:12345678@10.0.7.51">12345678@10.0.7.51</a>:3306 test:test</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"># server1 on 10.0.7.50: ... connected.</span><br><span class="line"># server2 on 10.0.7.51: ... connected.</span><br><span class="line"># WARNING: Objects in server1.test but not in server2.test:</span><br><span class="line">#        TABLE: gtid_test14</span><br><span class="line"># Compare failed. One or more differences found.</span><br></pre></td></tr></table></figure>
+<p>提示server2.test库下不存在gtid_test14表。</p>
+<h3 id="13、使用mysqldbcompare测试："><a href="#13、使用mysqldbcompare测试：" class="headerlink" title="13、使用mysqldbcompare测试："></a>13、使用mysqldbcompare测试：</h3><p> ./mysqldbcompare.py –server1=root:<a href="mailto:12345678@10.0.7.50">12345678@10.0.7.50</a>:3306 –server2=root:<a href="mailto:12345678@10.0.7.51">12345678@10.0.7.51</a>:3306 test</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"># server1 on 10.0.7.50: ... connected.</span><br><span class="line"># server2 on 10.0.7.51: ... connected.</span><br><span class="line"># Checking databases test on server1 and test on server2</span><br><span class="line">#</span><br><span class="line">ERROR: The list of objects differs among database test and test.</span><br></pre></td></tr></table></figure>
+<p>只会提示两个实例的test库有差异，并没有列出详细信息。在对比数据时可先使用mysqldiff工具检测两个server端的表结构是否一致，如果没有差异，再使用mysqldbcompare工具去检测表数据是否一致。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/08/使用mysqldiff和mysqldbcompare比较数据库差异/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/28/使用certbot为域名生成免费证书(apache版)/"><span>[Linux] 使用certbot为域名生成免费证书(apache版)</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/28/使用certbot为域名生成免费证书(apache版)/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-28T08:41:30.000Z">
+          2018-09-28
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、下载certbot"><a href="#1、下载certbot" class="headerlink" title="1、下载certbot"></a>1、下载certbot</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;data&#x2F;soft</span><br><span class="line">wget https:&#x2F;&#x2F;dl.eff.org&#x2F;certbot-auto</span><br><span class="line">chmod a+x certbot-auto</span><br></pre></td></tr></table></figure>
+<h4 id="2、生成证书"><a href="#2、生成证书" class="headerlink" title="2、生成证书"></a>2、生成证书</h4><p>/data/soft/certbot-auto –apache certonly</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Saving debug log to &#x2F;var&#x2F;log&#x2F;letsencrypt&#x2F;letsencrypt.log</span><br><span class="line">Could not choose appropriate plugin: The apache plugin is not working; there may be problems with your existing configuration.</span><br><span class="line">The error was: NoInstallationError(&#39;Cannot find Apache executable apachectl&#39;,)</span><br><span class="line">The apache plugin is not working; there may be problems with your existing configuration.</span><br><span class="line">The error was: NoInstallationError(&#39;Cannot find Apache executable apachectl&#39;,)</span><br></pre></td></tr></table></figure>
+<h4 id="3、上面报错提示找不到执行路径，需要指定apache的路径"><a href="#3、上面报错提示找不到执行路径，需要指定apache的路径" class="headerlink" title="3、上面报错提示找不到执行路径，需要指定apache的路径"></a>3、上面报错提示找不到执行路径，需要指定apache的路径</h4><p>sudo env PATH=$PATH:/usr/local/apache2/bin ./certbot-auto –apache certonly</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Saving debug log to &#x2F;var&#x2F;log&#x2F;letsencrypt&#x2F;letsencrypt.log</span><br><span class="line">Could not choose appropriate plugin: The apache plugin is not working; there may be problems with your existing configuration.</span><br><span class="line">The error was: NoInstallationError(&#39;Could not find configuration root&#39;,)</span><br><span class="line">The apache plugin is not working; there may be problems with your existing configuration.</span><br><span class="line">The error was: NoInstallationError(&#39;Could not find configuration root&#39;,)</span><br></pre></td></tr></table></figure>
+<h4 id="4、上面报错提示找不到配置目录，需要指定–apache-server-root"><a href="#4、上面报错提示找不到配置目录，需要指定–apache-server-root" class="headerlink" title="4、上面报错提示找不到配置目录，需要指定–apache-server-root"></a>4、上面报错提示找不到配置目录，需要指定–apache-server-root</h4><p> sudo env PATH=$PATH:/usr/local/apache2/bin ./certbot-auto –apache –apache-server-root /usr/local/apache2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Saving debug log to &#x2F;var&#x2F;log&#x2F;letsencrypt&#x2F;letsencrypt.log</span><br><span class="line">Plugins selected: Authenticator apache, Installer apache</span><br><span class="line">No names were found in your configuration files. Please enter in your domain</span><br><span class="line">name(s) (comma and&#x2F;or space separated)  (Enter &#39;c&#39; to cancel): www.test.com</span><br><span class="line">Obtaining a new certificate</span><br><span class="line">Performing the following challenges:</span><br><span class="line">http-01 challenge for www.test.com</span><br><span class="line">Cleaning up challenges</span><br><span class="line">Unable to find a virtual host listening on port 80 which is currently needed for Certbot to prove to the CA that you control your domain. Please add a virtual host for port 80.</span><br></pre></td></tr></table></figure>
+<h4 id="5、使用certbot申请申请域名免费证书，默认会访问80端口，如果80端口不存在，会报以上错误，修改httpd-conf配置文件，添加上80端口，并重启apache"><a href="#5、使用certbot申请申请域名免费证书，默认会访问80端口，如果80端口不存在，会报以上错误，修改httpd-conf配置文件，添加上80端口，并重启apache" class="headerlink" title="5、使用certbot申请申请域名免费证书，默认会访问80端口，如果80端口不存在，会报以上错误，修改httpd.conf配置文件，添加上80端口，并重启apache"></a>5、使用certbot申请申请域名免费证书，默认会访问80端口，如果80端口不存在，会报以上错误，修改httpd.conf配置文件，添加上80端口，并重启apache</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Listen 80</span><br><span class="line"></span><br><span class="line">&lt;VirtualHost *:80&gt;  </span><br><span class="line">    ServerAdmin test@test.example.com</span><br><span class="line">    ServerName  www.test.com</span><br><span class="line">    ServerAlias test</span><br><span class="line">    DocumentRoot &#x2F;var&#x2F;www&#x2F;html </span><br><span class="line">&lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="6、重新生成证书，成功之后会在-etc-letsencrypt-live-ebank-cbibank-com目录下生成四个文件-pem文件和一个README文件"><a href="#6、重新生成证书，成功之后会在-etc-letsencrypt-live-ebank-cbibank-com目录下生成四个文件-pem文件和一个README文件" class="headerlink" title="6、重新生成证书，成功之后会在/etc/letsencrypt/live/ebank.cbibank.com目录下生成四个文件.pem文件和一个README文件"></a>6、重新生成证书，成功之后会在/etc/letsencrypt/live/ebank.cbibank.com目录下生成四个文件.pem文件和一个README文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cert.pem  chain.pem  fullchain.pem  privkey.pem  README</span><br></pre></td></tr></table></figure>
+<h4 id="7、修改conf-httpd-conf文件"><a href="#7、修改conf-httpd-conf文件" class="headerlink" title="7、修改conf/httpd.conf文件"></a>7、修改conf/httpd.conf文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#Include conf&#x2F;extra&#x2F;httpd-ssl.conf</span><br><span class="line">#LoadModule ssl_module modules&#x2F;mod_ssl.so</span><br></pre></td></tr></table></figure>
+<p>将这两行的#去掉</p>
+<h4 id="8、配置conf-extra-httpd-ssl-conf文件，修改对应的域名和证书路径："><a href="#8、配置conf-extra-httpd-ssl-conf文件，修改对应的域名和证书路径：" class="headerlink" title="8、配置conf/extra/httpd-ssl.conf文件，修改对应的域名和证书路径："></a>8、配置conf/extra/httpd-ssl.conf文件，修改对应的域名和证书路径：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:443&gt;</span><br><span class="line">DocumentRoot &quot;&#x2F;var&#x2F;www&#x2F;html&quot;</span><br><span class="line">ServerName ebank.cbibank.com</span><br><span class="line">SSLEngine on</span><br><span class="line">SSLCertificateFile &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;ebank.cbibank.com&#x2F;cert.pem</span><br><span class="line">SSLCertificateKeyFile &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;ebank.cbibank.com&#x2F;privkey.pem</span><br><span class="line">SSLCertificateChainFile &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;ebank.cbibank.com&#x2F;chain.pem</span><br><span class="line">&lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="9、修改完成后重启apache："><a href="#9、修改完成后重启apache：" class="headerlink" title="9、修改完成后重启apache："></a>9、修改完成后重启apache：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;apache2&#x2F;bin&#x2F;apachectl restart</span><br></pre></td></tr></table></figure>
+<p>重启过程报错，无法关闭apache提示以下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">httpd: Syntax error on line 434 of &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;conf&#x2F;httpd.conf: Cannot load &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;modules&#x2F;mod_ssl.so into server: &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;modules&#x2F;mod_ssl.so: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure>
+<p>在/usr/lib64/下面没有httpd的模块，yum安装mod_ssl：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mod_ssl</span><br></pre></td></tr></table></figure>
+<p>安装完成之后在/usr/lib64/httpd/modules/下面会有mod_ssl.so</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;lib64&#x2F;httpd&#x2F;modules&#x2F;mod_ssl.so</span><br><span class="line">ln -s &#x2F;usr&#x2F;lib64&#x2F;httpd&#x2F;modules&#x2F;mod_ssl.so &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;modules&#x2F;mod_ssl.so</span><br></pre></td></tr></table></figure>
+<p>再次尝试重启apache，报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">httpd: Syntax error on line 434 of &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;conf&#x2F;httpd.conf: Cannot load &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;modules&#x2F;mod_ssl.so into server: &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;modules&#x2F;mod_ssl.so:undefined symbol: ap_global_mutex_create</span><br></pre></td></tr></table></figure>
+<p>google了一下，有说yum安装的mod_ssl与apache的安装版本不兼容的问题，因此尝试使用对应版本的tar包将模块文件拷过去:<br>拷贝modules目录下的ssl目录和loggers的内容到/usr/local/apache2/modules/ssl目录下、拷贝include目录下的内容到/usr/local/apache2/modules/ssl目录下，拷贝完之后，在/usr/local/apache2/modules/ssl目录下执行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;apache2&#x2F;bin&#x2F;apxs -a -i -c mod_ssl.c</span><br></pre></td></tr></table></figure>
+<p>执行完成之后再次重启apache，依旧报错:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">httpd: Syntax error on line 434 of &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;conf&#x2F;httpd.conf: Cannot load &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;modules&#x2F;mod_ssl.so into server: &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;modules&#x2F;mod_ssl.so: undefined symbol: ssl_cmd_SSLPassPhraseDialog</span><br></pre></td></tr></table></figure>
+<p>需要指定openssl路径，执行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;apache2&#x2F;bin&#x2F;apxs -a -i -c -L&#x2F;usr&#x2F;lib&#x2F;openssl&#x2F;engines&#x2F;lib -c *.c -lcrypto -lssl -ldl</span><br></pre></td></tr></table></figure>
+<p>再次重启apache</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">httpd: Syntax error on line 434 of &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;conf&#x2F;httpd.conf: Cannot load &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;modules&#x2F;mod_ssl.so into server: &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;modules&#x2F;mod_ssl.so:undefined symbol: ap_global_mutex_create</span><br></pre></td></tr></table></figure>
+<p>重启apache依旧报错undefinedsymbol:ap_global_mutex_create，没找到任何解决办法，最后只能添加-enable-ssl参数，重新编译安装apache。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/28/使用certbot为域名生成免费证书(apache版)/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/26/mysql 勿操作drop table之后，利用mysqldump备份和binlog去恢复/"><span>[Mysql] mysql勿操作drop table之后，利用mysqldump备份和binlog恢复</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/26/mysql 勿操作drop table之后，利用mysqldump备份和binlog去恢复/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-26T14:35:24.000Z">
+          2018-09-26
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <p>1、查看备份表数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:30:  [test1]&gt; select * from test;</span><br><span class="line">+----+</span><br><span class="line">| ID |</span><br><span class="line">+----+</span><br><span class="line">|  1 |</span><br><span class="line">|  2 |</span><br><span class="line">|  3 |</span><br><span class="line">+----+</span><br></pre></td></tr></table></figure>
+<p>2、查看当前binlog位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">show master status;</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| File                | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set                                                                                                                                                                       |</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| mysql-binlog.000036 |    80147 |              |                  | 8182e5ae-af54-11e8-af0e-000d3a801ae2:1-13253,</span><br><span class="line">c42e3372-ba21-11e8-99ed-000d3a800ed3:1-2,</span><br><span class="line">d240752c-b809-11e8-8947-000d3a800ed3:1,</span><br><span class="line">dd412cc2-ba1f-11e8-9ba2-000d3a801ae2:1-195:1000036-1000040 |</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>3、开始备份test1数据库下的test数据表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p12345678 test1 test --master-data&#x3D;2 --single-transaction &gt; &#x2F;data&#x2F;test.dump</span><br></pre></td></tr></table></figure>
+<p>4、查看备份数据文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"> more &#x2F;data&#x2F;test.dump</span><br><span class="line">-- MySQL dump 10.13  Distrib 5.7.22, for linux-glibc2.12 (x86_64)</span><br><span class="line">--</span><br><span class="line">-- Host: localhost    Database: test1</span><br><span class="line">-- ------------------------------------------------------</span><br><span class="line">-- Server version	5.7.22-log</span><br><span class="line"></span><br><span class="line">&#x2F;*!40101 SET @OLD_CHARACTER_SET_CLIENT&#x3D;@@CHARACTER_SET_CLIENT *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET @OLD_CHARACTER_SET_RESULTS&#x3D;@@CHARACTER_SET_RESULTS *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET @OLD_COLLATION_CONNECTION&#x3D;@@COLLATION_CONNECTION *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET NAMES utf8 *&#x2F;;</span><br><span class="line">&#x2F;*!40103 SET @OLD_TIME_ZONE&#x3D;@@TIME_ZONE *&#x2F;;</span><br><span class="line">&#x2F;*!40103 SET TIME_ZONE&#x3D;&#39;+00:00&#39; *&#x2F;;</span><br><span class="line">&#x2F;*!40014 SET @OLD_UNIQUE_CHECKS&#x3D;@@UNIQUE_CHECKS, UNIQUE_CHECKS&#x3D;0 *&#x2F;;</span><br><span class="line">&#x2F;*!40014 SET @OLD_FOREIGN_KEY_CHECKS&#x3D;@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS&#x3D;0 *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET @OLD_SQL_MODE&#x3D;@@SQL_MODE, SQL_MODE&#x3D;&#39;NO_AUTO_VALUE_ON_ZERO&#39; *&#x2F;;</span><br><span class="line">&#x2F;*!40111 SET @OLD_SQL_NOTES&#x3D;@@SQL_NOTES, SQL_NOTES&#x3D;0 *&#x2F;;</span><br><span class="line">SET @MYSQLDUMP_TEMP_LOG_BIN &#x3D; @@SESSION.SQL_LOG_BIN;</span><br><span class="line">SET @@SESSION.SQL_LOG_BIN&#x3D; 0;</span><br><span class="line"></span><br><span class="line">--</span><br><span class="line">-- GTID state at the beginning of the backup </span><br><span class="line">--</span><br><span class="line"></span><br><span class="line">SET @@GLOBAL.GTID_PURGED&#x3D;&#39;8182e5ae-af54-11e8-af0e-000d3a801ae2:1-13253,</span><br><span class="line">c42e3372-ba21-11e8-99ed-000d3a800ed3:1-2,</span><br><span class="line">d240752c-b809-11e8-8947-000d3a800ed3:1,</span><br><span class="line">dd412cc2-ba1f-11e8-9ba2-000d3a801ae2:1-195:1000036-1000040&#39;;</span><br><span class="line"></span><br><span class="line">--</span><br><span class="line">-- Position to start replication or point-in-time recovery from</span><br><span class="line">--</span><br><span class="line"></span><br><span class="line">-- CHANGE MASTER TO MASTER_LOG_FILE&#x3D;&#39;mysql-binlog.000036&#39;, MASTER_LOG_POS&#x3D;80147;</span><br><span class="line"></span><br><span class="line">--</span><br><span class="line">-- Table structure for table &#96;test&#96;</span><br><span class="line">--</span><br><span class="line"></span><br><span class="line">DROP TABLE IF EXISTS &#96;test&#96;;</span><br><span class="line">&#x2F;*!40101 SET @saved_cs_client     &#x3D; @@character_set_client *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET character_set_client &#x3D; utf8 *&#x2F;;</span><br><span class="line">CREATE TABLE &#96;test&#96; (</span><br><span class="line">  &#96;ID&#96; int(11) NOT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;ID&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4;</span><br><span class="line">&#x2F;*!40101 SET character_set_client &#x3D; @saved_cs_client *&#x2F;;</span><br><span class="line"></span><br><span class="line">--</span><br><span class="line">-- Dumping data for table &#96;test&#96;</span><br><span class="line">--</span><br><span class="line"></span><br><span class="line">LOCK TABLES &#96;test&#96; WRITE;</span><br><span class="line">&#x2F;*!40000 ALTER TABLE &#96;test&#96; DISABLE KEYS *&#x2F;;</span><br><span class="line">INSERT INTO &#96;test&#96; VALUES (1),(2),(3);</span><br><span class="line">&#x2F;*!40000 ALTER TABLE &#96;test&#96; ENABLE KEYS *&#x2F;;</span><br><span class="line">UNLOCK TABLES;</span><br><span class="line">SET @@SESSION.SQL_LOG_BIN &#x3D; @MYSQLDUMP_TEMP_LOG_BIN;</span><br><span class="line">&#x2F;*!40103 SET TIME_ZONE&#x3D;@OLD_TIME_ZONE *&#x2F;;</span><br><span class="line"></span><br><span class="line">&#x2F;*!40101 SET SQL_MODE&#x3D;@OLD_SQL_MODE *&#x2F;;</span><br><span class="line">&#x2F;*!40014 SET FOREIGN_KEY_CHECKS&#x3D;@OLD_FOREIGN_KEY_CHECKS *&#x2F;;</span><br><span class="line">&#x2F;*!40014 SET UNIQUE_CHECKS&#x3D;@OLD_UNIQUE_CHECKS *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET CHARACTER_SET_CLIENT&#x3D;@OLD_CHARACTER_SET_CLIENT *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET CHARACTER_SET_RESULTS&#x3D;@OLD_CHARACTER_SET_RESULTS *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET COLLATION_CONNECTION&#x3D;@OLD_COLLATION_CONNECTION *&#x2F;;</span><br><span class="line">&#x2F;*!40111 SET SQL_NOTES&#x3D;@OLD_SQL_NOTES *&#x2F;;</span><br><span class="line"></span><br><span class="line">-- Dump completed on 2018-09-25  7:32:05</span><br></pre></td></tr></table></figure>
+
+<p>5、备份完成之后插入新的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:34:  [test1]&gt; insert into test values(4);</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br></pre></td></tr></table></figure>
+<p>6、刷新binlog文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:44:  [test1]&gt; flush binary logs;</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br></pre></td></tr></table></figure>
+<p>7、查看binlog文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:44:  [test1]&gt; show master status;</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| File                | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set                                                                                                                                                                          |</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| mysql-binlog.000037 |      326 |              |                  | 8182e5ae-af54-11e8-af0e-000d3a801ae2:1-13253,</span><br><span class="line">c42e3372-ba21-11e8-99ed-000d3a800ed3:1-2,</span><br><span class="line">d240752c-b809-11e8-8947-000d3a800ed3:1,</span><br><span class="line">dd412cc2-ba1f-11e8-9ba2-000d3a801ae2:1-196:1000036-1000040 |</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>8、在新的binlog文件里面再次插入一条数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:44:  [test1]&gt; insert into test values(5);</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br></pre></td></tr></table></figure>
+<p>9、查看当前测试的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:45:  [test1]&gt; select * from test;</span><br><span class="line">+----+</span><br><span class="line">| ID |</span><br><span class="line">+----+</span><br><span class="line">|  1 |</span><br><span class="line">|  2 |</span><br><span class="line">|  3 |</span><br><span class="line">|  4 |</span><br><span class="line">|  5 |</span><br><span class="line">+----+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>10、再次刷新binlog文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:45:  [test1]&gt; flush binary logs;</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br><span class="line"></span><br><span class="line">root@db 07:49:  [test1]&gt; show master status;</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| File                | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set                                                                                                                                                                          |</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| mysql-binlog.000038 |      326 |              |                  | 8182e5ae-af54-11e8-af0e-000d3a801ae2:1-13253,</span><br><span class="line">c42e3372-ba21-11e8-99ed-000d3a800ed3:1-2,</span><br><span class="line">d240752c-b809-11e8-8947-000d3a800ed3:1,</span><br><span class="line">dd412cc2-ba1f-11e8-9ba2-000d3a801ae2:1-197:1000036-1000040 |</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>11、删除测试表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:49:  [test1]&gt; drop table test;</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br></pre></td></tr></table></figure>
+<p>12、根据备份文件获取测试表test的创建语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -e&#39;&#x2F;.&#x2F;&#123;H;$!d;&#125;&#39; -e &#39;x;&#x2F;CREATE TABLE &#96;test&#96;&#x2F;!d;q&#39; &#x2F;data&#x2F;test.dump</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE IF EXISTS &#96;test&#96;;</span><br><span class="line">&#x2F;*!40101 SET @saved_cs_client     &#x3D; @@character_set_client *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET character_set_client &#x3D; utf8 *&#x2F;;</span><br><span class="line">CREATE TABLE &#96;test&#96; (</span><br><span class="line">  &#96;ID&#96; int(11) NOT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;ID&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4;</span><br><span class="line">&#x2F;*!40101 SET character_set_client &#x3D; @saved_cs_client *&#x2F;;</span><br></pre></td></tr></table></figure>
+<p>13、获取测试表test的数据，并指定到数据文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &#39;INSERT INTO &#96;test&#96;&#39; &#x2F;data&#x2F;test.dump &gt; insert.sql</span><br></pre></td></tr></table></figure>
+<p>cat insert.sql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO &#96;test&#96; VALUES (1),(2),(3);</span><br></pre></td></tr></table></figure>
+
+<p>14、根据test.dump备份文件记录的log-file文件位置和log-pos参数，去获取未备份的关于test表的增删改数据：<br>从mysql-binlog.000036文件开始，–start-position=80147：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog  -v --base64-output&#x3D;decode-rows --set-charset&#x3D;UTF-8 --database&#x3D;test1 --start-position&#x3D;80147  mysql-binlog.000036  &gt; restore.sql</span><br></pre></td></tr></table></figure>
+<p>15、获取test表被删除是的pos，文件为mysql-binlog.000038，位置为507：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog -v --base64-output&#x3D;DECODE-ROWS --set-charset&#x3D;UTF-8  &#x2F;data&#x2F;mysql&#x2F;log&#x2F;mysql-binlog.000038 |grep DROP  -A15 -B15</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># at 326</span><br><span class="line">#180925  7:49:39 server id 3306101  end_log_pos 387 	GTID	last_committed&#x3D;0	sequence_number&#x3D;1	rbr_only&#x3D;no</span><br><span class="line">SET @@SESSION.GTID_NEXT&#x3D; &#39;dd412cc2-ba1f-11e8-9ba2-000d3a801ae2:198&#39;&#x2F;*!*&#x2F;;</span><br><span class="line"># at 387</span><br><span class="line">#180925  7:49:39 server id 3306101  end_log_pos 507 	Query	thread_id&#x3D;267	exec_time&#x3D;0	error_code&#x3D;0</span><br><span class="line">use &#96;test1&#96;&#x2F;*!*&#x2F;;</span><br><span class="line">SET TIMESTAMP&#x3D;1537861779&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.pseudo_thread_id&#x3D;267&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.foreign_key_checks&#x3D;1, @@session.sql_auto_is_null&#x3D;0, @@session.unique_checks&#x3D;1, @@session.autocommit&#x3D;1&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.sql_mode&#x3D;0&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.auto_increment_increment&#x3D;1, @@session.auto_increment_offset&#x3D;29301&#x2F;*!*&#x2F;;</span><br><span class="line">&#x2F;*!\C utf8 *&#x2F;&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.character_set_client&#x3D;33,@@session.collation_connection&#x3D;33,@@session.collation_server&#x3D;45&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.lc_time_names&#x3D;0&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.collation_database&#x3D;DEFAULT&#x2F;*!*&#x2F;;</span><br><span class="line">DROP TABLE &#96;test&#96; &#x2F;* generated by server *&#x2F;</span><br><span class="line">&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@SESSION.GTID_NEXT&#x3D; &#39;AUTOMATIC&#39; &#x2F;* added by mysqlbinlog *&#x2F; &#x2F;*!*&#x2F;;</span><br><span class="line">DELIMITER ;</span><br><span class="line"># End of log file</span><br><span class="line">&#x2F;*!50003 SET COMPLETION_TYPE&#x3D;@OLD_COMPLETION_TYPE*&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET CHARACTER_SET_CLIENT&#x3D;@OLD_CHARACTER_SET_CLIENT *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET CHARACTER_SET_RESULTS&#x3D;@OLD_CHARACTER_SET_RESULTS *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET COLLATION_CONNECTION&#x3D;@OLD_COLLATION_CONNECTION *&#x2F;;</span><br><span class="line">&#x2F;*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE&#x3D;0*&#x2F;;</span><br></pre></td></tr></table></figure>
+
+<p>16、在备份开始binlog文件和记录drop操作的binlog文件之间还存在一个mysql-binlog.000037文件，需要将该文件内记录的信息都导出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog -v --base64-output&#x3D;DECODE-ROWS --set-charset&#x3D;UTF-8 mysql-binlog.000037 &gt;&gt; restore.sql</span><br></pre></td></tr></table></figure>
+<p>17：将记录drop操作的binlog文件里面drop之前的信息导出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog -v --base64-output&#x3D;DECODE-ROWS --set-charset&#x3D;UTF-8 --stop-position&#x3D;507 mysql-binlog.000038 &gt;&gt; restore.sql</span><br></pre></td></tr></table></figure>
+<p>18:对导出的文件进行筛选，过滤出test表的相关信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more restore.sql |grep  --ignore-case -E &#39;insert|update|delete&#39; -A3|grep &#39;&#96;test1&#96;.&#96;test&#96;&#39; -A2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">### INSERT INTO &#96;test1&#96;.&#96;test&#96;</span><br><span class="line">### SET</span><br><span class="line">###   @1&#x3D;4</span><br><span class="line">--</span><br><span class="line">### INSERT INTO &#96;test1&#96;.&#96;test&#96;</span><br><span class="line">### SET</span><br><span class="line">###   @1&#x3D;5</span><br></pre></td></tr></table></figure>
+<p>将过滤出来的内容进行编辑，@1为第一列的列名，建议使用sublime或者vim进行批量编辑 ：<br>cat test_insert.sql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO &#96;test1&#96;.&#96;test&#96; SET   id&#x3D;4  ;</span><br><span class="line">INSERT INTO &#96;test1&#96;.&#96;test&#96; SET   id&#x3D;5  ;</span><br></pre></td></tr></table></figure>
+<p>19、执行create table语句，并引用insert.sql和test_insert.sql文件，至此drop掉的test表被恢复。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/26/mysql 勿操作drop table之后，利用mysqldump备份和binlog去恢复/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/14/cassandra安装部署/"><span>[Cassandra] cassandra安装部署及日常使用命令</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/14/cassandra安装部署/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-14T09:31:00.000Z">
+          2018-09-14
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、添加yum源"><a href="#1、添加yum源" class="headerlink" title="1、添加yum源"></a>1、添加yum源</h3><p>vim /etc/yum.repos.d/cassandra.repo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[cassandra]</span><br><span class="line">name&#x3D;Apache Cassandra</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;www.apache.org&#x2F;dist&#x2F;cassandra&#x2F;redhat&#x2F;311x&#x2F;</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">repo_gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;www.apache.org&#x2F;dist&#x2F;cassandra&#x2F;KEYS</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、安装cassandra数据库"><a href="#2、安装cassandra数据库" class="headerlink" title="2、安装cassandra数据库"></a>2、安装cassandra数据库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install cassandra -y</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、修改配置文件-etc-cassandra-conf-cassandra-yaml"><a href="#3、修改配置文件-etc-cassandra-conf-cassandra-yaml" class="headerlink" title="3、修改配置文件/etc/cassandra/conf/cassandra.yaml"></a>3、修改配置文件/etc/cassandra/conf/cassandra.yaml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cluster_name: &#39;My Cluster&#39;</span><br><span class="line">hints_directory: &#x2F;data&#x2F;cassandra&#x2F;hints</span><br><span class="line">data_file_directories:     </span><br><span class="line">        - &#x2F;data&#x2F;cassandra&#x2F;dbdata</span><br><span class="line">commitlog_directory: &#x2F;data&#x2F;cassandra&#x2F;commitlog</span><br><span class="line">saved_caches_directory: &#x2F;data&#x2F;cassandra&#x2F;caches</span><br><span class="line"></span><br><span class="line">         - seeds: &quot;10.10.8.3,10.10.8.4,10.10.8.5&quot;</span><br><span class="line">listen_address: dax-mysql-mha</span><br><span class="line">rpc_address: dax-mysql-mha</span><br></pre></td></tr></table></figure>
+<p>每个节点需要修改的基本参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cluster_name:修改集群名称</span><br><span class="line">修改存放目录hint、data、log</span><br><span class="line">seeds:添加节点ip</span><br><span class="line">listen_address：修改为本地ip地址</span><br><span class="line">rpc_address：修改为本地ip地址</span><br></pre></td></tr></table></figure>
+<p>配置文件部分参数解释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">cluster_name: &#39;Test Cluster&#39;</span><br><span class="line">storage_port: 7000</span><br><span class="line">listen_address: dax-mysql-mha</span><br><span class="line">start_native_transport: true              #开启native协议 </span><br><span class="line">native_transport_port: 9042              #客户端的交互端口 </span><br><span class="line">data_file_directories:</span><br><span class="line">    - &#x2F;data&#x2F;cassandra&#x2F;dbdata              # 数据位置，多盘的话可以写多个目录 </span><br><span class="line">commitlog_directory:</span><br><span class="line">    - &#x2F;data&#x2F;cassandra&#x2F;commitlog          #commitlog的路径，与data目录分开磁盘，提高性能</span><br><span class="line">saved_caches_directory:</span><br><span class="line">    - &#x2F;data&#x2F;cassandra&#x2F;caches              #缓存数据目录 </span><br><span class="line">commitlog_sync: batch                    #批量记录commitlog，每隔一段时间将数据commitlog</span><br><span class="line">commitlog_sync_batch_window_in_ms: 2      #batch模式下，批量操作缓存的时间间隔</span><br><span class="line">#commitlog_sync: periodic                #周期记录commitlog，每一次有数据更新都commitlog</span><br><span class="line">#commitlog_sync_period_in_ms: 10000      #periodic模式，刷新commitlog的时间间隔</span><br><span class="line"> rpc_address: dax-mysql-mha</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、创建配置文件内指定的相关目录："><a href="#4、创建配置文件内指定的相关目录：" class="headerlink" title="4、创建配置文件内指定的相关目录："></a>4、创建配置文件内指定的相关目录：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/cassandra/hints</span><br><span class="line">mkdir -p /data/cassandra/dbdata</span><br><span class="line">mkdir -p /data/cassandra/commitlog</span><br><span class="line">mkdir -p /data/cassandra/caches</span><br><span class="line">chmod 777 -R /data/cassandra</span><br></pre></td></tr></table></figure>
+<h3 id="5、启动数据库，并添加到开机启动："><a href="#5、启动数据库，并添加到开机启动：" class="headerlink" title="5、启动数据库，并添加到开机启动："></a>5、启动数据库，并添加到开机启动：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service cassandra start</span><br><span class="line">chkconfig cassandra on</span><br></pre></td></tr></table></figure>
+<p>查看运行状态</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nodetool status</span><br></pre></td></tr></table></figure>
+<p>进入控制台,9042端口为默认控制台端口，可自行修改配置文件设置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cqlsh ip 9042</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="6、如果没有修改cluster-name启动该数据库，之后想要修改cluster-name需要使用下面方法去修改："><a href="#6、如果没有修改cluster-name启动该数据库，之后想要修改cluster-name需要使用下面方法去修改：" class="headerlink" title="6、如果没有修改cluster-name启动该数据库，之后想要修改cluster-name需要使用下面方法去修改："></a>6、如果没有修改cluster-name启动该数据库，之后想要修改cluster-name需要使用下面方法去修改：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">进入控制台：</span><br><span class="line">UPDATE system.local SET cluster_name &#x3D; &#39;daxcluster&#39; where key&#x3D;&#39;local&#39;;</span><br><span class="line">bash $ .&#x2F;nodetool flush</span><br><span class="line">修改cassandra.yaml配置文件cluster配置参数</span><br><span class="line">cluster_name: &#39;daxcluster&#39;</span><br><span class="line">重启cassandra</span><br><span class="line">&#x2F;etc&#x2F;init.d&#x2F;cassandra restart</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、给数据库设置用户名密码"><a href="#7、给数据库设置用户名密码" class="headerlink" title="7、给数据库设置用户名密码"></a>7、给数据库设置用户名密码</h3><p>1）、首先修改配置文件 cassandra.yaml<br>把默认的authenticator: AllowAllAuthenticator运行所有人登录设置为用密码登录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">authenticator: PasswordAuthenticator</span><br></pre></td></tr></table></figure>
+<p>2）、登录cassandra创建用户<br>使用默认账户登录cassandra</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cqlsh -ucassandra -pcassandra ip 9042</span><br></pre></td></tr></table></figure>
+<p>创建用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER test WITH PASSWORD &#39;test&#39; SUPERUSER;</span><br></pre></td></tr></table></figure>
+<p>3）、使用新用户登录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cqlsh -utest -ptest ip 9042</span><br></pre></td></tr></table></figure>
+<p>删除默认帐号：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP USER cassandra;</span><br></pre></td></tr></table></figure>
+<p>4）、java使用用户名密码访问cassandra</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Cluster cluster = Cluster.builder()</span><br><span class="line">.addContactPoint(<span class="string">"192.168.22.161"</span>)</span><br><span class="line">.withCredentials(<span class="string">"myusername"</span>, <span class="string">"mypassword"</span>)</span><br><span class="line">.build();</span><br></pre></td></tr></table></figure>
+
+<h3 id="8、账号权限分配命令"><a href="#8、账号权限分配命令" class="headerlink" title="8、账号权限分配命令"></a>8、账号权限分配命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">授权：</span><br><span class="line">GRANT permission_name PERMISSION ON resource TO user_name;</span><br><span class="line">GRANT ALL PERMISSIONS ON resource TO user_name;</span><br><span class="line">收回权限：</span><br><span class="line">REVOKE permission_name PERMISSION ON resource FROM user_name;</span><br><span class="line">REVOKE ALL PERMISSIONS ON resource FROM user_name;</span><br><span class="line">查看权限：</span><br><span class="line">LIST permission_name PERMISSION ON resource OF user_name NORECURSIVE;</span><br><span class="line">LIST ALL PERMISSIONS ON resource OF user_name NORECURSIVE;</span><br><span class="line">其中，</span><br><span class="line">permission_name为：  ALL&#x2F;ALTER&#x2F;AUTHORIZE&#x2F;CREATE&#x2F;DROP&#x2F;MODIFY&#x2F;SELECT</span><br><span class="line">resource为：ALL KEYSPACES&#x2F;KEYSPACE keyspace_name&#x2F;TABLE keyspace_name.table_name</span><br></pre></td></tr></table></figure>
+<h3 id="9、其他使用命令："><a href="#9、其他使用命令：" class="headerlink" title="9、其他使用命令："></a>9、其他使用命令：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">desc KEYSPACEs</span><br><span class="line">枚举所有数据库</span><br><span class="line">list users;</span><br><span class="line">查看所有用户</span><br><span class="line">show version;</span><br><span class="line">显示当前cqlsh,cassandra，cql spec,native protocol 版本信息</span><br><span class="line">show host;</span><br><span class="line">显示当前集群节点的ip地址和端口</span><br><span class="line">SHOW SESSION &lt;session id&gt;</span><br><span class="line">跟踪一个会话信息</span><br><span class="line">SOURCE &#39;&#x2F;home&#x2F;thobbs&#x2F;commands.cql&#39;</span><br><span class="line">读取文件内容，执行cql语句</span><br><span class="line">CAPTURE &#39;&lt;file&gt;&#39;;</span><br><span class="line">将会话查询内容指定到一个文件内</span><br><span class="line">CAPTURE OFF;</span><br><span class="line">停止将查询结果指定到文件内，使其正常输出到屏幕上</span><br><span class="line">CAPTURE;</span><br><span class="line">查看当前抓取信息是否指定到什么目录下</span><br></pre></td></tr></table></figure>
+<h3 id="10、如果nodetool-decommission命令将某节点提出-执行结束之后，如果需要把节点再重新加入集群，需要把数据目录下数据删除掉，重启cassandra服务。"><a href="#10、如果nodetool-decommission命令将某节点提出-执行结束之后，如果需要把节点再重新加入集群，需要把数据目录下数据删除掉，重启cassandra服务。" class="headerlink" title="10、如果nodetool decommission命令将某节点提出,执行结束之后，如果需要把节点再重新加入集群，需要把数据目录下数据删除掉，重启cassandra服务。"></a>10、如果nodetool decommission命令将某节点提出,执行结束之后，如果需要把节点再重新加入集群，需要把数据目录下数据删除掉，重启cassandra服务。</h3>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Cassandra/">Cassandra</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/14/cassandra安装部署/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/14/mysql mgr从节点down恢复过程遇到的问题/"><span>[Mysql] mgr从节点down恢复过程遇到的问题</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/14/mysql mgr从节点down恢复过程遇到的问题/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-14T09:03:10.000Z">
+          2018-09-14
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、mgr集群有节点down掉，查看日志一台服务器（3）因网络问题与其他两个节点（1-2）断掉，3节点被踢出了集群"><a href="#1、mgr集群有节点down掉，查看日志一台服务器（3）因网络问题与其他两个节点（1-2）断掉，3节点被踢出了集群" class="headerlink" title="1、mgr集群有节点down掉，查看日志一台服务器（3）因网络问题与其他两个节点（1,2）断掉，3节点被踢出了集群"></a>1、mgr集群有节点down掉，查看日志一台服务器（3）因网络问题与其他两个节点（1,2）断掉，3节点被踢出了集群</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> [Warning] Plugin group_replication reported: &#39;Member with address wallet-mysql-2:3306 has become unreachable.&#39;</span><br><span class="line">[Warning] Plugin group_replication reported: &#39;Member with address wallet-mysql-1:3306 has become unreachable.&#39;</span><br><span class="line"> [ERROR] Plugin group_replication reported: &#39;Member was expelled from the group due to network failures, changing member status to ERROR.&#39;</span><br></pre></td></tr></table></figure>
+<h3 id="2、登录节点3尝试重新启动group-replication："><a href="#2、登录节点3尝试重新启动group-replication：" class="headerlink" title="2、登录节点3尝试重新启动group_replication："></a>2、登录节点3尝试重新启动group_replication：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;stop group_replicaiton;</span><br><span class="line">mysql&gt;start group_replication;</span><br></pre></td></tr></table></figure>
+<h3 id="3、查看集群成员状态"><a href="#3、查看集群成员状态" class="headerlink" title="3、查看集群成员状态"></a>3、查看集群成员状态</h3><p>SELECT * FROM performance_schema.replication_group_members;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+---------------------------+--------------------------------------+----------------+-------------+--------------+</span><br><span class="line">| CHANNEL_NAME              | MEMBER_ID                            | MEMBER_HOST    | MEMBER_PORT | MEMBER_STATE |</span><br><span class="line">+---------------------------+--------------------------------------+----------------+-------------+--------------+</span><br><span class="line">| group_replication_applier | 6a41c0b6-8e3d-11e8-b076-000d3aa05296 | wallet-mysql-2 |        3306 | ONLINE       |</span><br><span class="line">| group_replication_applier | 71540a17-8e3d-11e8-8cee-000d3aa1d767 | wallet-mysql-1 |        3306 | ONLINE       |</span><br><span class="line">| group_replication_applier | 7dd813bf-8e3d-11e8-8d92-000d3aa1c31e | wallet-mysql-3 |        3306 | RECOVERING       |</span><br><span class="line">+---------------------------+--------------------------------------+----------------+-------------+--------------+</span><br></pre></td></tr></table></figure>
+<h3 id="4、节点3正在进行恢复，与主库同步数据，但是恢复过程error-log出现了以下问题："><a href="#4、节点3正在进行恢复，与主库同步数据，但是恢复过程error-log出现了以下问题：" class="headerlink" title="4、节点3正在进行恢复，与主库同步数据，但是恢复过程error.log出现了以下问题："></a>4、节点3正在进行恢复，与主库同步数据，但是恢复过程error.log出现了以下问题：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ERROR] Error reading packet from server for channel &#39;group_replication_recovery&#39;: The slave is connecting using CHANGE MASTER TO MASTER_AUTO_POSITION &#x3D; 1, but the master has purged binary logs containing GTIDs that the slave requires. (server_errno&#x3D;1236)</span><br><span class="line">[ERROR] Slave I&#x2F;O for channel &#39;group_replication_recovery&#39;: Got fatal error 1236 from master when reading data from binary log: &#39;The slave is connecting using CHANGE MASTER TO MASTER_AUTO_POSITION &#x3D; 1, but the master has purged binary logs containing GTIDs that the slave requires.&#39;, Error_code: 1236</span><br></pre></td></tr></table></figure>
+<p>提示无法读取主库的binary log</p>
+<h3 id="5、尝试去在另一个节点从库2上，全量dump一份数据，在3节点上应用并重新启动mgr："><a href="#5、尝试去在另一个节点从库2上，全量dump一份数据，在3节点上应用并重新启动mgr：" class="headerlink" title="5、尝试去在另一个节点从库2上，全量dump一份数据，在3节点上应用并重新启动mgr："></a>5、尝试去在另一个节点从库2上，全量dump一份数据，在3节点上应用并重新启动mgr：</h3><h4 id="5-1、节点2操作："><a href="#5-1、节点2操作：" class="headerlink" title="5.1、节点2操作："></a>5.1、节点2操作：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt;&#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqldump --all-databases --set-gtid-purged&#x3D;ON --single-transaction -uroot -P3306 -p &gt; &#x2F;tmp&#x2F;alldb.sql</span><br></pre></td></tr></table></figure>
+<p>拷贝alldb.sql到节点3的/tmp目录</p>
+<h4 id="5-2、节点3操作："><a href="#5-2、节点3操作：" class="headerlink" title="5.2、节点3操作："></a>5.2、节点3操作：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;stop group_replication;</span><br><span class="line">mysql&gt;reset master;</span><br><span class="line">mysql&gt;set global read_only&#x3D;0;</span><br><span class="line">mysql&gt;source &#x2F;tmp&#x2F;alldb.sql</span><br></pre></td></tr></table></figure>
+<p>重新启动mysql数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;init.d&#x2F;mysql restart</span><br></pre></td></tr></table></figure>
+<p>将节点3加入mgr集群：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;start group_replication;</span><br></pre></td></tr></table></figure>
+<p>查看集群成员状态，集群状态恢复：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;SELECT * FROM performance_schema.replication_group_members;</span><br><span class="line">+---------------------------+--------------------------------------+----------------+-------------+--------------+</span><br><span class="line">| CHANNEL_NAME              | MEMBER_ID                            | MEMBER_HOST    | MEMBER_PORT | MEMBER_STATE |</span><br><span class="line">+---------------------------+--------------------------------------+----------------+-------------+--------------+</span><br><span class="line">| group_replication_applier | 6a41c0b6-8e3d-11e8-b076-000d3aa05296 | wallet-mysql-2 |        3306 | ONLINE       |</span><br><span class="line">| group_replication_applier | 71540a17-8e3d-11e8-8cee-000d3aa1d767 | wallet-mysql-1 |        3306 | ONLINE       |</span><br><span class="line">| group_replication_applier | 7dd813bf-8e3d-11e8-8d92-000d3aa1c31e | wallet-mysql-3 |        3306 | ONLINE       |</span><br><span class="line">+---------------------------+--------------------------------------+----------------+-------------+--------------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/14/mysql mgr从节点down恢复过程遇到的问题/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/13/Multi-threaded slave statistics for channel 'group_replication_applier'/"><span>[Mysql] Multi-threaded slave statistics for channel</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/13/Multi-threaded slave statistics for channel 'group_replication_applier'/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-13T13:34:10.000Z">
+          2018-09-13
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="0、从库error日志提示信息如下："><a href="#0、从库error日志提示信息如下：" class="headerlink" title="0、从库error日志提示信息如下："></a>0、从库error日志提示信息如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Note] Multi-threaded slave statistics for channel &#39;group_replication_applier&#39;: seconds elapsed &#x3D; 267; events assigned &#x3D; 10241; worker queues filled over overrun level &#x3D; 0; waited due a Worker queue full &#x3D; 0; waited due the total size &#x3D; 0; waited at clock conflicts &#x3D; 981623300 waited (count) when Workers occupied &#x3D; 1238 waited when Workers occupied &#x3D; 6762438500</span><br></pre></td></tr></table></figure>
+<h3 id="1、mysqlerror-log出现上述提示信息是因为启用了mts（Multi-threaded-slave）需要启用slave-parallel-workers参数（默认值为0，最大值为1024），并且log-warning（该参数将于v8-0-3去除，被log-error-verbosity-替代）参数要大于1，在error-log里面会有上述提示。"><a href="#1、mysqlerror-log出现上述提示信息是因为启用了mts（Multi-threaded-slave）需要启用slave-parallel-workers参数（默认值为0，最大值为1024），并且log-warning（该参数将于v8-0-3去除，被log-error-verbosity-替代）参数要大于1，在error-log里面会有上述提示。" class="headerlink" title="1、mysqlerror-log出现上述提示信息是因为启用了mts（Multi-threaded slave）需要启用slave_parallel_workers参数（默认值为0，最大值为1024），并且log_warning（该参数将于v8.0.3去除，被log_error_verbosity 替代）参数要大于1，在error_log里面会有上述提示。"></a>1、mysqlerror-log出现上述提示信息是因为启用了mts（Multi-threaded slave）需要启用slave_parallel_workers参数（默认值为0，最大值为1024），并且log_warning（该参数将于v8.0.3去除，被log_error_verbosity 替代）参数要大于1，在error_log里面会有上述提示。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">seconds elapsed 就是上一次统计跟这一次统计的时间间隔。</span><br><span class="line">events assigned：总共有多少个event被分配执行，计的是总数。</span><br><span class="line">worker queues filled over overrun level：mts在所有的并行workers之间倾向于加载平衡的时间。slave_parrllel_workers参数决定workers数量。这个统计参数显示了当前线程承受的饱和等级。如果以一个并行线程序列趋近与饱和，这个数会递增，线程复制时间会被推迟，避免达到线程序列限制。</span><br><span class="line">Waited due to a Worker queue full：因为worker队列爆满，协调线程必须等待该统计参数会增长</span><br><span class="line">Waited due to the total size:该参数代表因为达到了可用内存的限制，worker队列持有未应用事件造成协调线程睡眠的次数。如果这个值持续增长，需要增大slave_pending_jobs_size_max值来避免协调线程等待时间。</span><br><span class="line">slave_pending_jobs_size_max：此变量代表用于保存尚未应用的事件的从worker队列的最大内存量（以字节为单位），如果没有启动mts，修改该参数不会有任何效果。（v8.0.11之前默认值为16M,v8.0.12默认值为128M，最小值为1024，最大值为16eib）</span><br><span class="line">Waited at clock conflicts:在事务之间存在依赖的情况下，该参数显示等待时间相当于冲突检测和解决方案的逻辑时间。</span><br><span class="line">Waited (count) when used occupied:协调进程监控worker足额（enough）分配的统计次数。enough定义取决于调度类型（基于每个库和时钟）</span><br><span class="line">Waited when workers occupied:对任何可用worker计算协调线程等待的次数，仅适用于提交时钟调度程序。</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.percona.com/blog/2017/07/19/multi-threaded-slave-statistics/" target="_blank" rel="noopener">参考文档</a></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/13/Multi-threaded slave statistics for channel 'group_replication_applier'/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+
+<nav class="pagination">
+  
+  <a href="/page/11/" class="pagination-prev">上一页</a>
+  
+  
+  <a href="/page/13/" class="pagination-next">下一页</a>
+  
+</nav>
+            </main>
+            <div class="sidebar
+                    col-lg-3 col-lg-offset-0
+                    col-md-3 col-md-offset-0
+                    col-sm-12
+                    col-xs-12
+                    sidebar-container
+                ">
+
+                <div class="sidebar-container">
+
+
+
+<div class="search-container">
+<form class="site-search-form">
+    <span class="glyphicon glyphicon-search"></span><input type="text" id="local-search-input" class="st-search-input" placeholder="Search..." />
+</form>
+<div id="local-search-result" class="local-search-result-cls"></div>
+</div>
+<script type="text/javascript" id="local.search.active">
+var inputArea       = document.querySelector("#local-search-input");
+inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script>
+
+
+
+
+    <div class="categories-container" style="margin-top:40px;">
+        <p>归档:</p>
+            
+    </div>
+
+
+
+
+    <div class="social-container" style="margin-top:40px;">
+        <p>Links:</p>
+            
+                
+                    <li class="social-item"><i class="fa fa-fw fa-github"></i><a href="https://github.com/zeven0707">GitHub</a></li>
+                
+            
+    </div>
+
+</div>
+            </div>
+          </div>
+        </div>
+        
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

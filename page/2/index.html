@@ -1,0 +1,886 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>第 2 页 | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+        <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop    col-lg-8 col-lg-offset-1
+                    col-md-8 col-md-offset-1
+                    col-sm-12
+                    col-xs-12">
+            
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/22/linux增加swap空间/"><span>[linux] linux增加swap空间</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/linux增加swap空间/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T14:14:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、原有的swap空间不足，安装oracle-client报错，需要增加swap"><a href="#1、原有的swap空间不足，安装oracle-client报错，需要增加swap" class="headerlink" title="1、原有的swap空间不足，安装oracle client报错，需要增加swap"></a>1、原有的swap空间不足，安装oracle client报错，需要增加swap</h1><p>查看当前swap</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[oracle@node3 response]$ free -m</span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:           5663        4480         109         150        1073         714</span><br><span class="line">Swap:          2047        2017          30</span><br></pre></td></tr></table></figure>
+
+<p>生成swap文件<br><code>dd if=/dev/zero of=/var/swap bs=1M count=1024</code></p>
+<p>将文件格式化为交换文件：<br><code>mkswap /var/swap</code></p>
+<p>加载这个交换文件：<br><code>chmod 600 /var/swap</code><br><code>swapon /var/swap</code></p>
+<p>添加到开机启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node3 ~]# cat &#x2F;etc&#x2F;fstab</span><br><span class="line">&#x2F;var&#x2F;swap               swap                    swap    defaults        0 0</span><br></pre></td></tr></table></figure>
+
+<p>之后查看可用swap空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node3 ~]# free -m</span><br><span class="line">              total        used        free      shared  buff&#x2F;cache   available</span><br><span class="line">Mem:           5663        4561         118         146         983         636</span><br><span class="line">Swap:          3071        2009        1062</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/linux增加swap空间/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/22/gitlab迁移项目/"><span>[linux]gitlab迁移项目</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/gitlab迁移项目/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T14:10:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、下载源代码库"><a href="#1、下载源代码库" class="headerlink" title="1、下载源代码库"></a>1、下载源代码库</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@dax-mysql-slave cbibank]# git clone http://gitlab.cbi.com/dax.fe/bank-www.git</span><br><span class="line">正克隆到 'bank-www'...</span><br><span class="line">Username for 'http://gitlab.cbi.com': 123123@qq.com</span><br><span class="line">Password for 'http://123123@qq.com@gitlab.cbi.com':</span><br><span class="line">remote: Counting objects: 2852, done.</span><br><span class="line">remote: Compressing objects: 100% (1237/1237), done.</span><br><span class="line">remote: Total 2852 (delta 1596), reused 2747 (delta 1535)</span><br><span class="line">接收对象中: 100% (2852/2852), 125.87 MiB | 459.00 KiB/s, done.</span><br><span class="line">处理 delta 中: 100% (1596/1596), done.</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、查看当前gitlab地址"><a href="#2、查看当前gitlab地址" class="headerlink" title="2、查看当前gitlab地址"></a>2、查看当前gitlab地址</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@dax-mysql-slave bank-www]# git remote -v</span><br><span class="line">origin  http://gitlab.cbi.com/dax.fe/bank-www.git (fetch)</span><br><span class="line">origin  http://gitlab.cbi.com/dax.fe/bank-www.git (push)</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、在目标gitlab新建一个项目，项目地址"><a href="#3、在目标gitlab新建一个项目，项目地址" class="headerlink" title="3、在目标gitlab新建一个项目，项目地址"></a>3、在目标gitlab新建一个项目，项目地址</h1><p><code>https://gitlab.com/zeven0707/bank-www.git</code></p>
+<h1 id="4、下面将源代码库地址替换为目标库地址"><a href="#4、下面将源代码库地址替换为目标库地址" class="headerlink" title="4、下面将源代码库地址替换为目标库地址"></a>4、下面将源代码库地址替换为目标库地址</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@dax-mysql-slave bank-www]#  git remote set-url origin https://gitlab.com/zeven0707/bank-www.git</span><br><span class="line">[root@dax-mysql-slave bank-www]# git remote -v</span><br><span class="line">origin  https://gitlab.com/zeven0707/bank-www.git (fetch)</span><br><span class="line">origin  https://gitlab.com/zeven0707/bank-www.git (push)</span><br></pre></td></tr></table></figure>
+
+<h1 id="5、查看当前分支"><a href="#5、查看当前分支" class="headerlink" title="5、查看当前分支"></a>5、查看当前分支</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@dax-mysql-slave bank-www]# git branch</span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+
+<h1 id="6、将master分支推送到目标项目"><a href="#6、将master分支推送到目标项目" class="headerlink" title="6、将master分支推送到目标项目"></a>6、将master分支推送到目标项目</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@dax-mysql-slave bank-www]# git push origin master:master</span><br><span class="line">Username for &#39;https:&#x2F;&#x2F;gitlab.com&#39;: 123123@qq.com</span><br><span class="line">Password for &#39;https:&#x2F;&#x2F;123123@qq.com@gitlab.com&#39;:</span><br><span class="line">Counting objects: 2820, done.</span><br><span class="line">Delta compression using up to 8 threads.</span><br><span class="line">Compressing objects: 100% (1144&#x2F;1144), done.</span><br><span class="line">Writing objects: 100% (2820&#x2F;2820), 125.87 MiB | 6.96 MiB&#x2F;s, done.</span><br><span class="line">Total 2820 (delta 1596), reused 2820 (delta 1596)</span><br><span class="line">remote: Resolving deltas: 100% (1596&#x2F;1596), done.</span><br><span class="line">To https:&#x2F;&#x2F;gitlab.com&#x2F;zeven0707&#x2F;bank-www.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br></pre></td></tr></table></figure>
+
+<p>推送完成，通过gitlab ui查看项目已经推送成功。</p>
+<h1 id="6-1、推送分支"><a href="#6-1、推送分支" class="headerlink" title="6.1、推送分支"></a>6.1、推送分支</h1><p><code>git checkout -b develop origin/develop</code><br><code>git push origin develop:develop</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/gitlab迁移项目/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/22/shadownsocks-server部署/"><span>[linux] shadownsocks-server部署</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/shadownsocks-server部署/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T14:06:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、确保安装-2-6-或者-2-7"><a href="#1、确保安装-2-6-或者-2-7" class="headerlink" title="1、确保安装 2.6 或者 2.7"></a>1、确保安装 2.6 或者 2.7</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ python --version</span><br><span class="line">Python <span class="number">2.6</span><span class="number">.8</span></span><br><span class="line">Then install <span class="keyword">from</span> PIP</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、安装pip"><a href="#2、安装pip" class="headerlink" title="2、安装pip"></a>2、安装pip</h1><p><code>curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py</code><br><code>python get-pip.py</code></p>
+<h1 id="3、安装shadowsocks"><a href="#3、安装shadowsocks" class="headerlink" title="3、安装shadowsocks"></a>3、安装shadowsocks</h1><p><code>pip install shadowsocks</code></p>
+<p>查看已安装软件列表<br><code>pip freeze|grep shadow</code><br><code>which ssserver</code><br><code>/usr/local/bin/ssserver</code></p>
+<p>创建配置目录配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mkdir /etc/shadowsocks -p</span><br><span class="line">more /etc/shadowsocks/config.json</span><br><span class="line">&#123;</span><br><span class="line">"server":"0.0.0.0",</span><br><span class="line">"server_port":1194,</span><br><span class="line">"local_address":"127.0.0.1",</span><br><span class="line">"password":"123!@#ljt",</span><br><span class="line">"timeout":300,</span><br><span class="line">"method":"aes-256-cfb",</span><br><span class="line">"fast_open":false,</span><br><span class="line">"workers":4</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4、启动服务"><a href="#4、启动服务" class="headerlink" title="4、启动服务"></a>4、启动服务</h1><p><code>ssserver -c /etc/shadowsocks/config.json -d start</code><br>启动服务指定日志文件<br><code>ssserver -c /etc/shadowsocks/config.json -d start --log-file /tmp/shadowsock.log</code><br>在后台启动 ss 客户端<br><code>nohup sslocal -s your_server_ip -p your_server_port -l 1080 -k your_server_passwd -t 600 -m rc4-md5 &gt; /dev/null 2&gt;&amp;1 &amp;</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/shadownsocks-server部署/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/22/linux 查看几天前的文件并删除/"><span>[linux] linux 查看几天前的文件并删除</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/linux 查看几天前的文件并删除/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T14:01:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <p>查找一天之前的文件<br><code>find . -mtime +0|grep -e &quot;trust*&quot;|xargs rm -rf</code><br>查找五天之前的文件<br><code>find . -mtime +4</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/linux 查看几天前的文件并删除/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/22/linux crontab run-parts执行目录下所有的文件/"><span>[linux] linux crontab run-parts参数</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/linux crontab run-parts执行目录下所有的文件/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T13:59:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="linux-crontab-run-parts执行目录下所有的文件"><a href="#linux-crontab-run-parts执行目录下所有的文件" class="headerlink" title="linux crontab run-parts执行目录下所有的文件"></a>linux crontab run-parts执行目录下所有的文件</h1><p>例如：下面使用root用户执行/etc/cron.hourly目录下所有的文件：<br><code>01 * * * * root run-parts /etc/cron.hourly</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/linux crontab run-parts执行目录下所有的文件/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/22/docker更换默认的根目录/"><span>[linux] docker更换默认的目录</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/docker更换默认的根目录/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T13:30:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、查看docker安装完成之后默认的路径"><a href="#1、查看docker安装完成之后默认的路径" class="headerlink" title="1、查看docker安装完成之后默认的路径"></a>1、查看docker安装完成之后默认的路径</h1><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node3 docker]<span class="comment"># docker info</span></span><br><span class="line">.....</span><br><span class="line">Docker Root Dir: /var/lib/docker</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、修改docker-service配置文件-添加参数-graph-data-docker（-data-docker为指定的新的docker根目录"><a href="#2、修改docker-service配置文件-添加参数-graph-data-docker（-data-docker为指定的新的docker根目录" class="headerlink" title="2、修改docker.service配置文件,添加参数-graph /data/docker（/data/docker为指定的新的docker根目录)"></a>2、修改docker.service配置文件,添加参数-graph /data/docker（/data/docker为指定的新的docker根目录)</h1><p>vim /usr/lib/systemd/system/docker.service</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd -H fd:&#x2F;&#x2F; --containerd&#x3D;&#x2F;run&#x2F;containerd&#x2F;containerd.sock -</span><br><span class="line">-graph &#x2F;data&#x2F;docker</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、修改完成之后，重新加载启动docker"><a href="#3、修改完成之后，重新加载启动docker" class="headerlink" title="3、修改完成之后，重新加载启动docker"></a>3、修改完成之后，重新加载启动docker</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl disable docker</span><br><span class="line">systemctl enable docker</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<h1 id="4、重新查看docker根目录"><a href="#4、重新查看docker根目录" class="headerlink" title="4、重新查看docker根目录"></a>4、重新查看docker根目录</h1><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node3 docker]<span class="comment"># docker info</span></span><br><span class="line">.....</span><br><span class="line">Docker Root Dir: /data/docker</span><br><span class="line">.....</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/docker更换默认的根目录/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/22/docker容器save、load/"><span>[linux] docker容器save、load</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/docker容器save、load/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T13:27:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、查看要保存的镜像"><a href="#1、查看要保存的镜像" class="headerlink" title="1、查看要保存的镜像"></a>1、查看要保存的镜像</h1><p><code>docker images</code></p>
+<h1 id="2、保存镜像"><a href="#2、保存镜像" class="headerlink" title="2、保存镜像"></a>2、保存镜像</h1><p> <code>docker save zeven0707/jenkins:v4 -o /data/jenkins.tar</code></p>
+<h1 id="3、在新的服务器加载镜像"><a href="#3、在新的服务器加载镜像" class="headerlink" title="3、在新的服务器加载镜像"></a>3、在新的服务器加载镜像</h1><p><code>docker load -i jenkins.tar</code></p>
+<h1 id="4、启动镜像"><a href="#4、启动镜像" class="headerlink" title="4、启动镜像"></a>4、启动镜像</h1><p><code>docker run -dti --names=jenkins -p 10000:8080 -p 50000:50000 zeven0707/jenkins:v4</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/docker容器save、load/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/22/docker centos中文乱码问题/"><span>[linux] docker centos中文乱码问题</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/docker centos中文乱码问题/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T13:26:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">localedef -i zh_CN -f UTF-<span class="number">8</span> zh_CN.UTF-<span class="number">8</span></span><br><span class="line">yum -y install kde-l10n-Chinese &amp;&amp; yum -y reinstall glibc-common</span><br><span class="line">localedef -c -f UTF-<span class="number">8</span> -i zh_CN zh_CN.utf8</span><br><span class="line">export LC_ALL=zh_CN.utf8</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/docker centos中文乱码问题/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/22/oracle 事物隔离级别(isolation level)/"><span>[Oracle]oracle 事物隔离级别(isolation level)</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/oracle 事物隔离级别(isolation level)/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T13:13:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、oracle支持两种事务隔离级别"><a href="#1、oracle支持两种事务隔离级别" class="headerlink" title="1、oracle支持两种事务隔离级别"></a>1、oracle支持两种事务隔离级别</h1><p><code>ISOLATION_LEVEL = {SERIALIZABLE | READ COMMITTED}</code></p>
+<h1 id="2、ISOLATION-LEVEL参数仅为会话级别的参数，不能配置在初始化文件中"><a href="#2、ISOLATION-LEVEL参数仅为会话级别的参数，不能配置在初始化文件中" class="headerlink" title="2、ISOLATION_LEVEL参数仅为会话级别的参数，不能配置在初始化文件中"></a>2、ISOLATION_LEVEL参数仅为会话级别的参数，不能配置在初始化文件中</h1><pre><code>SERIALIZABLE：指定当前会话的事物隔离级别为串行化，在这个模式下，如果执行一条dml语句去更新某一行，而这一行切好被另一个串行化的事物去更新没有提交，那么这条dml语句会失败。
+READ COMMITTED：默认级别的事物隔离级别。如果当前执行的dml中需要的行别其他事物锁住，dml语句会等待锁释放。</code></pre>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/oracle 事物隔离级别(isolation level)/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/22/oracle archive log语法解析/"><span>[Oracle]oracle archive log</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/oracle archive log语法解析/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T13:10:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、archive-log-语法"><a href="#1、archive-log-语法" class="headerlink" title="1、archive log 语法"></a>1、archive log 语法</h1><p><code>ARCHIVE LOG {LIST | STOP} | {START | NEXT | ALL | integer } [TO destination]</code></p>
+<p>停止或者启动在线重做日志的自动归档，手动归档指定的redo log files,或者显示redo log文件信息。</p>
+<h1 id="2、list：查看当前redo-log-file的归档范围，当前日志组文件的序列号，当前的归档地址，如果数据库使用归档模式并且自动归档，显示如下"><a href="#2、list：查看当前redo-log-file的归档范围，当前日志组文件的序列号，当前的归档地址，如果数据库使用归档模式并且自动归档，显示如下" class="headerlink" title="2、list：查看当前redo log file的归档范围，当前日志组文件的序列号，当前的归档地址，如果数据库使用归档模式并且自动归档，显示如下"></a>2、list：查看当前redo log file的归档范围，当前日志组文件的序列号，当前的归档地址，如果数据库使用归档模式并且自动归档，显示如下</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ARCHIVE LOG LIST</span><br><span class="line">Database log mode              Archive Mode</span><br><span class="line">Automatic archival             Enabled</span><br><span class="line">Archive destination            &#x2F;vobs&#x2F;oracle&#x2F;dbs&#x2F;arch</span><br><span class="line">Oldest online log sequence     221</span><br><span class="line">Next log sequence to archive   222</span><br><span class="line">Current log sequence           222</span><br></pre></td></tr></table></figure>
+
+<p>上面显示当前的日志序列号和下一个日志序列号相同，表示automatic archival已经归档了所有的日志组到当前的日志组。</p>
+<p>如果是使用了归档模式，但是禁用了自动归档，那么显示可能如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Oldest online log sequence            222</span><br><span class="line">Next log sequence to archive          222</span><br><span class="line">Current log sequence                  225</span><br></pre></td></tr></table></figure>
+
+<p>启动非归档模式，使用list查看是看不到Next log sequence to archive的信息的。</p>
+<h1 id="2、stop：禁用自动归档。"><a href="#2、stop：禁用自动归档。" class="headerlink" title="2、stop：禁用自动归档。"></a>2、stop：禁用自动归档。</h1><pre><code>如果实例在归档模式并且redo log文件组满了，数据库会处于停止状态，直到redo日志文件被归档（手动归档archive log next或者archive log all）（该参数在11g已经被弃用）</code></pre><h1 id="3、start：启用自动归档（该参数在11g已经被弃用）。"><a href="#3、start：启用自动归档（该参数在11g已经被弃用）。" class="headerlink" title="3、start：启用自动归档（该参数在11g已经被弃用）。"></a>3、start：启用自动归档（该参数在11g已经被弃用）。</h1><pre><code>启动后台进程arch执行自动归档。如果arch被启动和一个文件名被提供，指定的文件名变为新的默认归档地址。如果log_archive_start设置为true，实例自动的时候自动arch进程自动启动。(log_archive_start参数在10g已经被弃用，但是这个参数还被保留，在10g之后不管该参数为flase还是true，数据库都是自动归档的)</code></pre><h1 id="4、next：手动归档下一个被填满但是未归档的redo-log-file。"><a href="#4、next：手动归档下一个被填满但是未归档的redo-log-file。" class="headerlink" title="4、next：手动归档下一个被填满但是未归档的redo log file。"></a>4、next：手动归档下一个被填满但是未归档的redo log file。</h1><h1 id="5、all：手动归档所有的被填满但是未归档的redo-log-file。"><a href="#5、all：手动归档所有的被填满但是未归档的redo-log-file。" class="headerlink" title="5、all：手动归档所有的被填满但是未归档的redo log file。"></a>5、all：手动归档所有的被填满但是未归档的redo log file。</h1><h1 id="6、由非归档模式启动到归档模式"><a href="#6、由非归档模式启动到归档模式" class="headerlink" title="6、由非归档模式启动到归档模式"></a>6、由非归档模式启动到归档模式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">11:35:35 SYS@ boston&gt; archive log list;</span><br><span class="line">Database log mode	       No Archive Mode</span><br><span class="line">Automatic archival	       Disabled</span><br><span class="line">Archive destination	       USE_DB_RECOVERY_FILE_DEST</span><br><span class="line">Oldest online log sequence     565</span><br><span class="line">Current log sequence	       567</span><br><span class="line">11:35:58 SYS@ boston&gt; shutdown immediate</span><br><span class="line">ORA-01109: database not open</span><br><span class="line">Database dismounted.</span><br><span class="line">ORACLE instance shut down.</span><br><span class="line">11:36:11 SYS@ boston&gt; startup mount</span><br><span class="line">ORACLE instance started.</span><br><span class="line">Total System Global Area 1603411968 bytes</span><br><span class="line">Fixed Size		    2253664 bytes</span><br><span class="line">Variable Size		  587205792 bytes</span><br><span class="line">Database Buffers	 1006632960 bytes</span><br><span class="line">Redo Buffers		    7319552 bytes</span><br><span class="line">Database mounted.</span><br><span class="line">11:36:34 SYS@ boston&gt; alter database archivelog;</span><br><span class="line">Database altered.</span><br><span class="line">Elapsed: 00:00:00.04</span><br><span class="line">11:37:10 SYS@ boston&gt; alter database open;</span><br><span class="line">Database altered.</span><br><span class="line">Elapsed: 00:00:02.41</span><br><span class="line">11:37:21 SYS@ boston&gt; archive log list;</span><br><span class="line">Database log mode	       Archive Mode</span><br><span class="line">Automatic archival	       Enabled</span><br><span class="line">Archive destination	       USE_DB_RECOVERY_FILE_DEST</span><br><span class="line">Oldest online log sequence     565</span><br><span class="line">Next log sequence to archive   567</span><br><span class="line">Current log sequence	       567</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/oracle archive log语法解析/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+
+<nav class="pagination">
+  
+  <a href="/" class="pagination-prev">上一页</a>
+  
+  
+  <a href="/page/3/" class="pagination-next">下一页</a>
+  
+</nav>
+            </main>
+            <div class="sidebar
+                    col-lg-3 col-lg-offset-0
+                    col-md-3 col-md-offset-0
+                    col-sm-12
+                    col-xs-12
+                    sidebar-container
+                ">
+
+                <div class="sidebar-container">
+
+
+
+<div class="search-container">
+<form class="site-search-form">
+    <span class="glyphicon glyphicon-search"></span><input type="text" id="local-search-input" class="st-search-input" placeholder="Search..." />
+</form>
+<div id="local-search-result" class="local-search-result-cls"></div>
+</div>
+<script type="text/javascript" id="local.search.active">
+var inputArea       = document.querySelector("#local-search-input");
+inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script>
+
+
+
+
+    <div class="categories-container" style="margin-top:40px;">
+        <p>归档:</p>
+            
+    </div>
+
+
+
+
+    <div class="social-container" style="margin-top:40px;">
+        <p>Links:</p>
+            
+                
+                    <li class="social-item"><i class="fa fa-fw fa-github"></i><a href="https://github.com/zeven0707">GitHub</a></li>
+                
+            
+    </div>
+
+</div>
+            </div>
+          </div>
+        </div>
+        
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

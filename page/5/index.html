@@ -1,0 +1,1001 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>第 5 页 | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+        <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop    col-lg-8 col-lg-offset-1
+                    col-md-8 col-md-offset-1
+                    col-sm-12
+                    col-xs-12">
+            
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/21/oracle查询被锁的sql语句并解锁/"><span>[Oracle] oracle查询被锁的sql语句并解锁 </span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/oracle查询被锁的sql语句并解锁/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T09:25:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="实验1："><a href="#实验1：" class="headerlink" title="实验1："></a>实验1：</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">session1：</span><br><span class="line">20:01:35 SYS@ boston&gt; select * from scott.t1 for update;</span><br><span class="line">session2：</span><br><span class="line">20:01:13 SCOTT@ boston&gt; update t1 set empno=8000 where empno=7566;</span><br></pre></td></tr></table></figure>
+
+<p>session2执行update语句的时候卡主了，需要等待session1把锁释放掉。<br>session3查看当前被锁的会话：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">20:01:16 SYS@ boston&gt; select a.object_name,b.session_id,c.serial#,'alter system kill session '''||b.session_id||','||c.serial#||'''; ' as a,c.program,c.username,c.command,c.machine,c.lockwait from all_objects a,v$locked_object b,v$session c where a.object_id=b.object_id and c.sid=b.session_id;</span><br><span class="line"></span><br><span class="line">OBJECT_NAME       SESSION_ID    SERIAL<span class="comment"># A     PROGRAM      USERNAME COMMAND MACHINE LOCKWAIT</span></span><br><span class="line">T1      208 2941 <span class="keyword">alter</span> <span class="keyword">system</span> <span class="keyword">kill</span> <span class="keyword">session</span> <span class="string">'208,2941'</span>;	     sqlplus@dax-mysql-slave (TNS V1-V3)	      SYS				      0 dax-mysql-slave</span><br><span class="line">T1				      301	 957 <span class="keyword">alter</span> <span class="keyword">system</span> <span class="keyword">kill</span> <span class="keyword">session</span> <span class="string">'301,957'</span>;									     sqlplus@dax-mysql-slave (TNS V1-V3)	      SCOTT				      6 dax-mysql-slave</span><br></pre></td></tr></table></figure>
+<p>查看被锁的对象</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> l.session_id <span class="keyword">sid</span>,s.serial<span class="comment">#,l.locked_mode ,l.oracle_username ,l.os_user_name ,s.machine,s.terminal,o.object_name,s.logon_time,c.sql_text FROM v$locked_object l, all_objects o, v$session s, v$sqlarea c WHERE l.object_id = o.object_id AND l.session_id = s.sid and s.sql_id = c.sql_id ORDER BY sid,s.serial#;</span></span><br><span class="line"><span class="keyword">SID</span>    <span class="built_in">SERIAL</span><span class="comment">#     锁模式 登录用户                       登录机器用户名                 机器名                                                           终端用户名                     被锁对象名                     登录数据库时间   会话正在执行的SQL语句    </span></span><br><span class="line"> <span class="number">301</span>	  <span class="number">957</span>	       <span class="number">3</span> SCOTT				<span class="keyword">oracle</span>		       dax-mysql-<span class="keyword">slave</span>							pts/<span class="number">2</span>	       T1			      <span class="number">2019</span>:<span class="number">02</span>:<span class="number">28</span> <span class="number">19</span>:<span class="number">18</span>:<span class="number">06</span></span><br><span class="line"><span class="keyword">update</span> t1 <span class="keyword">set</span> empno=<span class="number">8000</span> <span class="keyword">where</span> empno=<span class="number">7566</span></span><br></pre></td></tr></table></figure>
+<p>查询结果如上所示，因为session1的查询已经结束，session2的sql还被锁住，只能查询到session2的sql语句，因此我们要杀掉sessoin1的会话，让session2继续正常运行。如果杀掉了sesison2，其他会话再进来执行dml变更操作，会话仍然被卡主。</p>
+<p>实验2：<br>rollback回滚上面的操作，之后继续实验2</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">session2：</span><br><span class="line">20:13:00 SCOTT@ boston&gt; update t1 set empno=8000 where empno=7566;</span><br><span class="line">4097 rows updated.</span><br><span class="line">Elapsed: 00:00:00.09</span><br><span class="line"></span><br><span class="line">session1：</span><br><span class="line">20:14:13 SYS@ boston&gt; select * from scott.t1 for update;</span><br></pre></td></tr></table></figure>
+<p>session1执行select操作被卡主<br>session3查看被锁的语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">20:10:44 SYS@ boston&gt; select a.object_name,b.session_id,c.serial#,'alter system kill session '''||b.session_id||','||c.serial#||'''; ' as a,c.program,c.username,c.command,c.machine,c.lockwait from all_objects a,v$locked_object b,v$session c where a.object_id=b.object_id and c.sid=b.session_id; </span><br><span class="line"></span><br><span class="line">OBJECT_NAME		       SESSION_ID    SERIAL<span class="comment"># A				     PROGRAM					      USERNAME			COMMAND MACHINE 							 LOCKWAIT</span></span><br><span class="line"><span class="comment">------------------------------ ---------- ---------- --------------------------------------------------------------------------------------------------------------- ------------------------------------------------ ------------------------------ ---------- ---------------------------------------------------------------- ----------------</span></span><br><span class="line">T1				      107	6131 <span class="keyword">alter</span> <span class="keyword">system</span> <span class="keyword">kill</span> <span class="keyword">session</span> <span class="string">'107,6131'</span>;									     sqlplus@dax-mysql-slave (TNS V1-V3)	      SYS				      3 dax-mysql-slave 						 00000000BD230AE0</span><br><span class="line">T1				      301	 957 <span class="keyword">alter</span> <span class="keyword">system</span> <span class="keyword">kill</span> <span class="keyword">session</span> <span class="string">'301,957'</span>;									     sqlplus@dax-mysql-slave (TNS V1-V3)	      SCOTT				      0 dax-mysql-slave</span><br><span class="line">Elapsed: 00:00:00.02</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">20:16:01 SYS@ boston&gt; SELECT l.session_id sid,  </span><br><span class="line">       s.serial<span class="comment">#,  </span></span><br><span class="line">       l.locked_mode 锁模式,  </span><br><span class="line">       l.oracle_username 登录用户,  </span><br><span class="line">       l.os_user_name 登录机器用户名,  </span><br><span class="line">       s.machine 机器名,  </span><br><span class="line">       s.terminal 终端用户名,  </span><br><span class="line">       o.object_name 被锁对象名,  </span><br><span class="line">       s.logon_time 登录数据库时间 ,</span><br><span class="line">       c.sql_text  会话正在执行的sql语句</span><br><span class="line">FROM v$locked_object l, all_objects o, v$session s ,v$sqlarea c</span><br><span class="line">WHERE l.object_id = o.object_id  </span><br><span class="line">   AND l.session_id = s.sid  </span><br><span class="line">   and s.sql_id = c.sql_id</span><br><span class="line">ORDER BY sid, s.serial<span class="comment">#;</span></span><br><span class="line">       SID    SERIAL<span class="comment">#     锁模式 登录用户                       登录机器用户名                 机器名                                                           终端用户名                     被锁对象名                     登录数据库时间  会话正在执行的SQL语句</span></span><br><span class="line">       107	 6131	       3 SYS				oracle		       dax-mysql-slave							pts/0	       T1			      2019:02:28 20:14:13 <span class="keyword">select</span> * <span class="keyword">from</span> scott.t1 <span class="keyword">for</span> <span class="keyword">update</span></span><br><span class="line">Elapsed: <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.01</span></span><br></pre></td></tr></table></figure>
+<p>查询结果为session1的select语句被堵塞，处于正在执行的状态，session2的update语句已经执行完成，需要commit才能把锁释放掉。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/oracle查询被锁的sql语句并解锁/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/09/21/锁表情况下使用exp和expdp导出问题/"><span>[Oracle] 锁表情况下使用exp和expdp导出</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/锁表情况下使用exp和expdp导出问题/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T09:25:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、共享锁"><a href="#1、共享锁" class="headerlink" title="1、共享锁"></a>1、共享锁</h1><p>lock table test in share mode;<br>exp和expdp均可正常导出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">exp test&#x2F;Test1234 file&#x3D;&#x2F;tmp&#x2F;test2.dmp  tables&#x3D;test</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Jun 4 15:57:35 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Export done in ZHS16GBK character set and AL16UTF16 NCHAR character set</span><br><span class="line">About to export specified tables via Conventional Path ...</span><br><span class="line">. . exporting table                           TEST          3 rows exported</span><br><span class="line">Export terminated successfully without warnings.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave tmp]$ expdp test&#x2F;Test1234 dumpfile&#x3D;expdp5.test directory&#x3D;exp_data_dir tables&#x3D;test</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Jun 4 15:59:45 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Starting &quot;TEST&quot;.&quot;SYS_EXPORT_TABLE_01&quot;: test&#x2F;******** dumpfile&#x3D;expdp5.test directory&#x3D;exp_data_dir tables&#x3D;test</span><br><span class="line">Estimate in progress using BLOCKS method...</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;TABLE_DATA</span><br><span class="line">Total estimation using BLOCKS method: 64 KB</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;TABLE</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;INDEX&#x2F;INDEX</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;INDEX&#x2F;STATISTICS&#x2F;INDEX_STATISTICS</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;STATISTICS&#x2F;TABLE_STATISTICS</span><br><span class="line">. . exported &quot;TEST&quot;.&quot;TEST&quot;                               5.031 KB       3 rows</span><br><span class="line">Master table &quot;TEST&quot;.&quot;SYS_EXPORT_TABLE_01&quot; successfully loaded&#x2F;unloaded</span><br><span class="line">******************************************************************************</span><br><span class="line">Dump file set for TEST.SYS_EXPORT_TABLE_01 is:</span><br><span class="line">  &#x2F;tmp&#x2F;backup&#x2F;expdp5.test</span><br><span class="line">Job &quot;TEST&quot;.&quot;SYS_EXPORT_TABLE_01&quot; successfully completed at Tue Jun 4 15:59:49 2019 elapsed 0 00:00:03</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、排他锁"><a href="#2、排他锁" class="headerlink" title="2、排他锁"></a>2、排他锁</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">15:58:19 TEST@ boston&gt; lock table test in exclusive mode;</span><br><span class="line">Table(s) Locked.</span><br><span class="line">Elapsed: 00:00:00.00</span><br></pre></td></tr></table></figure>
+
+<p>exp可正常导出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave tmp]$ exp test&#x2F;Test1234 file&#x3D;&#x2F;tmp&#x2F;test4.dmp  tables&#x3D;test</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Jun 4 16:00:51 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Export done in ZHS16GBK character set and AL16UTF16 NCHAR character set</span><br><span class="line">About to export specified tables via Conventional Path ...</span><br><span class="line">. . exporting table                           TEST          3 rows exported</span><br><span class="line">Export terminated successfully without warnings.</span><br></pre></td></tr></table></figure>
+
+<p>expdp导出进程被锁，直到排它锁被释放</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave tmp]$ expdp test&#x2F;Test1234 dumpfile&#x3D;expdp6.test directory&#x3D;exp_data_dir tables&#x3D;test</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Jun 4 16:01:30 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Starting &quot;TEST&quot;.&quot;SYS_EXPORT_TABLE_01&quot;:  test&#x2F;******** dumpfile&#x3D;expdp6.test directory&#x3D;exp_data_dir tables&#x3D;test</span><br><span class="line">Estimate in progress using BLOCKS method...</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;TABLE_DATA</span><br><span class="line">Total estimation using BLOCKS method: 64 KB</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;TABLE</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;INDEX&#x2F;INDEX</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;INDEX&#x2F;STATISTICS&#x2F;INDEX_STATISTICS</span><br><span class="line">Processing object type TABLE_EXPORT&#x2F;TABLE&#x2F;STATISTICS&#x2F;TABLE_STATISTICS</span><br></pre></td></tr></table></figure>
+
+<p>下面设置当然用户下的表空间为只读</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">16:03:04 TEST@ boston&gt; select default_tablespace from user_users;</span><br><span class="line">DEFAULT_TABLESPACE</span><br><span class="line"><span class="comment">------------------------------</span></span><br><span class="line">USERS</span><br><span class="line">16:03:04 TEST@ boston&gt; alter tablespace users read only;</span><br></pre></td></tr></table></figure>
+
+<p>exp导出正常，expdp报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave tmp]$ exp test&#x2F;Test1234 file&#x3D;&#x2F;tmp&#x2F;test4.dmp  tables&#x3D;test</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Jun 4 16:04:37 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Export done in ZHS16GBK character set and AL16UTF16 NCHAR character set</span><br><span class="line">About to export specified tables via Conventional Path ...</span><br><span class="line">. . exporting table                           TEST          3 rows exported</span><br><span class="line">Export terminated successfully without warnings.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave tmp]$ expdp test&#x2F;Test1234 dumpfile&#x3D;expdp7.test directory&#x3D;exp_data_dir tables&#x3D;test</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Jun 4 16:04:42 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and&#x2F;or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">ORA-31626: job does not exist</span><br><span class="line">ORA-31633: unable to create master table &quot;TEST.SYS_EXPORT_TABLE_05&quot;</span><br><span class="line">ORA-06512: at &quot;SYS.DBMS_SYS_ERROR&quot;, line 95</span><br><span class="line">ORA-06512: at &quot;SYS.KUPV$FT&quot;, line 1038</span><br><span class="line">ORA-01647: tablespace &#39;USERS&#39; is read-only, cannot allocate space in it</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/锁表情况下使用exp和expdp导出问题/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/05/27/ORA-00257 archiver error Connect internal only until freed/"><span>[Oracle] ORA-00257: archiver error Connect internal only until freed </span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/05/27/ORA-00257 archiver error Connect internal only until freed/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-05-27T08:13:00.000Z">
+          2019-05-27
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、查看闪回区使用情况"><a href="#1、查看闪回区使用情况" class="headerlink" title="1、查看闪回区使用情况"></a>1、查看闪回区使用情况</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> V$FLASH_RECOVERY_AREA_USAGE;</span><br><span class="line"></span><br><span class="line">FILE_TYPE            PERCENT_SPACE_USED PERCENT_SPACE_RECLAIMABLE NUMBER_OF_FILES</span><br><span class="line"><span class="comment">-------------------- ------------------ ------------------------- ---------------</span></span><br><span class="line">CONTROL FILE                          0                         0               0</span><br><span class="line">REDO LOG                          10.11                         0               2</span><br><span class="line">ARCHIVED LOG                          0                         0               2</span><br><span class="line"><span class="keyword">BACKUP</span> PIECE                          <span class="number">0</span>                         <span class="number">0</span>               <span class="number">0</span></span><br><span class="line">IMAGE COPY                            <span class="number">0</span>                         <span class="number">0</span>               <span class="number">0</span></span><br><span class="line"><span class="keyword">FLASHBACK</span> <span class="keyword">LOG</span>                         <span class="number">0</span>                         <span class="number">0</span>               <span class="number">0</span></span><br><span class="line"><span class="keyword">FOREIGN</span> <span class="keyword">ARCHIVED</span> <span class="keyword">LOG</span>                  <span class="number">0</span>                         <span class="number">0</span>               <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="2、计算闪回区使用空间"><a href="#2、计算闪回区使用空间" class="headerlink" title="2、计算闪回区使用空间"></a>2、计算闪回区使用空间</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">03:56:25 SYS@ cbi&gt; show parameter recovery;</span><br><span class="line"></span><br><span class="line">NAME                                 TYPE        VALUE</span><br><span class="line"><span class="comment">------------------------------------ ----------- ------------------------------</span></span><br><span class="line">db_recovery_file_dest                string      /u01/app/oracle/fast_recovery_</span><br><span class="line">                                                 area/cbi/</span><br><span class="line">db_recovery_file_dest_size           big integer 10374182400</span><br><span class="line">recovery_parallelism                 integer     0</span><br><span class="line"></span><br><span class="line">N为db_recovery_file_dest_size的大小</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(percent_space_used)*N/<span class="number">100</span> <span class="keyword">from</span> v$flash_recovery_area_usage;</span><br><span class="line"></span><br><span class="line">04:00:43 SYS@ cbi&gt; select sum(percent_space_used)*10/100 from v$flash_recovery_area_usage;</span><br><span class="line"></span><br><span class="line">SUM(PERCENT_SPACE_USED)*10/100</span><br><span class="line"><span class="comment">------------------------------</span></span><br><span class="line">                         1.011</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、ORA-00257的错误是因为归档太多导致闪回区满了造成的，下面通过rman删除归档"><a href="#3、ORA-00257的错误是因为归档太多导致闪回区满了造成的，下面通过rman删除归档" class="headerlink" title="3、ORA-00257的错误是因为归档太多导致闪回区满了造成的，下面通过rman删除归档"></a>3、ORA-00257的错误是因为归档太多导致闪回区满了造成的，下面通过rman删除归档</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">crosscheck archivelog all;</span><br><span class="line">delete archivelog until time &#39;sysdate&#39;; --删除所有日志</span><br><span class="line">delete force noprompt archivelog all completed before &#39;sysdate-3&#39;; --删除3天前的归档</span><br><span class="line">delete expired archivelog all;--删除过期日志</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/05/27/ORA-00257 archiver error Connect internal only until freed/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/05/20/linux添加用户sudo使用权限/"><span>[linux] linux添加用户sudo使用权限</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/05/20/linux添加用户sudo使用权限/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-05-20T08:56:00.000Z">
+          2019-05-20
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、修改-etc-sudoers文件"><a href="#1、修改-etc-sudoers文件" class="headerlink" title="1、修改/etc/sudoers文件"></a>1、修改/etc/sudoers文件</h1><p>默认sudoers文件权限为440,需要手动修改权限，否则无法编辑<br><code>chmod 740 /etc/sudoers</code></p>
+<p>修改sudoers文件vim /etc/sudoers<br><code>centos  ALL=(ALL)       ALL</code></p>
+<p>如果使用sudo的时候不输入密码，需要添加nopasswd参数（注意NOPASSWD: ALL中间有空格）<br><code>centos  ALL=(ALL)       NOPASSWD: ALL</code></p>
+<h1 id="2、使用jenkins远程调用shell脚本，执行带有sudo的命令会报错"><a href="#2、使用jenkins远程调用shell脚本，执行带有sudo的命令会报错" class="headerlink" title="2、使用jenkins远程调用shell脚本，执行带有sudo的命令会报错"></a>2、使用jenkins远程调用shell脚本，执行带有sudo的命令会报错</h1><p><code>sudo：抱歉，您必须拥有一个终端来执行 sudo</code></p>
+<p>这个问题，需要修改/etc/sudoers配置文件<br><code>Default requiretty</code><br>将Default requiretty这一行注释掉</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/05/20/linux添加用户sudo使用权限/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/05/18/docker启动ssh，允许使用ssh远程登录docker容器/"><span>[linux] docker启动ssh，允许使用ssh远程登录docker容器</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/05/18/docker启动ssh，允许使用ssh远程登录docker容器/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-05-18T03:34:00.000Z">
+          2019-05-18
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、安装依赖包"><a href="#1、安装依赖包" class="headerlink" title="1、安装依赖包"></a>1、安装依赖包</h1><p><code>yum install openssh openssh-server openssh-clients</code></p>
+<h1 id="2、修改ssh配置-etc-ssh-ssh-config"><a href="#2、修改ssh配置-etc-ssh-ssh-config" class="headerlink" title="2、修改ssh配置/etc/ssh/ssh_config"></a>2、修改ssh配置/etc/ssh/ssh_config</h1><p>vim /etc/ssh/ssh_config</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#允许root用户ssh登录</span><br><span class="line">PermitRootLogin yes</span><br><span class="line">##禁用PAM</span><br><span class="line">UsePAM no</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、启动ssh服务"><a href="#3、启动ssh服务" class="headerlink" title="3、启动ssh服务"></a>3、启动ssh服务</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service sshd start</span><br><span class="line">service sshd stop</span><br><span class="line">service sshd restart</span><br></pre></td></tr></table></figure>
+
+<h1 id="4、查看服务是否启动"><a href="#4、查看服务是否启动" class="headerlink" title="4、查看服务是否启动"></a>4、查看服务是否启动</h1><p>netstat -tunlp|grep 22</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      14513&#x2F;sshd</span><br><span class="line">tcp6       0      0 :::22                   :::*                    LISTEN      14513&#x2F;sshd</span><br></pre></td></tr></table></figure>
+
+<h1 id="5、如果启动docker的时候没有指定端口映射，需要重新commit之后，指定新的端口映射启动"><a href="#5、如果启动docker的时候没有指定端口映射，需要重新commit之后，指定新的端口映射启动" class="headerlink" title="5、如果启动docker的时候没有指定端口映射，需要重新commit之后，指定新的端口映射启动"></a>5、如果启动docker的时候没有指定端口映射，需要重新commit之后，指定新的端口映射启动</h1><p><code>docker commit -m=&#39;add sshd service&#39; -a=&#39;zeven&#39; f2622fe8a8d8 zeven/ssh:v1</code></p>
+<h1 id="6、重启指定端口映射，启动容器"><a href="#6、重启指定端口映射，启动容器" class="headerlink" title="6、重启指定端口映射，启动容器"></a>6、重启指定端口映射，启动容器</h1><p><code>docker run -dti --privileged -p 2233:22 zeven/ssh:v1  /usr/sbin/init</code></p>
+<h1 id="7、启动完成之后可使用ssh连接工具配置宿主机ip、端口2233、用户名、密码便可正常登录docker容器"><a href="#7、启动完成之后可使用ssh连接工具配置宿主机ip、端口2233、用户名、密码便可正常登录docker容器" class="headerlink" title="7、启动完成之后可使用ssh连接工具配置宿主机ip、端口2233、用户名、密码便可正常登录docker容器"></a>7、启动完成之后可使用ssh连接工具配置宿主机ip、端口2233、用户名、密码便可正常登录docker容器</h1>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/05/18/docker启动ssh，允许使用ssh远程登录docker容器/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/05/09/seeddms部署，docker启动/"><span>[linux] seeddms部署，docker环境启动</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/05/09/seeddms部署，docker启动/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-05-09T08:44:00.000Z">
+          2019-05-09
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、安装基础工具，下载软件安装包"><a href="#1、安装基础工具，下载软件安装包" class="headerlink" title="1、安装基础工具，下载软件安装包"></a>1、安装基础工具，下载软件安装包</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install vim wget gcc net-tools sudo numactl initscripts -y</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;data&#x2F;soft &amp;&amp; cd &#x2F;data&#x2F;soft</span><br><span class="line">wget https:&#x2F;&#x2F;jaist.dl.sourceforge.net&#x2F;project&#x2F;seeddms&#x2F;seeddms-5.1.10&#x2F;seeddms-quickstart-5.1.10.tar.gz</span><br><span class="line">wget https:&#x2F;&#x2F;jaist.dl.sourceforge.net&#x2F;project&#x2F;seeddms&#x2F;seeddms-5.1.10&#x2F;SeedDMS_Core-5.1.10.tgz</span><br><span class="line">wget https:&#x2F;&#x2F;jaist.dl.sourceforge.net&#x2F;project&#x2F;seeddms&#x2F;seeddms-5.1.10&#x2F;SeedDMS_Lucene-1.1.13.tgz</span><br><span class="line">wget https:&#x2F;&#x2F;jaist.dl.sourceforge.net&#x2F;project&#x2F;seeddms&#x2F;seeddms-5.1.10&#x2F;SeedDMS_Preview-1.2.10.tgz</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、解压quickstart安装包"><a href="#2、解压quickstart安装包" class="headerlink" title="2、解压quickstart安装包"></a>2、解压quickstart安装包</h1><p><code>tar -zxvf seeddms-quickstart-5.1.10.tar.gz</code></p>
+<h1 id="3、安装php"><a href="#3、安装php" class="headerlink" title="3、安装php"></a>3、安装php</h1><p><code>yum install  php-mysql php-pear php-gd php-http-webdav-server php-mbstring php-pdo php-pear-Log php-ZendFramework-Search-Lucene php-pear-Image-Text php-ZendFramework-Search-Lucene -y</code><br><code>pear install channel://pear.php.net/HTTP_WebDAV_Server-1.0.0RC8</code></p>
+<p>php版本要高于,下面升级到5.6，配置5.6yum源<br>追加CentOS 6.5的epel及remi源。<br><code>rpm -Uvh http://ftp.iij.ad.jp/pub/linux/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm</code><br><code>rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm</code><br>以下是CentOS 7.0的源。<br><code>yum install epel-release -y</code><br><code>rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm</code><br>使用yum list命令查看可安装的包(Packege)。<br><code>yum list --enablerepo=remi --enablerepo=remi-php56 | grep php</code><br>安装PHP5.6<br>yum源配置好了，下一步就安装PHP5.6。<br><code>yum install --enablerepo=remi --enablerepo=remi-php56 php php-opcache php-devel php-mbstring php-mcrypt php-mysqlnd php-phpunit-PHPUnit php-pecl-xdebug php-pecl-xhprof -y</code><br>用PHP命令查看版本。<br><code>php --version</code></p>
+<h1 id="4、安装mysql数据库"><a href="#4、安装mysql数据库" class="headerlink" title="4、安装mysql数据库"></a>4、安装mysql数据库</h1><p>（省略）</p>
+<h1 id="5、yum方式安装apache"><a href="#5、yum方式安装apache" class="headerlink" title="5、yum方式安装apache"></a>5、yum方式安装apache</h1><p><code>yum install -y httpd</code><br><code>systemctl enable httpd</code><br><code>systemctl start httpd</code></p>
+<h1 id="6、将解压出来的文件拷贝到apache目录下"><a href="#6、将解压出来的文件拷贝到apache目录下" class="headerlink" title="6、将解压出来的文件拷贝到apache目录下"></a>6、将解压出来的文件拷贝到apache目录下</h1><p><code>mkdir –p /var/www/html/dms</code><br><code>mv /data/soft/seeddms51x/* /var/www/html/dms/</code><br><code>chown  apache:apache -R /var/www/html/dms</code><br><code>cd /data/soft</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@node3 soft]# pear install SeedDMS_Core-5.1.10.tgz</span><br><span class="line">install ok: channel://pear.php.net/SeedDMS_Core-5.1.10</span><br><span class="line">[root@node3 soft]# pear install SeedDMS_Lucene-1.1.13.tgz</span><br><span class="line">install ok: channel://pear.php.net/SeedDMS_Lucene-1.1.13</span><br><span class="line">[root@node3 soft]# pear install SeedDMS_Preview-1.2.10.tgz</span><br><span class="line">install ok: channel://pear.php.net/SeedDMS_Preview-1.2.10</span><br></pre></td></tr></table></figure>
+
+<h1 id="7、创建mysql数据库"><a href="#7、创建mysql数据库" class="headerlink" title="7、创建mysql数据库"></a>7、创建mysql数据库</h1><p><code>mysql -u root -p</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create database db_dms;</span><br><span class="line">grant all privileges on db_dms.* to &#39;dms&#39;@&#39;%&#39; identified  by &#39;dms&#39;;</span><br><span class="line">flush privileges;</span><br><span class="line">source &#x2F;var&#x2F;www&#x2F;html&#x2F;dms&#x2F;seeddms&#x2F;install&#x2F;create_tables-innodb.sql</span><br></pre></td></tr></table></figure>
+
+<h1 id="8、修改php配置文件"><a href="#8、修改php配置文件" class="headerlink" title="8、修改php配置文件"></a>8、修改php配置文件</h1><p>vim /etc/php.ini<br><code>date.timezone = &#39;Asia/Shanghai&#39;</code></p>
+<h1 id="9、创建mysql连接"><a href="#9、创建mysql连接" class="headerlink" title="9、创建mysql连接"></a>9、创建mysql连接</h1><p><code>[root@node3 tmp]# mkdir -p /var/lib/mysql/</code><br><code>[root@node3 tmp]# ln -s /data/mysql/tmp/mysql.sock /var/lib/mysql/mysql.sock</code></p>
+<h1 id="10、修改配置文件-var-www-html-dms-conf-settings-xml"><a href="#10、修改配置文件-var-www-html-dms-conf-settings-xml" class="headerlink" title="10、修改配置文件/var/www/html/dms/conf/settings.xml"></a>10、修改配置文件/var/www/html/dms/conf/settings.xml</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;server rootDir&#x3D;&quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;dms&#x2F;www&#x2F;&quot; httpRoot&#x3D;&quot;&#x2F;dms&#x2F;seeddms&#x2F;&quot; contentDir&#x3D;&quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;dms&#x2F;data&#x2F;&quot; stagingDir&#x3D;&quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;dms&#x2F;data&#x2F;staging&#x2F;&quot; luceneDir&#x3D;&quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;dms&#x2F;data&#x2F;lucene&#x2F;&quot; logFileEnable&#x3D;&quot;true&quot; logFileRotation&#x3D;&quot;d&quot; enableLargeFileUpload&#x3D;&quot;false&quot; partitionSize&#x3D;&quot;2000000&quot; cacheDir&#x3D;&quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;dms&#x2F;data&#x2F;cache&#x2F;&quot; dropFolderDir&#x3D;&quot;&quot; backupDir&#x3D;&quot;&quot; repositoryUrl&#x3D;&quot;&quot; maxUploadSize&#x3D;&quot;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;server coreDir&#x3D;&quot;&quot; luceneClassDir&#x3D;&quot;&quot; contentOffsetDir&#x3D;&quot;1048576&quot; maxDirID&#x3D;&quot;0&quot; updateNotifyTime&#x3D;&quot;86400&quot; extraPath&#x3D;&quot;&#x2F;var&#x2F;www&#x2F;html&#x2F;dms&#x2F;pear&#x2F;&quot; maxExecutionTime&#x3D;&quot;30&quot; cmdTimeout&#x3D;&quot;1&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;database dbDriver&#x3D;&quot;mysql&quot; dbHostname&#x3D;&quot;localhost&quot; dbDatabase&#x3D;&quot;db_dms&quot; dbUser&#x3D;&quot;dms&quot; dbPass&#x3D;&quot;dms&quot; doNotCheckVersion&#x3D;&quot;false&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="11、下面是本人制作的docker镜像，可下载直接使用"><a href="#11、下面是本人制作的docker镜像，可下载直接使用" class="headerlink" title="11、下面是本人制作的docker镜像，可下载直接使用"></a>11、下面是本人制作的docker镜像，可下载直接使用</h1><p><code>docker run -p 80:80 -dt zeven0707/seeddms:v1  /usr/sbin/init</code><br>(需要加上–privileged，否则启动httpd会报错Failed to get D-Bus connection: Operation not permitted)<br>只后进入docker启动mysql、apache<br><code>/etc/init.d/mysql start</code><br><code>systemctl start httpd</code></p>
+<p>启动完成之后，登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;&lt;宿主机ip&gt;&#x2F;dms&#x2F;seeddms</span><br><span class="line">用户名：admin</span><br><span class="line">密码：admin</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/05/09/seeddms部署，docker启动/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/05/07/修改docker端口映射/"><span>[linux] 修改docker端口映射</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/05/07/修改docker端口映射/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-05-07T10:37:00.000Z">
+          2019-05-07
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <p>方法一：<br>1、关闭docker容器<br><code>docker stop 9656305ad917</code><br>2、关闭docker进程<br><code>systemctl stop docker</code><br>3、修改容器对应的配置文件<br><code>cd /var/lib/docker/container/&lt;containid&gt;</code><br><code>vim config.v2.json</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;Config&quot;:&#123;</span><br><span class="line">....</span><br><span class="line">&quot;ExposedPorts&quot;:&#123;&quot;9999&#x2F;tcp&quot;:&#123;&#125;&#125;,</span><br><span class="line">....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果配置文件中不存在ExposedPorts要自己手动加上,然后修改Ports内容，默认为null<br><code>vim config.v2.json</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;Ports&quot;:&#123;&quot;9999&#x2F;tcp&quot;:[&#123;&quot;HostIp&quot;:&quot;0.0.0.0&quot;,&quot;HostPort&quot;:&quot;9999&quot;&#125;]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改hostconfig.json：<br><code>vim hostconfig.json</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;PortBindings&quot;:&#123;&quot;9999&#x2F;tcp&quot;:[&#123;&quot;HostIp&quot;:&quot;&quot;,&quot;HostPort&quot;:&quot;9999&quot;&#125;]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4、添加完成端口映射之后重启启动docker进程<br><code>systemctl start docker</code><br>5、启动容器<br><code>docker start 9656305ad917</code><br>6、查看容器的端口映射,9999端口映射添加成功</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">shell</span><span class="bash"> &gt; docker ps</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES</span><br><span class="line"><span class="number">9656305</span>ad917        centos              <span class="string">"/bin/bash"</span>         <span class="number">28</span> hours ago        Up About an hour    <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">9999</span>-&gt;<span class="number">9999</span>/tcp   jenkins</span><br></pre></td></tr></table></figure>
+
+<p>方法二：<br>1、停止容器<br><code>docker stop b693d1c304c5</code><br>2、从容器创建一个新的镜像<br><code>docker commit -m=&quot;install jenkins&quot; -a=&quot;zeven0707&quot; b693d1c304c5 zeven0707/jenkins:v1</code><br>3、启动提交后的镜像，并指定端口<br><code>docker run --name jenkins -p 9999:9999 -td zeven0707/jenkins:v1</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/docker/">docker</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/05/07/修改docker端口映射/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/04/17/rman retore and recover/"><span>[Oracle] oracle完全恢复、不完全恢复、闪回数据库</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/04/17/rman retore and recover/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-04-17T07:06:00.000Z">
+          2019-04-17
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、查看当前的表空间和数据文件"><a href="#1、查看当前的表空间和数据文件" class="headerlink" title="1、查看当前的表空间和数据文件"></a>1、查看当前的表空间和数据文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; report schema;</span><br><span class="line">Report of database schema for database with db_unique_name BOSTON</span><br><span class="line">List of Permanent Datafiles</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">File Size(MB) Tablespace           RB segs Datafile Name</span><br><span class="line">---- -------- -------------------- ------- ------------------------</span><br><span class="line">1    750      SYSTEM               ***     &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;system01.dbf</span><br><span class="line">2    1670     SYSAUX               ***     &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;sysaux01.dbf</span><br><span class="line">3    70       UNDOTBS1             ***     &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;undotbs01.dbf</span><br><span class="line">4    300      USERS                ***     &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;users01.dbf</span><br><span class="line">5    100      TEST                 ***     &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;test001.dbf</span><br><span class="line">6    100      TEST11               ***     &#x2F;home&#x2F;oracle&#x2F;test11101.dbf</span><br><span class="line">7    100      ZEVEN                ***     &#x2F;home&#x2F;oracle&#x2F;zeven01.dbf</span><br><span class="line"></span><br><span class="line">List of Temporary Files</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">File Size(MB) Tablespace           Maxsize(MB) Tempfile Name</span><br><span class="line">---- -------- -------------------- ----------- --------------------</span><br><span class="line">1    29       TEMP                 32767       &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;temp01.dbf</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、查看数据库当前可用的备份"><a href="#2、查看数据库当前可用的备份" class="headerlink" title="2、查看数据库当前可用的备份"></a>2、查看数据库当前可用的备份</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; RESTORE DATABASE PREVIEW SUMMARY;</span><br><span class="line"></span><br><span class="line">Starting restore at 2019:04:14 23:39:42</span><br><span class="line">using channel ORA_DISK_1</span><br><span class="line">using channel ORA_DISK_2</span><br><span class="line">using channel ORA_DISK_3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">List of Backups</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Key     TY LV S Device Type Completion Time     #Pieces #Copies Compressed Tag</span><br><span class="line">------- -- -- - ----------- ------------------- ------- ------- ---------- ---</span><br><span class="line">644     B  0  A DISK        2019:04:14 23:36:43 1       1       YES        TAG20190414T233619</span><br><span class="line">652     B  1  A DISK        2019:04:14 23:37:36 1       1       YES        TAG20190414T233735</span><br><span class="line">645     B  0  A DISK        2019:04:14 23:36:56 1       1       YES        TAG20190414T233619</span><br><span class="line">653     B  1  A DISK        2019:04:14 23:37:36 1       1       YES        TAG20190414T233735</span><br><span class="line">641     B  0  A DISK        2019:04:14 23:36:24 1       1       YES        TAG20190414T233619</span><br><span class="line">655     B  1  A DISK        2019:04:14 23:37:40 1       1       YES        TAG20190414T233735</span><br><span class="line">640     B  0  A DISK        2019:04:14 23:36:21 1       1       YES        TAG20190414T233619</span><br><span class="line">654     B  1  A DISK        2019:04:14 23:37:36 1       1       YES        TAG20190414T233735</span><br><span class="line"></span><br><span class="line">archived logs generated after SCN 103084444 not found in repository</span><br><span class="line">Media recovery start SCN is 103084444</span><br><span class="line">Recovery must be done beyond SCN 103084453 to clear datafile fuzziness</span><br><span class="line">Finished restore at 2019:04:14 23:39:42</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、完全恢复"><a href="#3、完全恢复" class="headerlink" title="3、完全恢复"></a>3、完全恢复</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">startup force mount;</span><br><span class="line">run &#123;</span><br><span class="line">restore database;</span><br><span class="line">recover database;</span><br><span class="line">alter database open;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4、根据scn值进行不完整恢复"><a href="#4、根据scn值进行不完整恢复" class="headerlink" title="4、根据scn值进行不完整恢复"></a>4、根据scn值进行不完整恢复</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">startup force mount;</span><br><span class="line">run &#123;</span><br><span class="line">restore database until scn 103233673;</span><br><span class="line">recover database until scn 103233673;</span><br><span class="line">alter database open resetlogs;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="5、使用rman自带的Data-Recovery-Advisor进行诊断和修复问题"><a href="#5、使用rman自带的Data-Recovery-Advisor进行诊断和修复问题" class="headerlink" title="5、使用rman自带的Data Recovery Advisor进行诊断和修复问题"></a>5、使用rman自带的Data Recovery Advisor进行诊断和修复问题</h1><h2 id="5-1、手动删除数据文件"><a href="#5-1、手动删除数据文件" class="headerlink" title="5.1、手动删除数据文件"></a>5.1、手动删除数据文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave boston]$ ls</span><br><span class="line">control01.ctl  redo02.log  sysaux01.dbf  temp01.dbf   test101.dbf  undotbs01.dbf</span><br><span class="line">redo01.log     redo03.log  system01.dbf  test001.dbf  test201.dbf  users01.dbf</span><br><span class="line">[oracle@dax-mysql-slave boston]$ mv users01.dbf /tmp/</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-2、尝试关闭数据库，提示报错："><a href="#5-2、尝试关闭数据库，提示报错：" class="headerlink" title="5.2、尝试关闭数据库，提示报错："></a>5.2、尝试关闭数据库，提示报错：</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">20:06:51 SYS@ boston&gt; shutdown immediate;</span><br><span class="line">ORA-01116: error in opening database file 4</span><br><span class="line">ORA-01110: data file 4: '/data/u01/app/oracle/oradata/boston/users01.dbf'</span><br><span class="line">ORA-27041: unable to open file</span><br><span class="line">Linux-x86_64 Error: 2: No such file or directory</span><br><span class="line">Additional information: 3</span><br><span class="line">20:06:59 SYS@ boston&gt; exit</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-3、使用rman的Data-Recovery-Advisor功能去修复："><a href="#5-3、使用rman的Data-Recovery-Advisor功能去修复：" class="headerlink" title="5.3、使用rman的Data Recovery Advisor功能去修复："></a>5.3、使用rman的Data Recovery Advisor功能去修复：</h2><p>列出信息<code>list failure</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list failure;</span><br><span class="line">using target database control file instead of recovery catalog</span><br><span class="line">List of Database Failures</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line"></span><br><span class="line">Failure ID Priority Status    Time Detected       Summary</span><br><span class="line">---------- -------- --------- ------------------- -------</span><br><span class="line">98722      HIGH     OPEN      2019:04:18 20:07:00 One or more non-system datafiles are missing</span><br></pre></td></tr></table></figure>
+
+<p>查看失败建议<code>advise failure;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; advise failure;</span><br><span class="line"></span><br><span class="line">List of Database Failures</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line"></span><br><span class="line">Failure ID Priority Status    Time Detected       Summary</span><br><span class="line">---------- -------- --------- ------------------- -------</span><br><span class="line">98722      HIGH     OPEN      2019:04:18 20:07:00 One or more non-system datafiles are missing</span><br><span class="line"></span><br><span class="line">analyzing automatic repair options; this may take some time</span><br><span class="line">allocated channel: ORA_DISK_1</span><br><span class="line">channel ORA_DISK_1: SID&#x3D;590 device type&#x3D;DISK</span><br><span class="line">allocated channel: ORA_DISK_2</span><br><span class="line">channel ORA_DISK_2: SID&#x3D;6 device type&#x3D;DISK</span><br><span class="line">allocated channel: ORA_DISK_3</span><br><span class="line">channel ORA_DISK_3: SID&#x3D;201 device type&#x3D;DISK</span><br><span class="line">analyzing automatic repair options complete</span><br><span class="line"></span><br><span class="line">Mandatory Manual Actions</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">no manual actions available</span><br><span class="line"></span><br><span class="line">Optional Manual Actions</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">1. If file &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;users01.dbf was unintentionally renamed or moved, restore it</span><br><span class="line"></span><br><span class="line">Automated Repair Options</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Option Repair Description</span><br><span class="line">------ ------------------</span><br><span class="line">1      Restore and recover datafile 4  </span><br><span class="line">  Strategy: The repair includes complete media recovery with no data loss</span><br><span class="line">  Repair script: &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;diag&#x2F;rdbms&#x2F;boston&#x2F;boston&#x2F;hm&#x2F;reco_16185943.hm</span><br></pre></td></tr></table></figure>
+
+<p>修复失败问题<code>repair failure;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; repair failure;</span><br><span class="line"></span><br><span class="line">Strategy: The repair includes complete media recovery with no data loss</span><br><span class="line">Repair script: &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;diag&#x2F;rdbms&#x2F;boston&#x2F;boston&#x2F;hm&#x2F;reco_16185943.hm</span><br><span class="line"></span><br><span class="line">contents of repair script:</span><br><span class="line">   # restore and recover datafile</span><br><span class="line">   sql &#39;alter database datafile 4 offline&#39;;</span><br><span class="line">   restore datafile 4;</span><br><span class="line">   recover datafile 4;</span><br><span class="line">   sql &#39;alter database datafile 4 online&#39;;</span><br><span class="line"></span><br><span class="line">Do you really want to execute the above repair (enter YES or NO)? YES</span><br><span class="line">executing repair script</span><br><span class="line"></span><br><span class="line">sql statement: alter database datafile 4 offline</span><br><span class="line"></span><br><span class="line">Starting restore at 2019:04:18 20:11:30</span><br><span class="line">using channel ORA_DISK_1</span><br><span class="line">using channel ORA_DISK_2</span><br><span class="line">using channel ORA_DISK_3</span><br><span class="line"></span><br><span class="line">channel ORA_DISK_1: starting datafile backup set restore</span><br><span class="line">channel ORA_DISK_1: specifying datafile(s) to restore from backup set</span><br><span class="line">channel ORA_DISK_1: restoring datafile 00004 to &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;users01.dbf</span><br><span class="line">channel ORA_DISK_1: reading from backup piece &#x2F;tmp&#x2F;backuporacle&#x2F;db_BOSTON_20190417_s7tv8kue_1_1</span><br><span class="line">channel ORA_DISK_1: piece handle&#x3D;&#x2F;tmp&#x2F;backuporacle&#x2F;db_BOSTON_20190417_s7tv8kue_1_1 tag&#x3D;TAG20190417T234621</span><br><span class="line">channel ORA_DISK_1: restored backup piece 1</span><br><span class="line">channel ORA_DISK_1: restore complete, elapsed time: 00:00:07</span><br><span class="line">Finished restore at 2019:04:18 20:11:37</span><br><span class="line"></span><br><span class="line">Starting recover at 2019:04:18 20:11:37</span><br><span class="line">using channel ORA_DISK_1</span><br><span class="line">using channel ORA_DISK_2</span><br><span class="line">using channel ORA_DISK_3</span><br><span class="line">channel ORA_DISK_1: starting incremental datafile backup set restore</span><br><span class="line">channel ORA_DISK_1: specifying datafile(s) to restore from backup set</span><br><span class="line">destination for restore of datafile 00004: &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;users01.dbf</span><br><span class="line">channel ORA_DISK_1: reading from backup piece &#x2F;tmp&#x2F;backuporacle&#x2F;db_BOSTON_20190417_t6tv8ld5_1_1</span><br><span class="line">channel ORA_DISK_1: piece handle&#x3D;&#x2F;tmp&#x2F;backuporacle&#x2F;db_BOSTON_20190417_t6tv8ld5_1_1 tag&#x3D;TAG20190417T235413</span><br><span class="line">channel ORA_DISK_1: restored backup piece 1</span><br><span class="line">channel ORA_DISK_1: restore complete, elapsed time: 00:00:01</span><br><span class="line"></span><br><span class="line">starting media recovery</span><br><span class="line"></span><br><span class="line">archived log for thread 1 with sequence 10 is already on disk as file &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;fast_recovery_area&#x2F;BOSTON&#x2F;archivelog&#x2F;2019_04_18&#x2F;o1_mf_1_10_gchplpwh_.arc</span><br><span class="line">archived log for thread 1 with sequence 11 is already on disk as file &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;fast_recovery_area&#x2F;BOSTON&#x2F;archivelog&#x2F;2019_04_18&#x2F;o1_mf_1_11_gcjrv31m_.arc</span><br><span class="line">channel ORA_DISK_1: starting archived log restore to default destination</span><br><span class="line">channel ORA_DISK_1: restoring archived log</span><br><span class="line">archived log thread&#x3D;1 sequence&#x3D;8</span><br><span class="line">channel ORA_DISK_1: reading from backup piece &#x2F;tmp&#x2F;backuporacle&#x2F;arch_BOSTON_20190417_939_1.bak</span><br><span class="line">channel ORA_DISK_2: starting archived log restore to default destination</span><br><span class="line">channel ORA_DISK_2: restoring archived log</span><br><span class="line">archived log thread&#x3D;1 sequence&#x3D;9</span><br><span class="line">channel ORA_DISK_2: reading from backup piece &#x2F;tmp&#x2F;backuporacle&#x2F;arch_BOSTON_20190417_940_1.bak</span><br><span class="line">channel ORA_DISK_1: piece handle&#x3D;&#x2F;tmp&#x2F;backuporacle&#x2F;arch_BOSTON_20190417_939_1.bak tag&#x3D;TAG20190417T235425</span><br><span class="line">channel ORA_DISK_1: restored backup piece 1</span><br><span class="line">channel ORA_DISK_1: restore complete, elapsed time: 00:00:01</span><br><span class="line">archived log file name&#x3D;&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;fast_recovery_area&#x2F;BOSTON&#x2F;archivelog&#x2F;2019_04_18&#x2F;o1_mf_1_8_gcjtcwnn_.arc thread&#x3D;1 sequence&#x3D;8</span><br><span class="line">channel default: deleting archived log(s)</span><br><span class="line">archived log file name&#x3D;&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;fast_recovery_area&#x2F;BOSTON&#x2F;archivelog&#x2F;2019_04_18&#x2F;o1_mf_1_8_gcjtcwnn_.arc RECID&#x3D;380 STAMP&#x3D;1005941500</span><br><span class="line">channel ORA_DISK_2: piece handle&#x3D;&#x2F;tmp&#x2F;backuporacle&#x2F;arch_BOSTON_20190417_940_1.bak tag&#x3D;TAG20190417T235425</span><br><span class="line">channel ORA_DISK_2: restored backup piece 1</span><br><span class="line">channel ORA_DISK_2: restore complete, elapsed time: 00:00:02</span><br><span class="line">archived log file name&#x3D;&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;fast_recovery_area&#x2F;BOSTON&#x2F;archivelog&#x2F;2019_04_18&#x2F;o1_mf_1_9_gcjtcwsb_.arc thread&#x3D;1 sequence&#x3D;9</span><br><span class="line">channel default: deleting archived log(s)</span><br><span class="line">archived log file name&#x3D;&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;fast_recovery_area&#x2F;BOSTON&#x2F;archivelog&#x2F;2019_04_18&#x2F;o1_mf_1_9_gcjtcwsb_.arc RECID&#x3D;381 STAMP&#x3D;1005941501</span><br><span class="line">media recovery complete, elapsed time: 00:00:01</span><br><span class="line">Finished recover at 2019:04:18 20:11:43</span><br><span class="line"></span><br><span class="line">sql statement: alter database datafile 4 online</span><br><span class="line">repair failure complete</span><br><span class="line"></span><br><span class="line">RMAN&gt; exit</span><br><span class="line">Recovery Manager complete.</span><br></pre></td></tr></table></figure>
+
+<h1 id="6、使用flashback闪回数据库"><a href="#6、使用flashback闪回数据库" class="headerlink" title="6、使用flashback闪回数据库"></a>6、使用flashback闪回数据库</h1><h2 id="6-1、开启flashback闪回数据库，需要满足一下条件："><a href="#6-1、开启flashback闪回数据库，需要满足一下条件：" class="headerlink" title="6.1、开启flashback闪回数据库，需要满足一下条件："></a>6.1、开启flashback闪回数据库，需要满足一下条件：</h2><h3 id="6-1-1、10g以上的库"><a href="#6-1-1、10g以上的库" class="headerlink" title="6.1.1、10g以上的库"></a>6.1.1、10g以上的库</h3><h3 id="6-1-2、数据库在归档模式"><a href="#6-1-2、数据库在归档模式" class="headerlink" title="6.1.2、数据库在归档模式"></a>6.1.2、数据库在归档模式</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">03:08:25 SYS@ boston&gt; archive log list;</span><br><span class="line">Database log mode              Archive Mode</span><br><span class="line">Automatic archival             Enabled</span><br><span class="line">Archive destination            USE_DB_RECOVERY_FILE_DEST</span><br><span class="line">Oldest online log sequence     1</span><br><span class="line">Next log sequence to archive   1</span><br><span class="line">Current log sequence           1</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-1-3、fast-recovery-area配置"><a href="#6-1-3、fast-recovery-area配置" class="headerlink" title="6.1.3、fast recovery area配置"></a>6.1.3、fast recovery area配置</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">03:09:58 SYS@ boston&gt; show parameter recover</span><br><span class="line"></span><br><span class="line">NAME                                 TYPE        VALUE</span><br><span class="line"><span class="comment">------------------------------------ ----------- ------------------------------</span></span><br><span class="line">db_recovery_file_dest                string      /data/u01/app/oracle/fast_reco</span><br><span class="line">                                                 very_area</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-1-4、数据库下的所有表空间闪回功能必须都开启，有一个没有开启闪回，无没有办法闪回数据库"><a href="#6-1-4、数据库下的所有表空间闪回功能必须都开启，有一个没有开启闪回，无没有办法闪回数据库" class="headerlink" title="6.1.4、数据库下的所有表空间闪回功能必须都开启，有一个没有开启闪回，无没有办法闪回数据库"></a>6.1.4、数据库下的所有表空间闪回功能必须都开启，有一个没有开启闪回，无没有办法闪回数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">03:10:58 SYS@ boston&gt;  select name,flashback_on from v$tablespace;</span><br><span class="line">NAME                           FLA</span><br><span class="line"><span class="comment">------------------------------ ---</span></span><br><span class="line">SYSTEM                         YES</span><br><span class="line">SYSAUX                         YES</span><br><span class="line">UNDOTBS1                       YES</span><br><span class="line">USERS                          YES</span><br><span class="line">TEMP                           YES</span><br><span class="line">TEST                           YES</span><br><span class="line">TEST11                         YES</span><br><span class="line">ZEVEN                          YES</span><br><span class="line">8 rows selected.</span><br><span class="line">如果某个表空间没有开启闪回，使用以下命令开启：</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">tablespace</span> <span class="keyword">users</span> <span class="keyword">flashback</span> <span class="keyword">on</span>;（注意与<span class="keyword">alter</span> <span class="keyword">database</span> <span class="keyword">flashback</span> <span class="keyword">on</span>的先后顺序，如果是<span class="keyword">tablespace</span>的闪回开启在<span class="keyword">database</span>的闪回之后，需要先关系<span class="keyword">database</span>闪回<span class="keyword">alter</span> <span class="keyword">database</span> <span class="keyword">flashback</span> <span class="keyword">off</span>;在开启database 闪回<span class="keyword">alter</span> <span class="keyword">database</span> <span class="keyword">flashback</span> <span class="keyword">on</span>; 否则闪回的时候会报错：</span><br><span class="line">ORA-38753: Cannot flashback data file 4; no flashback log data.</span><br><span class="line">ORA-01110: data file 4: '/data/u01/app/oracle/oradata/boston/users01.dbf'</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-1-5、数据库开启闪回（alter-database-…-flashback-on-查看是否开启v-database-flashback-on"><a href="#6-1-5、数据库开启闪回（alter-database-…-flashback-on-查看是否开启v-database-flashback-on" class="headerlink" title="6.1.5、数据库开启闪回（alter database … flashback on),查看是否开启v$database.flashback_on"></a>6.1.5、数据库开启闪回（alter database … flashback on),查看是否开启v$database.flashback_on</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">03:11:39 SYS@ boston&gt; select flashback_on from v$database;</span><br><span class="line">FLASHBACK_ON</span><br><span class="line"><span class="comment">------------------</span></span><br><span class="line">NO</span><br><span class="line">Elapsed: 00:00:00.00</span><br><span class="line">03:12:01 SYS@ boston&gt; alter database flashback on;</span><br><span class="line">Database altered.</span><br><span class="line">Elapsed: 00:00:02.06</span><br><span class="line">03:12:08 SYS@ boston&gt; select flashback_on from v$database;</span><br><span class="line">FLASHBACK_ON</span><br><span class="line"><span class="comment">------------------</span></span><br><span class="line">YES</span><br><span class="line">Elapsed: 00:00:00.00</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-1-6、flashback-database不能用于恢复已经被修复的控制文件的前一个时间点，一旦一个数据库的控制文件被修复或者重新建立，那么存在的flashback-log就作废了"><a href="#6-1-6、flashback-database不能用于恢复已经被修复的控制文件的前一个时间点，一旦一个数据库的控制文件被修复或者重新建立，那么存在的flashback-log就作废了" class="headerlink" title="6.1.6、flashback database不能用于恢复已经被修复的控制文件的前一个时间点，一旦一个数据库的控制文件被修复或者重新建立，那么存在的flashback log就作废了"></a>6.1.6、flashback database不能用于恢复已经被修复的控制文件的前一个时间点，一旦一个数据库的控制文件被修复或者重新建立，那么存在的flashback log就作废了</h3><h2 id="6-2、闪回数据库"><a href="#6-2、闪回数据库" class="headerlink" title="6.2、闪回数据库"></a>6.2、闪回数据库</h2><h3 id="6-2-1、确保数据库处于mount状态"><a href="#6-2-1、确保数据库处于mount状态" class="headerlink" title="6.2.1、确保数据库处于mount状态"></a>6.2.1、确保数据库处于mount状态</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SHUTDOWN IMMEDIATE;</span><br><span class="line">STARTUP MOUNT;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-2-2、闪回数据库"><a href="#6-2-2、闪回数据库" class="headerlink" title="6.2.2、闪回数据库"></a>6.2.2、闪回数据库</h3><h4 id="6-2-2-1、还原到某个scn号"><a href="#6-2-2-1、还原到某个scn号" class="headerlink" title="6.2.2.1、还原到某个scn号"></a>6.2.2.1、还原到某个scn号</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FLASHBACK DATABASE TO SCN 103290531;</span><br><span class="line"></span><br><span class="line">根据时间点查看scn</span><br><span class="line">22:43:08 SYS@ boston&gt; select timestamp_to_scn('18-Apr-19 10:41:41.000000000 PM') from dual;</span><br><span class="line">TIMESTAMP_TO_SCN('18-APR-1910:41:41.000000000PM')</span><br><span class="line"><span class="comment">-------------------------------------------------</span></span><br><span class="line">                                        103290531</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-2-2-2、还原到某个还原点"><a href="#6-2-2-2、还原到某个还原点" class="headerlink" title="6.2.2.2、还原到某个还原点"></a>6.2.2.2、还原到某个还原点</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">FLASHBACK DATABASE  TO <span class="keyword">RESTORE</span> POINT good_data;</span><br><span class="line"></span><br><span class="line">创建还原点：</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">RESTORE</span> POINT good_data;</span><br><span class="line">查看还原点：</span><br><span class="line">22:47:04 SYS@ boston&gt; select * from v$restore_point;</span><br><span class="line">SCN DATABASE_INCARNATION<span class="comment"># GUA STORAGE_SIZE TIME                                                                        RESTORE_POINT_TIME           PRE NAME</span></span><br><span class="line"><span class="comment">---------- --------------------- --- ------------ ----------------------------------------------</span></span><br><span class="line"> 103328091                    19 NO             0 19-APR-19 10.47.04.000000000 PM                                                                          NO  GOOD_DATA</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-2-2-3-还原到某个时间点"><a href="#6-2-2-3-还原到某个时间点" class="headerlink" title="6.2.2.3 还原到某个时间点"></a>6.2.2.3 还原到某个时间点</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FLASHBACK DATABASE  TO TIMESTAMP TO_DATE('18-Apr-19 10:41:41','DD-MON-YYYY HH24:MI:SS');</span><br><span class="line"></span><br><span class="line">根据scn转换为对应的时间戳</span><br><span class="line">SYS@ boston&gt;  select to_char(scn_to_timestamp('103290531'))from dual;</span><br><span class="line">TO_CHAR(SCN_TO_TIMESTAMP('10329053</span><br><span class="line"><span class="comment">----------------------------------</span></span><br><span class="line">18-APR-19 10.41.39.000000000 PM</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-2-3、打开数据库查看数据内容是否是自己想要还原到的点"><a href="#6-2-3、打开数据库查看数据内容是否是自己想要还原到的点" class="headerlink" title="6.2.3、打开数据库查看数据内容是否是自己想要还原到的点"></a>6.2.3、打开数据库查看数据内容是否是自己想要还原到的点</h3><p><code>ALTER DATABASE OPEN READ ONLY;</code></p>
+<h3 id="6-2-4、如果查询结果是自己想要的，那么关闭数据库并重新打开"><a href="#6-2-4、如果查询结果是自己想要的，那么关闭数据库并重新打开" class="headerlink" title="6.2.4、如果查询结果是自己想要的，那么关闭数据库并重新打开"></a>6.2.4、如果查询结果是自己想要的，那么关闭数据库并重新打开</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SHUTDOWN IMMEDIATE;</span><br><span class="line">STARTUP MOUNT;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> <span class="keyword">OPEN</span> <span class="keyword">RESETLOGS</span>;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/04/17/rman retore and recover/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/04/15/rman_backup/"><span>[Oracle] 使用rman进行备份（全量、增量）</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/04/15/rman_backup/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-04-15T10:57:00.000Z">
+          2019-04-15
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="0、修改rman默认配置参数"><a href="#0、修改rman默认配置参数" class="headerlink" title="0、修改rman默认配置参数"></a>0、修改rman默认配置参数</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CONFIGURE RETENTION POLICY TO REDUNDANCY 3; # 冗余三份</span><br><span class="line">CONFIGURE BACKUP OPTIMIZATION ON; #开启备份自动优化</span><br><span class="line">CONFIGURE ARCHIVELOG DELETION POLICY TO BACKED UP 2 TIMES TO DISK; #归档日志删除策略，备份过两次可以删除</span><br><span class="line">CONFIGURE CONTROLFILE AUTOBACKUP ON; #控制文件自动备份</span><br></pre></td></tr></table></figure>
+
+<h1 id="1、数据库备份完之后，不删除归档，不删除多余备份"><a href="#1、数据库备份完之后，不删除归档，不删除多余备份" class="headerlink" title="1、数据库备份完之后，不删除归档，不删除多余备份"></a>1、数据库备份完之后，不删除归档，不删除多余备份</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## sh rman_backup.sh ORACLE_SID(实例名)</span></span></span><br><span class="line">export ORACLE_BASE=$&#123;ORACLE_BASE&#125;</span><br><span class="line">export ORACLE_HOME=$&#123;ORACLE_HOME&#125;</span><br><span class="line">export ORACLE_SID=$1</span><br><span class="line">export PATH=$ORACLE_HOME/bin:$ORACLE_HOME/OPatch:$PATH</span><br><span class="line">backuptime=`date +"%Y%m%d-%H%M%S"`</span><br><span class="line">backuppath=/tmp/backuporacle</span><br><span class="line">if [ ! -d $&#123;backuppath&#125; ];then</span><br><span class="line">   sudo mkdir -p $&#123;backuppath&#125;</span><br><span class="line">else</span><br><span class="line">   :</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">ORACLE_HOME/bin/rman target / <span class="built_in">log</span>=<span class="variable">$&#123;backuppath&#125;</span>/full_backup_<span class="variable">$&#123;backuptime&#125;</span>.<span class="built_in">log</span> &lt;&lt;EOF</span></span><br><span class="line">run&#123;</span><br><span class="line">allocate channel c1 device type disk;</span><br><span class="line">allocate channel c2 device type disk;</span><br><span class="line">allocate channel c3 device type disk;</span><br><span class="line">allocate channel c4 device type disk;</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup as compressed backupset full database format '/tmp/backuporacle/db_%d_%T_%U';</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup archivelog all format '/tmp/backuporacle/arch_%d_%T_%s_%p.bak';</span><br><span class="line">backup current controlfile format '/tmp/backuporacle/ctl_%d_%T_%s_%p.bak';</span><br><span class="line">release channel c1;</span><br><span class="line">release channel c2;</span><br><span class="line">release channel c3;</span><br><span class="line">release channel c4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、数据库备份完之后，直接删除归档（备份达到两次的归档不会再被备份，删除归档时会被删除"><a href="#2、数据库备份完之后，直接删除归档（备份达到两次的归档不会再被备份，删除归档时会被删除" class="headerlink" title="2、数据库备份完之后，直接删除归档（备份达到两次的归档不会再被备份，删除归档时会被删除"></a>2、数据库备份完之后，直接删除归档（备份达到两次的归档不会再被备份，删除归档时会被删除</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## sh rman_backup.sh ORACLE_SID(实例名)</span></span></span><br><span class="line">export ORACLE_BASE=$&#123;ORACLE_BASE&#125;</span><br><span class="line">export ORACLE_HOME=$&#123;ORACLE_HOME&#125;</span><br><span class="line">export ORACLE_SID=$1</span><br><span class="line">export PATH=$ORACLE_HOME/bin:$ORACLE_HOME/OPatch:$PATH</span><br><span class="line">backuptime=`date +"%Y%m%d-%H%M%S"`</span><br><span class="line">backuppath=/tmp/backuporacle</span><br><span class="line">if [ ! -d $&#123;backuppath&#125; ];then</span><br><span class="line">   sudo mkdir -p $&#123;backuppath&#125;</span><br><span class="line">else</span><br><span class="line">   :</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">ORACLE_HOME/bin/rman target / <span class="built_in">log</span>=<span class="variable">$&#123;backuppath&#125;</span>/full_backup_<span class="variable">$&#123;backuptime&#125;</span>.<span class="built_in">log</span> &lt;&lt;EOF</span></span><br><span class="line">run&#123;</span><br><span class="line">allocate channel c1 device type disk;</span><br><span class="line">allocate channel c2 device type disk;</span><br><span class="line">allocate channel c3 device type disk;</span><br><span class="line">allocate channel c4 device type disk;</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup as compressed backupset full database format '/tmp/backuporacle/db_%d_%T_%U';</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup archivelog all format '/tmp/backuporacle/arch_%d_%T_%s_%p.bak' delete all input;</span><br><span class="line">backup current controlfile format '/tmp/backuporacle/ctl_%d_%T_%s_%p.bak';</span><br><span class="line">release channel c1;</span><br><span class="line">release channel c2;</span><br><span class="line">release channel c3;</span><br><span class="line">release channel c4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、根据冗余策略，删除多余的备份、删除多余的归档"><a href="#3、根据冗余策略，删除多余的备份、删除多余的归档" class="headerlink" title="3、根据冗余策略，删除多余的备份、删除多余的归档"></a>3、根据冗余策略，删除多余的备份、删除多余的归档</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## sh rman_backup.sh ORACLE_SID(实例名)</span></span></span><br><span class="line">export ORACLE_BASE=$&#123;ORACLE_BASE&#125;</span><br><span class="line">export ORACLE_HOME=$&#123;ORACLE_HOME&#125;</span><br><span class="line">export ORACLE_SID=$1</span><br><span class="line">export PATH=$ORACLE_HOME/bin:$ORACLE_HOME/OPatch:$PATH</span><br><span class="line">backuptime=`date +"%Y%m%d-%H%M%S"`</span><br><span class="line">backuppath=/tmp/backuporacle</span><br><span class="line">if [ ! -d $&#123;backuppath&#125; ];then</span><br><span class="line">   sudo mkdir -p $&#123;backuppath&#125;</span><br><span class="line">else</span><br><span class="line">   :</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">ORACLE_HOME/bin/rman target / <span class="built_in">log</span>=<span class="variable">$&#123;backuppath&#125;</span>/full_backup_<span class="variable">$&#123;backuptime&#125;</span>.<span class="built_in">log</span> &lt;&lt;EOF</span></span><br><span class="line">run&#123;</span><br><span class="line">allocate channel c1 device type disk;</span><br><span class="line">allocate channel c2 device type disk;</span><br><span class="line">allocate channel c3 device type disk;</span><br><span class="line">allocate channel c4 device type disk;</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup as compressed backupset full database format '/tmp/backuporacle/db_%d_%T_%U';</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup archivelog all format '/tmp/backuporacle/arch_%d_%T_%s_%p.bak' delete all input;</span><br><span class="line">backup current controlfile format '/tmp/backuporacle/ctl_%d_%T_%s_%p.bak';</span><br><span class="line">delete noprompt obsolete;</span><br><span class="line">release channel c1;</span><br><span class="line">release channel c2;</span><br><span class="line">release channel c3;</span><br><span class="line">release channel c4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h1 id="4、增量备份数据库"><a href="#4、增量备份数据库" class="headerlink" title="4、增量备份数据库"></a>4、增量备份数据库</h1><h2 id="4-1、level-0-增量数据库备份"><a href="#4-1、level-0-增量数据库备份" class="headerlink" title="4.1、level 0 增量数据库备份"></a>4.1、level 0 增量数据库备份</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">### sh rman_backup.sh ORACLE_SID(实例名)</span><br><span class="line">export ORACLE_BASE&#x3D;$&#123;ORACLE_BASE&#125;</span><br><span class="line">export ORACLE_HOME&#x3D;$&#123;ORACLE_HOME&#125;</span><br><span class="line">export ORACLE_SID&#x3D;$1</span><br><span class="line">export PATH&#x3D;$ORACLE_HOME&#x2F;bin:$ORACLE_HOME&#x2F;OPatch:$PATH</span><br><span class="line">backuptime&#x3D;&#96;date +&quot;%Y%m%d-%H%M%S&quot;&#96;</span><br><span class="line">backuppath&#x3D;&#x2F;tmp&#x2F;backuporacle</span><br><span class="line">if [ ! -d $&#123;backuppath&#125; ];then</span><br><span class="line">    sudo mkdir -p $&#123;backuppath&#125;</span><br><span class="line">else</span><br><span class="line">   :</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">$ORACLE_HOME&#x2F;bin&#x2F;rman target &#x2F; log&#x3D;$&#123;backuppath&#125;&#x2F;full_backup_$&#123;backuptime&#125;.log &lt;&lt;EOF</span><br><span class="line">run&#123;</span><br><span class="line">allocate channel c1 device type disk;</span><br><span class="line">allocate channel c2 device type disk;</span><br><span class="line">allocate channel c3 device type disk;</span><br><span class="line">allocate channel c4 device type disk;</span><br><span class="line">sql &#39;alter system archive log current&#39;;</span><br><span class="line">BACKUP INCREMENTAL LEVEL 0 DATABASE FORMAT &#39;&#x2F;tmp&#x2F;backuporacle&#x2F;db_%d_%T_%U&#39;;</span><br><span class="line">sql &#39;alter system archive log current&#39;;</span><br><span class="line">backup archivelog all format &#39;&#x2F;tmp&#x2F;backuporacle&#x2F;arch_%d_%T_%s_%p.bak&#39; delete all input;</span><br><span class="line">backup current controlfile format &#39;&#x2F;tmp&#x2F;backuporacle&#x2F;ctl_%d_%T_%s_%p.bak&#39;;</span><br><span class="line">delete noprompt obsolete;</span><br><span class="line">release channel c1;</span><br><span class="line">release channel c2;</span><br><span class="line">release channel c3;</span><br><span class="line">release channel c4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2、level-1-差异增量备份数据库"><a href="#4-2、level-1-差异增量备份数据库" class="headerlink" title="4.2、level 1 差异增量备份数据库"></a>4.2、level 1 差异增量备份数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">### sh rman_backup.sh ORACLE_SID(实例名)</span><br><span class="line">export ORACLE_BASE&#x3D;$&#123;ORACLE_BASE&#125;</span><br><span class="line">export ORACLE_HOME&#x3D;$&#123;ORACLE_HOME&#125;</span><br><span class="line">export ORACLE_SID&#x3D;$1</span><br><span class="line">export PATH&#x3D;$ORACLE_HOME&#x2F;bin:$ORACLE_HOME&#x2F;OPatch:$PATH</span><br><span class="line">backuptime&#x3D;&#96;date +&quot;%Y%m%d-%H%M%S&quot;&#96;</span><br><span class="line">backuppath&#x3D;&#x2F;tmp&#x2F;backuporacle</span><br><span class="line">if [ ! -d $&#123;backuppath&#125; ];then</span><br><span class="line">   sudo mkdir -p $&#123;backuppath&#125;</span><br><span class="line">else</span><br><span class="line">   :</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">$ORACLE_HOME&#x2F;bin&#x2F;rman target &#x2F; log&#x3D;$&#123;backuppath&#125;&#x2F;full_backup_$&#123;backuptime&#125;.log &lt;&lt;EOF</span><br><span class="line">run&#123;</span><br><span class="line">allocate channel c1 device type disk;</span><br><span class="line">allocate channel c2 device type disk;</span><br><span class="line">allocate channel c3 device type disk;</span><br><span class="line">allocate channel c4 device type disk;</span><br><span class="line">sql &#39;alter system archive log current&#39;;</span><br><span class="line">BACKUP INCREMENTAL LEVEL 1 DATABASE FORMAT &#39;&#x2F;tmp&#x2F;backuporacle&#x2F;db_%d_%T_%U&#39;;</span><br><span class="line">sql &#39;alter system archive log current&#39;;</span><br><span class="line">backup archivelog all format &#39;&#x2F;tmp&#x2F;backuporacle&#x2F;arch_%d_%T_%s_%p.bak&#39; delete all input;</span><br><span class="line">backup current controlfile format &#39;&#x2F;tmp&#x2F;backuporacle&#x2F;ctl_%d_%T_%s_%p.bak&#39;;</span><br><span class="line">delete noprompt obsolete;</span><br><span class="line">release channel c1;</span><br><span class="line">release channel c2;</span><br><span class="line">release channel c3;</span><br><span class="line">release channel c4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-3、level-1-累积增量备份数据库"><a href="#4-3、level-1-累积增量备份数据库" class="headerlink" title="4.3、level 1 累积增量备份数据库"></a>4.3、level 1 累积增量备份数据库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## sh rman_backup.sh ORACLE_SID(实例名)</span></span></span><br><span class="line">export ORACLE_BASE=$&#123;ORACLE_BASE&#125;</span><br><span class="line">export ORACLE_HOME=$&#123;ORACLE_HOME&#125;</span><br><span class="line">export ORACLE_SID=$1</span><br><span class="line">export PATH=$ORACLE_HOME/bin:$ORACLE_HOME/OPatch:$PATH</span><br><span class="line">backuptime=`date +"%Y%m%d-%H%M%S"`</span><br><span class="line">backuppath=/tmp/backuporacle</span><br><span class="line">if [ ! -d $&#123;backuppath&#125; ];then</span><br><span class="line">   sudo mkdir -p $&#123;backuppath&#125;</span><br><span class="line">else</span><br><span class="line">   :</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">ORACLE_HOME/bin/rman target / <span class="built_in">log</span>=<span class="variable">$&#123;backuppath&#125;</span>/full_backup_<span class="variable">$&#123;backuptime&#125;</span>.<span class="built_in">log</span> &lt;&lt;EOF</span></span><br><span class="line">run&#123;</span><br><span class="line">allocate channel c1 device type disk;</span><br><span class="line">allocate channel c2 device type disk;</span><br><span class="line">allocate channel c3 device type disk;</span><br><span class="line">allocate channel c4 device type disk;</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">BACKUP INCREMENTAL LEVEL 1 CUMULATIVE DATABASE FORMAT '/tmp/backuporacle/db_%d_%T_%U';</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup archivelog all format '/tmp/backuporacle/arch_%d_%T_%s_%p.bak' delete all input;</span><br><span class="line">backup current controlfile format '/tmp/backuporacle/ctl_%d_%T_%s_%p.bak';</span><br><span class="line">delete noprompt obsolete;</span><br><span class="line">release channel c1;</span><br><span class="line">release channel c2;</span><br><span class="line">release channel c3;</span><br><span class="line">release channel c4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-4、可以查看增量备份的的数据大小，如果增量备份文件超过了20-，建议使用全量备份"><a href="#4-4、可以查看增量备份的的数据大小，如果增量备份文件超过了20-，建议使用全量备份" class="headerlink" title="4.4、可以查看增量备份的的数据大小，如果增量备份文件超过了20%，建议使用全量备份"></a>4.4、可以查看增量备份的的数据大小，如果增量备份文件超过了20%，建议使用全量备份</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>   <span class="keyword">FILE</span><span class="comment">#, INCREMENTAL_LEVEL, COMPLETION_TIME,</span></span><br><span class="line">         BLOCKS, DATAFILE_BLOCKS</span><br><span class="line"><span class="keyword">FROM</span>     V$BACKUP_DATAFILE</span><br><span class="line"><span class="keyword">WHERE</span>    INCREMENTAL_LEVEL &gt; <span class="number">0</span></span><br><span class="line"><span class="keyword">AND</span>      BLOCKS / DATAFILE_BLOCKS &gt; <span class="number">.2</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> COMPLETION_TIME;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/04/15/rman_backup/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2019/04/12/oracle 开启关闭 Block Change Tracking/"><span>[Oracle] oracle 开启关闭Block Change Tracking</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/04/12/oracle 开启关闭 Block Change Tracking/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-04-12T03:50:00.000Z">
+          2019-04-12
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="0、Block-Change-Tracking功能"><a href="#0、Block-Change-Tracking功能" class="headerlink" title="0、Block Change Tracking功能"></a>0、Block Change Tracking功能</h1><p>默认情况下Block Change Tracking是被禁用的，该功能通过读取小的位图文件来决定哪个块改变了，在增量备份的过程中，开启这个功能可以避免扫面所有的数据文件，加快备份效率。</p>
+<h1 id="1、检查是否开启Block-Change-Tracking"><a href="#1、检查是否开启Block-Change-Tracking" class="headerlink" title="1、检查是否开启Block Change Tracking"></a>1、检查是否开启Block Change Tracking</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">19:38:00 SYS@ boston&gt; COL STATUS   FORMAT A8</span><br><span class="line">19:38:06 SYS@ boston&gt; COL FILENAME FORMAT A60</span><br><span class="line">19:38:08 SYS@ boston&gt; SELECT STATUS, FILENAME FROM   V$BLOCK_CHANGE_TRACKING;</span><br><span class="line"></span><br><span class="line">STATUS   FILENAME</span><br><span class="line"><span class="comment">-------- ------------------------------------------------------------</span></span><br><span class="line">DISABLED</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、开启block-change-tracking"><a href="#2、开启block-change-tracking" class="headerlink" title="2、开启block change tracking"></a>2、开启block change tracking</h1><p>设置 DB_CREATE_FILE_DEST参数<br><code>SHOW PARAMETER DB_CREATE_FILE_DEST</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">19:38:28 SYS@ boston&gt; SHOW PARAMETER DB_CREATE_FILE_DEST</span><br><span class="line">NAME                                 TYPE        VALUE</span><br><span class="line"><span class="comment">------------------------------------ ----------- ------------------------------</span></span><br><span class="line">db_create_file_dest                  string</span><br></pre></td></tr></table></figure>
+
+<p>如果db_create_file_dest参数没有设置，可以使用下面命令设置<br><code>ALTER SYSTEM SET DB_CREATE_FILE_DEST = &#39;/home/oracle/&#39; SCOPE=BOTH SID=&#39;*&#39;;</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">19:40:40 SYS@ boston&gt; ALTER SYSTEM SET DB_CREATE_FILE_DEST = '/home/oracle/' SCOPE=BOTH SID='*';</span><br><span class="line">System altered.</span><br><span class="line"></span><br><span class="line">Elapsed: 00:00:00.12</span><br><span class="line">19:41:48 SYS@ boston&gt; SHOW PARAMETER DB_CREATE_FILE_DEST</span><br><span class="line"></span><br><span class="line">NAME                                 TYPE        VALUE</span><br><span class="line"><span class="comment">------------------------------------ ----------- ------------------------------</span></span><br><span class="line">db_create_file_dest                  string      /home/oracle/</span><br></pre></td></tr></table></figure>
+
+<p>设置完成db_create_file_dest参数之后，开启block change tracking</p>
+<p><code>ALTER DATABASE ENABLE BLOCK CHANGE TRACKING;</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">19:41:51 SYS@ boston&gt; ALTER DATABASE ENABLE BLOCK CHANGE TRACKING;</span><br><span class="line">Database altered.</span><br><span class="line">Elapsed: 00:00:04.49</span><br><span class="line">19:44:18 SYS@ boston&gt; SELECT STATUS, FILENAME FROM   V$BLOCK_CHANGE_TRACKING;</span><br><span class="line">STATUS   FILENAME</span><br><span class="line"><span class="comment">-------- ------------------------------------------------------------</span></span><br><span class="line">ENABLED  /home/oracle/BOSTON/changetracking/o1_mf_gc678fqg_.chg</span><br><span class="line">Elapsed: 00:00:00.00</span><br></pre></td></tr></table></figure>
+
+<p>如果没有指定db_create_file_dest参数，也可以在开启block change tracking参数时指定<br><code>ALTER DATABASE ENABLE BLOCK CHANGE TRACKING USING FILE &#39;/tmp/rman_change_track.f&#39; REUSE;</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">19:46:20 SYS@ boston&gt; ALTER DATABASE DISABLE BLOCK CHANGE TRACKING;</span><br><span class="line">Database altered.</span><br><span class="line">Elapsed: 00:00:01.35</span><br><span class="line">19:46:57 SYS@ boston&gt; ALTER DATABASE ENABLE BLOCK CHANGE TRACKING USING FILE '/tmp/rman_change_track.f' REUSE;</span><br><span class="line">Database altered.</span><br><span class="line">Elapsed: 00:00:05.02</span><br><span class="line">19:47:03 SYS@ boston&gt; SELECT STATUS, FILENAME FROM   V$BLOCK_CHANGE_TRACKING;</span><br><span class="line">STATUS   FILENAME</span><br><span class="line"><span class="comment">-------- ------------------------------------------------------------</span></span><br><span class="line">ENABLED  /tmp/rman_change_track.f</span><br><span class="line">Elapsed: 00:00:00.00</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、禁用Block-Change-Tracking"><a href="#3、禁用Block-Change-Tracking" class="headerlink" title="3、禁用Block Change Tracking"></a>3、禁用Block Change Tracking</h1><p><code>ALTER DATABASE DISABLE BLOCK CHANGE TRACKING;</code></p>
+<h1 id="4、改变Block-Change-Tracking-File位置"><a href="#4、改变Block-Change-Tracking-File位置" class="headerlink" title="4、改变Block Change Tracking File位置"></a>4、改变Block Change Tracking File位置</h1><p>方法1：在不关闭数据库的情况下修改文件位置，可使用下面方法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> <span class="keyword">DISABLE</span> <span class="keyword">BLOCK</span> <span class="keyword">CHANGE</span> <span class="keyword">TRACKING</span>;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> <span class="keyword">ENABLE</span> <span class="keyword">BLOCK</span> <span class="keyword">CHANGE</span> <span class="keyword">TRACKING</span> <span class="keyword">USING</span> <span class="keyword">FILE</span> <span class="string">'/tmp/rman_change_track.f'</span> <span class="keyword">REUSE</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这种方法会丢失已经存在的Block Change Tracking File，要想不丢失Block Change Tracking File需要使用下面方法</p>
+<p>方法2：查看Block Change Tracking File原来的位置：</p>
+<p><code>SELECT FILENAME FROM V$BLOCK_CHANGE_TRACKING;</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">19:52:19 SYS@ boston&gt; SELECT FILENAME FROM V$BLOCK_CHANGE_TRACKING;</span><br><span class="line">FILENAME</span><br><span class="line"><span class="comment">------------------------------------------------------------</span></span><br><span class="line">/tmp/rman_change_track.f</span><br></pre></td></tr></table></figure>
+
+<p>关闭数据库<br><code>SHUTDOWN IMMEDIATE</code><br>操作系统下拷贝物理文件到新的目标路径<br><code>mv /tmp/rman_change_track.f /home/oracle/new_rman_change_track.f</code><br>启动数据库到mount<br><code>startup mount</code><br>修改Block Change Tracking File<br><code>ALTER DATABASE RENAME FILE &#39;/tmp/rman_change_track.f&#39; TO &#39;/home/oracle/new_rman_change_track.f&#39;;</code><br>打开数据库<br><code>ALTER DATABASE OPEN;</code><br>查看Block Change Tracking File的文件路径</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">20:03:18 SYS@ boston&gt; SELECT FILENAME FROM V$BLOCK_CHANGE_TRACKING;</span><br><span class="line">FILENAME</span><br><span class="line"><span class="comment">----------------------------------------------------------------------------------------------------------------------------------</span></span><br><span class="line">/home/oracle/new_rman_change_track.f</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/04/12/oracle 开启关闭 Block Change Tracking/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+
+<nav class="pagination">
+  
+  <a href="/page/4/" class="pagination-prev">上一页</a>
+  
+  
+  <a href="/page/6/" class="pagination-next">下一页</a>
+  
+</nav>
+            </main>
+            <div class="sidebar
+                    col-lg-3 col-lg-offset-0
+                    col-md-3 col-md-offset-0
+                    col-sm-12
+                    col-xs-12
+                    sidebar-container
+                ">
+
+                <div class="sidebar-container">
+
+
+
+<div class="search-container">
+<form class="site-search-form">
+    <span class="glyphicon glyphicon-search"></span><input type="text" id="local-search-input" class="st-search-input" placeholder="Search..." />
+</form>
+<div id="local-search-result" class="local-search-result-cls"></div>
+</div>
+<script type="text/javascript" id="local.search.active">
+var inputArea       = document.querySelector("#local-search-input");
+inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script>
+
+
+
+
+    <div class="categories-container" style="margin-top:40px;">
+        <p>归档:</p>
+            
+    </div>
+
+
+
+
+    <div class="social-container" style="margin-top:40px;">
+        <p>Links:</p>
+            
+                
+                    <li class="social-item"><i class="fa fa-fw fa-github"></i><a href="https://github.com/zeven0707">GitHub</a></li>
+                
+            
+    </div>
+
+</div>
+            </div>
+          </div>
+        </div>
+        
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

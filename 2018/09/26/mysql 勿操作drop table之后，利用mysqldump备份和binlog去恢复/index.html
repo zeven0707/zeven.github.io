@@ -1,0 +1,356 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>[Mysql] mysql勿操作drop table之后，利用mysqldump备份和binlog恢复 | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+  <meta name="description" content="1、查看备份表数据：
+12345678root@db 07:30:  [test1]&amp;gt; select * from test;+----+| ID |+----+|  1 ||  2 ||  3 |+----+
+2、查看当前binlog位置
+12345678910show master sta">
+  
+
+  
+  
+  <meta name="keywords" content="mysql">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="[Mysql] mysql勿操作drop table之后，利用mysqldump备份和binlog恢复"/>
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+          <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container" style="position: inherit;">
+            <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><span>[Mysql] mysql勿操作drop table之后，利用mysqldump备份和binlog恢复</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/26/mysql 勿操作drop table之后，利用mysqldump备份和binlog去恢复/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-26T14:35:24.000Z">
+          2018-09-26
+        </time>
+      </a>
+    </span>
+    <br />
+    
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <p>1、查看备份表数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:30:  [test1]&gt; select * from test;</span><br><span class="line">+----+</span><br><span class="line">| ID |</span><br><span class="line">+----+</span><br><span class="line">|  1 |</span><br><span class="line">|  2 |</span><br><span class="line">|  3 |</span><br><span class="line">+----+</span><br></pre></td></tr></table></figure>
+<p>2、查看当前binlog位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">show master status;</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| File                | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set                                                                                                                                                                       |</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| mysql-binlog.000036 |    80147 |              |                  | 8182e5ae-af54-11e8-af0e-000d3a801ae2:1-13253,</span><br><span class="line">c42e3372-ba21-11e8-99ed-000d3a800ed3:1-2,</span><br><span class="line">d240752c-b809-11e8-8947-000d3a800ed3:1,</span><br><span class="line">dd412cc2-ba1f-11e8-9ba2-000d3a801ae2:1-195:1000036-1000040 |</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>3、开始备份test1数据库下的test数据表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p12345678 test1 test --master-data&#x3D;2 --single-transaction &gt; &#x2F;data&#x2F;test.dump</span><br></pre></td></tr></table></figure>
+<p>4、查看备份数据文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"> more &#x2F;data&#x2F;test.dump</span><br><span class="line">-- MySQL dump 10.13  Distrib 5.7.22, for linux-glibc2.12 (x86_64)</span><br><span class="line">--</span><br><span class="line">-- Host: localhost    Database: test1</span><br><span class="line">-- ------------------------------------------------------</span><br><span class="line">-- Server version	5.7.22-log</span><br><span class="line"></span><br><span class="line">&#x2F;*!40101 SET @OLD_CHARACTER_SET_CLIENT&#x3D;@@CHARACTER_SET_CLIENT *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET @OLD_CHARACTER_SET_RESULTS&#x3D;@@CHARACTER_SET_RESULTS *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET @OLD_COLLATION_CONNECTION&#x3D;@@COLLATION_CONNECTION *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET NAMES utf8 *&#x2F;;</span><br><span class="line">&#x2F;*!40103 SET @OLD_TIME_ZONE&#x3D;@@TIME_ZONE *&#x2F;;</span><br><span class="line">&#x2F;*!40103 SET TIME_ZONE&#x3D;&#39;+00:00&#39; *&#x2F;;</span><br><span class="line">&#x2F;*!40014 SET @OLD_UNIQUE_CHECKS&#x3D;@@UNIQUE_CHECKS, UNIQUE_CHECKS&#x3D;0 *&#x2F;;</span><br><span class="line">&#x2F;*!40014 SET @OLD_FOREIGN_KEY_CHECKS&#x3D;@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS&#x3D;0 *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET @OLD_SQL_MODE&#x3D;@@SQL_MODE, SQL_MODE&#x3D;&#39;NO_AUTO_VALUE_ON_ZERO&#39; *&#x2F;;</span><br><span class="line">&#x2F;*!40111 SET @OLD_SQL_NOTES&#x3D;@@SQL_NOTES, SQL_NOTES&#x3D;0 *&#x2F;;</span><br><span class="line">SET @MYSQLDUMP_TEMP_LOG_BIN &#x3D; @@SESSION.SQL_LOG_BIN;</span><br><span class="line">SET @@SESSION.SQL_LOG_BIN&#x3D; 0;</span><br><span class="line"></span><br><span class="line">--</span><br><span class="line">-- GTID state at the beginning of the backup </span><br><span class="line">--</span><br><span class="line"></span><br><span class="line">SET @@GLOBAL.GTID_PURGED&#x3D;&#39;8182e5ae-af54-11e8-af0e-000d3a801ae2:1-13253,</span><br><span class="line">c42e3372-ba21-11e8-99ed-000d3a800ed3:1-2,</span><br><span class="line">d240752c-b809-11e8-8947-000d3a800ed3:1,</span><br><span class="line">dd412cc2-ba1f-11e8-9ba2-000d3a801ae2:1-195:1000036-1000040&#39;;</span><br><span class="line"></span><br><span class="line">--</span><br><span class="line">-- Position to start replication or point-in-time recovery from</span><br><span class="line">--</span><br><span class="line"></span><br><span class="line">-- CHANGE MASTER TO MASTER_LOG_FILE&#x3D;&#39;mysql-binlog.000036&#39;, MASTER_LOG_POS&#x3D;80147;</span><br><span class="line"></span><br><span class="line">--</span><br><span class="line">-- Table structure for table &#96;test&#96;</span><br><span class="line">--</span><br><span class="line"></span><br><span class="line">DROP TABLE IF EXISTS &#96;test&#96;;</span><br><span class="line">&#x2F;*!40101 SET @saved_cs_client     &#x3D; @@character_set_client *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET character_set_client &#x3D; utf8 *&#x2F;;</span><br><span class="line">CREATE TABLE &#96;test&#96; (</span><br><span class="line">  &#96;ID&#96; int(11) NOT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;ID&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4;</span><br><span class="line">&#x2F;*!40101 SET character_set_client &#x3D; @saved_cs_client *&#x2F;;</span><br><span class="line"></span><br><span class="line">--</span><br><span class="line">-- Dumping data for table &#96;test&#96;</span><br><span class="line">--</span><br><span class="line"></span><br><span class="line">LOCK TABLES &#96;test&#96; WRITE;</span><br><span class="line">&#x2F;*!40000 ALTER TABLE &#96;test&#96; DISABLE KEYS *&#x2F;;</span><br><span class="line">INSERT INTO &#96;test&#96; VALUES (1),(2),(3);</span><br><span class="line">&#x2F;*!40000 ALTER TABLE &#96;test&#96; ENABLE KEYS *&#x2F;;</span><br><span class="line">UNLOCK TABLES;</span><br><span class="line">SET @@SESSION.SQL_LOG_BIN &#x3D; @MYSQLDUMP_TEMP_LOG_BIN;</span><br><span class="line">&#x2F;*!40103 SET TIME_ZONE&#x3D;@OLD_TIME_ZONE *&#x2F;;</span><br><span class="line"></span><br><span class="line">&#x2F;*!40101 SET SQL_MODE&#x3D;@OLD_SQL_MODE *&#x2F;;</span><br><span class="line">&#x2F;*!40014 SET FOREIGN_KEY_CHECKS&#x3D;@OLD_FOREIGN_KEY_CHECKS *&#x2F;;</span><br><span class="line">&#x2F;*!40014 SET UNIQUE_CHECKS&#x3D;@OLD_UNIQUE_CHECKS *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET CHARACTER_SET_CLIENT&#x3D;@OLD_CHARACTER_SET_CLIENT *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET CHARACTER_SET_RESULTS&#x3D;@OLD_CHARACTER_SET_RESULTS *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET COLLATION_CONNECTION&#x3D;@OLD_COLLATION_CONNECTION *&#x2F;;</span><br><span class="line">&#x2F;*!40111 SET SQL_NOTES&#x3D;@OLD_SQL_NOTES *&#x2F;;</span><br><span class="line"></span><br><span class="line">-- Dump completed on 2018-09-25  7:32:05</span><br></pre></td></tr></table></figure>
+
+<p>5、备份完成之后插入新的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:34:  [test1]&gt; insert into test values(4);</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br></pre></td></tr></table></figure>
+<p>6、刷新binlog文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:44:  [test1]&gt; flush binary logs;</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br></pre></td></tr></table></figure>
+<p>7、查看binlog文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:44:  [test1]&gt; show master status;</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| File                | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set                                                                                                                                                                          |</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| mysql-binlog.000037 |      326 |              |                  | 8182e5ae-af54-11e8-af0e-000d3a801ae2:1-13253,</span><br><span class="line">c42e3372-ba21-11e8-99ed-000d3a800ed3:1-2,</span><br><span class="line">d240752c-b809-11e8-8947-000d3a800ed3:1,</span><br><span class="line">dd412cc2-ba1f-11e8-9ba2-000d3a801ae2:1-196:1000036-1000040 |</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>8、在新的binlog文件里面再次插入一条数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:44:  [test1]&gt; insert into test values(5);</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br></pre></td></tr></table></figure>
+<p>9、查看当前测试的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:45:  [test1]&gt; select * from test;</span><br><span class="line">+----+</span><br><span class="line">| ID |</span><br><span class="line">+----+</span><br><span class="line">|  1 |</span><br><span class="line">|  2 |</span><br><span class="line">|  3 |</span><br><span class="line">|  4 |</span><br><span class="line">|  5 |</span><br><span class="line">+----+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>10、再次刷新binlog文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:45:  [test1]&gt; flush binary logs;</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br><span class="line"></span><br><span class="line">root@db 07:49:  [test1]&gt; show master status;</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| File                | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set                                                                                                                                                                          |</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| mysql-binlog.000038 |      326 |              |                  | 8182e5ae-af54-11e8-af0e-000d3a801ae2:1-13253,</span><br><span class="line">c42e3372-ba21-11e8-99ed-000d3a800ed3:1-2,</span><br><span class="line">d240752c-b809-11e8-8947-000d3a800ed3:1,</span><br><span class="line">dd412cc2-ba1f-11e8-9ba2-000d3a801ae2:1-197:1000036-1000040 |</span><br><span class="line">+---------------------+----------+--------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>11、删除测试表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:49:  [test1]&gt; drop table test;</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br></pre></td></tr></table></figure>
+<p>12、根据备份文件获取测试表test的创建语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -e&#39;&#x2F;.&#x2F;&#123;H;$!d;&#125;&#39; -e &#39;x;&#x2F;CREATE TABLE &#96;test&#96;&#x2F;!d;q&#39; &#x2F;data&#x2F;test.dump</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE IF EXISTS &#96;test&#96;;</span><br><span class="line">&#x2F;*!40101 SET @saved_cs_client     &#x3D; @@character_set_client *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET character_set_client &#x3D; utf8 *&#x2F;;</span><br><span class="line">CREATE TABLE &#96;test&#96; (</span><br><span class="line">  &#96;ID&#96; int(11) NOT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;ID&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4;</span><br><span class="line">&#x2F;*!40101 SET character_set_client &#x3D; @saved_cs_client *&#x2F;;</span><br></pre></td></tr></table></figure>
+<p>13、获取测试表test的数据，并指定到数据文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &#39;INSERT INTO &#96;test&#96;&#39; &#x2F;data&#x2F;test.dump &gt; insert.sql</span><br></pre></td></tr></table></figure>
+<p>cat insert.sql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO &#96;test&#96; VALUES (1),(2),(3);</span><br></pre></td></tr></table></figure>
+
+<p>14、根据test.dump备份文件记录的log-file文件位置和log-pos参数，去获取未备份的关于test表的增删改数据：<br>从mysql-binlog.000036文件开始，–start-position=80147：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog  -v --base64-output&#x3D;decode-rows --set-charset&#x3D;UTF-8 --database&#x3D;test1 --start-position&#x3D;80147  mysql-binlog.000036  &gt; restore.sql</span><br></pre></td></tr></table></figure>
+<p>15、获取test表被删除是的pos，文件为mysql-binlog.000038，位置为507：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog -v --base64-output&#x3D;DECODE-ROWS --set-charset&#x3D;UTF-8  &#x2F;data&#x2F;mysql&#x2F;log&#x2F;mysql-binlog.000038 |grep DROP  -A15 -B15</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># at 326</span><br><span class="line">#180925  7:49:39 server id 3306101  end_log_pos 387 	GTID	last_committed&#x3D;0	sequence_number&#x3D;1	rbr_only&#x3D;no</span><br><span class="line">SET @@SESSION.GTID_NEXT&#x3D; &#39;dd412cc2-ba1f-11e8-9ba2-000d3a801ae2:198&#39;&#x2F;*!*&#x2F;;</span><br><span class="line"># at 387</span><br><span class="line">#180925  7:49:39 server id 3306101  end_log_pos 507 	Query	thread_id&#x3D;267	exec_time&#x3D;0	error_code&#x3D;0</span><br><span class="line">use &#96;test1&#96;&#x2F;*!*&#x2F;;</span><br><span class="line">SET TIMESTAMP&#x3D;1537861779&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.pseudo_thread_id&#x3D;267&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.foreign_key_checks&#x3D;1, @@session.sql_auto_is_null&#x3D;0, @@session.unique_checks&#x3D;1, @@session.autocommit&#x3D;1&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.sql_mode&#x3D;0&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.auto_increment_increment&#x3D;1, @@session.auto_increment_offset&#x3D;29301&#x2F;*!*&#x2F;;</span><br><span class="line">&#x2F;*!\C utf8 *&#x2F;&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.character_set_client&#x3D;33,@@session.collation_connection&#x3D;33,@@session.collation_server&#x3D;45&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.lc_time_names&#x3D;0&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@session.collation_database&#x3D;DEFAULT&#x2F;*!*&#x2F;;</span><br><span class="line">DROP TABLE &#96;test&#96; &#x2F;* generated by server *&#x2F;</span><br><span class="line">&#x2F;*!*&#x2F;;</span><br><span class="line">SET @@SESSION.GTID_NEXT&#x3D; &#39;AUTOMATIC&#39; &#x2F;* added by mysqlbinlog *&#x2F; &#x2F;*!*&#x2F;;</span><br><span class="line">DELIMITER ;</span><br><span class="line"># End of log file</span><br><span class="line">&#x2F;*!50003 SET COMPLETION_TYPE&#x3D;@OLD_COMPLETION_TYPE*&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET CHARACTER_SET_CLIENT&#x3D;@OLD_CHARACTER_SET_CLIENT *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET CHARACTER_SET_RESULTS&#x3D;@OLD_CHARACTER_SET_RESULTS *&#x2F;;</span><br><span class="line">&#x2F;*!40101 SET COLLATION_CONNECTION&#x3D;@OLD_COLLATION_CONNECTION *&#x2F;;</span><br><span class="line">&#x2F;*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE&#x3D;0*&#x2F;;</span><br></pre></td></tr></table></figure>
+
+<p>16、在备份开始binlog文件和记录drop操作的binlog文件之间还存在一个mysql-binlog.000037文件，需要将该文件内记录的信息都导出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog -v --base64-output&#x3D;DECODE-ROWS --set-charset&#x3D;UTF-8 mysql-binlog.000037 &gt;&gt; restore.sql</span><br></pre></td></tr></table></figure>
+<p>17：将记录drop操作的binlog文件里面drop之前的信息导出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog -v --base64-output&#x3D;DECODE-ROWS --set-charset&#x3D;UTF-8 --stop-position&#x3D;507 mysql-binlog.000038 &gt;&gt; restore.sql</span><br></pre></td></tr></table></figure>
+<p>18:对导出的文件进行筛选，过滤出test表的相关信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more restore.sql |grep  --ignore-case -E &#39;insert|update|delete&#39; -A3|grep &#39;&#96;test1&#96;.&#96;test&#96;&#39; -A2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">### INSERT INTO &#96;test1&#96;.&#96;test&#96;</span><br><span class="line">### SET</span><br><span class="line">###   @1&#x3D;4</span><br><span class="line">--</span><br><span class="line">### INSERT INTO &#96;test1&#96;.&#96;test&#96;</span><br><span class="line">### SET</span><br><span class="line">###   @1&#x3D;5</span><br></pre></td></tr></table></figure>
+<p>将过滤出来的内容进行编辑，@1为第一列的列名，建议使用sublime或者vim进行批量编辑 ：<br>cat test_insert.sql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO &#96;test1&#96;.&#96;test&#96; SET   id&#x3D;4  ;</span><br><span class="line">INSERT INTO &#96;test1&#96;.&#96;test&#96; SET   id&#x3D;5  ;</span><br></pre></td></tr></table></figure>
+<p>19、执行create table语句，并引用insert.sql和test_insert.sql文件，至此drop掉的test表被恢复。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    
+  
+</article>
+   
+    <div id="toc" class="toc-article ">
+    <div class="toc-title">目录</div>
+    
+</div>
+
+
+  
+
+	<!-- async load  -->
+	<script>
+			function async(u, c) {
+				var d = document, t = 'script',
+						o = d.createElement(t),
+						s = d.getElementsByTagName(t)[0];
+				o.src = u;
+				if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+				s.parentNode.insertBefore(o, s);
+			}
+	</script>
+	<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+	<script>
+			async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+					anchors.options = {
+						visible: 'hover',
+						placement: 'left',
+						// icon: '#'
+					};
+					anchors.add().remove('.article-title').remove('.subheading').remove('.sidebar-container h5');
+			})
+	</script>
+	<style>
+			/* place left on bigger screen */
+			@media all and (min-width: 800px) {
+					.anchorjs-link{
+							position: absolute;
+							left: -0.75em;
+							font-size: 1.1em;
+							margin-top : -0.1em;
+					}
+			}
+	</style>
+
+
+
+
+<!-- UY BEGIN -->
+	<div id="gitment-container"></div>
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script src="/js/web-pinyin.js"></script>
+	<script>
+		function toUnicode(s){ 
+			return s.replace(/([\u4E00-\u9FA5]|[\uFE30-\uFFA0])/g,function(){
+			return "\\u" + RegExp["$1"].charCodeAt(0).toString(16);
+			});
+		}
+		var title = '[Mysql] mysql勿操作drop table之后，利用mysqldump备份和binlog恢复'
+		var GitHub_id = 'zeven0707'
+		var client_id = '2b0cc50fd55624b20d70'
+		var client_secret = '489e4e840e0186f96ad172932b583e2fe68729c8'
+		var repo = 'zeven0707.github.io'
+		var gitment = new Gitment({
+		// id: '页面 ID', // 可选。默认为 location.href
+		// id:"11" ,
+		id: title,
+		title: title,
+		owner: GitHub_id,//'你的 GitHub ID',
+		repo: repo,//'存储评论的 repo',
+		oauth: {
+			client_id: client_id,//'你的 client ID',
+			client_secret: client_secret,//'你的 client secret',
+		},
+		})
+		gitment.render('gitment-container')
+	</script>
+<!-- UY END -->
+
+
+
+
+            </main>
+          </div>
+        </div>
+       
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

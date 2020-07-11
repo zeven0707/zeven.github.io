@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>[Oracle] oracle查询被锁的sql语句并解锁  | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+  <meta name="description" content="实验1：1234session1：20:01:35 SYS@ boston&amp;gt; select * from scott.t1 for update;session2：20:01:13 SCOTT@ boston&amp;gt; update t1 set empno=8000 where empno=7">
+  
+
+  
+  
+  <meta name="keywords" content="oracle">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="[Oracle] oracle查询被锁的sql语句并解锁 "/>
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+          <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container" style="position: inherit;">
+            <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><span>[Oracle] oracle查询被锁的sql语句并解锁 </span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/oracle查询被锁的sql语句并解锁/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T09:25:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="实验1："><a href="#实验1：" class="headerlink" title="实验1："></a>实验1：</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">session1：</span><br><span class="line">20:01:35 SYS@ boston&gt; select * from scott.t1 for update;</span><br><span class="line">session2：</span><br><span class="line">20:01:13 SCOTT@ boston&gt; update t1 set empno=8000 where empno=7566;</span><br></pre></td></tr></table></figure>
+
+<p>session2执行update语句的时候卡主了，需要等待session1把锁释放掉。<br>session3查看当前被锁的会话：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">20:01:16 SYS@ boston&gt; select a.object_name,b.session_id,c.serial#,'alter system kill session '''||b.session_id||','||c.serial#||'''; ' as a,c.program,c.username,c.command,c.machine,c.lockwait from all_objects a,v$locked_object b,v$session c where a.object_id=b.object_id and c.sid=b.session_id;</span><br><span class="line"></span><br><span class="line">OBJECT_NAME       SESSION_ID    SERIAL<span class="comment"># A     PROGRAM      USERNAME COMMAND MACHINE LOCKWAIT</span></span><br><span class="line">T1      208 2941 <span class="keyword">alter</span> <span class="keyword">system</span> <span class="keyword">kill</span> <span class="keyword">session</span> <span class="string">'208,2941'</span>;	     sqlplus@dax-mysql-slave (TNS V1-V3)	      SYS				      0 dax-mysql-slave</span><br><span class="line">T1				      301	 957 <span class="keyword">alter</span> <span class="keyword">system</span> <span class="keyword">kill</span> <span class="keyword">session</span> <span class="string">'301,957'</span>;									     sqlplus@dax-mysql-slave (TNS V1-V3)	      SCOTT				      6 dax-mysql-slave</span><br></pre></td></tr></table></figure>
+<p>查看被锁的对象</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> l.session_id <span class="keyword">sid</span>,s.serial<span class="comment">#,l.locked_mode ,l.oracle_username ,l.os_user_name ,s.machine,s.terminal,o.object_name,s.logon_time,c.sql_text FROM v$locked_object l, all_objects o, v$session s, v$sqlarea c WHERE l.object_id = o.object_id AND l.session_id = s.sid and s.sql_id = c.sql_id ORDER BY sid,s.serial#;</span></span><br><span class="line"><span class="keyword">SID</span>    <span class="built_in">SERIAL</span><span class="comment">#     锁模式 登录用户                       登录机器用户名                 机器名                                                           终端用户名                     被锁对象名                     登录数据库时间   会话正在执行的SQL语句    </span></span><br><span class="line"> <span class="number">301</span>	  <span class="number">957</span>	       <span class="number">3</span> SCOTT				<span class="keyword">oracle</span>		       dax-mysql-<span class="keyword">slave</span>							pts/<span class="number">2</span>	       T1			      <span class="number">2019</span>:<span class="number">02</span>:<span class="number">28</span> <span class="number">19</span>:<span class="number">18</span>:<span class="number">06</span></span><br><span class="line"><span class="keyword">update</span> t1 <span class="keyword">set</span> empno=<span class="number">8000</span> <span class="keyword">where</span> empno=<span class="number">7566</span></span><br></pre></td></tr></table></figure>
+<p>查询结果如上所示，因为session1的查询已经结束，session2的sql还被锁住，只能查询到session2的sql语句，因此我们要杀掉sessoin1的会话，让session2继续正常运行。如果杀掉了sesison2，其他会话再进来执行dml变更操作，会话仍然被卡主。</p>
+<p>实验2：<br>rollback回滚上面的操作，之后继续实验2</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">session2：</span><br><span class="line">20:13:00 SCOTT@ boston&gt; update t1 set empno=8000 where empno=7566;</span><br><span class="line">4097 rows updated.</span><br><span class="line">Elapsed: 00:00:00.09</span><br><span class="line"></span><br><span class="line">session1：</span><br><span class="line">20:14:13 SYS@ boston&gt; select * from scott.t1 for update;</span><br></pre></td></tr></table></figure>
+<p>session1执行select操作被卡主<br>session3查看被锁的语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">20:10:44 SYS@ boston&gt; select a.object_name,b.session_id,c.serial#,'alter system kill session '''||b.session_id||','||c.serial#||'''; ' as a,c.program,c.username,c.command,c.machine,c.lockwait from all_objects a,v$locked_object b,v$session c where a.object_id=b.object_id and c.sid=b.session_id; </span><br><span class="line"></span><br><span class="line">OBJECT_NAME		       SESSION_ID    SERIAL<span class="comment"># A				     PROGRAM					      USERNAME			COMMAND MACHINE 							 LOCKWAIT</span></span><br><span class="line"><span class="comment">------------------------------ ---------- ---------- --------------------------------------------------------------------------------------------------------------- ------------------------------------------------ ------------------------------ ---------- ---------------------------------------------------------------- ----------------</span></span><br><span class="line">T1				      107	6131 <span class="keyword">alter</span> <span class="keyword">system</span> <span class="keyword">kill</span> <span class="keyword">session</span> <span class="string">'107,6131'</span>;									     sqlplus@dax-mysql-slave (TNS V1-V3)	      SYS				      3 dax-mysql-slave 						 00000000BD230AE0</span><br><span class="line">T1				      301	 957 <span class="keyword">alter</span> <span class="keyword">system</span> <span class="keyword">kill</span> <span class="keyword">session</span> <span class="string">'301,957'</span>;									     sqlplus@dax-mysql-slave (TNS V1-V3)	      SCOTT				      0 dax-mysql-slave</span><br><span class="line">Elapsed: 00:00:00.02</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">20:16:01 SYS@ boston&gt; SELECT l.session_id sid,  </span><br><span class="line">       s.serial<span class="comment">#,  </span></span><br><span class="line">       l.locked_mode 锁模式,  </span><br><span class="line">       l.oracle_username 登录用户,  </span><br><span class="line">       l.os_user_name 登录机器用户名,  </span><br><span class="line">       s.machine 机器名,  </span><br><span class="line">       s.terminal 终端用户名,  </span><br><span class="line">       o.object_name 被锁对象名,  </span><br><span class="line">       s.logon_time 登录数据库时间 ,</span><br><span class="line">       c.sql_text  会话正在执行的sql语句</span><br><span class="line">FROM v$locked_object l, all_objects o, v$session s ,v$sqlarea c</span><br><span class="line">WHERE l.object_id = o.object_id  </span><br><span class="line">   AND l.session_id = s.sid  </span><br><span class="line">   and s.sql_id = c.sql_id</span><br><span class="line">ORDER BY sid, s.serial<span class="comment">#;</span></span><br><span class="line">       SID    SERIAL<span class="comment">#     锁模式 登录用户                       登录机器用户名                 机器名                                                           终端用户名                     被锁对象名                     登录数据库时间  会话正在执行的SQL语句</span></span><br><span class="line">       107	 6131	       3 SYS				oracle		       dax-mysql-slave							pts/0	       T1			      2019:02:28 20:14:13 <span class="keyword">select</span> * <span class="keyword">from</span> scott.t1 <span class="keyword">for</span> <span class="keyword">update</span></span><br><span class="line">Elapsed: <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.01</span></span><br></pre></td></tr></table></figure>
+<p>查询结果为session1的select语句被堵塞，处于正在执行的状态，session2的update语句已经执行完成，需要commit才能把锁释放掉。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    
+  
+</article>
+   
+    <div id="toc" class="toc-article ">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#实验1："><span class="toc-number">1.</span> <span class="toc-text">实验1：</span></a></li></ol>
+</div>
+
+
+  
+
+	<!-- async load  -->
+	<script>
+			function async(u, c) {
+				var d = document, t = 'script',
+						o = d.createElement(t),
+						s = d.getElementsByTagName(t)[0];
+				o.src = u;
+				if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+				s.parentNode.insertBefore(o, s);
+			}
+	</script>
+	<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+	<script>
+			async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+					anchors.options = {
+						visible: 'hover',
+						placement: 'left',
+						// icon: '#'
+					};
+					anchors.add().remove('.article-title').remove('.subheading').remove('.sidebar-container h5');
+			})
+	</script>
+	<style>
+			/* place left on bigger screen */
+			@media all and (min-width: 800px) {
+					.anchorjs-link{
+							position: absolute;
+							left: -0.75em;
+							font-size: 1.1em;
+							margin-top : -0.1em;
+					}
+			}
+	</style>
+
+
+
+
+<!-- UY BEGIN -->
+	<div id="gitment-container"></div>
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script src="/js/web-pinyin.js"></script>
+	<script>
+		function toUnicode(s){ 
+			return s.replace(/([\u4E00-\u9FA5]|[\uFE30-\uFFA0])/g,function(){
+			return "\\u" + RegExp["$1"].charCodeAt(0).toString(16);
+			});
+		}
+		var title = '[Oracle] oracle查询被锁的sql语句并解锁 '
+		var GitHub_id = 'zeven0707'
+		var client_id = '2b0cc50fd55624b20d70'
+		var client_secret = '489e4e840e0186f96ad172932b583e2fe68729c8'
+		var repo = 'zeven0707.github.io'
+		var gitment = new Gitment({
+		// id: '页面 ID', // 可选。默认为 location.href
+		// id:"11" ,
+		id: title,
+		title: title,
+		owner: GitHub_id,//'你的 GitHub ID',
+		repo: repo,//'存储评论的 repo',
+		oauth: {
+			client_id: client_id,//'你的 client ID',
+			client_secret: client_secret,//'你的 client secret',
+		},
+		})
+		gitment.render('gitment-container')
+	</script>
+<!-- UY END -->
+
+
+
+
+            </main>
+          </div>
+        </div>
+       
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

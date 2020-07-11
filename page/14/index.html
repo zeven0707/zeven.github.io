@@ -1,0 +1,1135 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>第 14 页 | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+        <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop    col-lg-8 col-lg-offset-1
+                    col-md-8 col-md-offset-1
+                    col-sm-12
+                    col-xs-12">
+            
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/06/mysql binary排序规则与_bin排序规则对比/"><span>[Mysql] mysql-binary排序规则与_bin排序规则对比</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/06/mysql binary排序规则与_bin排序规则对比/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-06T15:39:58.000Z">
+          2018-09-06
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、binary排序规则与-bin排序规则对比"><a href="#1、binary排序规则与-bin排序规则对比" class="headerlink" title="1、binary排序规则与_bin排序规则对比"></a>1、binary排序规则与_bin排序规则对比</h3><p>二进制字符串（像用binary，barbinary，blob存储的数据类型）有一个字符集和以binary命名的排序规则。二进制字符串是序列字节，这些字节的数字值决定了比较和排序的顺序。<br>非二进制字符串（像用char，varchar，text存储的数据类型）有一个字符集和排序规则（名称不是binary）。一个给定的非二进制字符集有几个排序规则，每一种排序规则对集合中的字符串定义一个特定的比较和排序的顺序。这些非二进制字符集的命名规则是在二进制字符集排序规则的名称后面添加_bin后缀。例如二进制排序规则latin1和utf8分别被命名latin1_bin,utf8_bin。</p>
+<h3 id="2、在某些方面，二进制排序规则与-bin排序规则不同。"><a href="#2、在某些方面，二进制排序规则与-bin排序规则不同。" class="headerlink" title="2、在某些方面，二进制排序规则与_bin排序规则不同。"></a>2、在某些方面，二进制排序规则与_bin排序规则不同。</h3><h5 id="2-1、比较和排序单元："><a href="#2-1、比较和排序单元：" class="headerlink" title="2.1、比较和排序单元："></a>2.1、比较和排序单元：</h5><p>二进制字符串是字节序列。对于二进制排序规则，比较和排序是基于数字字节值。<br>非二进制字符串是（可能是多字节）字符的序列。非二进制排序规则定义了比较和排序字符值的顺序。对于_bin排序规则，这个顺序基于数字字符串编码值，类似于二进制字符串顺序（多字节字符串编制值除外）</p>
+<h5 id="2-2、字符转换："><a href="#2-2、字符转换：" class="headerlink" title="2.2、字符转换："></a>2.2、字符转换：</h5><p>一个非二进制字符串有一个字符集，在很多情况下（即使字符串有_bin排序规则）也可以自动转换为另一个字符集。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">当从另一个有不同字符集的列分配列值：</span><br><span class="line">UPDATE t1 SET utf8_bin_column&#x3D;latin1_column;</span><br><span class="line">INSERT INTO t1 (latin1_column) SELECT utf8_bin_column FROM t2;</span><br><span class="line">当使用字符串文字为insert或update分配值时：</span><br><span class="line">SET NAMES latin1;</span><br><span class="line">INSERT INTO t1 (utf8_bin_column) VALUES (&#39;string-in-latin1&#39;);</span><br><span class="line">当从服务端给客户端返回结果：</span><br><span class="line">SET NAMES latin1;</span><br><span class="line">SELECT utf8_bin_column FROM t2;</span><br></pre></td></tr></table></figure>
+<p>对于二进制字符串列，没有转换发生。对于前面的情况，字符串值是按字节复制的。</p>
+<h5 id="2-3、大小写转换："><a href="#2-3、大小写转换：" class="headerlink" title="2.3、大小写转换："></a>2.3、大小写转换：</h5><p>非二进制字符集排序规则提供关于字符字母大小写的信息，因此非二进制字符可以被转换从一个字母到另一个，即使_bin排序规则忽略字母大小写顺序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET NAMES latin1 COLLATE latin1_bin;</span><br><span class="line">mysql&gt; SELECT LOWER(&#39;aA&#39;), UPPER(&#39;zZ&#39;);</span><br><span class="line">+-------------+-------------+</span><br><span class="line">| LOWER(&#39;aA&#39;) | UPPER(&#39;zZ&#39;) |</span><br><span class="line">+-------------+-------------+</span><br><span class="line">| aa          | ZZ          |</span><br><span class="line">+-------------+-------------+</span><br></pre></td></tr></table></figure>
+<p>字母大小写的概念对二进制字符串的字节不适用，执行字母大小写转换，字符串必须转换为非二进制字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET NAMES binary;</span><br><span class="line">mysql&gt; SELECT LOWER(&#39;aA&#39;), LOWER(CONVERT(&#39;aA&#39; USING latin1));</span><br><span class="line">+-------------+-----------------------------------+</span><br><span class="line">| LOWER(&#39;aA&#39;) | LOWER(CONVERT(&#39;aA&#39; USING latin1)) |</span><br><span class="line">+-------------+-----------------------------------+</span><br><span class="line">| aA          | aa                                |</span><br><span class="line">+-------------+-----------------------------------+</span><br></pre></td></tr></table></figure>
+<h5 id="2-4、比较过程的尾随空间处理：非二进制字符串为所有的排序规则进行填充空间，包括-bin排序规则，尾随空间在比较过程是无关紧要的："><a href="#2-4、比较过程的尾随空间处理：非二进制字符串为所有的排序规则进行填充空间，包括-bin排序规则，尾随空间在比较过程是无关紧要的：" class="headerlink" title="2.4、比较过程的尾随空间处理：非二进制字符串为所有的排序规则进行填充空间，包括_bin排序规则，尾随空间在比较过程是无关紧要的："></a>2.4、比较过程的尾随空间处理：非二进制字符串为所有的排序规则进行填充空间，包括_bin排序规则，尾随空间在比较过程是无关紧要的：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET NAMES utf8 COLLATE utf8_bin;</span><br><span class="line">mysql&gt; SELECT &#39;a &#39; &#x3D; &#39;a&#39;;</span><br><span class="line">+------------+</span><br><span class="line">| &#39;a &#39; &#x3D; &#39;a&#39; |</span><br><span class="line">+------------+</span><br><span class="line">|          1 |</span><br><span class="line">+------------+</span><br></pre></td></tr></table></figure>
+<p>对于二进制字符串，比较过程所有的字符都是重要的，包括尾随空间:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET NAMES binary;</span><br><span class="line">mysql&gt; SELECT &#39;a &#39; &#x3D; &#39;a&#39;;</span><br><span class="line">+------------+</span><br><span class="line">| &#39;a &#39; &#x3D; &#39;a&#39; |</span><br><span class="line">+------------+</span><br><span class="line">|          0 |</span><br><span class="line">+------------+</span><br></pre></td></tr></table></figure>
+<h5 id="2-5、在插入和检索中的尾随空间处理："><a href="#2-5、在插入和检索中的尾随空间处理：" class="headerlink" title="2.5、在插入和检索中的尾随空间处理："></a>2.5、在插入和检索中的尾随空间处理：</h5><p>char(n)列存储非二进制字符串，当insert操作是，值小于n字符会使用空格扩展。在检索时尾随空间会被移除。<br>二进制列存储二进制字符串,插入过程中值小于n字节，会使用ox00扩展，在检索过程中不会被移除；总是返回声明长度的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE TABLE t1 (</span><br><span class="line">         a CHAR(10) CHARACTER SET utf8 COLLATE utf8_bin,</span><br><span class="line">         b BINARY(10)</span><br><span class="line">       );</span><br><span class="line">mysql&gt; INSERT INTO t1 VALUES (&#39;a&#39;,&#39;a&#39;);</span><br><span class="line">mysql&gt; SELECT HEX(a), HEX(b) FROM t1;</span><br><span class="line">+--------+----------------------+</span><br><span class="line">| HEX(a) | HEX(b)               |</span><br><span class="line">+--------+----------------------+</span><br><span class="line">| 61     | 61000000000000000000 |</span><br><span class="line">+--------+----------------------+</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/06/mysql binary排序规则与_bin排序规则对比/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/05/mysql唯一性索引/"><span>[Mysql] mysql唯一性索引详解</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/05/mysql唯一性索引/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-05T07:14:03.000Z">
+          2018-09-05
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、唯一性索引创建条件："><a href="#1、唯一性索引创建条件：" class="headerlink" title="1、唯一性索引创建条件："></a>1、唯一性索引创建条件：</h3><p>唯一性索引创建一个约束条件要求索引列上的所有值必须是不同的，如果你尝试添加一行新数据，但该行的键值与已经存在的其他行的键值相同将会报错。如果为唯一性索引指定前缀值，前缀长度的列值要保证唯一。唯一性索引允许null值。</p>
+<h3 id="2、唯一非空索引-rowid的使用："><a href="#2、唯一非空索引-rowid的使用：" class="headerlink" title="2、唯一非空索引_rowid的使用："></a>2、唯一非空索引_rowid的使用：</h3><p>如果一个表有主键索引或者唯一非空索引，且索引由一个单独整型列类型组成，你可以在select语句使用_rowid来引用索引列，具体如下：<br>_rowid引用主键列如果主键列由单个整型列组成，如果存在主键列但是他不是由一个单独整型列组成，_rowid不能被使用。<br>另外，_rowid引用第一个有单个整型列组成的唯一非空索引列，如果不是，_rowid不能被使用。</p>
+<h3 id="3、创建测试表，并将列修改为唯一非空进行试验："><a href="#3、创建测试表，并将列修改为唯一非空进行试验：" class="headerlink" title="3、创建测试表，并将列修改为唯一非空进行试验："></a>3、创建测试表，并将列修改为唯一非空进行试验：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">create table unique_t(id int,name varchar(10));</span><br><span class="line">alter table unique_t add unique index id_unique_ind(id);</span><br><span class="line">alter table unique_t modify id int not null;</span><br><span class="line">show create table unique_t;</span><br><span class="line">+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table    | Create Table                                                                                                                                                      |</span><br><span class="line">+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| unique_t | CREATE TABLE &#96;unique_t&#96; (</span><br><span class="line">  &#96;id&#96; int(11) NOT NULL,</span><br><span class="line">  &#96;name&#96; varchar(10) DEFAULT NULL,</span><br><span class="line">  UNIQUE KEY &#96;id_unique_ind&#96; (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4 |</span><br><span class="line">+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+<p>插入测试数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">insert into unique_t values(1,&#39;a&#39;),(2,&#39;b&#39;),(3,&#39;c&#39;),(4,&#39;d&#39;),(6,&#39;e&#39;);</span><br><span class="line">select *,_rowid from unique_t;</span><br><span class="line">+----+------+--------+</span><br><span class="line">| id | name | _rowid |</span><br><span class="line">+----+------+--------+</span><br><span class="line">|  1 | a    |      1 |</span><br><span class="line">|  2 | b    |      2 |</span><br><span class="line">|  3 | c    |      3 |</span><br><span class="line">|  4 | d    |      4 |</span><br><span class="line">|  6 | e    |      6 |</span><br><span class="line">+----+------+--------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、删除唯一性索引，修改id默认列可以为空："><a href="#4、删除唯一性索引，修改id默认列可以为空：" class="headerlink" title="4、删除唯一性索引，修改id默认列可以为空："></a>4、删除唯一性索引，修改id默认列可以为空：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">alter table unique_t drop index id_unique_ind;</span><br><span class="line">alter table unique_t modify id int null;</span><br><span class="line">show create table unique_t;</span><br><span class="line">+----------+----------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table    | Create Table                                                                                                                     |</span><br><span class="line">+----------+----------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| unique_t | CREATE TABLE &#96;unique_t&#96; (</span><br><span class="line">  &#96;id&#96; int(11) DEFAULT NULL,</span><br><span class="line">  &#96;name&#96; varchar(10) DEFAULT NULL</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4 |</span><br><span class="line">+----------+----------------------------------------------------------------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+<p>为id列创建主键索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">alter table unique_t add primary key(id);</span><br><span class="line">show create table unique_t;</span><br><span class="line">+----------+----------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table    | Create Table                                                                                                                                       |</span><br><span class="line">+----------+----------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| unique_t | CREATE TABLE &#96;unique_t&#96; (</span><br><span class="line">  &#96;id&#96; int(11) NOT NULL,</span><br><span class="line">  &#96;name&#96; varchar(10) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4 |</span><br><span class="line">+----------+----------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">select *,_rowid from unique_t;</span><br><span class="line">+----+------+--------+</span><br><span class="line">| id | name | _rowid |</span><br><span class="line">+----+------+--------+</span><br><span class="line">|  1 | a    |      1 |</span><br><span class="line">|  2 | b    |      2 |</span><br><span class="line">|  3 | c    |      3 |</span><br><span class="line">|  4 | d    |      4 |</span><br><span class="line">|  6 | e    |      6 |</span><br><span class="line">+----+------+--------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>给id添加主键约束和唯一非空约束，_rowid都可以引用对应列。</p>
+<h3 id="5、删除id主键，将name列设置为主键测试"><a href="#5、删除id主键，将name列设置为主键测试" class="headerlink" title="5、删除id主键，将name列设置为主键测试"></a>5、删除id主键，将name列设置为主键测试</h3><p>alter table unique_t drop primary key;<br>alter table unique_t add primary key(name);<br>show index from unique_t;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">+----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+</span><br><span class="line">| Table    | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |</span><br><span class="line">+----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+</span><br><span class="line">| unique_t |          0 | PRIMARY  |            1 | name        | A         |           5 |     NULL | NULL   |      | BTREE      |         |               |</span><br><span class="line">+----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+</span><br><span class="line"></span><br><span class="line"> show create table unique_t;</span><br><span class="line">+----------+--------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table    | Create Table                                                                                                                                     |</span><br><span class="line">+----------+--------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| unique_t | CREATE TABLE &#96;unique_t&#96; (</span><br><span class="line">  &#96;id&#96; int(11) NOT NULL,</span><br><span class="line">  &#96;name&#96; varchar(10) NOT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;name&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8mb4 |</span><br><span class="line">+----------+--------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line"></span><br><span class="line">root@db 07:11:  [exchange_market]&gt; select *,_rowid from unique_t;</span><br><span class="line">ERROR 1054 (42S22): Unknown column &#39;_rowid&#39; in &#39;field list&#39;</span><br></pre></td></tr></table></figure>
+<p>非单个整型列的主键，_rowid无法使用。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/05/mysql唯一性索引/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/05/mysql前缀索引/"><span>[Mysql] mysql前缀索引详解</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/05/mysql前缀索引/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-05T03:49:24.000Z">
+          2018-09-05
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、使用前缀索引注意事项："><a href="#1、使用前缀索引注意事项：" class="headerlink" title="1、使用前缀索引注意事项："></a>1、使用前缀索引注意事项：</h3><p>1)、列类型为char，varchar，binary，varbinary可以创建前缀索引；<br>2)、列类型为blob，text必须创建前缀索引，而且只有innodb，myisam，blackhole的存储引擎前缀索引才生效；<br>3)、前缀限制是以字节为单位的，但是在create table，alter table，create index语句中索引指定的前缀长度的值为：非二进制类型的（cahr varchar，text）的字符串数据量、二进制类型的（binary，varbinary，blob）的字节数量。当用多字节字符串集为非二进制字符串列创建前缀索引长度时，需要考虑这一点。<br>是否支持前缀索引和前缀的长度跟存储引擎有关系。例如，innodb引擎表前缀索引支持767字节长度，如果开启innodb_large_prefix参数，支持3072字节长度。myisam存储引擎表，前缀长度为1000字节。NDB引擎不支持前缀索引。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'innodb_large_prefix'</span>;</span><br><span class="line">+<span class="comment">---------------------+-------+</span></span><br><span class="line">| Variable_name       | Value |</span><br><span class="line">+<span class="comment">---------------------+-------+</span></span><br><span class="line">| innodb_large_prefix | ON    |</span><br><span class="line">+<span class="comment">---------------------+-------+</span></span><br></pre></td></tr></table></figure>
+<p>4)、以mysql5.7.17为例，如果一个指定的索引前缀长度超过最大列数据类型大小，create index时会如下处理索引：<br>对于非唯一索引，或者一个错误发生(严格sqlmode开启)，或者索引长度降低到最大列数据类型大小并产生一个警告信息(如果strcit sql mode没有开启)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;sql_mode&#39;;</span><br><span class="line">+---------------+------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Variable_name | Value                                                                                                                  |</span><br><span class="line">+---------------+------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| sql_mode      | STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |</span><br><span class="line">+---------------+------------------------------------------------------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+<p>严格模式是指将SQL_MODE变量设置为STRICT_TRANS_TABLES或STRICT_ALL_TABLES中的至少一种。<br>对于唯一索引，不管sqlmode模式是何种，都会直接报错，因为降低索引长度会插入非唯一的条目不满足唯一性需求。</p>
+<p>5)、创建前缀索引语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX part_of_name ON customer (name(10));</span><br></pre></td></tr></table></figure>
+<p>如果列中的名字在前10个字节中通常是不同的，查询性能不应该慢于创建整个name列索引的查询。另外使用列前缀索引使索引文件更小，能够节省更多的磁盘空间并且增加插入速度。</p>
+<h3 id="2、下面是根据网上提供的方法做的测试，参考链接"><a href="#2、下面是根据网上提供的方法做的测试，参考链接" class="headerlink" title="2、下面是根据网上提供的方法做的测试，参考链接"></a>2、下面是根据网上提供的方法做的测试，<a href="https://blog.csdn.net/dhrome/article/details/72853153" target="_blank" rel="noopener">参考链接</a></h3><p>1)、插入测试数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table music(</span><br><span class="line">name varchar(30)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into music values(&#39;BITE&#39;),(&#39;There for you&#39;),(&#39;Scarborough Fair&#39;),(&#39;Shape of You&#39;),(&#39;Marvin Gaye&#39;),(&#39;Pretty Girl&#39;),(&#39;Pretty Boy&#39;),(&#39;Walk Away&#39;),(&#39;YOUTH&#39;),(&#39;Paris&#39;);</span><br><span class="line"></span><br><span class="line">insert into music values (&#39;Scarborough Fair&#39;),(&#39;Shape of You&#39;),(&#39;Marvin Gaye&#39;),(&#39;Pretty Girl&#39;),(&#39;Pretty Boy&#39;),(&#39;Walk Away&#39;),(&#39;YOUTH&#39;),(&#39;Paris&#39;);</span><br></pre></td></tr></table></figure>
+<p>2)、查看完整列索引选择性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@db 03:31:  [exchange_market]&gt; select count(distinct name) &#x2F; count(*) from music;</span><br><span class="line">+---------------------------------+</span><br><span class="line">| count(distinct name) &#x2F; count(*) |</span><br><span class="line">+---------------------------------+</span><br><span class="line">|                          0.5556 |</span><br><span class="line">+---------------------------------+</span><br></pre></td></tr></table></figure>
+<p>3)、查找合适的前缀索引长度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select count(distinct left(name,1))&#x2F;count(*) as sel1, count(distinct left(name,2))&#x2F;count(*) as sel2, count(distinct left(name,3))&#x2F;count(*) as sel3, count(distinct left(name,4))&#x2F;count(*) as sel4 from music;</span><br><span class="line">+--------+--------+--------+--------+</span><br><span class="line">| sel1   | sel2   | sel3   | sel4   |</span><br><span class="line">+--------+--------+--------+--------+</span><br><span class="line">| 0.3889 | 0.5000 | 0.5000 | 0.5000 |</span><br><span class="line">+--------+--------+--------+--------+</span><br></pre></td></tr></table></figure>
+<p>4)、可以看到当前缀长度为2是已经接近完整列索引选择性,添加前缀索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">alter table music add index music_index(name(2));</span><br><span class="line">Query OK, 0 rows affected (0.06 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">show index from music;</span><br><span class="line">+-------+------------+-------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+</span><br><span class="line">| Table | Non_unique | Key_name    | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |</span><br><span class="line">+-------+------------+-------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+</span><br><span class="line">| music |          1 | music_index |            1 | name        | A         |           9 |        2 | NULL   | YES  | BTREE      |         |               |</span><br><span class="line">+-------+------------+-------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+</span><br></pre></td></tr></table></figure>
+<p>5)、查询索引是否被正常应用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">select * from music where name like &#39;s%&#39;;</span><br><span class="line">+------------------+</span><br><span class="line">| name             |</span><br><span class="line">+------------------+</span><br><span class="line">| Scarborough Fair |</span><br><span class="line">| Scarborough Fair |</span><br><span class="line">| Shape of You     |</span><br><span class="line">| Shape of You     |</span><br><span class="line">+------------------+</span><br><span class="line">4 rows in set (0.07 sec)</span><br><span class="line"></span><br><span class="line">explain select * from music where name like &#39;s%&#39;;</span><br><span class="line">+----+-------------+-------+------------+-------+---------------+-------------+---------+------+------+----------+-------------+</span><br><span class="line">| id | select_type | table | partitions | type  | possible_keys | key         | key_len | ref  | rows | filtered | Extra       |</span><br><span class="line">+----+-------------+-------+------------+-------+---------------+-------------+---------+------+------+----------+-------------+</span><br><span class="line">|  1 | SIMPLE      | music | NULL       | range | music_index   | music_index | 11      | NULL |    4 |   100.00 | Using where |</span><br><span class="line">+----+-------------+-------+------------+-------+---------------+-------------+---------+------+------+----------+-------------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/05/mysql前缀索引/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/04/使用mysqladmin查看innodb_buffer_pool缓存命中率及缓存使用情况/"><span>[Mysql] 使用mysqladmin查看innodb_buffer_pool缓存命中率及缓存使用情况</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/04/使用mysqladmin查看innodb_buffer_pool缓存命中率及缓存使用情况/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-04T15:13:24.000Z">
+          2018-09-04
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、查看缓存命中率"><a href="#1、查看缓存命中率" class="headerlink" title="1、查看缓存命中率"></a>1、查看缓存命中率</h3><p>计算缓存命中率相关参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Innodb_buffer_pool_reads：innodb缓存无法满足逻辑读，不得不从磁盘获取数据的逻辑读数量</span><br><span class="line">Innodb_buffer_pool_read_requests：逻辑读的请求数量</span><br></pre></td></tr></table></figure>
+
+<p>如果查看当前某一时刻的值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> mysqladmin -uroot -p12345678  ext | grep Innodb_buffer_pool_reads</span><br><span class="line">mysqladmin: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">| Innodb_buffer_pool_reads                      | 31763701                                         |</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> mysqladmin -uroot -p12345678 ext | grep Innodb_buffer_pool_read_requests </span><br><span class="line">mysqladmin: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">| Innodb_buffer_pool_read_requests              | 866018530                                        |</span><br></pre></td></tr></table></figure>
+<p>如果想要查看多次的取值，并计算间隔的差值(-i 1间隔为1s)(-r 获取前后两个值之间的差值)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> mysqladmin -uroot -p12345678 -ri1 ext | grep Innodb_buffer_pool_reads</span><br><span class="line">mysqladmin: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">| Innodb_buffer_pool_reads                      | 31763701                                         |</span><br><span class="line">| Innodb_buffer_pool_reads                      | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_reads                      | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_reads                      | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_reads                      | 0                                                |</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -uroot -p12345678 -ri1 ext | grep Innodb_buffer_pool_read_requests </span><br><span class="line">mysqladmin: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">| Innodb_buffer_pool_read_requests              | 866018530                                        |</span><br><span class="line">| Innodb_buffer_pool_read_requests              | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_read_requests              | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_read_requests              | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_read_requests              | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_read_requests              | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_read_requests              | 0                                                |</span><br></pre></td></tr></table></figure>
+<p>也可指定-c(value)参数，指定获取几次的值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -uroot -p12345678 -ri1 -c5 ext | grep Innodb_buffer_pool_read_requests</span><br></pre></td></tr></table></figure>
+<p>根据获取到的值计算缓存命中率：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(Innodb_buffer_pool_read_requests-Innodb_buffer_pool_reads)&#x2F;Innodb_buffer_pool_read_requests</span><br></pre></td></tr></table></figure>
+<p>如果太低，建议增大innodb_buffer_pool</p>
+<h3 id="2、查看缓存池使用情况"><a href="#2、查看缓存池使用情况" class="headerlink" title="2、查看缓存池使用情况"></a>2、查看缓存池使用情况</h3><p>缓存池使用情况参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Innodb_buffer_pool_pages_free:innodb buffer pool空闲页；</span><br><span class="line">Innodb_buffer_pool_pages_data：innodb buffer pool包含数据的页数量：</span><br><span class="line">Innodb_buffer_pool_pages_total：innodb buffer pool内存页总数量(每页16k)；</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -uroot -p12345678 -ri1 ext | grep Innodb_buffer_pool_pages_free</span><br><span class="line">mysqladmin: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">| Innodb_buffer_pool_pages_free                 | 31974                                            |</span><br><span class="line">| Innodb_buffer_pool_pages_free                 | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_pages_free                 | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_pages_free                 | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_pages_free                 | 0                                                |</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -uroot -p12345678 -ri1 ext | grep Innodb_buffer_pool_pages_data</span><br><span class="line">mysqladmin: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">| Innodb_buffer_pool_pages_data                 | 96923                                            |</span><br><span class="line">| Innodb_buffer_pool_pages_data                 | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_pages_data                 | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_pages_data                 | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_pages_data                 | 0                                                |</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -uroot -p12345678 -ri1 ext | grep Innodb_buffer_pool_pages_total</span><br><span class="line">mysqladmin: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">| Innodb_buffer_pool_pages_total                | 131056                                           |</span><br><span class="line">| Innodb_buffer_pool_pages_total                | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_pages_total                | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_pages_total                | 0                                                |</span><br><span class="line">| Innodb_buffer_pool_pages_total                | 0                                                |</span><br></pre></td></tr></table></figure>
+<p>如果Innodb_buffer_pool_pages_free偏大的话，证明有很多缓存没有被利用到，这时可以考虑减小缓存，相反Innodb_buffer_pool_pages_data过大就考虑增大缓存。</p>
+<h3 id="3、另附使用mysqladmin查询qps的方法，参考链接"><a href="#3、另附使用mysqladmin查询qps的方法，参考链接" class="headerlink" title="3、另附使用mysqladmin查询qps的方法，参考链接"></a>3、另附使用mysqladmin查询qps的方法，<a href="http://blog.itpub.net/31475233/viewspace-2142864/" target="_blank" rel="noopener">参考链接</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -P3306 -uroot -p12345678  -ri1 ext |\</span><br><span class="line">awk -F&quot;|&quot; \</span><br><span class="line">&quot;BEGIN&#123; count&#x3D;0; &#125;&quot;\</span><br><span class="line">&#39;&#123; if($2 ~ &#x2F;Variable_name&#x2F; &amp;&amp; ((++count)%20 &#x3D;&#x3D; 1))&#123;\</span><br><span class="line">  print &quot;----------|---------|--- MySQL Command Status --|----- Innodb row operation ----|-- Buffer Pool Read --&quot;;\</span><br><span class="line">  print &quot;---Time---|---QPS---|select insert update delete| read inserted updated deleted|  logical  physical&quot;;\</span><br><span class="line">&#125;\</span><br><span class="line">else if ($2 ~ &#x2F;Queries&#x2F;)&#123;queries&#x3D;$3;&#125;\</span><br><span class="line">else if ($2 ~ &#x2F;Com_select &#x2F;)&#123;com_select&#x3D;$3;&#125;\</span><br><span class="line">else if ($2 ~ &#x2F;Com_insert &#x2F;)&#123;com_insert&#x3D;$3;&#125;\</span><br><span class="line">else if ($2 ~ &#x2F;Com_update &#x2F;)&#123;com_update&#x3D;$3;&#125;\</span><br><span class="line">else if ($2 ~ &#x2F;Com_delete &#x2F;)&#123;com_delete&#x3D;$3;&#125;\</span><br><span class="line">else if ($2 ~ &#x2F;Innodb_rows_read&#x2F;)&#123;innodb_rows_read&#x3D;$3;&#125;\</span><br><span class="line">else if ($2 ~ &#x2F;Innodb_rows_deleted&#x2F;)&#123;innodb_rows_deleted&#x3D;$3;&#125;\</span><br><span class="line">else if ($2 ~ &#x2F;Innodb_rows_inserted&#x2F;)&#123;innodb_rows_inserted&#x3D;$3;&#125;\</span><br><span class="line">else if ($2 ~ &#x2F;Innodb_rows_updated&#x2F;)&#123;innodb_rows_updated&#x3D;$3;&#125;\</span><br><span class="line">else if ($2 ~ &#x2F;Innodb_buffer_pool_read_requests&#x2F;)&#123;innodb_lor&#x3D;$3;&#125;\</span><br><span class="line">else if ($2 ~ &#x2F;Innodb_buffer_pool_reads&#x2F;)&#123;innodb_phr&#x3D;$3;&#125;\</span><br><span class="line">else if ($2 ~ &#x2F;Uptime &#x2F; &amp;&amp; count &gt;&#x3D; 2)&#123;\</span><br><span class="line"> printf(&quot; %s |%9d&quot;,strftime(&quot;%H:%M:%S&quot;),queries);\</span><br><span class="line"> printf(&quot;|%6d %6d %6d %6d&quot;,com_select,com_insert,com_update,com_delete);\</span><br><span class="line"> printf(&quot;|%6d %8d %7d %7d&quot;,innodb_rows_read,innodb_rows_inserted,innodb_rows_updated,innodb_rows_deleted);\</span><br><span class="line"> printf(&quot;|%10d %11d\n&quot;,innodb_lor,innodb_phr);\</span><br><span class="line">&#125;&#125;&#39;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/04/使用mysqladmin查看innodb_buffer_pool缓存命中率及缓存使用情况/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/09/04/mysql blackhole-engine/"><span>[Mysql] mysql blackhole-engine详解</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/09/04/mysql blackhole-engine/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-09-04T09:06:00.000Z">
+          2018-09-04
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、mysql-黑洞引擎就像黑洞一样，能接受数据，但把接受的数据扔掉，不存储数据，检查结果返回为空。"><a href="#1、mysql-黑洞引擎就像黑洞一样，能接受数据，但把接受的数据扔掉，不存储数据，检查结果返回为空。" class="headerlink" title="1、mysql 黑洞引擎就像黑洞一样，能接受数据，但把接受的数据扔掉，不存储数据，检查结果返回为空。"></a>1、mysql 黑洞引擎就像黑洞一样，能接受数据，但把接受的数据扔掉，不存储数据，检查结果返回为空。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE TABLE test(i INT, c CHAR(10)) ENGINE &#x3D; BLACKHOLE;</span><br><span class="line">Query OK, 0 rows affected (0.03 sec)</span><br><span class="line">mysql&gt; INSERT INTO test VALUES(1,&#39;record one&#39;),(2,&#39;record two&#39;);</span><br><span class="line">Query OK, 2 rows affected (0.00 sec)</span><br><span class="line">Records: 2  Duplicates: 0  Warnings: 0</span><br><span class="line">mysql&gt; SELECT * FROM test;</span><br><span class="line">Empty set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<h3 id="2、创建黑洞引擎表，数据目录下回创建表格式文件，以表明开头后缀为-frm，没有与该表关联的其他文件"><a href="#2、创建黑洞引擎表，数据目录下回创建表格式文件，以表明开头后缀为-frm，没有与该表关联的其他文件" class="headerlink" title="2、创建黑洞引擎表，数据目录下回创建表格式文件，以表明开头后缀为.frm，没有与该表关联的其他文件"></a>2、创建黑洞引擎表，数据目录下回创建表格式文件，以表明开头后缀为.frm，没有与该表关联的其他文件</h3><p>黑洞引擎支持所有类型的索引，定义表时，可以声明索引。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ll test.*</span><br><span class="line">-rw-r----- 1 mysql mysql 8578 Sep  4 06:22 test.frm</span><br></pre></td></tr></table></figure>
+<h3 id="3、可以通过show-engines查看是否支持黑洞引擎："><a href="#3、可以通过show-engines查看是否支持黑洞引擎：" class="headerlink" title="3、可以通过show engines查看是否支持黑洞引擎："></a>3、可以通过show engines查看是否支持黑洞引擎：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">show engines;</span><br><span class="line">+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+</span><br><span class="line">| Engine             | Support | Comment                                                        | Transactions | XA   | Savepoints |</span><br><span class="line">+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+</span><br><span class="line">| InnoDB             | DEFAULT | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |</span><br><span class="line">| CSV                | YES     | CSV storage engine                                             | NO           | NO   | NO         |</span><br><span class="line">| MyISAM             | YES     | MyISAM storage engine                                          | NO           | NO   | NO         |</span><br><span class="line">| BLACKHOLE          | YES     | &#x2F;dev&#x2F;null storage engine (anything you write to it disappears) | NO           | NO   | NO         |</span><br><span class="line">| PERFORMANCE_SCHEMA | YES     | Performance Schema                                             | NO           | NO   | NO         |</span><br><span class="line">| MRG_MYISAM         | YES     | Collection of identical MyISAM tables                          | NO           | NO   | NO         |</span><br><span class="line">| ARCHIVE            | YES     | Archive storage engine                                         | NO           | NO   | NO         |</span><br><span class="line">| MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO   | NO         |</span><br><span class="line">| FEDERATED          | NO      | Federated MySQL storage engine                                 | NULL         | NULL | NULL       |</span><br><span class="line">+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+</span><br></pre></td></tr></table></figure>
+<h3 id="4、黑洞引擎表不存储任何数据，但是如果启用了二进制日志，sql语句会被记录并复制到从库，这对于中继机制和过滤机制很有用。"><a href="#4、黑洞引擎表不存储任何数据，但是如果启用了二进制日志，sql语句会被记录并复制到从库，这对于中继机制和过滤机制很有用。" class="headerlink" title="4、黑洞引擎表不存储任何数据，但是如果启用了二进制日志，sql语句会被记录并复制到从库，这对于中继机制和过滤机制很有用。"></a>4、黑洞引擎表不存储任何数据，但是如果启用了二进制日志，sql语句会被记录并复制到从库，这对于中继机制和过滤机制很有用。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">假设您的应用程序需要从属端过滤规则，但是传输所有的二进制数据到从库会造成很大的网络流量，在这种情况下，在主库设置存储引擎为黑洞的‘dummy’从进程，如下图所示：</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/cxMKOso.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">主库写入二级制日志，‘dummy’mysqld 进程作为从进程执行，合并replicate-do-* 和replicate-ignore-*规则，自己写入一个新的，过滤好的二进制日志，该过滤日志传递给从库。</span><br><span class="line">虚拟的进程不存储任何数据，因此外的mysqld进程复制主库信息产生少量的开销。</span><br><span class="line">黑洞引擎表，insert触发器可正常使用，但是因为不存储数据，update和delete引擎没有激活，因为没有行，for each row触发器定义不适用。</span><br></pre></td></tr></table></figure>
+<h3 id="5、黑洞引擎的用途："><a href="#5、黑洞引擎的用途：" class="headerlink" title="5、黑洞引擎的用途："></a>5、黑洞引擎的用途：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、验证转储文件语法</span><br><span class="line">2、启用或禁用二级制日志，来测量二进制日志带来的开销</span><br><span class="line">3、黑洞引擎本质上是一个无操作的引擎，因此可以用于查找与引擎本身无关的性能瓶颈。</span><br></pre></td></tr></table></figure>
+<p>黑洞引擎是交易感知的，提交的事物写入二进制日志，回滚事物不写入。</p>
+<h3 id="6、黑洞引擎和自动增量列的问题："><a href="#6、黑洞引擎和自动增量列的问题：" class="headerlink" title="6、黑洞引擎和自动增量列的问题："></a>6、黑洞引擎和自动增量列的问题：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">主从架构数据库：1、主库黑洞表有一个自动增量字段是主键；2、从服务器有相同表引擎为myisam，3、主库执行insert，并隐式设置增量值。</span><br><span class="line">在这种情况下，主从复制将失败，</span><br><span class="line">如果主站有许多从站，则在发送到从站之前进行过滤可能会减少网络流量。</span><br><span class="line">在基于行的复制中，引擎为行返回的值对于每个插入始终是相同的。这将导致从服务器尝试使用主键列的相同值重播两个插入日志条目，因此复制将失败。</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、黑洞引擎和列过滤问题："><a href="#7、黑洞引擎和列过滤问题：" class="headerlink" title="7、黑洞引擎和列过滤问题："></a>7、黑洞引擎和列过滤问题：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">基于行的复制，从库支持表中缺少最后一列。</span><br><span class="line">从库端执行过滤，在执行过滤之前，先将数据传到从库，最少有两种情况不希望将列拷贝到从库：</span><br><span class="line">1、数据是机密的，从库没有权限访问它；</span><br><span class="line">2、主库有多个从库，在发送到从库之前执行过滤用于减少网络带宽</span><br></pre></td></tr></table></figure>
+<p>官方文档提供的案例如下,对于受信任和不受信任从库的语句未找到合理解释，没看懂：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">使用BLACKHOLE引擎和 --replicate-do-table或 --replicate-ignore-table选项，可以实现主列过滤，</span><br><span class="line">主库配置：</span><br><span class="line">CREATE TABLE t1 (public_col_1, ..., public_col_N,</span><br><span class="line">                 secret_col_1, ..., secret_col_M) ENGINE&#x3D;MyISAM;</span><br><span class="line">受信任的从库配置：</span><br><span class="line">CREATE TABLE t1 (public_col_1, ..., public_col_N) ENGINE&#x3D;BLACKHOLE;</span><br><span class="line">不受信任的从库配置：</span><br><span class="line">CREATE TABLE t1 (public_col_1, ..., public_col_N) ENGINE&#x3D;MyISAM;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/09/04/mysql blackhole-engine/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/08/29/grafana+prometheus安装配置监控mysql、redis、mongodb/"><span>[Grafana] grafana监控redis、mongodb、mysql数据库</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/08/29/grafana+prometheus安装配置监控mysql、redis、mongodb/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-08-29T13:35:24.000Z">
+          2018-08-29
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="0、参考链接"><a href="#0、参考链接" class="headerlink" title="0、参考链接"></a>0、参考链接</h3><p><a href="https://mp.weixin.qq.com/s/Qz87UE1aXFZbAdFlx7Zeow" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/Qz87UE1aXFZbAdFlx7Zeow</a></p>
+<h3 id="1、grafana下载安装"><a href="#1、grafana下载安装" class="headerlink" title="1、grafana下载安装"></a>1、grafana下载安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;s3-us-west-2.amazonaws.com&#x2F;grafana-releases&#x2F;release&#x2F;grafana-5.2.2-1.x86_64.rpm</span><br><span class="line">sudo yum localinstall grafana-5.2.2-1.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<p>启动grafana</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service grafana-server start</span><br><span class="line">service grafana-server status</span><br></pre></td></tr></table></figure>
+<p>加入开机启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --add grafana-server</span><br></pre></td></tr></table></figure>
+<p>查看grafana端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -plntu | grep grafana-serv</span><br><span class="line">tcp6       0      0 :::3000                 :::*                    LISTEN      2539&#x2F;grafana-server</span><br></pre></td></tr></table></figure>
+<p>登录web界面，localhost:3000<br>用户：admin<br>密码：admin（默认）<br>登录之后提示修改密码,登录界面如下图所示<br><img src="https://i.imgur.com/drKlMKC.png" alt=""></p>
+<h3 id="2、安装Prometheus"><a href="#2、安装Prometheus" class="headerlink" title="2、安装Prometheus"></a>2、安装Prometheus</h3><p>下载Prometheus</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;prometheus&#x2F;releases&#x2F;download&#x2F;v2.3.2&#x2F;prometheus-2.3.2.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf prometheus-2.3.2.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>配置 Prometheus</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">cd prometheus-2.3.2.linux-amd64&#x2F;</span><br><span class="line">cat prometheus.yml </span><br><span class="line"># my global config</span><br><span class="line">global:</span><br><span class="line">  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.</span><br><span class="line">  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.</span><br><span class="line">  # scrape_timeout is set to the global default (10s).</span><br><span class="line"></span><br><span class="line"># Alertmanager configuration</span><br><span class="line">alerting:</span><br><span class="line">  alertmanagers:</span><br><span class="line">  - static_configs:</span><br><span class="line">    - targets:</span><br><span class="line">      # - alertmanager:9093</span><br><span class="line"></span><br><span class="line"># Load rules once and periodically evaluate them according to the global &#39;evaluation_interval&#39;.</span><br><span class="line">rule_files:</span><br><span class="line">  # - &quot;first_rules.yml&quot;</span><br><span class="line">  # - &quot;second_rules.yml&quot;</span><br><span class="line"></span><br><span class="line"># A scrape configuration containing exactly one endpoint to scrape:</span><br><span class="line"># Here it&#39;s Prometheus itself.</span><br><span class="line">scrape_configs:</span><br><span class="line">  # The job name is added as a label &#96;job&#x3D;&lt;job_name&gt;&#96; to any timeseries scraped from this config.</span><br><span class="line">  - job_name: &#39;prometheus&#39;</span><br><span class="line"></span><br><span class="line">    # metrics_path defaults to &#39;&#x2F;metrics&#39;</span><br><span class="line">    # scheme defaults to &#39;http&#39;.</span><br><span class="line"></span><br><span class="line">    static_configs:</span><br><span class="line">    - targets: [&#39;0.0.0.0:9090&#39;]</span><br></pre></td></tr></table></figure>
+<p>启动prometheus</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;prometheus --config.file&#x3D;prometheus.yml</span><br><span class="line">----</span><br><span class="line">level&#x3D;info ts&#x3D;2018-08-28T03:42:08.966212621Z caller&#x3D;main.go:222 msg&#x3D;&quot;Starting Prometheus&quot; version&#x3D;&quot;(version&#x3D;2.3.2, branch&#x3D;HEAD, revision&#x3D;71af5e29e815795e9dd14742ee7725682fa14b7b)&quot;</span><br><span class="line">level&#x3D;info ts&#x3D;2018-08-28T03:42:08.966876421Z caller&#x3D;main.go:223 build_context&#x3D;&quot;(go&#x3D;go1.10.3, user&#x3D;root@5258e0bd9cc1, date&#x3D;20180712-14:02:52)&quot;</span><br><span class="line">level&#x3D;info ts&#x3D;2018-08-28T03:42:08.966953021Z caller&#x3D;main.go:224 host_details&#x3D;&quot;(Linux 3.10.0-693.21.1.el7.x86_64 #1 SMP Wed Mar 7 19:03:37 UTC 2018 x86_64 dax-mysql-mha (none))&quot;</span><br><span class="line">level&#x3D;info ts&#x3D;2018-08-28T03:42:08.966990021Z caller&#x3D;main.go:225 fd_limits&#x3D;&quot;(soft&#x3D;1024, hard&#x3D;4096)&quot;</span><br><span class="line">level&#x3D;info ts&#x3D;2018-08-28T03:42:08.968101421Z caller&#x3D;main.go:533 msg&#x3D;&quot;Starting TSDB ...&quot;</span><br><span class="line">level&#x3D;info ts&#x3D;2018-08-28T03:42:08.970314221Z caller&#x3D;web.go:415 component&#x3D;web msg&#x3D;&quot;Start listening for connections&quot; address&#x3D;0.0.0.0:9090</span><br><span class="line">level&#x3D;info ts&#x3D;2018-08-28T03:42:08.977918922Z caller&#x3D;main.go:543 msg&#x3D;&quot;TSDB started&quot;</span><br><span class="line">level&#x3D;info ts&#x3D;2018-08-28T03:42:08.977966022Z caller&#x3D;main.go:603 msg&#x3D;&quot;Loading configuration file&quot; filename&#x3D;prometheus.yml</span><br><span class="line">level&#x3D;info ts&#x3D;2018-08-28T03:42:08.979126022Z caller&#x3D;main.go:629 msg&#x3D;&quot;Completed loading of configuration file&quot; filename&#x3D;prometheus.yml</span><br><span class="line">level&#x3D;info ts&#x3D;2018-08-28T03:42:08.979171222Z caller&#x3D;main.go:502 msg&#x3D;&quot;Server is ready to receive web requests.&quot;</span><br><span class="line">level&#x3D;info ts&#x3D;2018-08-28T05:00:04.558075427Z caller&#x3D;compact.go:398 component&#x3D;tsdb msg&#x3D;&quot;write block&quot; mint&#x3D;1535421600000 maxt&#x3D;1535428800000 ulid&#x3D;01CNZEEBGJ237RVH965D3VWT57</span><br><span class="line">level&#x3D;info ts&#x3D;2018-08-28T05:00:04.566214242Z caller&#x3D;head.go:348 component&#x3D;tsdb msg&#x3D;&quot;head GC completed&quot; duration&#x3D;1.539902ms</span><br><span class="line">level&#x3D;info ts&#x3D;2018-08-28T05:00:04.575381958Z caller&#x3D;head.go:357 component&#x3D;tsdb msg&#x3D;&quot;WAL truncation completed&quot; duration&#x3D;9.095816ms</span><br><span class="line">-----</span><br></pre></td></tr></table></figure>
+<p>登录控制台 localhost:9090,登录界面如下：<br><img src="https://i.imgur.com/xMfoPTq.png" alt=""></p>
+<h3 id="3、mysql-exporter部署"><a href="#3、mysql-exporter部署" class="headerlink" title="3、mysql_exporter部署"></a>3、mysql_exporter部署</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;mysqld_exporter&#x2F;releases&#x2F;download&#x2F;v0.11.0&#x2F;mysqld_exporter-0.11.0.linux-amd64.tar.gz</span><br><span class="line">tar -zxvf mysqld_exporter-0.11.0.linux-amd64.tar.gz </span><br><span class="line">cd mysqld_exporter-0.11.0.linux-amd64&#x2F;</span><br></pre></td></tr></table></figure>
+<p>配置连接数据库文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat .my.cnf</span><br><span class="line">[client]</span><br><span class="line">host &#x3D; 127.0.0.1</span><br><span class="line">user&#x3D;root</span><br><span class="line">password&#x3D;12345678</span><br></pre></td></tr></table></figure>
+<p>启动mysqld_exporter</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;mysqld_exporter --config.my-cnf&#x3D;&quot;&#x2F;data&#x2F;soft&#x2F;mysqld_exporter-0.11.0.linux-amd64&#x2F;.my.cnf&quot;  </span><br><span class="line">----</span><br><span class="line">INFO[0000] Starting mysqld_exporter (version&#x3D;0.11.0, branch&#x3D;HEAD, revision&#x3D;5d7179615695a61ecc3b5bf90a2a7c76a9592cdd)  source&#x3D;&quot;mysqld_exporter.go:206&quot;</span><br><span class="line">INFO[0000] Build context (go&#x3D;go1.10.3, user&#x3D;root@3d3ff666b0e4, date&#x3D;20180629-15:00:35)  source&#x3D;&quot;mysqld_exporter.go:207&quot;</span><br><span class="line">INFO[0000] Enabled scrapers:                             source&#x3D;&quot;mysqld_exporter.go:218&quot;</span><br><span class="line">INFO[0000]  --collect.global_status                      source&#x3D;&quot;mysqld_exporter.go:222&quot;</span><br><span class="line">INFO[0000]  --collect.global_variables                   source&#x3D;&quot;mysqld_exporter.go:222&quot;</span><br><span class="line">INFO[0000]  --collect.slave_status                       source&#x3D;&quot;mysqld_exporter.go:222&quot;</span><br><span class="line">INFO[0000]  --collect.info_schema.tables                 source&#x3D;&quot;mysqld_exporter.go:222&quot;</span><br><span class="line">INFO[0000] Listening on :9104                            source&#x3D;&quot;mysqld_exporter.go:232&quot;</span><br><span class="line">----</span><br></pre></td></tr></table></figure>
+<p>查看进程是否启动正常：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tunlp|grep 9104</span><br></pre></td></tr></table></figure>
+<p>登录web界面,<a href="http://localhost:9104/" target="_blank" rel="noopener">http://localhost:9104/</a><br><img src="https://i.imgur.com/aqDGY1B.png" alt=""><br>修改vim prometheus.yml配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- job_name: mysql</span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [&#39;127.0.0.1:9104&#39;]</span><br><span class="line">        labels:</span><br><span class="line">          instance: test</span><br></pre></td></tr></table></figure>
+<p>备注:<br>job_name,当前执行job的名字<br>targets，连接的主机<br>instance，数据库实例的标签明</p>
+<p>重新启动prometheus，进入prometheus控制台，点击status-&gt;target<br><img src="https://i.imgur.com/ecV2em3.png" alt=""></p>
+<h3 id="4、添加数据源"><a href="#4、添加数据源" class="headerlink" title="4、添加数据源"></a>4、添加数据源</h3><p><img src="https://i.imgur.com/MDVSTgs.png" alt=""><br><img src="https://i.imgur.com/NCJXDQj.png" alt=""><br>保存测试</p>
+<h3 id="5、下载仪表盘"><a href="#5、下载仪表盘" class="headerlink" title="5、下载仪表盘"></a>5、下载仪表盘</h3><p><a href="https://github.com/percona/grafana-dashboards/tree/master/dashboards">https://github.com/percona/grafana-dashboards/tree/master/dashboards</a><br>选择仪表盘类型，导入到grafana<br><img src="https://i.imgur.com/L0zhbuM.png" alt=""><br><img src="https://i.imgur.com/PkzRe5Y.png" alt=""><br><img src="https://i.imgur.com/1eYa7uN.png" alt=""><br>点击仪表盘查看<br><img src="https://i.imgur.com/i5qvt2u.png" alt=""></p>
+<h3 id="6、mongodb-exporter部署用于监控mongodb"><a href="#6、mongodb-exporter部署用于监控mongodb" class="headerlink" title="6、mongodb_exporter部署用于监控mongodb"></a>6、mongodb_exporter部署用于监控mongodb</h3><p>prometheus监控mongodb数据库，安装之前需要配置go环境下载配置go环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;dl.google.com&#x2F;go&#x2F;go1.11.linux-amd64.tar.gz</span><br><span class="line">tar -C &#x2F;usr&#x2F;local -xzf go1.11.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>添加环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;</span><br><span class="line">GOPATH&#x3D;$HOME&#x2F;go</span><br><span class="line">export PATH&#x3D;$PATH:$GOPATH&#x2F;bin&quot; &gt;&gt; ~&#x2F;.bash_profile</span><br></pre></td></tr></table></figure>
+<p>使配置的环境变量生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~&#x2F;.bash_profile</span><br></pre></td></tr></table></figure>
+<p>创建配置mognodb所需要的目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p $HOME&#x2F;go&#x2F;&#123;dir,src,pkg&#125;</span><br></pre></td></tr></table></figure>
+<p>安装glide</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https:&#x2F;&#x2F;glide.sh&#x2F;get | sh</span><br></pre></td></tr></table></figure>
+<p>安装mongodb-exporter</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:dcu&#x2F;mongodb_exporter.git $GOPATH&#x2F;src&#x2F;github.com&#x2F;dcu&#x2F;mongodb_exporter</span><br><span class="line">cd $GOPATH&#x2F;src&#x2F;github.com&#x2F;dcu&#x2F;mongodb_exporter</span><br><span class="line">make build</span><br></pre></td></tr></table></figure>
+<p>查看mongdob_exporter使用的参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;mongodb_exporter -h</span><br></pre></td></tr></table></figure>
+<p>启动mongodb_exporter,获取数据库的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;mongodb_exporter -mongodb.uri mongodb:&#x2F;&#x2F;localhost:30000</span><br></pre></td></tr></table></figure>
+<p>启动端口默认为9001,登录<a href="http://localhost:9001，查看是否正常">http://localhost:9001，查看是否正常</a><br><img src="https://i.imgur.com/1pnvKo4.png" alt=""><br>修改prometheus.yml，添加mongodb参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- job_name: mongodb</span><br><span class="line">  static_configs:</span><br><span class="line">    - targets: [&#39;127.0.0.1:9001&#39;]</span><br></pre></td></tr></table></figure>
+<p>重启premetheus,登录premetheus控制台查看获取mognodb是否正常<br><img src="https://i.imgur.com/UK4EwiK.png" alt=""><br>登录grafana添加模板，可以添加模板id或者导入代码<br><img src="https://i.imgur.com/24JBVvP.png" alt=""><br>点击<a href="https://grafana.com/dashboards/2583" target="_blank" rel="noopener">链接</a>，跳转到mongodb_exporter模板<br>添加完成模板如下图所示：<br><img src="https://i.imgur.com/O0lRt1R.png" alt=""></p>
+<h3 id="7、redis-exporter部署用于监控redis-安装redis-exporter模板"><a href="#7、redis-exporter部署用于监控redis-安装redis-exporter模板" class="headerlink" title="7、redis_exporter部署用于监控redis,安装redis-exporter模板"></a>7、redis_exporter部署用于监控redis,安装redis-exporter模板</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">go get github.com&#x2F;oliver006&#x2F;redis_exporter</span><br><span class="line">cd $GOPATH&#x2F;src&#x2F;github.com&#x2F;oliver006&#x2F;redis_exporter</span><br><span class="line">go build</span><br></pre></td></tr></table></figure>
+<p>启动redis_exporter进程获取redis数据(默认进程端口号位9121)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;redis_exporter -redis.addr redis:&#x2F;&#x2F;127.0.0.1:6379 -redis.password test</span><br></pre></td></tr></table></figure>
+<p>启动端口默认为9001,登录<a href="http://localhost:9121，查看是否正常">http://localhost:9121，查看是否正常</a><br><img src="https://i.imgur.com/Xaokb9P.png" alt=""><br>修改prometheus.yml，添加redis参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- job_name: redis</span><br><span class="line">  static_configs:</span><br><span class="line">     - targets: [&#39;127.0.0.1:9121&#39;]</span><br></pre></td></tr></table></figure>
+<p>重启premetheus,登录premetheus控制台查看获取redis是否正常<br><img src="https://i.imgur.com/FzmeelO.png" alt=""><br>登录grafana添加模板，可以添加模板id或者导入代码,点击<a href="https://github.com/oliver006/redis_exporter/blob/master/contrib/grafana_prometheus_redis_dashboard_alias.json">此处</a>跳转到redis_exporter链接<br>，导入完成之后界面如下图所示：<br><img src="https://i.imgur.com/4M5y84Y.png" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/redis/">redis</a><a href="/tags/mongodb/">mongodb</a><a href="/tags/mysql/">mysql</a><a href="/tags/grafana/">grafana</a><a href="/tags/prometheus/">prometheus</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/08/29/grafana+prometheus安装配置监控mysql、redis、mongodb/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/08/28/解决zabbix中文乱码/"><span>[Zabbix] 解决zabbix中文乱码问题</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/08/28/解决zabbix中文乱码/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-08-28T02:23:10.000Z">
+          2018-08-28
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h3 id="1、在windows机器上查找simkai-ttf文件，在windows下拷贝simkai字体到zabbix-server端，并拷贝到相应目录"><a href="#1、在windows机器上查找simkai-ttf文件，在windows下拷贝simkai字体到zabbix-server端，并拷贝到相应目录" class="headerlink" title="1、在windows机器上查找simkai.ttf文件，在windows下拷贝simkai字体到zabbix server端，并拷贝到相应目录"></a>1、在windows机器上查找simkai.ttf文件，在windows下拷贝simkai字体到zabbix server端，并拷贝到相应目录</h3><p>可在c盘路径下搜索simkai.ttf，本地机器的路径为‘C:\Windows\WinSxS\amd64_microsoft-windows-font-truetype-simkai_31bf3856ad364e35_10.0.17134.1_none_d7e1e1a5de638405’，每台机器对应的目录会有差异，但‘C:\Windows\WinSxS’路径一致。</p>
+<h3 id="2、将找到的simkai文件上传到zabbix-server端nginx的安装目录下"><a href="#2、将找到的simkai文件上传到zabbix-server端nginx的安装目录下" class="headerlink" title="2、将找到的simkai文件上传到zabbix-server端nginx的安装目录下"></a>2、将找到的simkai文件上传到zabbix-server端nginx的安装目录下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv simkai.ttf &#x2F;data&#x2F;nginx-1.9.15&#x2F;html&#x2F;zabbix&#x2F;fonts&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、修改nginx配置文件"><a href="#3、修改nginx配置文件" class="headerlink" title="3、修改nginx配置文件"></a>3、修改nginx配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#39;s&#x2F;DejaVuSans&#x2F;simkai&#x2F;g&#39; &#x2F;data&#x2F;nginx-1.9.15&#x2F;html&#x2F;zabbix&#x2F;include&#x2F;defines.inc.php</span><br></pre></td></tr></table></figure>
+<h3 id="4、重启php-fpm、nginx"><a href="#4、重启php-fpm、nginx" class="headerlink" title="4、重启php-fpm、nginx"></a>4、重启php-fpm、nginx</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nginx -s stop</span><br><span class="line">service php-fpm stop</span><br><span class="line">service php-fpm start</span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/zabbix/">zabbix</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/08/28/解决zabbix中文乱码/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/08/27/zabbix监控磁盘io总吞吐量/"><span>[Zabbix] zabbix监控磁盘io总吞吐量批量安装配置</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/08/27/zabbix监控磁盘io总吞吐量/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-08-27T12:46:00.000Z">
+          2018-08-27
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h2 id="0、编辑监控磁盘io总吞吐量脚本"><a href="#0、编辑监控磁盘io总吞吐量脚本" class="headerlink" title="0、编辑监控磁盘io总吞吐量脚本"></a>0、编辑监控磁盘io总吞吐量脚本</h2><p>cat /home/zabbix/disk_io_check.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">sudo bash</span><br><span class="line">#安装iostat命令</span><br><span class="line">yum install -y sysstat </span><br><span class="line">#创建监控目录及数据文件</span><br><span class="line">mkdir -p &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script</span><br><span class="line">touch &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt</span><br><span class="line">chown zabbix.zabbix &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt</span><br><span class="line">chmod 777 &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt</span><br><span class="line">touch &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_collect_data.sh</span><br><span class="line">chown zabbix.zabbix &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_collect_data.sh</span><br><span class="line">chmod 777 &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_collect_data.sh</span><br><span class="line">#编辑收集数据脚本</span><br><span class="line">echo &quot;</span><br><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">iostat -dxkt 1 2|grep -E &#39;^sd|^xvda|^vd&#39; &gt; &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt&quot; &gt; &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_collect_data.sh</span><br><span class="line">#添加到定时任务，每分钟收集一次</span><br><span class="line">echo &quot;* * * * * root sh &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_collect_data.sh&quot; &gt;&gt; &#x2F;etc&#x2F;crontab</span><br><span class="line">#添加参数到zabbix配置文件</span><br><span class="line">echo &quot;</span><br><span class="line">#每秒进行 merge 的读操作数目。即 rmerge&#x2F;s</span><br><span class="line">UserParameter&#x3D;disk.status.rmerge,cat &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt|tail -n \&#96;iostat -dxk 1 1|grep -E &#39;^sd|^xvda|^vd&#39;|wc -l\&#96; |awk &#39;&#123;print \$2&#125;&#39;|awk &#39;&#123;sum+&#x3D;\$1&#125; END &#123;print  sum&#125;&#39; </span><br><span class="line">#每秒进行 merge 的写操作数目。即 wmerge&#x2F;s</span><br><span class="line">UserParameter&#x3D;disk.status.wmerge,cat &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt |tail -n \&#96;iostat -dxk 1 1|grep -E &#39;^sd|^xvda|^vd&#39;|wc -l\&#96; |awk &#39;&#123;print \$3&#125;&#39;|awk &#39;&#123;sum+&#x3D;\$1&#125; END &#123;print  sum&#125;&#39;</span><br><span class="line">#每秒完成的读 I&#x2F;O 设备次数。即 rio&#x2F;s</span><br><span class="line">UserParameter&#x3D;disk.status.rio,cat &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt |tail -n \&#96;iostat -dxk 1 1|grep -E &#39;^sd|^xvda|^vd&#39;|wc -l\&#96; |awk &#39;&#123;print \$4&#125;&#39;|awk &#39;&#123;sum+&#x3D;\$1&#125; END &#123;print  sum&#125;&#39;</span><br><span class="line">#每秒完成的写 I&#x2F;O 设备次数。即 wio&#x2F;s</span><br><span class="line">UserParameter&#x3D;disk.status.wio,cat &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt |tail -n \&#96;iostat -dxk 1 1|grep -E &#39;^sd|^xvda|^vd&#39;|wc -l\&#96; |awk &#39;&#123;print \$5&#125;&#39;|awk &#39;&#123;sum+&#x3D;\$1&#125; END &#123;print  sum&#125;&#39;</span><br><span class="line">#每秒读K字节数。是 rsect&#x2F;s 的一半，因为每扇区大小为512字节。</span><br><span class="line">UserParameter&#x3D;disk.status.rsect,cat &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt |tail -n \&#96;iostat -dxk 1 1|grep -E &#39;^sd|^xvda|^vd&#39;|wc -l\&#96; |awk &#39;&#123;print \$6&#125;&#39;|awk &#39;&#123;sum+&#x3D;\$1&#125; END &#123;print  sum&#125;&#39;</span><br><span class="line">#每秒写K字节数。是 wsect&#x2F;s 的一半。</span><br><span class="line">UserParameter&#x3D;disk.status.wsect,cat &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt |tail -n \&#96;iostat -dxk 1 1|grep -E &#39;^sd|^xvda|^vd&#39;|wc -l\&#96; |awk &#39;&#123;print \$7&#125;&#39;|awk &#39;&#123;sum+&#x3D;\$1&#125; END &#123;print  sum&#125;&#39;</span><br><span class="line">#平均每次设备I&#x2F;O操作的数据大小 (扇区)。</span><br><span class="line">UserParameter&#x3D;disk.status.sectsize,cat &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt |tail -n \&#96;iostat -dxk 1 1|grep -E &#39;^sd|^xvda|^vd&#39;|wc -l\&#96; |awk &#39;&#123;print \$8&#125;&#39;|awk &#39;&#123;sum+&#x3D;\$1&#125; END &#123;print  sum&#125;&#39;</span><br><span class="line">#平均I&#x2F;O队列长度。</span><br><span class="line">UserParameter&#x3D;disk.status.queuelength,cat &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt |tail -n \&#96;iostat -dxk 1 1|grep -E &#39;^sd|^xvda|^vd&#39;|wc -l\&#96; |awk &#39;&#123;print \$9&#125;&#39;|awk &#39;&#123;sum+&#x3D;\$1&#125; END &#123;print  sum&#125;&#39;</span><br><span class="line">#平均每次设备I&#x2F;O操作的等待时间 (毫秒)。</span><br><span class="line">UserParameter&#x3D;disk.status.avgiowait,cat &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt |tail -n \&#96;iostat -dxk 1 1|grep -E &#39;^sd|^xvda|^vd&#39;|wc -l\&#96; |awk &#39;&#123;print \$10&#125;&#39;|awk &#39;&#123;sum+&#x3D;\$1&#125; END &#123;print  sum&#125;&#39;</span><br><span class="line">#平均每次设备I&#x2F;O读操作的等待时间 (毫秒)。</span><br><span class="line">UserParameter&#x3D;disk.status.avgreadiowait,cat &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt |tail -n \&#96;iostat -dxk 1 1|grep -E &#39;^sd|^xvda|^vd&#39;|wc -l\&#96; |awk &#39;&#123;print \$11&#125;&#39;|awk &#39;&#123;sum+&#x3D;\$1&#125; END &#123;print  sum&#125;&#39;</span><br><span class="line">#平均每次设备I&#x2F;O写操作的等待时间 (毫秒)。</span><br><span class="line">UserParameter&#x3D;disk.status.avgwriteiowait,cat &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt |tail -n \&#96;iostat -dxk 1 1|grep -E &#39;^sd|^xvda|^vd&#39;|wc -l\&#96; |awk &#39;&#123;print \$12&#125;&#39;|awk &#39;&#123;sum+&#x3D;\$1&#125; END &#123;print  sum&#125;&#39;</span><br><span class="line">#平均每次设备I&#x2F;O操作的服务时间 (毫秒)。</span><br><span class="line">UserParameter&#x3D;disk.status.svctm,cat &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt |tail -n \&#96;iostat -dxk 1 1|grep -E &#39;^sd|^xvda|^vd&#39;|wc -l\&#96; |awk &#39;&#123;print \$13&#125;&#39;|awk &#39;&#123;sum+&#x3D;\$1&#125; END &#123;print  sum&#125;&#39;</span><br><span class="line"># 一秒中有百分之多少的时间用于 I&#x2F;O 操作，即被io消耗的cpu百分比</span><br><span class="line">UserParameter&#x3D;disk.status.util,cat &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;script&#x2F;iostat_data.txt |tail -n \&#96;iostat -dxk 1 1|grep -E &#39;^sd|^xvda|^vd&#39;|wc -l\&#96; |awk &#39;&#123;print \$14&#125;&#39;|awk &#39;&#123;sum+&#x3D;\$1&#125; END &#123;print  sum&#125;&#39;</span><br><span class="line">&quot; &gt; &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;etc&#x2F;zabbix_agentd.conf.d&#x2F;iostat_data.conf</span><br><span class="line">echo &quot;</span><br><span class="line">Include&#x3D;&#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;etc&#x2F;zabbix_agentd.conf.d</span><br><span class="line">&quot; &gt;&gt; &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;etc&#x2F;zabbix_agentd.conf</span><br><span class="line">#重新启动zabbix_agent客户端</span><br><span class="line">&#x2F;etc&#x2F;init.d&#x2F;zabbix_agentd restart</span><br><span class="line">#查看监控进程是否启动</span><br><span class="line">netstat -tunlp|grep 10050</span><br></pre></td></tr></table></figure>
+<h2 id="1、如果需要批量安装，在ansible-server端配置批量上传脚本"><a href="#1、如果需要批量安装，在ansible-server端配置批量上传脚本" class="headerlink" title="1、如果需要批量安装，在ansible-server端配置批量上传脚本"></a>1、如果需要批量安装，在ansible-server端配置批量上传脚本</h2><p>cat /etc/ansible/scopy-diskio-zabbix.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- hosts: test</span><br><span class="line">  remote_user: centos</span><br><span class="line">  tasks:</span><br><span class="line">  - name: scopy zabbix-agent config to all hosts</span><br><span class="line">    copy: src&#x3D;&quot;&#x2F;home&#x2F;zabbix&#x2F;disk_io_check.sh&quot; dest&#x3D;&quot;&#x2F;home&#x2F;zabbix&#x2F;disk_io_check.sh&quot;</span><br></pre></td></tr></table></figure>
+<p>执行批量上传脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook &#x2F;etc&#x2F;ansible&#x2F;scopy-diskio-zabbix.sh</span><br></pre></td></tr></table></figure>
+<p>执行脚本批量配置监控磁盘io总吞吐量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible test -m command -a &#39;sudo sh &#x2F;home&#x2F;centos&#x2F;execute-zabbix.sh&#39;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、web端配置监控模板，亦可自行编译，点击此处下载"><a href="#2、web端配置监控模板，亦可自行编译，点击此处下载" class="headerlink" title="2、web端配置监控模板，亦可自行编译，点击此处下载"></a>2、web端配置监控模板，亦可自行编译，点击此处<a href="https://pan.baidu.com/s/1aJmOWwVpdPAaoBABQGiBig" target="_blank" rel="noopener">下载</a></h2>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/zabbix/">zabbix</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/08/27/zabbix监控磁盘io总吞吐量/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/08/27/zabbix-agent批量安装/"><span>[Zabbix] zabbix-agent批量安装配置</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/08/27/zabbix-agent批量安装/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-08-27T12:09:00.000Z">
+          2018-08-27
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h2 id="0、本文批量安装使用ansible加shell脚本的方法，首先安装ansible"><a href="#0、本文批量安装使用ansible加shell脚本的方法，首先安装ansible" class="headerlink" title="0、本文批量安装使用ansible加shell脚本的方法，首先安装ansible"></a>0、本文批量安装使用ansible加shell脚本的方法，首先安装ansible</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ansible</span><br></pre></td></tr></table></figure>
+<h2 id="1、修改ansible-server端免交互登录"><a href="#1、修改ansible-server端免交互登录" class="headerlink" title="1、修改ansible-server端免交互登录"></a>1、修改ansible-server端免交互登录</h2><p>cat /etc/ssh/ssh_config</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StrictHostKeyChecking no</span><br><span class="line">UserKnownHostsFile &#x2F;dev&#x2F;null</span><br></pre></td></tr></table></figure>
+<p>修改好配置后，重新启动sshd服务即可，命令为：/etc/init.d/sshd restart （或 service sshd restart 或/bin/systemctl restart  sshd.service）</p>
+<h2 id="2、编辑-etc-ansible-hosts主机配置文件"><a href="#2、编辑-etc-ansible-hosts主机配置文件" class="headerlink" title="2、编辑/etc/ansible/hosts主机配置文件"></a>2、编辑/etc/ansible/hosts主机配置文件</h2><p>cat /etc/ansible/hosts</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[test]</span><br><span class="line">172.29.25.196   ansible_ssh_private_key_file&#x3D;&#x2F;root&#x2F;test ansible_ssh_user&#x3D;centos </span><br><span class="line">172.29.16.6   ansible_ssh_private_key_file&#x3D;&#x2F;root&#x2F;test ansible_ssh_user&#x3D;centos</span><br><span class="line">172.29.20.97   ansible_ssh_private_key_file&#x3D;&#x2F;root&#x2F;test ansible_ssh_user&#x3D;centos</span><br></pre></td></tr></table></figure>
+<p>hosts文件使用参数详解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ansible_ssh_host   #用于指定被管理的主机的真实IP</span><br><span class="line">ansible_ssh_port   #用于指定连接到被管理主机的ssh端口号，默认是22</span><br><span class="line">ansible_ssh_user   #ssh连接时默认使用的用户名</span><br><span class="line">ansible_ssh_pass   #ssh连接时的密码</span><br><span class="line">ansible_sudo_pass  #使用sudo连接用户时的密码</span><br><span class="line">ansible_sudo_exec  #如果sudo命令不在默认路径，需要指定sudo命令路径 </span><br><span class="line">ansible_ssh_private_key_file #秘钥文件路径，秘钥文件如果不想使用ssh-agent管理时可以使用此选项 </span><br><span class="line">ansible_shell_type          #目标系统的shell的类型，默认sh </span><br><span class="line">ansible_connection         #SSH 连接的类型： local , ssh , paramiko，在 ansible 1.2 之前默认是 paramiko ，后来智能选择，优先使用基于 ControlPersist 的 ssh(支持的前提)</span><br><span class="line">ansible_python_interpreter  #用来指定python解释器的路径，默认为&#x2F;usr&#x2F;bin&#x2F;python 同样可以指定ruby 、perl 的路径 </span><br><span class="line">ansible_*_interpreter     #其他解释器路径，用法和ansible_python_interpreter类似，这里&quot;*&quot;可以是ruby或才perl等其他语言</span><br></pre></td></tr></table></figure>
+<p>上例中使用的是私钥和用户名，如果想要使用执行端口，密码，用户名可参考上面详解参数。</p>
+<h2 id="3、编辑批量上传脚本"><a href="#3、编辑批量上传脚本" class="headerlink" title="3、编辑批量上传脚本"></a>3、编辑批量上传脚本</h2><p>cat /etc/ansible/scopy-test-zabbix.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- hosts: test</span><br><span class="line">  remote_user: centos</span><br><span class="line">  tasks:</span><br><span class="line">  - name: scopy zabbix to all hosts</span><br><span class="line">    copy: src&#x3D;&quot;&#x2F;root&#x2F;zabbix-3.4.2.tar.gz&quot; dest&#x3D;&quot;&#x2F;home&#x2F;centos&#x2F;zabbix-3.4.2.tar.gz&quot;</span><br><span class="line">  - name: scopy zabbix-agent config to all hosts</span><br><span class="line">    copy: src&#x3D;&quot;&#x2F;home&#x2F;centos&#x2F;execute-zabbix.sh&quot; dest&#x3D;&quot;&#x2F;home&#x2F;centos&#x2F;execute-zabbix.sh&quot;</span><br></pre></td></tr></table></figure>
+<p>src:代表本机的源文件，dest代表目标端的路径<br>hosts：要与/etc/ansible/hosts下的[test]保持一致。</p>
+<p>execute-zabbix.sh脚本为安装zabbix-agent脚本<br>cat /home/centos/execute-zabbix.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line"> mkdir &#x2F;home&#x2F;zabbix</span><br><span class="line"> useradd -r -s &#x2F;sbin&#x2F;nologin zabbix</span><br><span class="line"> yum -y install gcc gcc-c++ pcre-devel openssl-devel</span><br><span class="line"> mv &#x2F;home&#x2F;centos&#x2F;zabbix-3.4.2.tar.gz &#x2F;home&#x2F;zabbix&#x2F;</span><br><span class="line">cd &#x2F;home&#x2F;zabbix</span><br><span class="line"> tar -zxvf zabbix-3.4.2.tar.gz</span><br><span class="line">cd zabbix-3.4.2</span><br><span class="line"> &#x2F;home&#x2F;zabbix&#x2F;zabbix-3.4.2&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;zabbix --enable-agent  --with-openssl </span><br><span class="line"> make </span><br><span class="line"> make install</span><br><span class="line">#host1&#x3D;&#96;ifconfig eth0 |awk -F &#39;[ :]+&#39; &#39;NR&#x3D;&#x3D;2 &#123;print $3&#125;&#39;&#96;</span><br><span class="line">host1&#x3D;&#96;ip addr |grep dynamic |awk &#39;&#123;print $2&#125;&#39;|awk -F&#39;&#x2F;&#39; &#39;&#123;print $1&#125;&#39;&#96;</span><br><span class="line">echo &quot;LogFile&#x3D;&#x2F;tmp&#x2F;zabbix_agentd.log</span><br><span class="line">Server&#x3D;172.29.12.85</span><br><span class="line">ServerActive&#x3D;172.29.12.85</span><br><span class="line">Hostname&#x3D;$host1&quot;&gt; &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;etc&#x2F;zabbix_agentd.conf</span><br><span class="line"></span><br><span class="line">cp &#x2F;home&#x2F;zabbix&#x2F;zabbix-3.4.2&#x2F;misc&#x2F;init.d&#x2F;fedora&#x2F;core&#x2F;zabbix_agentd &#x2F;etc&#x2F;init.d&#x2F;         </span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;etc&#x2F;zabbix_agentd.conf &#x2F;usr&#x2F;local&#x2F;etc&#x2F;zabbix_agentd.conf</span><br><span class="line">sed -i &#39;s&#x2F;BASEDIR&#x3D;\&#x2F;usr\&#x2F;local&#x2F;BASEDIR&#x3D;\&#x2F;usr\&#x2F;local\&#x2F;zabbix&#x2F;g&#39; &#x2F;etc&#x2F;init.d&#x2F;zabbix_agentd</span><br><span class="line">service zabbix_agentd start</span><br><span class="line">chkconfig --add zabbix_agentd</span><br><span class="line">chkconfig --level 35 zabbix_agentd on                                                  </span><br><span class="line">netstat -lnpt | grep zabbix_agent</span><br></pre></td></tr></table></figure>
+<p>server端的ip地址根据自己的zabbix-proxy或者zabbix-server自行定义。</p>
+<p>执行批量脚本将文件上传到目标端：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook /etc/ansible/scopy-test-zabbix.sh</span><br></pre></td></tr></table></figure>
+<p>在ansible-server端执行批量安装脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible test -m command -a &#39;sudo sh &#x2F;home&#x2F;centos&#x2F;execute-zabbix.sh&#39;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、编辑查看zabbix-agent进程的脚本，并批量上传到被监控端"><a href="#4、编辑查看zabbix-agent进程的脚本，并批量上传到被监控端" class="headerlink" title="4、编辑查看zabbix-agent进程的脚本，并批量上传到被监控端"></a>4、编辑查看zabbix-agent进程的脚本，并批量上传到被监控端</h2><p>编辑检查zabbix-agent进程脚本<br>cat /home/centos/check-zabbix-port.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">netstat -tunlp |grep 10050</span><br></pre></td></tr></table></figure>
+<p>编辑批量上传脚本<br>cat /etc/ansible/scopy-test-check-zabbixport.sh </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- hosts: test</span><br><span class="line">  remote_user: centos</span><br><span class="line">  tasks:</span><br><span class="line">  - name: scopy zabbix-check-port to all hosts</span><br><span class="line">    copy: src&#x3D;&quot;&#x2F;home&#x2F;centos&#x2F;check-zabbix-port.sh&quot; dest&#x3D;&quot;&#x2F;home&#x2F;centos&#x2F;check-zabbix-port.sh&quot;</span><br></pre></td></tr></table></figure>
+<p>执行批量上传脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook /etc/ansible/scopy-test-check-zabbixport.sh</span><br></pre></td></tr></table></figure>
+<p>在ansible-server服务端执行检查脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible test -m command -a &#39;sudo sh &#x2F;home&#x2F;centos&#x2F;check-zabbix-port.sh&#39;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/zabbix/">zabbix</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/08/27/zabbix-agent批量安装/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/08/27/zabbix-server安装配置/"><span>[Zabbix] zabbix-server安装配置</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/08/27/zabbix-server安装配置/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-08-27T08:57:24.000Z">
+          2018-08-27
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="0、安装zabbix-server之前需要把server依赖环境lnmp安装完成，首先安装依赖包："><a href="#0、安装zabbix-server之前需要把server依赖环境lnmp安装完成，首先安装依赖包：" class="headerlink" title="0、安装zabbix-server之前需要把server依赖环境lnmp安装完成，首先安装依赖包："></a>0、安装zabbix-server之前需要把server依赖环境lnmp安装完成，首先安装依赖包：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum groupinstall &quot;Development tools&quot;  </span><br><span class="line">yum -y install gcc gcc-c++ cmake autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5 krb5-devel libidn libidn-devel openssl openssl-devel openldap openldap-devel nss_ldap openldap-clients openldap-servers pcre-devel libaio  openssl openssl-devel</span><br></pre></td></tr></table></figure>
+<h4 id="1、上传nginx软件包到服务器，如果没有可点击此处下载"><a href="#1、上传nginx软件包到服务器，如果没有可点击此处下载" class="headerlink" title="1、上传nginx软件包到服务器，如果没有可点击此处下载"></a>1、上传nginx软件包到服务器，如果没有可点击此处<a href="https://pan.baidu.com/s/1SH5TujhLgN9EkjjWI97gQQ" target="_blank" rel="noopener">下载</a></h4><p>创建nginx用户，创建nginx安装目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd nginx -s &#x2F;sbin&#x2F;nologin -M   </span><br><span class="line">mkdir &#x2F;data&#x2F;soft</span><br></pre></td></tr></table></figure>
+<p>解压安装包、编译安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx-1.9.15.tar.gz</span><br><span class="line">cd nginx-1.9.15</span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;nginx --user&#x3D;nginx --group&#x3D;nginx --with-http_stub_status_module --with-http_ssl_module  </span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p>检查语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx -t</span><br></pre></td></tr></table></figure>
+<p>启动nginx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx</span><br></pre></td></tr></table></figure>
+<p>查看进程是否正常启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tunlp|grep nginx</span><br></pre></td></tr></table></figure>
+<p>关闭nginx服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx -s stop</span><br></pre></td></tr></table></figure>
+<h4 id="2、Mysql数据库安装"><a href="#2、Mysql数据库安装" class="headerlink" title="2、Mysql数据库安装"></a>2、Mysql数据库安装</h4><p>下载mysql数据库(可自行下载自己喜欢的版本）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;Downloads&#x2F;MySQL-5.7&#x2F;mysql-5.7.18-linux-glibc2.5-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>添加用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd mysql -s &#x2F;sbin&#x2F;nologin -M</span><br></pre></td></tr></table></figure>
+<p>解压、重命名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mysql-5.7.18-linux-glibc2.5-x86_64.tar.gz </span><br><span class="line">mv mysql-5.7.18-linux-glibc2.5-x86_64 &#x2F;application&#x2F;mysql</span><br></pre></td></tr></table></figure>
+<p>改变权限权限、初始化,初始化过程中会默认生成随机密码，记录以便后面更改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chown -R mysql.mysql &#x2F;data&#x2F;mysql&#x2F; </span><br><span class="line">&#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqld --initialize --user&#x3D;mysql --basedir&#x3D;&#x2F;data&#x2F;mysql&#x2F; --datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F;data&#x2F;</span><br><span class="line">&#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysql_ssl_rsa_setup --datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F;data&#x2F;</span><br></pre></td></tr></table></figure>
+<p>修改配置文件<br>cat /data/mysql/support-files/my_default.cnf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">user &#x3D; mysql</span><br><span class="line">port &#x3D; 3306</span><br><span class="line">server_id &#x3D; 1</span><br><span class="line">socket&#x3D;&#x2F;tmp&#x2F;mysql.sock</span><br><span class="line">basedir &#x3D;&#x2F;data&#x2F;mysql&#x2F;</span><br><span class="line">datadir &#x3D;&#x2F;data&#x2F;mysql&#x2F;data&#x2F;</span><br><span class="line">character-set-server&#x3D;utf8</span><br><span class="line">[client]</span><br><span class="line">socket&#x3D;&#x2F;tmp&#x2F;mysql.sock</span><br></pre></td></tr></table></figure>
+<p>配合mysql启动命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp my_default.cnf &#x2F;etc&#x2F;my.cnf</span><br><span class="line">cp mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line">chmod 755 &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br></pre></td></tr></table></figure>
+<p>修改/etc/init.d/mysqld，文件数据和安装路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">basedir&#x3D;&#x2F;data&#x2F;mysql&#x2F;</span><br><span class="line">datadir&#x3D;&#x2F;dadta&#x2F;mysql&#x2F;data&#x2F;</span><br></pre></td></tr></table></figure>
+<p>启动mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;init.d&#x2F;mysqld start</span><br></pre></td></tr></table></figure>
+
+<p>修改mysql密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -u  root -p</span><br><span class="line">set password&#x3D;password(&#39;root&#39;);</span><br><span class="line">grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;root&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、安装php服务"><a href="#3、安装php服务" class="headerlink" title="3、安装php服务"></a>3、安装php服务</h4><p>安装依赖包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y zlib libxml2 libjpeg freetype libpng gd curl libiconv  zlib-devel libxml2-devel libjpeg-devel freetype-devel libpng-devel gd-devel curl-devel openssl-devel libxslt-devel libxslt*</span><br></pre></td></tr></table></figure>
+<p>安装libiconv,下载<a href="https://pan.baidu.com/s/1SH5TujhLgN9EkjjWI97gQQ" target="_blank" rel="noopener">链接</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf libiconv-1.14.tar.gz </span><br><span class="line">cd libiconv-1.14</span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;libiconv   </span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p>报错：<br>./stdio.h:1010:1: error: ‘gets’ undeclared here (not in a function)<br>_GL_WARN_ON_USE (gets, “gets is a security hole - use fgets instead”);</p>
+<p>vi srclib/stdio.in.h文件，接着搜索到在698行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_GL_WARN_ON_USE (gets, “gets is a security hole - use fgets instead”);</span><br></pre></td></tr></table></figure>
+<p>这一行，然后把这个替换成下面三行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#if defined(__GLIBC__) &amp;&amp; !defined(__UCLIBC__) &amp;&amp; !__GLIBC_PREREQ(2, 16)</span><br><span class="line">_GL_WARN_ON_USE (gets, &quot;gets is a security hole - use fgets instead&quot;);</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+
+<p>安装Libmcrypt,下载<a href="https://pan.baidu.com/s/1SH5TujhLgN9EkjjWI97gQQ" target="_blank" rel="noopener">链接</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf libmcrypt-2.5.8.tar.gz </span><br><span class="line">cd libmcrypt-2.5.8</span><br><span class="line">.&#x2F;configure   </span><br><span class="line">make &amp;&amp; make install   </span><br><span class="line"></span><br><span class="line">&#x2F;sbin&#x2F;ldconfig   </span><br><span class="line">cd libltdl&#x2F;   </span><br><span class="line">.&#x2F;configure --enable-ltdl-install   </span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">cd ..&#x2F;..&#x2F;</span><br></pre></td></tr></table></figure>
+<p>安装mhash,下载<a href="https://pan.baidu.com/s/1SH5TujhLgN9EkjjWI97gQQ" target="_blank" rel="noopener">链接</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mhash-0.9.9.9.tar.gz </span><br><span class="line">cd mhash-0.9.9.9</span><br><span class="line">.&#x2F;configure   </span><br><span class="line">make &amp;&amp; make install </span><br><span class="line">cd ..&#x2F;   </span><br><span class="line">rm -f &#x2F;usr&#x2F;lib64&#x2F;libmcrypt.*   </span><br><span class="line">rm -f &#x2F;usr&#x2F;lib64&#x2F;libmhash*   </span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;lib&#x2F;libmcrypt.la &#x2F;usr&#x2F;lib64&#x2F;libmcrypt.la   </span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;lib&#x2F;libmcrypt.so &#x2F;usr&#x2F;lib64&#x2F;libmcrypt.so   </span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;lib&#x2F;libmcrypt.so.4 &#x2F;usr&#x2F;lib64&#x2F;libmcrypt.so.4   </span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;lib&#x2F;libmcrypt.so.4.4.8 &#x2F;usr&#x2F;lib64&#x2F;libmcrypt.so.4.4.8   </span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;lib&#x2F;libmhash.a &#x2F;usr&#x2F;lib64&#x2F;libmhash.a   </span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;lib&#x2F;libmhash.la &#x2F;usr&#x2F;lib64&#x2F;libmhash.la   </span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;lib&#x2F;libmhash.so &#x2F;usr&#x2F;lib64&#x2F;libmhash.so   </span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;lib&#x2F;libmhash.so.2 &#x2F;usr&#x2F;lib64&#x2F;libmhash.so.2   </span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;lib&#x2F;libmhash.so.2.0.1 &#x2F;usr&#x2F;lib64&#x2F;libmhash.so.2.0.1   </span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;lib&#x2F;libmcrypt-config &#x2F;usr&#x2F;lib&#x2F;libmcrypt-config</span><br></pre></td></tr></table></figure>
+<p>安装mcrypt,下载<a href="https://pan.baidu.com/s/1SH5TujhLgN9EkjjWI97gQQ" target="_blank" rel="noopener">链接</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar -xf mcrypt-2.6.8.tar.gz   </span><br><span class="line">cd mcrypt-2.6.8&#x2F;</span><br><span class="line">&#x2F;sbin&#x2F;ldconfig   </span><br><span class="line">.&#x2F;configure LD_LIBRARY&#x3D;&#x2F;usr&#x2F;local&#x2F;lib &amp;&amp; make &amp;&amp;make install   </span><br><span class="line">cd ..</span><br></pre></td></tr></table></figure>
+<p>安装php,下载<a href="https://pan.baidu.com/s/1SH5TujhLgN9EkjjWI97gQQ" target="_blank" rel="noopener">链接</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf php-5.6.11.tar.gz </span><br><span class="line">cd php-5.6.11</span><br><span class="line"></span><br><span class="line">修改mysql路径对应为自己的mysql安装路径</span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;php --with-mysql&#x3D;&#x2F;data&#x2F;mysql --with-iconv-dir&#x3D;&#x2F;usr&#x2F;local&#x2F;libiconv --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir&#x3D;&#x2F;usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl  --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --enable-short-tags --enable-static --with-xsl --with-fpm-user&#x3D;nginx --with-fpm-group&#x3D;nginx --enable-ftp --enable-pdo --with-pdo-mysql  --enable-opcache&#x3D;no</span><br><span class="line">make &amp;&amp; make install </span><br><span class="line">cd ..</span><br></pre></td></tr></table></figure>
+
+<p>安装过程提示缺少mysqlclient包的问题，根据版本差异执行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ln -s &#x2F;data&#x2F;mysql&#x2F;lib&#x2F;libmysqlclient.so.18 &#x2F;usr&#x2F;lib64&#x2F;</span><br><span class="line">或者</span><br><span class="line">ln -s &#x2F;data&#x2F;mysql&#x2F;lib&#x2F;libmysqlclient.so.20 &#x2F;usr&#x2F;lib64&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>缺少phar.phar文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">chmod: cannot access &#96;ext&#x2F;phar&#x2F;phar.phar&#39;: No such file or directory</span><br><span class="line">make: [ext&#x2F;phar&#x2F;phar.phar] Error 1 (ignored)</span><br><span class="line"></span><br><span class="line">Build complete.</span><br><span class="line">Don&#39;t forget to run &#39;make test&#39;.</span><br><span class="line"></span><br><span class="line">解决方法</span><br><span class="line">#cd  ext&#x2F;phar&#x2F;</span><br><span class="line">#cp .&#x2F;phar.php  .&#x2F;phar.phar</span><br></pre></td></tr></table></figure>
+
+<p>配置文件（php.ini和php-fpm）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">需要把php.ini文件放到lib下面，放到etc下面不生效：</span><br><span class="line">cp &#x2F;data&#x2F;soft&#x2F;php-5.6.11&#x2F;php.ini-production &#x2F;usr&#x2F;local&#x2F;php&#x2F;lib&#x2F;php.ini</span><br><span class="line">cp &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php-fpm.conf.default &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php-fpm.conf</span><br></pre></td></tr></table></figure>
+
+<p>检查语法、启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;php&#x2F;sbin&#x2F;php-fpm -t </span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;php&#x2F;sbin&#x2F;php-fpm</span><br><span class="line">cp  &#x2F;data&#x2F;soft&#x2F;php-5.6.11&#x2F;sapi&#x2F;fpm&#x2F;init.d.php-fpm  &#x2F;etc&#x2F;init.d&#x2F;php-fpm</span><br><span class="line">chmod a+x &#x2F;etc&#x2F;init.d&#x2F;php-fpm</span><br><span class="line">加入开机启动</span><br><span class="line">chkconfig --add php-fpm</span><br><span class="line">chkconfig --level 35 php-fpm on</span><br><span class="line">启动 php-fpm</span><br><span class="line">service php-fpm start</span><br><span class="line">netstat -anpt | grep php-fpm</span><br><span class="line">停止 php-fpm</span><br><span class="line">service php-fpm stop</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、配置nginx使其支持php"><a href="#4、配置nginx使其支持php" class="headerlink" title="4、配置nginx使其支持php"></a>4、配置nginx使其支持php</h4><p>cat /usr/local/nginx/conf/nginx.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">listen 80;</span><br><span class="line">server_name localhost;</span><br><span class="line"></span><br><span class="line">location &#x2F; &#123;</span><br><span class="line">root html;</span><br><span class="line">index index.php index.html index.htm;                               # 加入 index.php</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">error_page 500 502 503 504 &#x2F;50x.html;</span><br><span class="line">location &#x3D; &#x2F;50x.html &#123;</span><br><span class="line">root html;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location ~ \.php$ &#123; # 整段注释去掉</span><br><span class="line">root html;</span><br><span class="line">fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">fastcgi_index index.php;</span><br><span class="line">fastcgi_param SCRIPT_FILENAME &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;html$fastcgi_script_name;                          # 修改为自己的根目录</span><br><span class="line">include fastcgi_params;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建测试页面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"&lt;?php phpinfo(); ?&gt;"</span> &gt; /usr/<span class="built_in">local</span>/nginx/html/info.php</span><br></pre></td></tr></table></figure>
+<p>重启 Nginx 、php-fpm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">service php-fpm stop</span><br><span class="line">service php-fpm start</span><br><span class="line">nginx -s stop</span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+<p>浏览器访问测试页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost&#x2F;info.php</span><br></pre></td></tr></table></figure>
+<h4 id="5、安装zabbix-server"><a href="#5、安装zabbix-server" class="headerlink" title="5、安装zabbix-server"></a>5、安装zabbix-server</h4><p>下载安装包<br>wget <a href="https://jaist.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/4.0.3/zabbix-4.0.3.tar.gz" target="_blank" rel="noopener">https://jaist.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/4.0.3/zabbix-4.0.3.tar.gz</a><br>安装依赖包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ntpdate net-snmp net-snmp-devel libcurl-devel libevent-devel</span><br></pre></td></tr></table></figure>
+<p>设置zabbix用户，编译安装zabbix</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">useradd -r -s &#x2F;sbin&#x2F;nologin zabbix</span><br><span class="line">tar -zxvf zabbix-4.0.3.tar.gz</span><br><span class="line">cd zabbix-4.0.3</span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;zabbix --enable-server --enable-agent --with-mysql --with-net-snmp --with-libcurl --with-libxml2 --with-openssl</span><br><span class="line"></span><br><span class="line"># --prefix  指定安装路径</span><br><span class="line"># --enable-server  安装 Server 端</span><br><span class="line"># --enable-agent  安装 Agent 端</span><br><span class="line"># --with-mysql  使用 Mysql 数据库</span><br><span class="line"># --with-net-snmp  支持 SNMP 协议</span><br><span class="line"># --with-libcurl  支持 libcurl URL 监控</span><br><span class="line"></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>mysql数据库添加zabbix初始化数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create database zabbixDB character set utf8;                                    # 创建 zabbixDB 并设置编码为 utf8</span><br><span class="line">mysql&gt; grant all on zabbixDB.* to &#39;zabbix&#39;@&#39;%&#39; identified by &#39;zabbix&#39;;                 # 建立授权用户</span><br><span class="line">mysql&gt; flush privileges;                                                               # 刷新授权表 ( 虽然 grant 操作是不需要刷新授权表的，但那又如何 ? )</span><br><span class="line">mysql&gt; use zabbixDB;</span><br><span class="line">mysql&gt; source &#x2F;data&#x2F;soft&#x2F;zabbix-4.0.3&#x2F;database&#x2F;mysql&#x2F;schema.sql                             # 导入数据</span><br><span class="line">mysql&gt; source &#x2F;data&#x2F;soft&#x2F;zabbix-4.0.3&#x2F;database&#x2F;mysql&#x2F;images.sql</span><br><span class="line">mysql&gt; source &#x2F;data&#x2F;soft&#x2F;zabbix-4.0.3&#x2F;database&#x2F;mysql&#x2F;data.sql</span><br><span class="line">mysql&gt; quit</span><br></pre></td></tr></table></figure>
+<p>配置 Zabbix 服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 服务端启动脚本</span><br><span class="line">shell &gt; cp &#x2F;data&#x2F;soft&#x2F;zabbix-4.0.3&#x2F;misc&#x2F;init.d&#x2F;fedora&#x2F;core&#x2F;zabbix_server &#x2F;etc&#x2F;init.d&#x2F;</span><br><span class="line"># 客户端启动脚本</span><br><span class="line">shell &gt; cp &#x2F;data&#x2F;soft&#x2F;zabbix-4.0.3&#x2F;misc&#x2F;init.d&#x2F;fedora&#x2F;core&#x2F;zabbix_agentd &#x2F;etc&#x2F;init.d&#x2F;</span><br><span class="line"># 网页文件</span><br><span class="line">shell &gt; cp -R &#x2F;data&#x2F;soft&#x2F;zabbix-4.0.3&#x2F;frontends&#x2F;php&#x2F; &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;html&#x2F;zabbix</span><br></pre></td></tr></table></figure>
+
+<p>服务端配置文件<br>vim /usr/local/zabbix/etc/zabbix_server.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LogFile&#x3D;&#x2F;tmp&#x2F;zabbix_server.log  # 日志文件存放位置</span><br><span class="line">DBName&#x3D;zabbixDB                  # 数据库名</span><br><span class="line">DBUser&#x3D;zabbix                    # 连接用户</span><br><span class="line">DBPassword&#x3D;zabbix               # 连接密码</span><br></pre></td></tr></table></figure>
+<p>服务端启动脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; vim &#x2F;etc&#x2F;init.d&#x2F;zabbix_server </span><br><span class="line">BASEDIR&#x3D;&#x2F;usr&#x2F;local&#x2F;zabbix # 修改后的位置 ( 原：&#x2F;usr&#x2F;local )</span><br></pre></td></tr></table></figure>
+<p>客户端启动脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell &gt;vim &#x2F;etc&#x2F;init.d&#x2F;zabbix_agentd</span><br><span class="line">BASEDIR&#x3D;&#x2F;usr&#x2F;local&#x2F;zabbix # 修改后的位置 ( 原：&#x2F;usr&#x2F;local )</span><br></pre></td></tr></table></figure>
+<p>配置zabbix开机启动，并启动Zabbix服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; chkconfig --add zabbix_server</span><br><span class="line">shell &gt; chkconfig --add zabbix_agentd</span><br><span class="line">shell &gt; chkconfig --level 35 zabbix_server on</span><br><span class="line">shell &gt; chkconfig --level 35 zabbix_agentd on</span><br><span class="line">shell &gt; service zabbix_server start</span><br><span class="line">Starting zabbix_server: [确定]</span><br><span class="line">shell &gt; service zabbix_agentd start</span><br><span class="line">Starting zabbix_agentd: [确定]</span><br></pre></td></tr></table></figure>
+<p>查看进程启动是否正常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; netstat -anpt | grep zabbix ( 注意：要来确认一下到底有没有启动成功，因为当授权用户无法连接数据库时，zabbix_server 是无法启动的，但是启动过程显示成功 )</span><br><span class="line">tcp        0      0 0.0.0.0:10050               0.0.0.0:*                   LISTEN      75399&#x2F;zabbix_agentd </span><br><span class="line">tcp        0      0 0.0.0.0:10051               0.0.0.0:*                   LISTEN      75321&#x2F;zabbix_server</span><br></pre></td></tr></table></figure>
+
+<h4 id="6、登陆网页进行配置-Zabbix-http-your-domain-zabbix-（初始用户名密码为admin-zabbix）"><a href="#6、登陆网页进行配置-Zabbix-http-your-domain-zabbix-（初始用户名密码为admin-zabbix）" class="headerlink" title="6、登陆网页进行配置 Zabbix ( http://your-domain/zabbix )（初始用户名密码为admin/zabbix）"></a>6、登陆网页进行配置 Zabbix ( <a href="http://your-domain/zabbix" target="_blank" rel="noopener">http://your-domain/zabbix</a> )（初始用户名密码为admin/zabbix）</h4><blockquote>
+<p>第一个页面是欢迎页面，直接 Next<br><img src="https://i.imgur.com/t8fwVzF.png" alt=""><br><img src="https://i.imgur.com/5cjC7SU.png" alt=""><br>第二个页面大多会有多处检测失败，也是出问题最多的位置,修改php文件一下参数：<br>vim /usr/local/php/etc/php.ini</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">post_max_size &#x3D; 16M</span><br><span class="line">max_execution_time &#x3D; 300</span><br><span class="line">max_input_time &#x3D; 300</span><br><span class="line">去掉date前面的分号，并添加时区</span><br><span class="line">date.timezone &#x3D; Asia&#x2F;Shanghai</span><br><span class="line">去掉always前面的分号</span><br><span class="line">always_populate_raw_post_data &#x3D; -1</span><br></pre></td></tr></table></figure>
+<p>根据页面提示报错还需要修改以下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;root&#x2F;php-5.6.11&#x2F;ext&#x2F;openssl&#x2F;</span><br><span class="line">cp  .&#x2F;config0.m4 .&#x2F;config.m4</span><br><span class="line">#重新编译php，添加mysqli模块</span><br><span class="line">cd &#x2F;data&#x2F;soft&#x2F;php-5.6.11&#x2F;ext&#x2F;mysqli</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;php&#x2F;bin&#x2F;phpize </span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;data&#x2F;soft&#x2F;mysqli --with-php-config&#x3D;&#x2F;usr&#x2F;local&#x2F;php&#x2F;bin&#x2F;php-config --with-mysqli&#x3D;&#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysql_config</span><br><span class="line">make </span><br><span class="line">make test</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>配置完成后在php.ini下加入下来一行<br>vim /usr/local/php/etc/php.ini</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extension&#x3D;mysqli.so</span><br></pre></td></tr></table></figure>
+
+<p>安装过程中的其他报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal error: ext&#x2F;mysqlnd&#x2F;mysql_float_to_double.h: No such file or directory</span><br></pre></td></tr></table></figure>
+<p>vim /data/soft/php-5.6.11/ext/mysqli/mysqli_api.c</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">把第36行的</span><br><span class="line">#include &quot;ext&#x2F;mysqlnd&#x2F;mysql_float_to_double.h&quot;</span><br><span class="line">修改为</span><br><span class="line">#include &quot;&#x2F;data&#x2F;soft&#x2F;php-5.6.11&#x2F;ext&#x2F;mysqlnd&#x2F;mysql_float_to_double.h&quot;</span><br></pre></td></tr></table></figure>
+<p>点击下一步，配置数据库信息，根据自己配置的db信息填写<br><img src="https://i.imgur.com/0jqoRJU.png" alt=""><br>点击下一步，设置zabbix-server信息<br><img src="https://i.imgur.com/RbsR5W3.png" alt=""><br>点击下一步，预览设置的db和server的信息<br><img src="https://i.imgur.com/cdT09RC.png" alt=""><br>点击下一步，按提示要求，将下载下来的文件放到相应的目录<br><img src="https://i.imgur.com/1PNShFe.png" alt=""><br>zabbix-server安装完成</p>
+<h4 id="7、zabbix-proxy代理端安装"><a href="#7、zabbix-proxy代理端安装" class="headerlink" title="7、zabbix-proxy代理端安装"></a>7、zabbix-proxy代理端安装</h4><p>依赖包安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y groupinstall &quot;Development tools&quot; </span><br><span class="line">yum -y install gcc gcc-c++ cmake autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5 krb5-devel libidn libidn-devel openssl openssl-devel openldap openldap-devel nss_ldap openldap-clients openldap-servers pcre-devel libaio ntpdate net-snmp net-snmp-devel libcurl-devel libevent-devel  vim telnet pcre-devel</span><br></pre></td></tr></table></figure>
+<p>添加zabbix用户，并编译安装zabbix-proxy</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">useradd -r -s &#x2F;sbin&#x2F;nologin zabbix</span><br><span class="line">tar -zxvf zabbix-3.4.2.tar.gz</span><br><span class="line">cd zabbix-3.4.2</span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;zabbix --enable-agent --enable-proxy --with-mysql --with-net-snmp --with-libcurl --with-libxml2 --with-openssl</span><br><span class="line"># --enable-agent 不是必须的 ( 如果不想监控 Proxy 的话 )</span><br><span class="line">mysql路径如果安装路径不是默认，需要单独指定</span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;zabbix --enable-agent --enable-proxy --with-mysql&#x3D;&#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysql_config --with-net-snmp --with-libcurl --with-libxml2 --with-openssl  </span><br><span class="line"></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p>将proxy代理所需要的初始化数据导入到mysql数据库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">mysql&gt; create database proxydb character set utf8;                                            # 创建数据库</span><br><span class="line">mysql&gt; grant all on proxydb.* to &#39;proxy&#39;@&#39;%&#39; identified by &#39;proxydb&#39;;                         # 创建授权用户</span><br><span class="line">mysql&gt; flush privileges;                                                                      # 刷新授权表，虽然不需要~</span><br><span class="line">mysql&gt; use proxydb;</span><br><span class="line">mysql&gt; source &#x2F;root&#x2F;zabbix-3.4.2&#x2F;database&#x2F;mysql&#x2F;schema.sql                                    # 导入数据，只导入这一个就可以了</span><br></pre></td></tr></table></figure>
+
+<p>修改zabbix_proxy.conf配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# grep -vP &#39;^$|#&#39; &#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;etc&#x2F;zabbix_proxy.conf</span><br><span class="line">ProxyMode&#x3D;0</span><br><span class="line">Server&#x3D;192.168.197.135</span><br><span class="line">ServerPort&#x3D;10051</span><br><span class="line">Hostname&#x3D;node1</span><br><span class="line">LogFile&#x3D;&#x2F;tmp&#x2F;zabbix_proxy.log</span><br><span class="line">DBHost&#x3D;localhost</span><br><span class="line">DBName&#x3D;proxydb</span><br><span class="line">DBUser&#x3D;proxy</span><br><span class="line">DBPassword&#x3D;proxydb</span><br><span class="line">ConfigFrequency&#x3D;60</span><br><span class="line">DataSenderFrequency&#x3D;60</span><br><span class="line">Timeout&#x3D;4</span><br><span class="line">LogSlowQueries&#x3D;3000</span><br></pre></td></tr></table></figure>
+<p>参数详解：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">ProxyMode&#x3D;0                    # 0 代表 Proxy 处于主动模式，即：Proxy 主动去请求 Zabbix Server 获取监控项；1 代表被动模式</span><br><span class="line">Server&#x3D;192.168.188.30                     #填写Server的IP，Proxy会将收集到的数据发往这个IP。</span><br><span class="line">ServerPort&#x3D;10051              # Zabbix Server 监听端口，同上只在 Proxy 为主动模式时生效</span><br><span class="line">Hostname&#x3D;node1              # 这个很重要啦，跟 Agent 的 Hostname 一样重要，注意修改Hostname与web界面的需要添加的主机名称一致</span><br><span class="line">LogFile&#x3D;&#x2F;var&#x2F;log&#x2F;zabbix&#x2F;zabbix_proxy.log   # Proxy 日志文件位置</span><br><span class="line">LogFileSize&#x3D;0</span><br><span class="line">PidFile&#x3D;&#x2F;var&#x2F;run&#x2F;zabbix&#x2F;zabbix_proxy.pid</span><br><span class="line">DBHost&#x3D;localhost              # 连接哪里的数据库</span><br><span class="line">DBName&#x3D;proxydb                       #Proxy连接的数据库</span><br><span class="line">DBUser&#x3D;proxy                             #连接数据库的用户名</span><br><span class="line">DBPassword&#x3D;proxypass                         #连接数据库的秘密</span><br><span class="line">DBSocket&#x3D;&#x2F;var&#x2F;lib&#x2F;mysql&#x2F;mysql.sock</span><br><span class="line">ProxyLocalBuffer&#x3D;0                        #当数据发送到Server，还要在本地保留多少小时.不保留</span><br><span class="line">ProxyOfflineBuffer&#x3D;3                      #当数据没有发送到Server，在本地保留多少小时，3小时。</span><br><span class="line">HeartbeatFrequency&#x3D;60                     #心跳检测代理在Server的可用性</span><br><span class="line">ConfigFrequency&#x3D;60                        # Proxy 向 Zabbix Server 请求监控项间隔，单位为 秒，默认3600秒.</span><br><span class="line">DataSenderFrequency&#x3D;3                     #代理收集到数据后，多久向Server发送一次,单位为 秒</span><br><span class="line">ExternalScripts&#x3D;&#x2F;usr&#x2F;lib&#x2F;zabbix&#x2F;externalscripts</span><br><span class="line">TLSConnect&#x3D;psk                            #加密传输</span><br><span class="line">TLSPSKFile&#x3D;&#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;etc&#x2F;zabbix_proxy.psk #加密传输文件</span><br><span class="line">TLSPSKIdentity&#x3D;PSK 002 #加密传输标识，与web控制台一致</span><br><span class="line">#DebugLevel&#x3D;5</span><br></pre></td></tr></table></figure>
+<p>如果要加密传输生成秘钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rand -hex 32</span><br></pre></td></tr></table></figure>
+<p>将秘钥存入/usr/local/zabbix/etc/zabbix_proxy.psk文件<br>然后再zabbix-server，web控制台添加zabbix-proxy信息</p>
+<p><img src="https://i.imgur.com/Gn9MMx2.png" alt=""></p>
+<p><img src="https://i.imgur.com/87a6P6J.png" alt=""><br>启动 zabbix_proxy</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;sbin&#x2F;zabbix_proxy</span><br></pre></td></tr></table></figure>
+<p>启动报错如下                                           </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;sbin&#x2F;zabbix_proxy: error while loading shared libraries: libmysqlclient.so.20: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure>
+<p>解决方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s &#x2F;application&#x2F;mysql&#x2F;lib&#x2F;libmysqlclient.so.20 &#x2F;usr&#x2F;lib64&#x2F;</span><br></pre></td></tr></table></figure>
+<p>查看是否启动成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -lnpt | grep zabbix_proxy</span><br><span class="line">tcp        0      0 0.0.0.0:10051               0.0.0.0:*                   LISTEN      80154&#x2F;zabbix_proxy</span><br></pre></td></tr></table></figure>
+<p>加入开机启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;&#x2F;usr&#x2F;local&#x2F;zabbix&#x2F;sbin&#x2F;zabbix_proxy&quot; &gt;&gt; &#x2F;etc&#x2F;rc.local</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/zabbix/">zabbix</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/08/27/zabbix-server安装配置/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+
+<nav class="pagination">
+  
+  <a href="/page/13/" class="pagination-prev">上一页</a>
+  
+  
+  <a href="/page/15/" class="pagination-next">下一页</a>
+  
+</nav>
+            </main>
+            <div class="sidebar
+                    col-lg-3 col-lg-offset-0
+                    col-md-3 col-md-offset-0
+                    col-sm-12
+                    col-xs-12
+                    sidebar-container
+                ">
+
+                <div class="sidebar-container">
+
+
+
+<div class="search-container">
+<form class="site-search-form">
+    <span class="glyphicon glyphicon-search"></span><input type="text" id="local-search-input" class="st-search-input" placeholder="Search..." />
+</form>
+<div id="local-search-result" class="local-search-result-cls"></div>
+</div>
+<script type="text/javascript" id="local.search.active">
+var inputArea       = document.querySelector("#local-search-input");
+inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script>
+
+
+
+
+    <div class="categories-container" style="margin-top:40px;">
+        <p>归档:</p>
+            
+    </div>
+
+
+
+
+    <div class="social-container" style="margin-top:40px;">
+        <p>Links:</p>
+            
+                
+                    <li class="social-item"><i class="fa fa-fw fa-github"></i><a href="https://github.com/zeven0707">GitHub</a></li>
+                
+            
+    </div>
+
+</div>
+            </div>
+          </div>
+        </div>
+        
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

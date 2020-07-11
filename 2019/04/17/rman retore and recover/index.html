@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>[Oracle] oracle完全恢复、不完全恢复、闪回数据库 | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+  <meta name="description" content="1、查看当前的表空间和数据文件12345678910111213141516171819RMAN&amp;gt; report schema;Report of database schema for database with db_unique_name BOSTONList of Permanent ">
+  
+
+  
+  
+  <meta name="keywords" content="oracle">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="[Oracle] oracle完全恢复、不完全恢复、闪回数据库"/>
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+          <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container" style="position: inherit;">
+            <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><span>[Oracle] oracle完全恢复、不完全恢复、闪回数据库</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/04/17/rman retore and recover/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-04-17T07:06:00.000Z">
+          2019-04-17
+        </time>
+      </a>
+    </span>
+    <br />
+    
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、查看当前的表空间和数据文件"><a href="#1、查看当前的表空间和数据文件" class="headerlink" title="1、查看当前的表空间和数据文件"></a>1、查看当前的表空间和数据文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; report schema;</span><br><span class="line">Report of database schema for database with db_unique_name BOSTON</span><br><span class="line">List of Permanent Datafiles</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">File Size(MB) Tablespace           RB segs Datafile Name</span><br><span class="line">---- -------- -------------------- ------- ------------------------</span><br><span class="line">1    750      SYSTEM               ***     &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;system01.dbf</span><br><span class="line">2    1670     SYSAUX               ***     &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;sysaux01.dbf</span><br><span class="line">3    70       UNDOTBS1             ***     &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;undotbs01.dbf</span><br><span class="line">4    300      USERS                ***     &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;users01.dbf</span><br><span class="line">5    100      TEST                 ***     &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;test001.dbf</span><br><span class="line">6    100      TEST11               ***     &#x2F;home&#x2F;oracle&#x2F;test11101.dbf</span><br><span class="line">7    100      ZEVEN                ***     &#x2F;home&#x2F;oracle&#x2F;zeven01.dbf</span><br><span class="line"></span><br><span class="line">List of Temporary Files</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">File Size(MB) Tablespace           Maxsize(MB) Tempfile Name</span><br><span class="line">---- -------- -------------------- ----------- --------------------</span><br><span class="line">1    29       TEMP                 32767       &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;temp01.dbf</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、查看数据库当前可用的备份"><a href="#2、查看数据库当前可用的备份" class="headerlink" title="2、查看数据库当前可用的备份"></a>2、查看数据库当前可用的备份</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; RESTORE DATABASE PREVIEW SUMMARY;</span><br><span class="line"></span><br><span class="line">Starting restore at 2019:04:14 23:39:42</span><br><span class="line">using channel ORA_DISK_1</span><br><span class="line">using channel ORA_DISK_2</span><br><span class="line">using channel ORA_DISK_3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">List of Backups</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Key     TY LV S Device Type Completion Time     #Pieces #Copies Compressed Tag</span><br><span class="line">------- -- -- - ----------- ------------------- ------- ------- ---------- ---</span><br><span class="line">644     B  0  A DISK        2019:04:14 23:36:43 1       1       YES        TAG20190414T233619</span><br><span class="line">652     B  1  A DISK        2019:04:14 23:37:36 1       1       YES        TAG20190414T233735</span><br><span class="line">645     B  0  A DISK        2019:04:14 23:36:56 1       1       YES        TAG20190414T233619</span><br><span class="line">653     B  1  A DISK        2019:04:14 23:37:36 1       1       YES        TAG20190414T233735</span><br><span class="line">641     B  0  A DISK        2019:04:14 23:36:24 1       1       YES        TAG20190414T233619</span><br><span class="line">655     B  1  A DISK        2019:04:14 23:37:40 1       1       YES        TAG20190414T233735</span><br><span class="line">640     B  0  A DISK        2019:04:14 23:36:21 1       1       YES        TAG20190414T233619</span><br><span class="line">654     B  1  A DISK        2019:04:14 23:37:36 1       1       YES        TAG20190414T233735</span><br><span class="line"></span><br><span class="line">archived logs generated after SCN 103084444 not found in repository</span><br><span class="line">Media recovery start SCN is 103084444</span><br><span class="line">Recovery must be done beyond SCN 103084453 to clear datafile fuzziness</span><br><span class="line">Finished restore at 2019:04:14 23:39:42</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、完全恢复"><a href="#3、完全恢复" class="headerlink" title="3、完全恢复"></a>3、完全恢复</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">startup force mount;</span><br><span class="line">run &#123;</span><br><span class="line">restore database;</span><br><span class="line">recover database;</span><br><span class="line">alter database open;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4、根据scn值进行不完整恢复"><a href="#4、根据scn值进行不完整恢复" class="headerlink" title="4、根据scn值进行不完整恢复"></a>4、根据scn值进行不完整恢复</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">startup force mount;</span><br><span class="line">run &#123;</span><br><span class="line">restore database until scn 103233673;</span><br><span class="line">recover database until scn 103233673;</span><br><span class="line">alter database open resetlogs;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="5、使用rman自带的Data-Recovery-Advisor进行诊断和修复问题"><a href="#5、使用rman自带的Data-Recovery-Advisor进行诊断和修复问题" class="headerlink" title="5、使用rman自带的Data Recovery Advisor进行诊断和修复问题"></a>5、使用rman自带的Data Recovery Advisor进行诊断和修复问题</h1><h2 id="5-1、手动删除数据文件"><a href="#5-1、手动删除数据文件" class="headerlink" title="5.1、手动删除数据文件"></a>5.1、手动删除数据文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave boston]$ ls</span><br><span class="line">control01.ctl  redo02.log  sysaux01.dbf  temp01.dbf   test101.dbf  undotbs01.dbf</span><br><span class="line">redo01.log     redo03.log  system01.dbf  test001.dbf  test201.dbf  users01.dbf</span><br><span class="line">[oracle@dax-mysql-slave boston]$ mv users01.dbf /tmp/</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-2、尝试关闭数据库，提示报错："><a href="#5-2、尝试关闭数据库，提示报错：" class="headerlink" title="5.2、尝试关闭数据库，提示报错："></a>5.2、尝试关闭数据库，提示报错：</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">20:06:51 SYS@ boston&gt; shutdown immediate;</span><br><span class="line">ORA-01116: error in opening database file 4</span><br><span class="line">ORA-01110: data file 4: '/data/u01/app/oracle/oradata/boston/users01.dbf'</span><br><span class="line">ORA-27041: unable to open file</span><br><span class="line">Linux-x86_64 Error: 2: No such file or directory</span><br><span class="line">Additional information: 3</span><br><span class="line">20:06:59 SYS@ boston&gt; exit</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-3、使用rman的Data-Recovery-Advisor功能去修复："><a href="#5-3、使用rman的Data-Recovery-Advisor功能去修复：" class="headerlink" title="5.3、使用rman的Data Recovery Advisor功能去修复："></a>5.3、使用rman的Data Recovery Advisor功能去修复：</h2><p>列出信息<code>list failure</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list failure;</span><br><span class="line">using target database control file instead of recovery catalog</span><br><span class="line">List of Database Failures</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line"></span><br><span class="line">Failure ID Priority Status    Time Detected       Summary</span><br><span class="line">---------- -------- --------- ------------------- -------</span><br><span class="line">98722      HIGH     OPEN      2019:04:18 20:07:00 One or more non-system datafiles are missing</span><br></pre></td></tr></table></figure>
+
+<p>查看失败建议<code>advise failure;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; advise failure;</span><br><span class="line"></span><br><span class="line">List of Database Failures</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line"></span><br><span class="line">Failure ID Priority Status    Time Detected       Summary</span><br><span class="line">---------- -------- --------- ------------------- -------</span><br><span class="line">98722      HIGH     OPEN      2019:04:18 20:07:00 One or more non-system datafiles are missing</span><br><span class="line"></span><br><span class="line">analyzing automatic repair options; this may take some time</span><br><span class="line">allocated channel: ORA_DISK_1</span><br><span class="line">channel ORA_DISK_1: SID&#x3D;590 device type&#x3D;DISK</span><br><span class="line">allocated channel: ORA_DISK_2</span><br><span class="line">channel ORA_DISK_2: SID&#x3D;6 device type&#x3D;DISK</span><br><span class="line">allocated channel: ORA_DISK_3</span><br><span class="line">channel ORA_DISK_3: SID&#x3D;201 device type&#x3D;DISK</span><br><span class="line">analyzing automatic repair options complete</span><br><span class="line"></span><br><span class="line">Mandatory Manual Actions</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">no manual actions available</span><br><span class="line"></span><br><span class="line">Optional Manual Actions</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">1. If file &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;users01.dbf was unintentionally renamed or moved, restore it</span><br><span class="line"></span><br><span class="line">Automated Repair Options</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Option Repair Description</span><br><span class="line">------ ------------------</span><br><span class="line">1      Restore and recover datafile 4  </span><br><span class="line">  Strategy: The repair includes complete media recovery with no data loss</span><br><span class="line">  Repair script: &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;diag&#x2F;rdbms&#x2F;boston&#x2F;boston&#x2F;hm&#x2F;reco_16185943.hm</span><br></pre></td></tr></table></figure>
+
+<p>修复失败问题<code>repair failure;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; repair failure;</span><br><span class="line"></span><br><span class="line">Strategy: The repair includes complete media recovery with no data loss</span><br><span class="line">Repair script: &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;diag&#x2F;rdbms&#x2F;boston&#x2F;boston&#x2F;hm&#x2F;reco_16185943.hm</span><br><span class="line"></span><br><span class="line">contents of repair script:</span><br><span class="line">   # restore and recover datafile</span><br><span class="line">   sql &#39;alter database datafile 4 offline&#39;;</span><br><span class="line">   restore datafile 4;</span><br><span class="line">   recover datafile 4;</span><br><span class="line">   sql &#39;alter database datafile 4 online&#39;;</span><br><span class="line"></span><br><span class="line">Do you really want to execute the above repair (enter YES or NO)? YES</span><br><span class="line">executing repair script</span><br><span class="line"></span><br><span class="line">sql statement: alter database datafile 4 offline</span><br><span class="line"></span><br><span class="line">Starting restore at 2019:04:18 20:11:30</span><br><span class="line">using channel ORA_DISK_1</span><br><span class="line">using channel ORA_DISK_2</span><br><span class="line">using channel ORA_DISK_3</span><br><span class="line"></span><br><span class="line">channel ORA_DISK_1: starting datafile backup set restore</span><br><span class="line">channel ORA_DISK_1: specifying datafile(s) to restore from backup set</span><br><span class="line">channel ORA_DISK_1: restoring datafile 00004 to &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;users01.dbf</span><br><span class="line">channel ORA_DISK_1: reading from backup piece &#x2F;tmp&#x2F;backuporacle&#x2F;db_BOSTON_20190417_s7tv8kue_1_1</span><br><span class="line">channel ORA_DISK_1: piece handle&#x3D;&#x2F;tmp&#x2F;backuporacle&#x2F;db_BOSTON_20190417_s7tv8kue_1_1 tag&#x3D;TAG20190417T234621</span><br><span class="line">channel ORA_DISK_1: restored backup piece 1</span><br><span class="line">channel ORA_DISK_1: restore complete, elapsed time: 00:00:07</span><br><span class="line">Finished restore at 2019:04:18 20:11:37</span><br><span class="line"></span><br><span class="line">Starting recover at 2019:04:18 20:11:37</span><br><span class="line">using channel ORA_DISK_1</span><br><span class="line">using channel ORA_DISK_2</span><br><span class="line">using channel ORA_DISK_3</span><br><span class="line">channel ORA_DISK_1: starting incremental datafile backup set restore</span><br><span class="line">channel ORA_DISK_1: specifying datafile(s) to restore from backup set</span><br><span class="line">destination for restore of datafile 00004: &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oradata&#x2F;boston&#x2F;users01.dbf</span><br><span class="line">channel ORA_DISK_1: reading from backup piece &#x2F;tmp&#x2F;backuporacle&#x2F;db_BOSTON_20190417_t6tv8ld5_1_1</span><br><span class="line">channel ORA_DISK_1: piece handle&#x3D;&#x2F;tmp&#x2F;backuporacle&#x2F;db_BOSTON_20190417_t6tv8ld5_1_1 tag&#x3D;TAG20190417T235413</span><br><span class="line">channel ORA_DISK_1: restored backup piece 1</span><br><span class="line">channel ORA_DISK_1: restore complete, elapsed time: 00:00:01</span><br><span class="line"></span><br><span class="line">starting media recovery</span><br><span class="line"></span><br><span class="line">archived log for thread 1 with sequence 10 is already on disk as file &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;fast_recovery_area&#x2F;BOSTON&#x2F;archivelog&#x2F;2019_04_18&#x2F;o1_mf_1_10_gchplpwh_.arc</span><br><span class="line">archived log for thread 1 with sequence 11 is already on disk as file &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;fast_recovery_area&#x2F;BOSTON&#x2F;archivelog&#x2F;2019_04_18&#x2F;o1_mf_1_11_gcjrv31m_.arc</span><br><span class="line">channel ORA_DISK_1: starting archived log restore to default destination</span><br><span class="line">channel ORA_DISK_1: restoring archived log</span><br><span class="line">archived log thread&#x3D;1 sequence&#x3D;8</span><br><span class="line">channel ORA_DISK_1: reading from backup piece &#x2F;tmp&#x2F;backuporacle&#x2F;arch_BOSTON_20190417_939_1.bak</span><br><span class="line">channel ORA_DISK_2: starting archived log restore to default destination</span><br><span class="line">channel ORA_DISK_2: restoring archived log</span><br><span class="line">archived log thread&#x3D;1 sequence&#x3D;9</span><br><span class="line">channel ORA_DISK_2: reading from backup piece &#x2F;tmp&#x2F;backuporacle&#x2F;arch_BOSTON_20190417_940_1.bak</span><br><span class="line">channel ORA_DISK_1: piece handle&#x3D;&#x2F;tmp&#x2F;backuporacle&#x2F;arch_BOSTON_20190417_939_1.bak tag&#x3D;TAG20190417T235425</span><br><span class="line">channel ORA_DISK_1: restored backup piece 1</span><br><span class="line">channel ORA_DISK_1: restore complete, elapsed time: 00:00:01</span><br><span class="line">archived log file name&#x3D;&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;fast_recovery_area&#x2F;BOSTON&#x2F;archivelog&#x2F;2019_04_18&#x2F;o1_mf_1_8_gcjtcwnn_.arc thread&#x3D;1 sequence&#x3D;8</span><br><span class="line">channel default: deleting archived log(s)</span><br><span class="line">archived log file name&#x3D;&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;fast_recovery_area&#x2F;BOSTON&#x2F;archivelog&#x2F;2019_04_18&#x2F;o1_mf_1_8_gcjtcwnn_.arc RECID&#x3D;380 STAMP&#x3D;1005941500</span><br><span class="line">channel ORA_DISK_2: piece handle&#x3D;&#x2F;tmp&#x2F;backuporacle&#x2F;arch_BOSTON_20190417_940_1.bak tag&#x3D;TAG20190417T235425</span><br><span class="line">channel ORA_DISK_2: restored backup piece 1</span><br><span class="line">channel ORA_DISK_2: restore complete, elapsed time: 00:00:02</span><br><span class="line">archived log file name&#x3D;&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;fast_recovery_area&#x2F;BOSTON&#x2F;archivelog&#x2F;2019_04_18&#x2F;o1_mf_1_9_gcjtcwsb_.arc thread&#x3D;1 sequence&#x3D;9</span><br><span class="line">channel default: deleting archived log(s)</span><br><span class="line">archived log file name&#x3D;&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;fast_recovery_area&#x2F;BOSTON&#x2F;archivelog&#x2F;2019_04_18&#x2F;o1_mf_1_9_gcjtcwsb_.arc RECID&#x3D;381 STAMP&#x3D;1005941501</span><br><span class="line">media recovery complete, elapsed time: 00:00:01</span><br><span class="line">Finished recover at 2019:04:18 20:11:43</span><br><span class="line"></span><br><span class="line">sql statement: alter database datafile 4 online</span><br><span class="line">repair failure complete</span><br><span class="line"></span><br><span class="line">RMAN&gt; exit</span><br><span class="line">Recovery Manager complete.</span><br></pre></td></tr></table></figure>
+
+<h1 id="6、使用flashback闪回数据库"><a href="#6、使用flashback闪回数据库" class="headerlink" title="6、使用flashback闪回数据库"></a>6、使用flashback闪回数据库</h1><h2 id="6-1、开启flashback闪回数据库，需要满足一下条件："><a href="#6-1、开启flashback闪回数据库，需要满足一下条件：" class="headerlink" title="6.1、开启flashback闪回数据库，需要满足一下条件："></a>6.1、开启flashback闪回数据库，需要满足一下条件：</h2><h3 id="6-1-1、10g以上的库"><a href="#6-1-1、10g以上的库" class="headerlink" title="6.1.1、10g以上的库"></a>6.1.1、10g以上的库</h3><h3 id="6-1-2、数据库在归档模式"><a href="#6-1-2、数据库在归档模式" class="headerlink" title="6.1.2、数据库在归档模式"></a>6.1.2、数据库在归档模式</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">03:08:25 SYS@ boston&gt; archive log list;</span><br><span class="line">Database log mode              Archive Mode</span><br><span class="line">Automatic archival             Enabled</span><br><span class="line">Archive destination            USE_DB_RECOVERY_FILE_DEST</span><br><span class="line">Oldest online log sequence     1</span><br><span class="line">Next log sequence to archive   1</span><br><span class="line">Current log sequence           1</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-1-3、fast-recovery-area配置"><a href="#6-1-3、fast-recovery-area配置" class="headerlink" title="6.1.3、fast recovery area配置"></a>6.1.3、fast recovery area配置</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">03:09:58 SYS@ boston&gt; show parameter recover</span><br><span class="line"></span><br><span class="line">NAME                                 TYPE        VALUE</span><br><span class="line"><span class="comment">------------------------------------ ----------- ------------------------------</span></span><br><span class="line">db_recovery_file_dest                string      /data/u01/app/oracle/fast_reco</span><br><span class="line">                                                 very_area</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-1-4、数据库下的所有表空间闪回功能必须都开启，有一个没有开启闪回，无没有办法闪回数据库"><a href="#6-1-4、数据库下的所有表空间闪回功能必须都开启，有一个没有开启闪回，无没有办法闪回数据库" class="headerlink" title="6.1.4、数据库下的所有表空间闪回功能必须都开启，有一个没有开启闪回，无没有办法闪回数据库"></a>6.1.4、数据库下的所有表空间闪回功能必须都开启，有一个没有开启闪回，无没有办法闪回数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">03:10:58 SYS@ boston&gt;  select name,flashback_on from v$tablespace;</span><br><span class="line">NAME                           FLA</span><br><span class="line"><span class="comment">------------------------------ ---</span></span><br><span class="line">SYSTEM                         YES</span><br><span class="line">SYSAUX                         YES</span><br><span class="line">UNDOTBS1                       YES</span><br><span class="line">USERS                          YES</span><br><span class="line">TEMP                           YES</span><br><span class="line">TEST                           YES</span><br><span class="line">TEST11                         YES</span><br><span class="line">ZEVEN                          YES</span><br><span class="line">8 rows selected.</span><br><span class="line">如果某个表空间没有开启闪回，使用以下命令开启：</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">tablespace</span> <span class="keyword">users</span> <span class="keyword">flashback</span> <span class="keyword">on</span>;（注意与<span class="keyword">alter</span> <span class="keyword">database</span> <span class="keyword">flashback</span> <span class="keyword">on</span>的先后顺序，如果是<span class="keyword">tablespace</span>的闪回开启在<span class="keyword">database</span>的闪回之后，需要先关系<span class="keyword">database</span>闪回<span class="keyword">alter</span> <span class="keyword">database</span> <span class="keyword">flashback</span> <span class="keyword">off</span>;在开启database 闪回<span class="keyword">alter</span> <span class="keyword">database</span> <span class="keyword">flashback</span> <span class="keyword">on</span>; 否则闪回的时候会报错：</span><br><span class="line">ORA-38753: Cannot flashback data file 4; no flashback log data.</span><br><span class="line">ORA-01110: data file 4: '/data/u01/app/oracle/oradata/boston/users01.dbf'</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-1-5、数据库开启闪回（alter-database-…-flashback-on-查看是否开启v-database-flashback-on"><a href="#6-1-5、数据库开启闪回（alter-database-…-flashback-on-查看是否开启v-database-flashback-on" class="headerlink" title="6.1.5、数据库开启闪回（alter database … flashback on),查看是否开启v$database.flashback_on"></a>6.1.5、数据库开启闪回（alter database … flashback on),查看是否开启v$database.flashback_on</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">03:11:39 SYS@ boston&gt; select flashback_on from v$database;</span><br><span class="line">FLASHBACK_ON</span><br><span class="line"><span class="comment">------------------</span></span><br><span class="line">NO</span><br><span class="line">Elapsed: 00:00:00.00</span><br><span class="line">03:12:01 SYS@ boston&gt; alter database flashback on;</span><br><span class="line">Database altered.</span><br><span class="line">Elapsed: 00:00:02.06</span><br><span class="line">03:12:08 SYS@ boston&gt; select flashback_on from v$database;</span><br><span class="line">FLASHBACK_ON</span><br><span class="line"><span class="comment">------------------</span></span><br><span class="line">YES</span><br><span class="line">Elapsed: 00:00:00.00</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-1-6、flashback-database不能用于恢复已经被修复的控制文件的前一个时间点，一旦一个数据库的控制文件被修复或者重新建立，那么存在的flashback-log就作废了"><a href="#6-1-6、flashback-database不能用于恢复已经被修复的控制文件的前一个时间点，一旦一个数据库的控制文件被修复或者重新建立，那么存在的flashback-log就作废了" class="headerlink" title="6.1.6、flashback database不能用于恢复已经被修复的控制文件的前一个时间点，一旦一个数据库的控制文件被修复或者重新建立，那么存在的flashback log就作废了"></a>6.1.6、flashback database不能用于恢复已经被修复的控制文件的前一个时间点，一旦一个数据库的控制文件被修复或者重新建立，那么存在的flashback log就作废了</h3><h2 id="6-2、闪回数据库"><a href="#6-2、闪回数据库" class="headerlink" title="6.2、闪回数据库"></a>6.2、闪回数据库</h2><h3 id="6-2-1、确保数据库处于mount状态"><a href="#6-2-1、确保数据库处于mount状态" class="headerlink" title="6.2.1、确保数据库处于mount状态"></a>6.2.1、确保数据库处于mount状态</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SHUTDOWN IMMEDIATE;</span><br><span class="line">STARTUP MOUNT;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-2-2、闪回数据库"><a href="#6-2-2、闪回数据库" class="headerlink" title="6.2.2、闪回数据库"></a>6.2.2、闪回数据库</h3><h4 id="6-2-2-1、还原到某个scn号"><a href="#6-2-2-1、还原到某个scn号" class="headerlink" title="6.2.2.1、还原到某个scn号"></a>6.2.2.1、还原到某个scn号</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FLASHBACK DATABASE TO SCN 103290531;</span><br><span class="line"></span><br><span class="line">根据时间点查看scn</span><br><span class="line">22:43:08 SYS@ boston&gt; select timestamp_to_scn('18-Apr-19 10:41:41.000000000 PM') from dual;</span><br><span class="line">TIMESTAMP_TO_SCN('18-APR-1910:41:41.000000000PM')</span><br><span class="line"><span class="comment">-------------------------------------------------</span></span><br><span class="line">                                        103290531</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-2-2-2、还原到某个还原点"><a href="#6-2-2-2、还原到某个还原点" class="headerlink" title="6.2.2.2、还原到某个还原点"></a>6.2.2.2、还原到某个还原点</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">FLASHBACK DATABASE  TO <span class="keyword">RESTORE</span> POINT good_data;</span><br><span class="line"></span><br><span class="line">创建还原点：</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">RESTORE</span> POINT good_data;</span><br><span class="line">查看还原点：</span><br><span class="line">22:47:04 SYS@ boston&gt; select * from v$restore_point;</span><br><span class="line">SCN DATABASE_INCARNATION<span class="comment"># GUA STORAGE_SIZE TIME                                                                        RESTORE_POINT_TIME           PRE NAME</span></span><br><span class="line"><span class="comment">---------- --------------------- --- ------------ ----------------------------------------------</span></span><br><span class="line"> 103328091                    19 NO             0 19-APR-19 10.47.04.000000000 PM                                                                          NO  GOOD_DATA</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-2-2-3-还原到某个时间点"><a href="#6-2-2-3-还原到某个时间点" class="headerlink" title="6.2.2.3 还原到某个时间点"></a>6.2.2.3 还原到某个时间点</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FLASHBACK DATABASE  TO TIMESTAMP TO_DATE('18-Apr-19 10:41:41','DD-MON-YYYY HH24:MI:SS');</span><br><span class="line"></span><br><span class="line">根据scn转换为对应的时间戳</span><br><span class="line">SYS@ boston&gt;  select to_char(scn_to_timestamp('103290531'))from dual;</span><br><span class="line">TO_CHAR(SCN_TO_TIMESTAMP('10329053</span><br><span class="line"><span class="comment">----------------------------------</span></span><br><span class="line">18-APR-19 10.41.39.000000000 PM</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-2-3、打开数据库查看数据内容是否是自己想要还原到的点"><a href="#6-2-3、打开数据库查看数据内容是否是自己想要还原到的点" class="headerlink" title="6.2.3、打开数据库查看数据内容是否是自己想要还原到的点"></a>6.2.3、打开数据库查看数据内容是否是自己想要还原到的点</h3><p><code>ALTER DATABASE OPEN READ ONLY;</code></p>
+<h3 id="6-2-4、如果查询结果是自己想要的，那么关闭数据库并重新打开"><a href="#6-2-4、如果查询结果是自己想要的，那么关闭数据库并重新打开" class="headerlink" title="6.2.4、如果查询结果是自己想要的，那么关闭数据库并重新打开"></a>6.2.4、如果查询结果是自己想要的，那么关闭数据库并重新打开</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SHUTDOWN IMMEDIATE;</span><br><span class="line">STARTUP MOUNT;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> <span class="keyword">OPEN</span> <span class="keyword">RESETLOGS</span>;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    
+  
+</article>
+   
+    <div id="toc" class="toc-article ">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、查看当前的表空间和数据文件"><span class="toc-number">1.</span> <span class="toc-text">1、查看当前的表空间和数据文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、查看数据库当前可用的备份"><span class="toc-number">2.</span> <span class="toc-text">2、查看数据库当前可用的备份</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、完全恢复"><span class="toc-number">3.</span> <span class="toc-text">3、完全恢复</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、根据scn值进行不完整恢复"><span class="toc-number">4.</span> <span class="toc-text">4、根据scn值进行不完整恢复</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5、使用rman自带的Data-Recovery-Advisor进行诊断和修复问题"><span class="toc-number">5.</span> <span class="toc-text">5、使用rman自带的Data Recovery Advisor进行诊断和修复问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1、手动删除数据文件"><span class="toc-number">5.1.</span> <span class="toc-text">5.1、手动删除数据文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2、尝试关闭数据库，提示报错："><span class="toc-number">5.2.</span> <span class="toc-text">5.2、尝试关闭数据库，提示报错：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3、使用rman的Data-Recovery-Advisor功能去修复："><span class="toc-number">5.3.</span> <span class="toc-text">5.3、使用rman的Data Recovery Advisor功能去修复：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6、使用flashback闪回数据库"><span class="toc-number">6.</span> <span class="toc-text">6、使用flashback闪回数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1、开启flashback闪回数据库，需要满足一下条件："><span class="toc-number">6.1.</span> <span class="toc-text">6.1、开启flashback闪回数据库，需要满足一下条件：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-1、10g以上的库"><span class="toc-number">6.1.1.</span> <span class="toc-text">6.1.1、10g以上的库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-2、数据库在归档模式"><span class="toc-number">6.1.2.</span> <span class="toc-text">6.1.2、数据库在归档模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-3、fast-recovery-area配置"><span class="toc-number">6.1.3.</span> <span class="toc-text">6.1.3、fast recovery area配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-4、数据库下的所有表空间闪回功能必须都开启，有一个没有开启闪回，无没有办法闪回数据库"><span class="toc-number">6.1.4.</span> <span class="toc-text">6.1.4、数据库下的所有表空间闪回功能必须都开启，有一个没有开启闪回，无没有办法闪回数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-5、数据库开启闪回（alter-database-…-flashback-on-查看是否开启v-database-flashback-on"><span class="toc-number">6.1.5.</span> <span class="toc-text">6.1.5、数据库开启闪回（alter database … flashback on),查看是否开启v$database.flashback_on</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-6、flashback-database不能用于恢复已经被修复的控制文件的前一个时间点，一旦一个数据库的控制文件被修复或者重新建立，那么存在的flashback-log就作废了"><span class="toc-number">6.1.6.</span> <span class="toc-text">6.1.6、flashback database不能用于恢复已经被修复的控制文件的前一个时间点，一旦一个数据库的控制文件被修复或者重新建立，那么存在的flashback log就作废了</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2、闪回数据库"><span class="toc-number">6.2.</span> <span class="toc-text">6.2、闪回数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1、确保数据库处于mount状态"><span class="toc-number">6.2.1.</span> <span class="toc-text">6.2.1、确保数据库处于mount状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2、闪回数据库"><span class="toc-number">6.2.2.</span> <span class="toc-text">6.2.2、闪回数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2-1、还原到某个scn号"><span class="toc-number">6.2.2.1.</span> <span class="toc-text">6.2.2.1、还原到某个scn号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2-2、还原到某个还原点"><span class="toc-number">6.2.2.2.</span> <span class="toc-text">6.2.2.2、还原到某个还原点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2-3-还原到某个时间点"><span class="toc-number">6.2.2.3.</span> <span class="toc-text">6.2.2.3 还原到某个时间点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-3、打开数据库查看数据内容是否是自己想要还原到的点"><span class="toc-number">6.2.3.</span> <span class="toc-text">6.2.3、打开数据库查看数据内容是否是自己想要还原到的点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-4、如果查询结果是自己想要的，那么关闭数据库并重新打开"><span class="toc-number">6.2.4.</span> <span class="toc-text">6.2.4、如果查询结果是自己想要的，那么关闭数据库并重新打开</span></a></li></ol></li></ol></li></ol>
+</div>
+
+
+  
+
+	<!-- async load  -->
+	<script>
+			function async(u, c) {
+				var d = document, t = 'script',
+						o = d.createElement(t),
+						s = d.getElementsByTagName(t)[0];
+				o.src = u;
+				if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+				s.parentNode.insertBefore(o, s);
+			}
+	</script>
+	<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+	<script>
+			async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+					anchors.options = {
+						visible: 'hover',
+						placement: 'left',
+						// icon: '#'
+					};
+					anchors.add().remove('.article-title').remove('.subheading').remove('.sidebar-container h5');
+			})
+	</script>
+	<style>
+			/* place left on bigger screen */
+			@media all and (min-width: 800px) {
+					.anchorjs-link{
+							position: absolute;
+							left: -0.75em;
+							font-size: 1.1em;
+							margin-top : -0.1em;
+					}
+			}
+	</style>
+
+
+
+
+<!-- UY BEGIN -->
+	<div id="gitment-container"></div>
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script src="/js/web-pinyin.js"></script>
+	<script>
+		function toUnicode(s){ 
+			return s.replace(/([\u4E00-\u9FA5]|[\uFE30-\uFFA0])/g,function(){
+			return "\\u" + RegExp["$1"].charCodeAt(0).toString(16);
+			});
+		}
+		var title = '[Oracle] oracle完全恢复、不完全恢复、闪回数据库'
+		var GitHub_id = 'zeven0707'
+		var client_id = '2b0cc50fd55624b20d70'
+		var client_secret = '489e4e840e0186f96ad172932b583e2fe68729c8'
+		var repo = 'zeven0707.github.io'
+		var gitment = new Gitment({
+		// id: '页面 ID', // 可选。默认为 location.href
+		// id:"11" ,
+		id: title,
+		title: title,
+		owner: GitHub_id,//'你的 GitHub ID',
+		repo: repo,//'存储评论的 repo',
+		oauth: {
+			client_id: client_id,//'你的 client ID',
+			client_secret: client_secret,//'你的 client secret',
+		},
+		})
+		gitment.render('gitment-container')
+	</script>
+<!-- UY END -->
+
+
+
+
+            </main>
+          </div>
+        </div>
+       
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

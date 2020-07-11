@@ -1,0 +1,344 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>[Oracle]oracle adg role transaction(角色切换) | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+  <meta name="description" content="1、如果保护模式使maximum protection mode，在主库宕掉的情况下使用failover必须将备库的保护模式切换为maximium performance才能执行切换操作ALTER DATABASE SET STANDBY DATABASE TO MAXIMIZE PERFORMAN">
+  
+
+  
+  
+  <meta name="keywords" content="oracle">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="[Oracle]oracle adg role transaction(角色切换)"/>
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+          <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container" style="position: inherit;">
+            <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><span>[Oracle]oracle adg role transaction(角色切换)</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/oracle adg role transaction(角色切换)/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T15:54:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、如果保护模式使maximum-protection-mode，在主库宕掉的情况下使用failover必须将备库的保护模式切换为maximium-performance才能执行切换操作"><a href="#1、如果保护模式使maximum-protection-mode，在主库宕掉的情况下使用failover必须将备库的保护模式切换为maximium-performance才能执行切换操作" class="headerlink" title="1、如果保护模式使maximum protection mode，在主库宕掉的情况下使用failover必须将备库的保护模式切换为maximium performance才能执行切换操作"></a>1、如果保护模式使maximum protection mode，在主库宕掉的情况下使用failover必须将备库的保护模式切换为maximium performance才能执行切换操作</h1><p><code>ALTER DATABASE SET STANDBY DATABASE TO MAXIMIZE PERFORMANCE;</code></p>
+<h1 id="2、手动执行switchover进行角色切换"><a href="#2、手动执行switchover进行角色切换" class="headerlink" title="2、手动执行switchover进行角色切换"></a>2、手动执行switchover进行角色切换</h1><h2 id="2-1、确认主库的状态，是否可以切换为备库角色"><a href="#2-1、确认主库的状态，是否可以切换为备库角色" class="headerlink" title="2.1、确认主库的状态，是否可以切换为备库角色"></a>2.1、确认主库的状态，是否可以切换为备库角色</h2><p><code>SELECT SWITCHOVER_STATUS FROM V$DATABASE;</code><br>只有值为TO STANDBY或者SESSIONS ACTIVE才表示主库可以被切换为备库，如果不是这两个值，则不能进行切换（可能redo transport配置问题或者功能异常）</p>
+<h2 id="2-2、开始主库执行切换"><a href="#2-2、开始主库执行切换" class="headerlink" title="2.2、开始主库执行切换"></a>2.2、开始主库执行切换</h2><p><code>SQL&gt; ALTER DATABASE COMMIT TO SWITCHOVER TO PHYSICAL STANDBY WITH SESSION SHUTDOWN;</code><br>如果2.1查到的值为to standy,那么执行上面的语句可以省略WITH SESSION SHUTDOWN</p>
+<h2 id="2-3、关闭数据库，并启动到mount状态"><a href="#2-3、关闭数据库，并启动到mount状态" class="headerlink" title="2.3、关闭数据库，并启动到mount状态"></a>2.3、关闭数据库，并启动到mount状态</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SHUTDOWN ABORT;</span><br><span class="line">SQL&gt; STARTUP MOUNT;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4、从库查询切换状态是否可以切换为主库"><a href="#2-4、从库查询切换状态是否可以切换为主库" class="headerlink" title="2.4、从库查询切换状态是否可以切换为主库"></a>2.4、从库查询切换状态是否可以切换为主库</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT SWITCHOVER_STATUS FROM V$DATABASE;</span><br><span class="line">SWITCHOVER_STATUS</span><br><span class="line"><span class="comment">-----------------</span></span><br><span class="line">TO_PRIMARY</span><br></pre></td></tr></table></figure>
+
+<p>只有值为TO_PRIMARY或者SESSIONS ACTIVE才表示备库可以切换为主库角色，如果不是这两个值，需要确认redo apply是否激活和redo transport状态是否正常。</p>
+<h2 id="2-5、备库执行切换为主库角色"><a href="#2-5、备库执行切换为主库角色" class="headerlink" title="2.5、备库执行切换为主库角色"></a>2.5、备库执行切换为主库角色</h2><p><code>SQL&gt; ALTER DATABASE COMMIT TO SWITCHOVER TO PRIMARY WITH SESSION SHUTDOWN;</code><br>如果2.4查到的值为to_primary，可以省略WITH SESSION SHUTDOWN</p>
+<h2 id="2-6、打开新的主库"><a href="#2-6、打开新的主库" class="headerlink" title="2.6、打开新的主库"></a>2.6、打开新的主库</h2><p><code>ALTER DATABASE OPEN;</code></p>
+<h2 id="2-7、在新的从库启用redo-apply"><a href="#2-7、在新的从库启用redo-apply" class="headerlink" title="2.7、在新的从库启用redo apply"></a>2.7、在新的从库启用redo apply</h2><p><code>ALTER DATABASE RECOVER MANAGED STANDBY DATABASE USING CURRENT LOGFILE DISCONNECT FROM SESSION;</code></p>
+<h1 id="3、当主库宕机无法启动，使用failover的方式切换备库为主库"><a href="#3、当主库宕机无法启动，使用failover的方式切换备库为主库" class="headerlink" title="3、当主库宕机无法启动，使用failover的方式切换备库为主库"></a>3、当主库宕机无法启动，使用failover的方式切换备库为主库</h1><h2 id="3-1、如果主库是处在mount状态，没办法open的情况下，可以使用下面命令把未传送到备库的archive和redo发送到备库，以确保数据不丢失"><a href="#3-1、如果主库是处在mount状态，没办法open的情况下，可以使用下面命令把未传送到备库的archive和redo发送到备库，以确保数据不丢失" class="headerlink" title="3.1、如果主库是处在mount状态，没办法open的情况下，可以使用下面命令把未传送到备库的archive和redo发送到备库，以确保数据不丢失"></a>3.1、如果主库是处在mount状态，没办法open的情况下，可以使用下面命令把未传送到备库的archive和redo发送到备库，以确保数据不丢失</h2><p><code>SQL&gt; ALTER SYSTEM FLUSH REDO TO target_db_name;</code><br>target_db_name为备库的DB_UNIQUE_NAME</p>
+<h2 id="3-2、如果主库不能够被mount，但是主库的操作系统可以被正常访问-备库查看每个日志线程的最高日志序列号"><a href="#3-2、如果主库不能够被mount，但是主库的操作系统可以被正常访问-备库查看每个日志线程的最高日志序列号" class="headerlink" title="3.2、如果主库不能够被mount，但是主库的操作系统可以被正常访问,备库查看每个日志线程的最高日志序列号"></a>3.2、如果主库不能够被mount，但是主库的操作系统可以被正常访问,备库查看每个日志线程的最高日志序列号</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">03:48:57 SYS@ cbislave&gt; SELECT UNIQUE THREAD# AS THREAD, MAX(SEQUENCE#) OVER (PARTITION BY thread#) AS LAST from V$ARCHIVED_LOG;</span><br><span class="line">    THREAD       LAST</span><br><span class="line"><span class="comment">---------- ----------</span></span><br><span class="line">         1         45</span><br></pre></td></tr></table></figure>
+
+<p>主库的归档日志对应为<br><code>-rw-r----- 1 oracle oinstall 172M Sep  6 03:48 1_45_1017616040.dbf</code><br>把当前45号及以后的归档拷贝到从库，并把丢失的日志注册到从库，注册命令如下：<br><code>SQL&gt; ALTER DATABASE REGISTER PHYSICAL LOGFILE &#39;filespec1&#39;;</code></p>
+<h2 id="3-3、查看和解决归档日志间隙"><a href="#3-3、查看和解决归档日志间隙" class="headerlink" title="3.3、查看和解决归档日志间隙"></a>3.3、查看和解决归档日志间隙</h2><p>查看视图v$ARCHIVE_GAP,来查看备库是否有redo gap</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT THREAD#, LOW_SEQUENCE#, HIGH_SEQUENCE# FROM V$ARCHIVE_GAP;</span><br><span class="line">THREAD<span class="comment">#    LOW_SEQUENCE# HIGH_SEQUENCE#</span></span><br><span class="line"><span class="comment">---------- ------------- --------------</span></span><br><span class="line">         1            90             92</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中线程1存在序列号为90、91、92的归档日志间隙，如果可以在主库找到对应的归档日志，拷贝到备库，进行日志注册<br><code>SQL&gt; ALTER DATABASE REGISTER PHYSICAL LOGFILE &#39;filespec1&#39;;</code></p>
+<h2 id="3-4、如果3-2和3-3的步骤都没办法操作（比如主节点没办法访问），那么只能执行后面的切换，会丢失数据"><a href="#3-4、如果3-2和3-3的步骤都没办法操作（比如主节点没办法访问），那么只能执行后面的切换，会丢失数据" class="headerlink" title="3.4、如果3.2和3.3的步骤都没办法操作（比如主节点没办法访问），那么只能执行后面的切换，会丢失数据"></a>3.4、如果3.2和3.3的步骤都没办法操作（比如主节点没办法访问），那么只能执行后面的切换，会丢失数据</h2><h2 id="3-5、备库停止redo-apply"><a href="#3-5、备库停止redo-apply" class="headerlink" title="3.5、备库停止redo apply"></a>3.5、备库停止redo apply</h2><p><code>SQL&gt; ALTER DATABASE RECOVER MANAGED STANDBY DATABASE CANCEL;</code></p>
+<h2 id="3-6、结束应用所有收到的redo-data"><a href="#3-6、结束应用所有收到的redo-data" class="headerlink" title="3.6、结束应用所有收到的redo data"></a>3.6、结束应用所有收到的redo data</h2><p><code>SQL&gt; ALTER DATABASE RECOVER MANAGED STANDBY DATABASE FINISH;</code></p>
+<p>如果这一步没有报错，进行下一步操作。如果提示错误，一些收到的redo data没有被应用，试着解决提示的错误在执行下一步。如果3.2、3.3、3.4提到的日志间隙没有解决也会提示对应的日志间隙的错误。如果错误不能解决，在备库执行下面语句（面临数据丢失)<br><code>SQL&gt; ALTER DATABASE ACTIVATE PHYSICAL STANDBY DATABASE;</code></p>
+<h2 id="3-7、备库查看切换状态"><a href="#3-7、备库查看切换状态" class="headerlink" title="3.7、备库查看切换状态"></a>3.7、备库查看切换状态</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT SWITCHOVER_STATUS FROM V$DATABASE;</span><br><span class="line">SWITCHOVER_STATUS</span><br><span class="line"><span class="comment">-----------------</span></span><br><span class="line">TO PRIMARY</span><br></pre></td></tr></table></figure>
+
+<p>值为TO PRIMARY或者session active表示可以切换为主库角色。</p>
+<h2 id="3-8、备库切换为主库角色"><a href="#3-8、备库切换为主库角色" class="headerlink" title="3.8、备库切换为主库角色"></a>3.8、备库切换为主库角色</h2><p><code>SQL&gt; ALTER DATABASE COMMIT TO SWITCHOVER TO PRIMARY WITH SESSION SHUTDOWN;</code><br>3.7查到的值为to_primary，可以省略WITH SESSION SHUTDOWN</p>
+<h2 id="3-9、打开新的主库"><a href="#3-9、打开新的主库" class="headerlink" title="3.9、打开新的主库"></a>3.9、打开新的主库</h2><p><code>SQL&gt; ALTER DATABASE OPEN;</code></p>
+<h2 id="3-10、新的主库起来之后建议执行以下全库备份"><a href="#3-10、新的主库起来之后建议执行以下全库备份" class="headerlink" title="3.10、新的主库起来之后建议执行以下全库备份"></a>3.10、新的主库起来之后建议执行以下全库备份</h2><h1 id="4、经过上面3的步骤之后，旧的主库（如果能起来的话）不可用了，但是可以使用flashback-database方法切换为备库"><a href="#4、经过上面3的步骤之后，旧的主库（如果能起来的话）不可用了，但是可以使用flashback-database方法切换为备库" class="headerlink" title="4、经过上面3的步骤之后，旧的主库（如果能起来的话）不可用了，但是可以使用flashback database方法切换为备库"></a>4、经过上面3的步骤之后，旧的主库（如果能起来的话）不可用了，但是可以使用flashback database方法切换为备库</h1><h2 id="4-1、在新的主库（旧的备库）上查看旧的备库切换为新的额主库的scn值"><a href="#4-1、在新的主库（旧的备库）上查看旧的备库切换为新的额主库的scn值" class="headerlink" title="4.1、在新的主库（旧的备库）上查看旧的备库切换为新的额主库的scn值"></a>4.1、在新的主库（旧的备库）上查看旧的备库切换为新的额主库的scn值</h2><p><code>SQL&gt; SELECT TO_CHAR(STANDBY_BECAME_PRIMARY_SCN) FROM V$DATABASE;</code></p>
+<h2 id="4-2、在旧的主库上执行闪回，将其闪回到4-1查询到的scn号"><a href="#4-2、在旧的主库上执行闪回，将其闪回到4-1查询到的scn号" class="headerlink" title="4.2、在旧的主库上执行闪回，将其闪回到4.1查询到的scn号"></a>4.2、在旧的主库上执行闪回，将其闪回到4.1查询到的scn号</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SHUTDOWN IMMEDIATE;</span><br><span class="line">SQL&gt; STARTUP MOUNT;</span><br><span class="line">SQL&gt; FLASHBACK DATABASE TO SCN standby_became_primary_scn;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-3、下面切换旧的主库为物理备库"><a href="#4-3、下面切换旧的主库为物理备库" class="headerlink" title="4.3、下面切换旧的主库为物理备库"></a>4.3、下面切换旧的主库为物理备库</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; ALTER DATABASE CONVERT TO PHYSICAL STANDBY;</span><br><span class="line">如果语句执行成功，会将当前的控制文件转换为standby控制文件</span><br><span class="line">SQL&gt; SHUTDOWN IMMEDIATE;</span><br><span class="line">SQL&gt; STARTUP MOUNT;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-4、开始向新的备库（旧的主库）传输redo"><a href="#4-4、开始向新的备库（旧的主库）传输redo" class="headerlink" title="4.4、开始向新的备库（旧的主库）传输redo"></a>4.4、开始向新的备库（旧的主库）传输redo</h2><p>在新的主库上先执行下面语句</p>
+<h3 id="4-4-1、查看归档地址状态"><a href="#4-4-1、查看归档地址状态" class="headerlink" title="4.4.1、查看归档地址状态"></a>4.4.1、查看归档地址状态</h3><p><code>SQL&gt; SELECT DEST_ID, DEST_NAME, STATUS, PROTECTION_MODE, DESTINATION,ERROR,SRL FROM V$ARCHIVE_DEST_STATUS;</code></p>
+<h3 id="4-4-2、如果有必要启用地址"><a href="#4-4-2、如果有必要启用地址" class="headerlink" title="4.4.2、如果有必要启用地址"></a>4.4.2、如果有必要启用地址</h3><p><code>SQL&gt; ALTER SYSTEM SET LOG_ARCHIVE_DEST_STATE_n=ENABLE;</code></p>
+<h3 id="4-4-3、执行日志切换，确保新的备库可以收到redo"><a href="#4-4-3、执行日志切换，确保新的备库可以收到redo" class="headerlink" title="4.4.3、执行日志切换，确保新的备库可以收到redo"></a>4.4.3、执行日志切换，确保新的备库可以收到redo</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; ALTER SYSTEM SWITCH LOGFILE;</span><br><span class="line">SQL&gt; SELECT DEST_ID, DEST_NAME, STATUS, PROTECTION_MODE, DESTINATION, ERROR,SRL FROM V$ARCHIVE_DEST_STATUS;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-5、新的备库启动redo-apply"><a href="#4-5、新的备库启动redo-apply" class="headerlink" title="4.5、新的备库启动redo apply"></a>4.5、新的备库启动redo apply</h2><p><code>SQL&gt; ALTER DATABASE RECOVER MANAGED STANDBY DATABASE USING CURRENT LOGFILE DISCONNECT;</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    
+  
+</article>
+   
+    <div id="toc" class="toc-article ">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、如果保护模式使maximum-protection-mode，在主库宕掉的情况下使用failover必须将备库的保护模式切换为maximium-performance才能执行切换操作"><span class="toc-number">1.</span> <span class="toc-text">1、如果保护模式使maximum protection mode，在主库宕掉的情况下使用failover必须将备库的保护模式切换为maximium performance才能执行切换操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、手动执行switchover进行角色切换"><span class="toc-number">2.</span> <span class="toc-text">2、手动执行switchover进行角色切换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1、确认主库的状态，是否可以切换为备库角色"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、确认主库的状态，是否可以切换为备库角色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2、开始主库执行切换"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、开始主库执行切换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3、关闭数据库，并启动到mount状态"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、关闭数据库，并启动到mount状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4、从库查询切换状态是否可以切换为主库"><span class="toc-number">2.4.</span> <span class="toc-text">2.4、从库查询切换状态是否可以切换为主库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5、备库执行切换为主库角色"><span class="toc-number">2.5.</span> <span class="toc-text">2.5、备库执行切换为主库角色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6、打开新的主库"><span class="toc-number">2.6.</span> <span class="toc-text">2.6、打开新的主库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7、在新的从库启用redo-apply"><span class="toc-number">2.7.</span> <span class="toc-text">2.7、在新的从库启用redo apply</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、当主库宕机无法启动，使用failover的方式切换备库为主库"><span class="toc-number">3.</span> <span class="toc-text">3、当主库宕机无法启动，使用failover的方式切换备库为主库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1、如果主库是处在mount状态，没办法open的情况下，可以使用下面命令把未传送到备库的archive和redo发送到备库，以确保数据不丢失"><span class="toc-number">3.1.</span> <span class="toc-text">3.1、如果主库是处在mount状态，没办法open的情况下，可以使用下面命令把未传送到备库的archive和redo发送到备库，以确保数据不丢失</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2、如果主库不能够被mount，但是主库的操作系统可以被正常访问-备库查看每个日志线程的最高日志序列号"><span class="toc-number">3.2.</span> <span class="toc-text">3.2、如果主库不能够被mount，但是主库的操作系统可以被正常访问,备库查看每个日志线程的最高日志序列号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3、查看和解决归档日志间隙"><span class="toc-number">3.3.</span> <span class="toc-text">3.3、查看和解决归档日志间隙</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4、如果3-2和3-3的步骤都没办法操作（比如主节点没办法访问），那么只能执行后面的切换，会丢失数据"><span class="toc-number">3.4.</span> <span class="toc-text">3.4、如果3.2和3.3的步骤都没办法操作（比如主节点没办法访问），那么只能执行后面的切换，会丢失数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5、备库停止redo-apply"><span class="toc-number">3.5.</span> <span class="toc-text">3.5、备库停止redo apply</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6、结束应用所有收到的redo-data"><span class="toc-number">3.6.</span> <span class="toc-text">3.6、结束应用所有收到的redo data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-7、备库查看切换状态"><span class="toc-number">3.7.</span> <span class="toc-text">3.7、备库查看切换状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-8、备库切换为主库角色"><span class="toc-number">3.8.</span> <span class="toc-text">3.8、备库切换为主库角色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-9、打开新的主库"><span class="toc-number">3.9.</span> <span class="toc-text">3.9、打开新的主库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-10、新的主库起来之后建议执行以下全库备份"><span class="toc-number">3.10.</span> <span class="toc-text">3.10、新的主库起来之后建议执行以下全库备份</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、经过上面3的步骤之后，旧的主库（如果能起来的话）不可用了，但是可以使用flashback-database方法切换为备库"><span class="toc-number">4.</span> <span class="toc-text">4、经过上面3的步骤之后，旧的主库（如果能起来的话）不可用了，但是可以使用flashback database方法切换为备库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1、在新的主库（旧的备库）上查看旧的备库切换为新的额主库的scn值"><span class="toc-number">4.1.</span> <span class="toc-text">4.1、在新的主库（旧的备库）上查看旧的备库切换为新的额主库的scn值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2、在旧的主库上执行闪回，将其闪回到4-1查询到的scn号"><span class="toc-number">4.2.</span> <span class="toc-text">4.2、在旧的主库上执行闪回，将其闪回到4.1查询到的scn号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3、下面切换旧的主库为物理备库"><span class="toc-number">4.3.</span> <span class="toc-text">4.3、下面切换旧的主库为物理备库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4、开始向新的备库（旧的主库）传输redo"><span class="toc-number">4.4.</span> <span class="toc-text">4.4、开始向新的备库（旧的主库）传输redo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-1、查看归档地址状态"><span class="toc-number">4.4.1.</span> <span class="toc-text">4.4.1、查看归档地址状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-2、如果有必要启用地址"><span class="toc-number">4.4.2.</span> <span class="toc-text">4.4.2、如果有必要启用地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-3、执行日志切换，确保新的备库可以收到redo"><span class="toc-number">4.4.3.</span> <span class="toc-text">4.4.3、执行日志切换，确保新的备库可以收到redo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5、新的备库启动redo-apply"><span class="toc-number">4.5.</span> <span class="toc-text">4.5、新的备库启动redo apply</span></a></li></ol></li></ol>
+</div>
+
+
+  
+
+	<!-- async load  -->
+	<script>
+			function async(u, c) {
+				var d = document, t = 'script',
+						o = d.createElement(t),
+						s = d.getElementsByTagName(t)[0];
+				o.src = u;
+				if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+				s.parentNode.insertBefore(o, s);
+			}
+	</script>
+	<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+	<script>
+			async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+					anchors.options = {
+						visible: 'hover',
+						placement: 'left',
+						// icon: '#'
+					};
+					anchors.add().remove('.article-title').remove('.subheading').remove('.sidebar-container h5');
+			})
+	</script>
+	<style>
+			/* place left on bigger screen */
+			@media all and (min-width: 800px) {
+					.anchorjs-link{
+							position: absolute;
+							left: -0.75em;
+							font-size: 1.1em;
+							margin-top : -0.1em;
+					}
+			}
+	</style>
+
+
+
+
+<!-- UY BEGIN -->
+	<div id="gitment-container"></div>
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script src="/js/web-pinyin.js"></script>
+	<script>
+		function toUnicode(s){ 
+			return s.replace(/([\u4E00-\u9FA5]|[\uFE30-\uFFA0])/g,function(){
+			return "\\u" + RegExp["$1"].charCodeAt(0).toString(16);
+			});
+		}
+		var title = '[Oracle]oracle adg role transaction(角色切换)'
+		var GitHub_id = 'zeven0707'
+		var client_id = '2b0cc50fd55624b20d70'
+		var client_secret = '489e4e840e0186f96ad172932b583e2fe68729c8'
+		var repo = 'zeven0707.github.io'
+		var gitment = new Gitment({
+		// id: '页面 ID', // 可选。默认为 location.href
+		// id:"11" ,
+		id: title,
+		title: title,
+		owner: GitHub_id,//'你的 GitHub ID',
+		repo: repo,//'存储评论的 repo',
+		oauth: {
+			client_id: client_id,//'你的 client ID',
+			client_secret: client_secret,//'你的 client secret',
+		},
+		})
+		gitment.render('gitment-container')
+	</script>
+<!-- UY END -->
+
+
+
+
+            </main>
+          </div>
+        </div>
+       
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>

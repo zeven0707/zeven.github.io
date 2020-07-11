@@ -1,0 +1,1049 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+  <meta charset="utf-8">
+  
+  <title>第 11 页 | zeven&#39;s blog</title>
+
+  
+  <meta name="author" content="zeven0707&#39;s blog">
+  
+
+  
+
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  
+
+  <meta property="og:site_name" content="zeven&#39;s blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+  
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5005349780815724",
+    enable_page_level_ads: true
+  });
+</script>
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?223eea22355699157e147870eb124b24";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <link rel="manifest" href="/manifest.json">
+  <link href="/favicon.ico" rel="icon">
+
+  <link rel="alternate" href="/atom.xml" title="zeven&#39;s blog" type="application/atom+xml">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    
+
+    <header class="header-container" style="background-image: url('/images/blog-bg.jpg');">
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+          <button type="button" id="tglBtn" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">zeven0707&#39;s blog</a>
+        </div>
+        <div id="bosenyblog-navbar">
+          <div class="navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav navbar-right">
+            
+              <li><a href="/">主页</a></li>
+            
+              <li><a href="/archives">日志</a></li>
+            
+              <li><a href="/about">关于</a></li>
+            
+              <li><a href="/tags">标签</a></li>
+            
+            </ul>
+          </div>
+        </div>
+
+    </div>
+ </nav>
+ <div class="gotop-btn">
+
+ </div>
+</header>
+
+        
+        <div class="container ">
+          <div class="row">
+            <main class="site-main posts-loop    col-lg-8 col-lg-offset-1
+                    col-md-8 col-md-offset-1
+                    col-sm-12
+                    col-xs-12">
+            
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/31/oracle 静默安装/"><span>[Oracle] oracle 静默安装</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/31/oracle 静默安装/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-31T07:19:00.000Z">
+          2018-10-31
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、安装数据库所需依赖包"><a href="#1、安装数据库所需依赖包" class="headerlink" title="1、安装数据库所需依赖包"></a>1、安装数据库所需依赖包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install -y gcc*</span><br><span class="line">yum install -y glibc*</span><br><span class="line">yum install -y compat-libstdc++-33 elfutils-libelf-devel libaio-devel compat-libcap1</span><br><span class="line">yum install -y sysstat</span><br><span class="line">yum install -y smartmontools</span><br></pre></td></tr></table></figure>
+<h4 id="2、创建用户-并修改用户名密码"><a href="#2、创建用户-并修改用户名密码" class="headerlink" title="2、创建用户,并修改用户名密码"></a>2、创建用户,并修改用户名密码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;sbin&#x2F;groupadd -g 505 oinstall</span><br><span class="line">&#x2F;usr&#x2F;sbin&#x2F;groupadd -g 502 dba</span><br><span class="line">&#x2F;usr&#x2F;sbin&#x2F;groupadd -g 503 oper</span><br><span class="line">&#x2F;usr&#x2F;sbin&#x2F;useradd -u 506 -g oinstall -G dba,oper oracle</span><br></pre></td></tr></table></figure>
+<p>配置用户名密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd oracle</span><br></pre></td></tr></table></figure>
+<h4 id="3、配置相关数据库目录权限"><a href="#3、配置相关数据库目录权限" class="headerlink" title="3、配置相关数据库目录权限"></a>3、配置相关数据库目录权限</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle</span><br><span class="line">chown oracle.oinstall -R &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle</span><br><span class="line">chmod 775 &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle</span><br><span class="line">mkdir -p &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1&#x2F;</span><br><span class="line">chown oracle.oinstall -R &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1&#x2F;</span><br><span class="line">chmod 775 &#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1&#x2F;</span><br><span class="line">chown oracle.oinstall -R &#x2F;data&#x2F;u01</span><br></pre></td></tr></table></figure>
+<h4 id="4、修改系统参数："><a href="#4、修改系统参数：" class="headerlink" title="4、修改系统参数："></a>4、修改系统参数：</h4><p>4.1、关闭selinux</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setenforce 0</span><br></pre></td></tr></table></figure>
+<p>4.2、关闭防火墙</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -F</span><br></pre></td></tr></table></figure>
+<p>4.3、设置用户连接限制<br>cat /etc/security/limits.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">oracle soft nproc 16384</span><br><span class="line">oracle hard nproc 16384</span><br><span class="line">oracle soft nofile 65536</span><br><span class="line">oracle hard nofile 65536</span><br><span class="line">oracle soft memlock 8088608</span><br><span class="line">oracle hard memlock 8088608</span><br><span class="line">oracle hard stack 10240</span><br><span class="line">grid soft nproc 16384</span><br><span class="line">grid hard nproc 16384</span><br><span class="line">grid soft nofile 65536</span><br><span class="line">grid hard nofile 65536</span><br><span class="line">grid soft memlock 8088608</span><br><span class="line">grid hard memlock 8088608</span><br><span class="line">grid hard stack 10240</span><br></pre></td></tr></table></figure>
+<p>oracle用户最大能开启的进程数不超过16384，最大能打开的文件数不超过65536。至于soft和hard的区别，不同于磁盘配额中的软限制和硬限制。普通用户可以调整自己的softlimit但最高不能超过hardlimit，而且除了root以外的普通用户也不能够随意更改hard limit。该调整完成之后一般可以使用ulimit命令查看。<br>针对nofile，这个只是基于用户层面的限制和调整方法。基于系统层面的限制和调整方法是修改/etc/sysctl.conf文件，直接改fs.file-max参数，调整之后sysctl –p生效<br>memlock参数随着服务器内存不同，进行调整，该参数要偏小于实际的物理内存，本文以（8g内存为例）</p>
+<p>4.4、为使/etc/security/limits.conf文件配置生效，需要确保pam模块pam_limits.so被加入到启动文件中：<br>grep ‘pam_limits.so’ /etc/pam.d/login</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session    required     pam_limits.so</span><br></pre></td></tr></table></figure>
+<p>pam_limits.so模块对用户使用系统资源的情况进行限制,也可以使用在对一般应用程序使用的资源限制方面。举例来说，如果需要在SSH服务器上对来自不同用户的ssh访问进行限制，就可以调用该模块来实现相关功能。例如，当需要限制用户admin登录到SSH服务器时的最大连接数（防止同一个用户开启过多的登录进程），就可以在/etc/pam.d/sshd 文件中增加一行对 pam_limits.so 模块的调用:<br>然后在/etc/security/limits.conf文件中增加一行对admin用户产生的连接数进行限定:<br>admin      hard        maxlogins       2<br>完成之后重启服务器端的sshd服务。<br>之后我们可以看到，从客户端以admin身份登录SSH服务器时，在客户端上可以打开两个控制台登录。但当客户端开启第三个登录窗口的时候会被服务器拒绝，但其它用户不会受到限制。</p>
+<p>4.5、设置用户最大进程数和进程可以打开的最大文件描述符的数量：<br>cat /etc/profile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if [ $USER &#x3D; &quot;oracle&quot; -o $USER &#x3D; &quot;grid&quot; ]; then</span><br><span class="line">  if [ $SHELL &#x3D; &quot;&#x2F;bin&#x2F;ksh&quot; ]; then</span><br><span class="line">    ulimit -p 16384</span><br><span class="line">    ulimit -n 65536</span><br><span class="line">  else</span><br><span class="line">    ulimit -u 16384 -n 65536</span><br><span class="line">  fi</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p>4.6、设置内核参数<br>cat /etc/sysctl.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">kernel.shmmax &#x3D; 7730941132</span><br><span class="line">kernel.shmall &#x3D; 15586574</span><br><span class="line">kernel.shmmni &#x3D; 4096</span><br><span class="line">kernel.sem &#x3D; 250 32000 100 128</span><br><span class="line">fs.file-max &#x3D; 6815744</span><br><span class="line">fs.aio-max-nr &#x3D; 1048576</span><br><span class="line">net.ipv4.ip_local_port_range &#x3D; 9000 65500</span><br><span class="line">net.core.rmem_default &#x3D; 1048576</span><br><span class="line">net.core.rmem_max &#x3D; 4194304</span><br><span class="line">net.core.wmem_default &#x3D; 262144</span><br><span class="line">net.core.wmem_max &#x3D; 1048576</span><br><span class="line">vm.min_free_kbytes &#x3D; 524288</span><br><span class="line">vm.swappiness &#x3D; 60</span><br></pre></td></tr></table></figure>
+<p>使配置生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+<p>安装过程中shmmax,shmall参数设置过小，导致dbca创建数据库的时候报错ORA-12547：TNS：lost contact<br>图形化安装，oracle有一个runfix脚本，调整这些参数，参考response下的文件，如果文件里面的参数小于参考文件的参数，会进行调整，如果文件参数大于参考文件参数，则不会进行调整。</p>
+<p>SHMMAX应该比SGA区大,否则会引发性能的下降,shmmax 指的是单个共享内存段的最大尺寸， 设置shmmax=1G，sga分配了1.2G，当启动实例的时候就分配 2 块共享内存给Oracle</p>
+<p>kernel.shmall=（SHMMAX/PAGE_SIZE）：共享内存总量，以页为单位。Linux 共享内存页大小为4KB, 共享内<br>存段的大小都是共享内存页大小的整数倍。一个共享内存段的最大大小是16G，那么需<br>要共享内存页数是 16GB/4KB=16777216KB/4KB=4194304 （页），也就是64Bit 系统下<br>16GB 物理内存，设置 kernel.shmall = 4194304 才符合要求</p>
+<p>SHMMIN= 最小的内存段的大小 </p>
+<p>kernel.shmmni：共享内存段的最大数量，shmmni 缺省值 4096 ，一般肯定是够用了</p>
+<p>kernel.sem(SEMMSL SEMMNS SEMOPM SEMMNI)：<br>SEMMSL，每个信号量集中的最大信号量数，应该设置为服务器中各个实例中PROCESSES参数的和+10；SEMMNS，系统中信号量的最大数，参数应设置为SEMMSL*SEMMNI。<br>SEMOPM，每个信号量调用所包含的最大操作数。<br>SEMMNI：系统中信号量集的最大数。<br>swappiness的值的大小对如何使用swap分区是有着很大的联系的。swappiness=0的时候表示最大限度使用物理内存，然后才是 swap空间，swappiness＝100的时候表示积极的使用swap分区，并且把内存上的数据及时的搬运到swap空间里面。linux的基本默认设置为60</p>
+<h5 id="5、修改oracle用户环境变量"><a href="#5、修改oracle用户环境变量" class="headerlink" title="5、修改oracle用户环境变量"></a>5、修改oracle用户环境变量</h5><p>su - oracle<br>vim ~/.bash_profile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># .bash_profile</span><br><span class="line"># Get the aliases and functions</span><br><span class="line">if [ -f ~&#x2F;.bashrc ]; then</span><br><span class="line">        . ~&#x2F;.bashrc</span><br><span class="line">fi</span><br><span class="line"># User specific environment and startup programs</span><br><span class="line">PATH&#x3D;$PATH:$HOME&#x2F;bin</span><br><span class="line">export PATH</span><br><span class="line">export THREADS_FLAG&#x3D;native</span><br><span class="line">export ORACLE_BASE&#x3D;&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle</span><br><span class="line">export ORACLE_HOME&#x3D;$ORACLE_BASE&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1</span><br><span class="line">export PATH&#x3D;$ORACLE_HOME&#x2F;bin:$ORACLE_HOME&#x2F;OPatch:$PATH:&#x2F;usr&#x2F;sbin</span><br><span class="line">export LD_LIBRARY_PATH&#x3D;$ORACLE_HOME&#x2F;lib</span><br><span class="line">export ORACLE_SID&#x3D;boston</span><br><span class="line">export NLS_LANG&#x3D;AMERICAN_AMERICA.ZHS16GBK</span><br><span class="line">export NLS_DATE_FORMAT&#x3D;&quot;YYYY:MM:DD HH24:MI:SS&quot;</span><br><span class="line">export EDITOR&#x3D;vi</span><br><span class="line">set -o vi</span><br><span class="line">umask 022</span><br><span class="line">alias bdump&#x3D;&quot;cd $ORACLE_BASE&#x2F;diag&#x2F;rdbms&#x2F;otcdb&#x2F;$&#123;ORACLE_SID&#125;&#x2F;trace&quot;</span><br><span class="line">alias sql&#x3D;&#39;sqlplus &quot;&#x2F; as sysdba&quot;&#39;</span><br></pre></td></tr></table></figure>
+<p>使环境变量生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~&#x2F;.bash_profile</span><br></pre></td></tr></table></figure>
+<h4 id="6、解压软件包，在database-response目录下找到db-install-rsp文件"><a href="#6、解压软件包，在database-response目录下找到db-install-rsp文件" class="headerlink" title="6、解压软件包，在database/response目录下找到db_install.rsp文件"></a>6、解压软件包，在database/response目录下找到db_install.rsp文件</h4><p>编辑db_install.rsp文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">#选择安装类型：1.INSTALL_DB_SWONLY只装数据库软件 2.INSTALL_DB_AND_CONFIG安装数据库软件并建库 3.UPGRADE_DB升级数据库</span><br><span class="line">oracle.install.option&#x3D;INSTALL_DB_SWONLY</span><br><span class="line">#指定操作系统主机名，通过hostname命令获得</span><br><span class="line">ORACLE_HOSTNAME&#x3D;dax-mysql-slave</span><br><span class="line">#指定oracle inventory目录的所有者，通常会是oinstall或者dba</span><br><span class="line">UNIX_GROUP_NAME&#x3D;oinstall</span><br><span class="line">#指定产品清单oracle inventory目录的路径,如果是Win平台下可以省略</span><br><span class="line">INVENTORY_LOCATION&#x3D;&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oraInventory</span><br><span class="line">#指定数据库语言，可以选择多个，用逗号隔开。选择en, zh_CN(英文和简体中文)</span><br><span class="line">SELECTED_LANGUAGES&#x3D;en,zh_CN</span><br><span class="line"># Specify the complete path of the OracleHome.设置ORALCE_HOME的路径</span><br><span class="line">ORACLE_HOME&#x3D;&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1</span><br><span class="line"># Specify the complete path of the OracleBase. 设置ORALCE_BASE的路径</span><br><span class="line">ORACLE_BASE&#x3D;&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle</span><br><span class="line">#选择Oracle安装数据库软件的版本（企业版，标准版，标准版1），不同的版本功能不同</span><br><span class="line">oracle.install.db.InstallEdition&#x3D;EE</span><br><span class="line">#是否自定义Oracle的组件，如果选择false，则会使用默认的组件</span><br><span class="line">#如果选择true否则需要自己在下面一条参数将要安装的组件一一列出。</span><br><span class="line">#安装相应版权后会安装所有的组件，后期如果缺乏某个组件，再次安装会非常的麻烦。</span><br><span class="line">oracle.install.db.EEOptionsSelection&#x3D;false</span><br><span class="line"># oracle.install.db.EEOptionsSelection&#x3D;true的话下面的安装组件会安装</span><br><span class="line">oracle.install.db.optionalComponents&#x3D;oracle.rdbms.partitioning:11.2.0.4.0,oracle.oraolap:11.2.0.4.0,oracle.rdbms.dm:11.2.0.4.0,oracle.rdbms.dv:11.2.0.4.0,oracle.rdbms.lbac:11.2.0.4.0,oracle.rdbms.rat:11.2.0.4.0</span><br><span class="line">#指定拥有OSDBA、OSOPER权限的用户组，通常会是dba组</span><br><span class="line">oracle.install.db.DBA_GROUP&#x3D;dba</span><br><span class="line">oracle.install.db.OPER_GROUP&#x3D;oinstall</span><br><span class="line">#如果是RAC的安装，在这里指定所有的节点</span><br><span class="line">oracle.install.db.CLUSTER_NODES&#x3D;</span><br><span class="line">oracle.install.db.isRACOneInstall&#x3D;</span><br><span class="line">oracle.install.db.isRACOneInstall&#x3D;</span><br><span class="line">--------安装数据库选项</span><br><span class="line">#选择数据库的用途，一般用途&#x2F;事物处理，数据仓库</span><br><span class="line">oracle.install.db.config.starterdb.type&#x3D;GENERAL_PURPOSE</span><br><span class="line"># Specify the Starter Database GlobalDatabase Name. 指定GlobalName</span><br><span class="line">oracle.install.db.config.starterdb.globalDBName&#x3D;boston</span><br><span class="line"># Specify the Starter Database SID.指定SID</span><br><span class="line">oracle.install.db.config.starterdb.SID&#x3D;boston</span><br><span class="line">#选择字符集。不正确的字符集会给数据显示和存储带来麻烦无数。</span><br><span class="line">#通常中文选择的有ZHS16GBK简体中文库，建议选择unicode的AL32UTF8国际字符集</span><br><span class="line">oracle.install.db.config.starterdb.characterSet&#x3D;AL32UTF8</span><br><span class="line">#11g的新特性自动内存管理，也就是SGA_TARGET和PAG_AGGREGATE_TARGET都#不用设置了，Oracle会自动调配两部分大小。</span><br><span class="line">oracle.install.db.config.starterdb.memoryOption&#x3D;true</span><br><span class="line">#指定Oracle自动管理内存的大小，最小是256MB</span><br><span class="line">oracle.install.db.config.starterdb.memoryLimit&#x3D;5120</span><br><span class="line">#是否载入模板示例</span><br><span class="line">oracle.install.db.config.starterdb.installExampleSchemas&#x3D;false</span><br><span class="line"># These settings may also be disabled.   是否启用安全设置</span><br><span class="line">oracle.install.db.config.starterdb.enableSecuritySettings&#x3D;true</span><br><span class="line">#设置数据库用户密码</span><br><span class="line">oracle.install.db.config.starterdb.password.ALL&#x3D;oracle</span><br><span class="line">#数据库本地管理工具DB_CONTROL，远程集中管理工具GRID_CONTROL</span><br><span class="line">oracle.install.db.config.starterdb.control&#x3D;DB_CONTROL</span><br><span class="line">#.设置自动备份，和OUI里的自动备份一样。</span><br><span class="line">oracle.install.db.config.starterdb.automatedBackup.enable&#x3D;false</span><br><span class="line">#自动备份会启动一个job，指定启动JOB的系统用户ID</span><br><span class="line">oracle.install.db.config.starterdb.automatedBackup.osuid&#x3D;</span><br><span class="line">#自动备份会开启一个job，需要指定OSUser的密码</span><br><span class="line">oracle.install.db.config.starterdb.automatedBackup.ospwd&#x3D;</span><br><span class="line">#自动备份，要求指定使用的文件系统存放数据库文件还是ASM</span><br><span class="line">oracle.install.db.config.starterdb.storageType&#x3D;</span><br><span class="line">#使用文件系统存放数据库文件才需要指定数据文件、控制文件、Redo log的存放目录</span><br><span class="line">oracle.install.db.config.starterdb.fileSystemStorage.dataLocation&#x3D;</span><br><span class="line">#使用文件系统存放数据库文件才需要指定备份恢复目录</span><br><span class="line">oracle.install.db.config.starterdb.fileSystemStorage.recoveryLocation&#x3D;</span><br><span class="line">#使用ASM存放数据库文件才需要指定存放的磁盘组</span><br><span class="line">oracle.install.db.config.asm.diskGroup&#x3D;</span><br><span class="line">#使用ASM存放数据库文件才需要指定ASM实例密码</span><br><span class="line">oracle.install.db.config.asm.ASMSNMPPassword&#x3D;</span><br><span class="line">#指定metalink账户用户名</span><br><span class="line">MYORACLESUPPORT_USERNAME&#x3D;</span><br><span class="line"># 指定metalink账户密码</span><br><span class="line">MYORACLESUPPORT_PASSWORD&#x3D;</span><br><span class="line"># 用户是否可以设置metalink密码</span><br><span class="line">SECURITY_UPDATES_VIA_MYORACLESUPPORT&#x3D;</span><br><span class="line"># False表示不需要设置安全更新，注意，在11.2的静默安装中疑似有一个BUG</span><br><span class="line">******# Response File中必须指定为true，否则会提示错误,不管是否正确填写了邮件地址</span><br><span class="line">DECLINE_SECURITY_UPDATES&#x3D;true</span><br><span class="line">#代理服务器名</span><br><span class="line">PROXY_HOST&#x3D;</span><br><span class="line">#代理服务器端口</span><br><span class="line">PROXY_PORT&#x3D;</span><br><span class="line">#代理服务器用户名</span><br><span class="line">PROXY_USER&#x3D;</span><br><span class="line">#代理服务器密码</span><br><span class="line">PROXY_PWD&#x3D;</span><br></pre></td></tr></table></figure>
+<p>开始安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;runInstaller -silent -responseFile &#x2F;data&#x2F;soft&#x2F;database&#x2F;response&#x2F;db_install.rsp</span><br></pre></td></tr></table></figure>
+<p>如果是测试环境可能碰到下面的问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Checking swap space: 0 MB available, 150 MB required.    Failed &lt;&lt;&lt;&lt;</span><br><span class="line">解决方法：</span><br><span class="line">dd if&#x3D;&#x2F;dev&#x2F;zero of&#x3D;&#x2F;data&#x2F;swapfile bs&#x3D;1M count&#x3D;1024</span><br><span class="line">mkswap &#x2F;data&#x2F;swapfile</span><br><span class="line">swapon &#x2F;data&#x2F;swapfile</span><br><span class="line"></span><br><span class="line">在&#x2F;etc&#x2F;fstab添加下面内容</span><br><span class="line">&#x2F;data&#x2F;swapfile swap swap defaults 0 0</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;</span><br><span class="line">&#96;</span><br></pre></td></tr></table></figure>
+<p>oracle安装到最后提示，使用root用户执行以下两个脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;oraInventory&#x2F;orainstRoot.sh</span><br><span class="line">&#x2F;data&#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1&#x2F;root.sh</span><br></pre></td></tr></table></figure>
+<h4 id="7、静默配置监听"><a href="#7、静默配置监听" class="headerlink" title="7、静默配置监听"></a>7、静默配置监听</h4><p>通过response文件运行netca, 生成sqlnet.ora和listener.ora文件, 位于$ORACLE_HOME/network/admin目录下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># su - oracle</span><br><span class="line">$ORACLE_HOME&#x2F;bin&#x2F;netca -silent -responsefile &#x2F;data&#x2F;soft&#x2F;database&#x2F;response&#x2F;netca.rsp</span><br><span class="line">ll $ORACLE_HOME&#x2F;network&#x2F;admin&#x2F;*.ora</span><br><span class="line">lsnrctl status</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="8、创建数据库"><a href="#8、创建数据库" class="headerlink" title="8、创建数据库"></a>8、创建数据库</h4><p>修改配置文件dbca.rsp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[GENERAL]</span><br><span class="line">RESPONSEFILE_VERSION &#x3D; &quot;11.2.0&quot;</span><br><span class="line">OPERATION_TYPE &#x3D; &quot;createDatabase&quot;</span><br><span class="line">[CREATEDATABASE]</span><br><span class="line">GDBNAME &#x3D; &quot;boston.us.oracle.com&quot;</span><br><span class="line">TEMPLATENAME &#x3D; &quot;General_Purpose.dbc&quot;</span><br><span class="line">SID &#x3D; &quot;boston&quot;</span><br><span class="line">SYSPASSWORD &#x3D; &quot;oracle&quot;</span><br><span class="line">SYSTEMPASSWORD &#x3D; &quot;oracle&quot;</span><br><span class="line">SYSMANPASSWORD &#x3D; &quot;oracle&quot;</span><br><span class="line">DBSNMPPASSWORD &#x3D; &quot;oracle&quot;</span><br><span class="line">CHARACTERSET &#x3D; &quot;ZHS16GBK&quot;</span><br><span class="line">TOTALMEMORY &#x3D; &quot;2048&quot;</span><br></pre></td></tr></table></figure>
+<p>运行命令开始创建数据库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dbca -silent -createDatabase -responseFile &#x2F;data&#x2F;soft&#x2F;database&#x2F;response&#x2F;createdbca.rsp</span><br></pre></td></tr></table></figure>
+<p>如果不适用配置文件，也可使用下面命令直接指定参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">##dbca -silent -createDatabase -templateName $ORACLE_HOME&#x2F;assistants&#x2F;dbca&#x2F;templates&#x2F;General_Purpose.dbc -gdbName orcogg -sid orcogg  -sysPassword oracle -systemPassword oracle -datafileDestination &#x2F;u01&#x2F;app&#x2F;oradata&#x2F;orcogg -characterSet GBK16 -TOTALMEMORY 2048</span><br></pre></td></tr></table></figure>
+<p>各参数含义如下:<br>-silent 表示以静默方式安装<br>-responseFile 表示使用哪个响应文件,必需使用绝对路径<br>RESPONSEFILE_VERSION 响应文件模板的版本,该参数不要更改<br>OPERATION_TYPE 安装类型,该参数不要更改<br>GDBNAME 全局数据库名,点号前面默认是db_name,点号后面默认就是db_domain<br>TEMPLATENAME 建库模板名,参考各模板定义:$ORACLE_HOME/assistants/dbca/templates/*.dbc<br>CHARACTERSET 字符集,默认是WE8MSWIN1252<br>TOTALMEMORY 实例内存,默认是服务器物理内存的40%</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/31/oracle 静默安装/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/30/测试mysql where条件顺序对sql查询效率的影响/"><span>[Mysql] 测试mysql where条件执行顺序对sql查询效率的影响</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/30/测试mysql where条件顺序对sql查询效率的影响/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-30T04:40:00.000Z">
+          2018-10-30
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、创建基表测试数据"><a href="#1、创建基表测试数据" class="headerlink" title="1、创建基表测试数据"></a>1、创建基表测试数据</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &#96;test1&#96; (</span><br><span class="line">  &#96;id&#96; int(7) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;name&#96; varchar(20) DEFAULT NULL,</span><br><span class="line">  &#96;age&#96; int(4) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;37 DEFAULT CHARSET&#x3D;utf8mb4;</span><br><span class="line"></span><br><span class="line">insert into test1(name,age) values(&#39;lucy&#39;,10),(&#39;bobo&#39;,18),(&#39;david&#39;,20),(&#39;tom&#39;,21),(&#39;dobu&#39;,22),(&#39;dali&#39;,12);</span><br></pre></td></tr></table></figure>
+<h4 id="2、创建中间表"><a href="#2、创建中间表" class="headerlink" title="2、创建中间表"></a>2、创建中间表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> CREATE TABLE &#96;testfororder&#96; (</span><br><span class="line">  &#96;id&#96; int(7) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;name&#96; varchar(20) DEFAULT NULL,</span><br><span class="line">  &#96;age&#96; int(4) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;14699990 DEFAULT CHARSET&#x3D;utf8mb4;</span><br></pre></td></tr></table></figure>
+<p>创建存储过程对中间表插入数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">drop procedure if exists test;</span><br><span class="line">delimiter &#x2F;&#x2F;</span><br><span class="line">create procedure test()</span><br><span class="line"> begin</span><br><span class="line">  declare i int;</span><br><span class="line">  set i&#x3D;0;</span><br><span class="line">  while i&lt;300000 do</span><br><span class="line">   insert into testfororder(newid,name,age) select concat(i,name),FLOOR(18 + (RAND() * 12)) from test1;</span><br><span class="line">   set i&#x3D;i+1;</span><br><span class="line">  end while;</span><br><span class="line"> end&#x2F;&#x2F;</span><br><span class="line"> delimiter ;</span><br><span class="line">调用存储过程：</span><br><span class="line">call test();</span><br></pre></td></tr></table></figure>
+<h4 id="3、创建测试表："><a href="#3、创建测试表：" class="headerlink" title="3、创建测试表："></a>3、创建测试表：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &#96;sequence&#96; (</span><br><span class="line">  &#96;id&#96; int(10) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;newid&#96; int(10) NOT NULL,</span><br><span class="line">  &#96;name&#96; varchar(20) DEFAULT NULL,</span><br><span class="line">  &#96;age&#96; int(4) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;89179437 DEFAULT CHARSET&#x3D;utf8mb4;</span><br><span class="line"></span><br><span class="line">insert into sequence(newid,name,age) select * from testfororder;</span><br></pre></td></tr></table></figure>
+<p>数据量根据自己需求可以多次导入</p>
+<h4 id="4、查看sequence测试表数据："><a href="#4、查看sequence测试表数据：" class="headerlink" title="4、查看sequence测试表数据："></a>4、查看sequence测试表数据：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select count(*) from sequence;</span><br><span class="line">+----------+</span><br><span class="line">| count(*) |</span><br><span class="line">+----------+</span><br><span class="line">| 12600000 |</span><br><span class="line">+----------+</span><br><span class="line">1 row in set (2.83 sec)</span><br></pre></td></tr></table></figure>
+<p>age条件筛选数据量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select count(*) from sequence where age in (26,19,22,20,28,29,25);</span><br><span class="line">+----------+</span><br><span class="line">| count(*) |</span><br><span class="line">+----------+</span><br><span class="line">|  7341992 |</span><br><span class="line">+----------+</span><br><span class="line">1 row in set (3.82 sec)</span><br></pre></td></tr></table></figure>
+<p>newid条件筛选数量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select count(*) from sequence where newid in (116670,116677,116684,116691,116698,116705,116719,116726);</span><br><span class="line">+----------+</span><br><span class="line">| count(*) |</span><br><span class="line">+----------+</span><br><span class="line">|       56 |</span><br><span class="line">+----------+</span><br><span class="line">1 row in set (3.28 sec)</span><br></pre></td></tr></table></figure>
+<h4 id="5、where条件-age-newid-在没有创建索引的情况下："><a href="#5、where条件-age-newid-在没有创建索引的情况下：" class="headerlink" title="5、where条件(age,newid)在没有创建索引的情况下："></a>5、where条件(age,newid)在没有创建索引的情况下：</h4><p>age在前，newid在后，查看执行计划：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">explain select * from sequence where age in (26,19,22,20,28,29,25) and newid in (116670,116677,116684,116691,116698,116705,116719,116726);</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">| id | select_type | table    | partitions | type | possible_keys | key  | key_len | ref  | rows     | filtered | Extra       |</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">|  1 | SIMPLE      | sequence | NULL       | ALL  | NULL          | NULL | NULL    | NULL | 12292293 |    25.00 | Using where |</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">1 row in set, 1 warning (0.01 sec)</span><br><span class="line"></span><br><span class="line">select * from sequence where age in (26,19,22,20,28,29,25) and newid in (116670,116677,116684,116691,116698,116705,116719,116726);</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">| id       | newid  | name      | age  |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">|   100003 | 116670 | 2381lucy  |   26 |</span><br><span class="line">...</span><br><span class="line">| 76679487 | 116719 | 2382lucy  |   29 |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">49 rows in set (5.36 sec)</span><br></pre></td></tr></table></figure>
+<p>newid在前，age在后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">explain select * from sequence where  newid in (116670,116677,116684,116691,116698,116705,116719,116726) and age in (26,19,22,20,28,29,25);</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">| id | select_type | table    | partitions | type | possible_keys | key  | key_len | ref  | rows     | filtered | Extra       |</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">|  1 | SIMPLE      | sequence | NULL       | ALL  | NULL          | NULL | NULL    | NULL | 12292293 |    25.00 | Using where |</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">select * from sequence where  newid in (116670,116677,116684,116691,116698,116705,116719,116726) and age in (26,19,22,20,28,29,25);</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">| id       | newid  | name      | age  |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">|   100003 | 116670 | 2381lucy  |   26 |</span><br><span class="line">...</span><br><span class="line">| 76679487 | 116719 | 2382lucy  |   29 |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">49 rows in set (4.47 sec)</span><br></pre></td></tr></table></figure>
+<p>没有任何索引的情况下，where后面跟的条件从左到右，返回数据越小的条件在前面，效率会优于返回数据较大的条件在前面。</p>
+<h4 id="6、where条件-age-在没有创建索引，newid创建索引的情况下："><a href="#6、where条件-age-在没有创建索引，newid创建索引的情况下：" class="headerlink" title="6、where条件(age)在没有创建索引，newid创建索引的情况下："></a>6、where条件(age)在没有创建索引，newid创建索引的情况下：</h4><p>创建newid的索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index newid_ind on sequence(newid);</span><br></pre></td></tr></table></figure>
+<p>age在前，newid在后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">explain select * from sequence where age in (26,19,22,20,28,29,25) and newid in (116670,116677,116684,116691,116698,116705,116719,116726);</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+-----------+---------+------+------+----------+------------------------------------+</span><br><span class="line">| id | select_type | table    | partitions | type  | possible_keys | key       | key_len | ref  | rows | filtered | Extra                              |</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+-----------+---------+------+------+----------+------------------------------------+</span><br><span class="line">|  1 | SIMPLE      | sequence | NULL       | range | newid_ind     | newid_ind | 4       | NULL |   56 |    50.00 | Using index condition; Using where |</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+-----------+---------+------+------+----------+------------------------------------+</span><br><span class="line">1 row in set, 1 warning (0.01 sec)</span><br><span class="line"></span><br><span class="line">select * from sequence where age in (26,19,22,20,28,29,25) and newid in (116670,116677,116684,116691,116698,116705,116719,116726);</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">| id       | newid  | name      | age  |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">|   100003 | 116670 | 2381lucy  |   26 |</span><br><span class="line">...</span><br><span class="line">| 76679487 | 116719 | 2382lucy  |   29 |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">49 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+<p>newid在前，age在后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">explain select * from sequence where  newid in (116670,116677,116684,116691,116698,116705,116719,116726) and age in (26,19,22,20,28,29,25);</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+-----------+---------+------+------+----------+------------------------------------+</span><br><span class="line">| id | select_type | table    | partitions | type  | possible_keys | key       | key_len | ref  | rows | filtered | Extra                              |</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+-----------+---------+------+------+----------+------------------------------------+</span><br><span class="line">|  1 | SIMPLE      | sequence | NULL       | range | newid_ind     | newid_ind | 4       | NULL |   56 |    50.00 | Using index condition; Using where |</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+-----------+---------+------+------+----------+------------------------------------+</span><br><span class="line">1 row in set, 1 warning (0.01 sec)</span><br><span class="line"></span><br><span class="line">select * from sequence where  newid in (116670,116677,116684,116691,116698,116705,116719,116726) and age in (26,19,22,20,28,29,25);</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">| id       | newid  | name      | age  |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">|   100003 | 116670 | 2381lucy  |   26 |</span><br><span class="line">...</span><br><span class="line">| 76679487 | 116719 | 2382lucy  |   29 |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">49 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>在newid创建索引的情况下，where后面的查询条件前后顺序对查询效率影响不大。</p>
+<h4 id="7、where条件-newid-在没有创建索引，age创建索引的情况下："><a href="#7、where条件-newid-在没有创建索引，age创建索引的情况下：" class="headerlink" title="7、where条件(newid)在没有创建索引，age创建索引的情况下："></a>7、where条件(newid)在没有创建索引，age创建索引的情况下：</h4><p>删除newid的索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop index newid_ind on sequence;</span><br></pre></td></tr></table></figure>
+<p>创建age的索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index age_ind on sequence(age);</span><br></pre></td></tr></table></figure>
+<p>age在前，newid在后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">explain select * from sequence where age in (26,19,22,20,28,29,25) and newid in (116670,116677,116684,116691,116698,116705,116719,116726);</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">| id | select_type | table    | partitions | type | possible_keys | key  | key_len | ref  | rows     | filtered | Extra       |</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">|  1 | SIMPLE      | sequence | NULL       | ALL  | age_ind       | NULL | NULL    | NULL | 12292293 |    50.00 | Using where |</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">select * from sequence where age in (26,19,22,20,28,29,25) and newid in (116670,116677,116684,116691,116698,116705,116719,116726);</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">| id       | newid  | name      | age  |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">|   100003 | 116670 | 2381lucy  |   26 |</span><br><span class="line">...</span><br><span class="line">| 76679487 | 116719 | 2382lucy  |   29 |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">49 rows in set (4.97 sec)</span><br></pre></td></tr></table></figure>
+<p>newid在前，age在后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">explain select * from sequence where  newid in (116670,116677,116684,116691,116698,116705,116719,116726) and age in (26,19,22,20,28,29,25);</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">| id | select_type | table    | partitions | type | possible_keys | key  | key_len | ref  | rows     | filtered | Extra       |</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">|  1 | SIMPLE      | sequence | NULL       | ALL  | age_ind       | NULL | NULL    | NULL | 12292293 |    50.00 | Using where |</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">select * from sequence where  newid in (116670,116677,116684,116691,116698,116705,116719,116726) and age in (26,19,22,20,28,29,25);</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">| id       | newid  | name      | age  |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">|   100003 | 116670 | 2381lucy  |   26 |</span><br><span class="line">...</span><br><span class="line">| 76679487 | 116719 | 2382lucy  |   29 |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">49 rows in set (4.82 sec)</span><br></pre></td></tr></table></figure>
+<p>创建age索引之后，执行计划会默认使用索引执行，但是因为age的筛选出来的数据量比较大，使用索引也不是特别理想。</p>
+<h4 id="8、where条件-newid-age-创建联合索引的情况下："><a href="#8、where条件-newid-age-创建联合索引的情况下：" class="headerlink" title="8、where条件(newid,age)创建联合索引的情况下："></a>8、where条件(newid,age)创建联合索引的情况下：</h4><p>删除age索引，创建newid，age的联合索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drop index age_ind on sequence;</span><br><span class="line">create index newid_age_ind on sequence(newid,age);</span><br></pre></td></tr></table></figure>
+<p>age在前，newid在后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">explain select * from sequence where age in (26,19,22,20,28,29,25) and newid in (116670,116677,116684,116691,116698,116705,116719,116726);</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+---------------+---------+------+------+----------+-----------------------+</span><br><span class="line">| id | select_type | table    | partitions | type  | possible_keys | key           | key_len | ref  | rows | filtered | Extra                 |</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+---------------+---------+------+------+----------+-----------------------+</span><br><span class="line">|  1 | SIMPLE      | sequence | NULL       | range | newid_age_ind | newid_age_ind | 9       | NULL |   98 |   100.00 | Using index condition |</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+---------------+---------+------+------+----------+-----------------------+</span><br><span class="line"></span><br><span class="line"> select * from sequence where age in (26,19,22,20,28,29,25) and newid in (116670,116677,116684,116691,116698,116705,116719,116726);</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">| id       | newid  | name      | age  |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">|   100003 | 116670 | 2381lucy  |   26 |</span><br><span class="line">...</span><br><span class="line">| 76679487 | 116719 | 2382lucy  |   29 |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">49 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>newid在前，age在后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">explain select * from sequence where  newid in (116670,116677,116684,116691,116698,116705,116719,116726) and age in (26,19,22,20,28,29,25);</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+---------------+---------+------+------+----------+-----------------------+</span><br><span class="line">| id | select_type | table    | partitions | type  | possible_keys | key           | key_len | ref  | rows | filtered | Extra                 |</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+---------------+---------+------+------+----------+-----------------------+</span><br><span class="line">|  1 | SIMPLE      | sequence | NULL       | range | newid_age_ind | newid_age_ind | 9       | NULL |   98 |   100.00 | Using index condition |</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+---------------+---------+------+------+----------+-----------------------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">select * from sequence where  newid in (116670,116677,116684,116691,116698,116705,116719,116726) and age in (26,19,22,20,28,29,25);</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">| id       | newid  | name      | age  |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">|   100003 | 116670 | 2381lucy  |   26 |</span><br><span class="line">...</span><br><span class="line">| 76679487 | 116719 | 2382lucy  |   29 |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">49 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+<p>联合索引存在的情况下，where后面的查询条件前后顺序对查询效率影响不大，但是创建了联合索引之后要注意查询条件问题，如果是以（newid，age）的顺序创建的联合索引，如果where查询条件后面有newid会使用联合索引，但是如果where查询条件后面之后age则不会引用联合索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">explain select * from sequence where  newid in (116670,116677,116684,116691,116698,116705,116719,116726);</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+---------------+---------+------+------+----------+-----------------------+</span><br><span class="line">| id | select_type | table    | partitions | type  | possible_keys | key           | key_len | ref  | rows | filtered | Extra                 |</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+---------------+---------+------+------+----------+-----------------------+</span><br><span class="line">|  1 | SIMPLE      | sequence | NULL       | range | newid_age_ind | newid_age_ind | 4       | NULL |   56 |   100.00 | Using index condition |</span><br><span class="line">+----+-------------+----------+------------+-------+---------------+---------------+---------+------+------+----------+-----------------------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">explain select * from sequence where age in (26,19,22,20,28,29,25);</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">| id | select_type | table    | partitions | type | possible_keys | key  | key_len | ref  | rows     | filtered | Extra       |</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">|  1 | SIMPLE      | sequence | NULL       | ALL  | NULL          | NULL | NULL    | NULL | 12292293 |    50.00 | Using where |</span><br><span class="line">+----+-------------+----------+------------+------+---------------+------+---------+------+----------+----------+-------------+</span><br><span class="line">1 row in set, 1 warning (0.01 sec)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/30/测试mysql where条件顺序对sql查询效率的影响/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/30/测试mysql or和in对sql查询效率的影响/"><span>[Mysql] 测试mysql or和in对sql查询效率的影响</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/30/测试mysql or和in对sql查询效率的影响/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-30T04:39:00.000Z">
+          2018-10-30
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、创建基表测试数据"><a href="#1、创建基表测试数据" class="headerlink" title="1、创建基表测试数据"></a>1、创建基表测试数据</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &#96;test1&#96; (</span><br><span class="line">  &#96;id&#96; int(7) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;name&#96; varchar(20) DEFAULT NULL,</span><br><span class="line">  &#96;age&#96; int(4) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;37 DEFAULT CHARSET&#x3D;utf8mb4;</span><br><span class="line"></span><br><span class="line">insert into test1(name,age) values(&#39;lucy&#39;,10),(&#39;bobo&#39;,18),(&#39;david&#39;,20),(&#39;tom&#39;,21),(&#39;dobu&#39;,22),(&#39;dali&#39;,12);</span><br></pre></td></tr></table></figure>
+<h4 id="2、创建中间表"><a href="#2、创建中间表" class="headerlink" title="2、创建中间表"></a>2、创建中间表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> CREATE TABLE &#96;testfororder&#96; (</span><br><span class="line">  &#96;id&#96; int(7) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;name&#96; varchar(20) DEFAULT NULL,</span><br><span class="line">  &#96;age&#96; int(4) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;14699990 DEFAULT CHARSET&#x3D;utf8mb4;</span><br></pre></td></tr></table></figure>
+<p>创建存储过程对中间表插入数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">drop procedure if exists test;</span><br><span class="line">delimiter &#x2F;&#x2F;</span><br><span class="line">create procedure test()</span><br><span class="line"> begin</span><br><span class="line">  declare i int;</span><br><span class="line">  set i&#x3D;0;</span><br><span class="line">  while i&lt;300000 do</span><br><span class="line">   insert into testfororder(newid,name,age) select concat(i,name),FLOOR(18 + (RAND() * 12)) from test1;</span><br><span class="line">   set i&#x3D;i+1;</span><br><span class="line">  end while;</span><br><span class="line"> end&#x2F;&#x2F;</span><br><span class="line"> delimiter ;</span><br><span class="line">调用存储过程：</span><br><span class="line">call test();</span><br></pre></td></tr></table></figure>
+<h4 id="3、创建测试表："><a href="#3、创建测试表：" class="headerlink" title="3、创建测试表："></a>3、创建测试表：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &#96;sequence&#96; (</span><br><span class="line">  &#96;id&#96; int(10) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;newid&#96; int(10) NOT NULL,</span><br><span class="line">  &#96;name&#96; varchar(20) DEFAULT NULL,</span><br><span class="line">  &#96;age&#96; int(4) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;89179437 DEFAULT CHARSET&#x3D;utf8mb4;</span><br><span class="line"></span><br><span class="line">insert into sequence(newid,name,age) select * from testfororder;</span><br></pre></td></tr></table></figure>
+<p>数据量根据自己需求可以多次导入</p>
+<h4 id="4、查看sequence测试表数据："><a href="#4、查看sequence测试表数据：" class="headerlink" title="4、查看sequence测试表数据："></a>4、查看sequence测试表数据：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select count(*) from sequence;</span><br><span class="line">+----------+</span><br><span class="line">| count(*) |</span><br><span class="line">+----------+</span><br><span class="line">| 12600000 |</span><br><span class="line">+----------+</span><br><span class="line">1 row in set (2.83 sec)</span><br></pre></td></tr></table></figure>
+<h4 id="5、在newid没有索引的情况下，in和or的对比："><a href="#5、在newid没有索引的情况下，in和or的对比：" class="headerlink" title="5、在newid没有索引的情况下，in和or的对比："></a>5、在newid没有索引的情况下，in和or的对比：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">repl@db 16:14:  [aaaa]&gt; select * from sequence where  newid in (116670,116677,116684,116691,116698,116705,116719,116726);</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">| id       | newid  | name      | age  |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">|   100003 | 116670 | 2381lucy  |   26 |</span><br><span class="line">...</span><br><span class="line">| 76679494 | 116726 | 2382bobo  |   21 |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">56 rows in set (4.47 sec)</span><br><span class="line"></span><br><span class="line">select * from sequence where  newid &#x3D;116670 or newid &#x3D; 116677 or newid &#x3D; 116684 or newid &#x3D;116691 or newid &#x3D; 116698 or newid&#x3D;116705 or newid&#x3D;116719 or newid&#x3D;116726;</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">| id       | newid  | name      | age  |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">|   100003 | 116670 | 2381lucy  |   26 |</span><br><span class="line">...</span><br><span class="line">| 76679494 | 116726 | 2382bobo  |   21 |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">56 rows in set (6.77 sec)</span><br></pre></td></tr></table></figure>
+<p>没有索引的情况下使用in查询效率高于or</p>
+<h4 id="6、创建newid索引，再次进行测试："><a href="#6、创建newid索引，再次进行测试：" class="headerlink" title="6、创建newid索引，再次进行测试："></a>6、创建newid索引，再次进行测试：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> create index newid_ind on sequence(newid);</span><br><span class="line">select * from sequence where  newid in (116670,116677,116684,116691,116698,116705,116719,116726);</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">| id       | newid  | name      | age  |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">|   100003 | 116670 | 2381lucy  |   26 |</span><br><span class="line">...</span><br><span class="line">| 76679494 | 116726 | 2382bobo  |   21 |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">56 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">select * from sequence where  newid &#x3D;116670 or newid &#x3D; 116677 or newid &#x3D; 116684 or newid &#x3D;116691 or newid &#x3D; 116698 or newid&#x3D;116705 or newid&#x3D;116719 or newid&#x3D;116726;</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">| id       | newid  | name      | age  |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">|   100003 | 116670 | 2381lucy  |   26 |</span><br><span class="line">...</span><br><span class="line">| 76679494 | 116726 | 2382bobo  |   21 |</span><br><span class="line">+----------+--------+-----------+------+</span><br><span class="line">56 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+<p>在newid存在索引的情况下，使用or和in查询对sql查询效率影响较小。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/30/测试mysql or和in对sql查询效率的影响/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/28/Old incarnation found while trying to add node/"><span>[Mysql] Old incarnation found while trying to add node</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/28/Old incarnation found while trying to add node/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-28T15:25:00.000Z">
+          2018-10-28
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="0、集群环境介绍"><a href="#0、集群环境介绍" class="headerlink" title="0、集群环境介绍"></a>0、集群环境介绍</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql-mgr单主集群：</span><br><span class="line">mw-mysql-1：primary（节点1）</span><br><span class="line">mw-mysql-2：second （节点2）</span><br><span class="line">mw-mysql-3：second （节点3）</span><br></pre></td></tr></table></figure>
+<h4 id="1、收到zabbix报警mysql-mgr集群有一个节点down，查看节点信息，内容如下"><a href="#1、收到zabbix报警mysql-mgr集群有一个节点down，查看节点信息，内容如下" class="headerlink" title="1、收到zabbix报警mysql-mgr集群有一个节点down，查看节点信息，内容如下"></a>1、收到zabbix报警mysql-mgr集群有一个节点down，查看节点信息，内容如下</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select * from performance_schema.replication_group_members;</span><br><span class="line">+---------------------------+--------------------------------------+-------------+-------------+--------------+</span><br><span class="line">| CHANNEL_NAME              | MEMBER_ID                            | MEMBER_HOST | MEMBER_PORT | MEMBER_STATE |</span><br><span class="line">+---------------------------+--------------------------------------+-------------+-------------+--------------+</span><br><span class="line">| group_replication_applier | 77039511-8e42-11e8-b6d4-000d3aa1a189 | mw-mysql-1  |        3306 | ONLINE       |</span><br><span class="line">| group_replication_applier | 81143c99-8e3d-11e8-a501-000d3aa1b575 | mw-mysql-2  |        3306 | ONLINE       |</span><br><span class="line">| group_replication_applier | 8bab920f-8e3d-11e8-a045-000d3aa09b70 | mw-mysql-3  |        3306 | UNREACHABLE  |</span><br><span class="line">+---------------------------+--------------------------------------+-------------+-------------+--------------+</span><br></pre></td></tr></table></figure>
+<p>因为还有两个节点节点存活，表示集群还是可用的。（后面才发现只依靠这个信息是错误的）</p>
+<h4 id="2、节点3集群状态变为不可达，查看节点3的日志："><a href="#2、节点3集群状态变为不可达，查看节点3的日志：" class="headerlink" title="2、节点3集群状态变为不可达，查看节点3的日志："></a>2、节点3集群状态变为不可达，查看节点3的日志：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> waited (count) when Workers occupied &#x3D; 590 waited when Workers occupied &#x3D; 11412795300</span><br><span class="line">2018-10-27T06:56:10.116159Z 0 [Warning] Plugin group_replication reported: &#39;The member with address mw-mysql-2:3306 has already sent the stable set. Therefore discarding the second message.&#39;</span><br><span class="line">xdr_bytes: out of memory</span><br><span class="line">xdr_bytes: out of memory</span><br><span class="line">xdr_bytes: out of memory</span><br><span class="line">2018-10-27T06:58:03.284079Z 0 [Note] Plugin group_replication reported: &#39;dispatch_op &#x2F;export&#x2F;home&#x2F;pb2&#x2F;build&#x2F;sb_0-27500212-1520171728.22&#x2F;mysql-5.7.22&#x2F;rapid&#x2F;plugin&#x2F;group_replication&#x2F;libmysqlgcs&#x2F;src&#x2F;bindings&#x2F;xcom&#x2F;xcom&#x2F;xcom_base.c:3810 die_op executed_msg&#x3D;&#123;53f6a873 47559528 0&#125; delivered_msg&#x3D;&#123;53f6a873 47559528 0&#125; p-&gt;synode&#x3D;&#123;53f6a873 47559501 0&#125; p-&gt;delivered_msg&#x3D;&#123;53f6a873 47559525 0&#125; p-&gt;max_synode&#x3D;&#123;53f6a873 47559528 1&#125; &#39;</span><br><span class="line">2018-10-27T06:58:03.285626Z 0 [Note] Plugin group_replication reported: &#39;dispatch_op &#x2F;export&#x2F;home&#x2F;pb2&#x2F;build&#x2F;sb_0-27500212-1520171728.22&#x2F;mysql-5.7.22&#x2F;rapid&#x2F;plugin&#x2F;group_replication&#x2F;libmysqlgcs&#x2F;src&#x2F;bindings&#x2F;xcom&#x2F;xcom&#x2F;xcom_base.c:3810 die_op executed_msg&#x3D;&#123;53f6a873 47559528 0&#125; delivered_msg&#x3D;&#123;53f6a873 47559528 0&#125; p-&gt;synode&#x3D;&#123;53f6a873 47559501 0&#125; p-&gt;delivered_msg&#x3D;&#123;53f6a873 47559525 0&#125; p-&gt;max_synode&#x3D;&#123;53f6a873 47559528 2&#125; &#39;</span><br></pre></td></tr></table></figure>
+<h4 id="3、节点3因为内存不足导致节点集群进程down掉，重新启动mysql，尝试将节点3加入集群，提示加入失败："><a href="#3、节点3因为内存不足导致节点集群进程down掉，重新启动mysql，尝试将节点3加入集群，提示加入失败：" class="headerlink" title="3、节点3因为内存不足导致节点集群进程down掉，重新启动mysql，尝试将节点3加入集群，提示加入失败："></a>3、节点3因为内存不足导致节点集群进程down掉，重新启动mysql，尝试将节点3加入集群，提示加入失败：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">2018-10-27T07:49:40.493156Z 33 [Note] Plugin group_replication reported: &#39;Group communication SSL configuration: group_replication_ssl_mode: &quot;DISABLED&quot;&#39;</span><br><span class="line">2018-10-27T07:49:40.493724Z 33 [Note] Plugin group_replication reported: &#39;[GCS] Added automatically IP ranges 10.1.150.12&#x2F;24,10.1.150.16&#x2F;24,127.0.0.1&#x2F;8 to the whitelist&#39;</span><br><span class="line">2018-10-27T07:49:40.494212Z 33 [Note] Plugin group_replication reported: &#39;[GCS] Translated &#39;mw-mysql-3&#39; to 10.1.150.16&#39;</span><br><span class="line">2018-10-27T07:49:40.494374Z 33 [Warning] Plugin group_replication reported: &#39;[GCS] Automatically adding IPv4 localhost address to the whitelist. It is mandatory that it is added.&#39;</span><br><span class="line">2018-10-27T07:49:40.494426Z 33 [Note] Plugin group_replication reported: &#39;[GCS] SSL was not enabled&#39;</span><br><span class="line">2018-10-27T07:49:40.494453Z 33 [Note] Plugin group_replication reported: &#39;Initialized group communication with configuration: group_replication_group_name: &quot;9275d4e4-8e42-11e8-b217-000d3aa1a189&quot;; group_replication_local_address: &quot;mw-mysql-3:24901&quot;; group_replication_group_seeds: &quot;mw-mysql-1:24901,mw-mysql-2:24901,mw-mysql-3:24901&quot;; group_replication_bootstrap_group: false; group_replication_poll_spin_loops: 0; group_replication_compression_threshold: 1000000; group_replication_ip_whitelist: &quot;AUTOMATIC&quot;&#39;</span><br><span class="line">2018-10-27T07:49:40.494471Z 33 [Note] Plugin group_replication reported: &#39;[GCS] Configured number of attempts to join: 0&#39;</span><br><span class="line">2018-10-27T07:49:40.494476Z 33 [Note] Plugin group_replication reported: &#39;[GCS] Configured time between attempts to join: 5 seconds&#39;</span><br><span class="line">2018-10-27T07:49:40.494526Z 33 [Note] Plugin group_replication reported: &#39;Member configuration: member_id: 3306101; member_uuid: &quot;8bab920f-8e3d-11e8-a045-000d3aa09b70&quot;; single-primary mode: &quot;true&quot;; group_replication_auto_increment_increment: 1; &#39;</span><br><span class="line">2018-10-27T07:49:40.494937Z 94 [Note] &#39;CHANGE MASTER TO FOR CHANNEL &#39;group_replication_applier&#39; executed&#39;. Previous state master_host&#x3D;&#39;&lt;NULL&gt;&#39;, master_port&#x3D; 0, master_log_file&#x3D;&#39;&#39;, master_log_pos&#x3D; 4, master_bind&#x3D;&#39;&#39;. New state master_host&#x3D;&#39;&lt;NULL&gt;&#39;, master_port&#x3D; 0, master_log_file&#x3D;&#39;&#39;, master_log_pos&#x3D; 4, master_bind&#x3D;&#39;&#39;.</span><br><span class="line">2018-10-27T07:49:40.545004Z 97 [Note] Slave SQL thread for channel &#39;group_replication_applier&#39; initialized, starting replication in log &#39;FIRST&#39; at position 0, relay log &#39;.&#x2F;relay-log-group_replication_applier.000508&#39; position: 4</span><br><span class="line">2018-10-27T07:49:40.545034Z 33 [Note] Plugin group_replication reported: &#39;Group Replication applier module successfully initialized!&#39;</span><br><span class="line">2018-10-27T07:49:40.545059Z 33 [Note] Plugin group_replication reported: &#39;auto_increment_increment is set to 1&#39;</span><br><span class="line">2018-10-27T07:49:40.545063Z 33 [Note] Plugin group_replication reported: &#39;auto_increment_offset is set to 3306101&#39;</span><br><span class="line">2018-10-27T07:49:40.545486Z 0 [Note] Plugin group_replication reported: &#39;XCom protocol version: 3&#39;</span><br><span class="line">2018-10-27T07:49:40.545513Z 0 [Note] Plugin group_replication reported: &#39;XCom initialized and ready to accept incoming connections on port 24901&#39;</span><br><span class="line">2018-10-27T07:49:40.762663Z 0 [Warning] Plugin group_replication reported: &#39;read failed&#39;</span><br><span class="line">2018-10-27T07:49:40.780216Z 0 [ERROR] Plugin group_replication reported: &#39;[GCS] The member was unable to join the group. Local port: 24901&#39;</span><br></pre></td></tr></table></figure>
+<h4 id="4、因为在节点3查不到任何有用的报错信息，尝试在节点1查看有没有其他报错，看到一条比较奇怪的报错："><a href="#4、因为在节点3查不到任何有用的报错信息，尝试在节点1查看有没有其他报错，看到一条比较奇怪的报错：" class="headerlink" title="4、因为在节点3查不到任何有用的报错信息，尝试在节点1查看有没有其他报错，看到一条比较奇怪的报错："></a>4、因为在节点3查不到任何有用的报错信息，尝试在节点1查看有没有其他报错，看到一条比较奇怪的报错：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Note] Plugin group_replication reported: &#39;Old incarnation found while trying to add node mw-mysql-3:24901 15406269616484810.&#39;</span><br></pre></td></tr></table></figure>
+<p>官方文档没有关于这个信息的任何提示，在这个链接<a href="https://dba.stackexchange.com/questions/214779/how-to-delete-previous-incarnation-in-mysql-w-group-replication查到碰到这个问题只能重启集群。" target="_blank" rel="noopener">https://dba.stackexchange.com/questions/214779/how-to-delete-previous-incarnation-in-mysql-w-group-replication查到碰到这个问题只能重启集群。</a></p>
+<h4 id="5、查看节点2的信息，error-log没有任何更新，正常情况下如果集群节点正常应该会每个120s左右，会刷新一下信息："><a href="#5、查看节点2的信息，error-log没有任何更新，正常情况下如果集群节点正常应该会每个120s左右，会刷新一下信息：" class="headerlink" title="5、查看节点2的信息，error.log没有任何更新，正常情况下如果集群节点正常应该会每个120s左右，会刷新一下信息："></a>5、查看节点2的信息，error.log没有任何更新，正常情况下如果集群节点正常应该会每个120s左右，会刷新一下信息：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Note] Multi-threaded slave statistics for channel &#39;group_replication_applier&#39;: seconds elapsed &#x3D; 131; events assigned &#x3D; 3687425; worker queues filled over overrun level &#x3D; 0; waited due a Worker queue full &#x3D; 0; waited due the total size &#x3D; 0; waited at clock conflicts &#x3D; 65388998400 waited (count) when Workers occupied &#x3D; 25728 waited when Workers occupied &#x3D; 124142987600</span><br></pre></td></tr></table></figure>
+<h4 id="6、查看节点1应用连接是正常的，但是dml操作一直hang主，没有任何结果，重新启动应用程序问题照旧。感觉集群状态虽然查询正常，但是已经不能提供对外服务了，最后决定把所有的库stop，重新集群系统，最后集群恢复正常，对外提供服务正常，查询集群服务正常："><a href="#6、查看节点1应用连接是正常的，但是dml操作一直hang主，没有任何结果，重新启动应用程序问题照旧。感觉集群状态虽然查询正常，但是已经不能提供对外服务了，最后决定把所有的库stop，重新集群系统，最后集群恢复正常，对外提供服务正常，查询集群服务正常：" class="headerlink" title="6、查看节点1应用连接是正常的，但是dml操作一直hang主，没有任何结果，重新启动应用程序问题照旧。感觉集群状态虽然查询正常，但是已经不能提供对外服务了，最后决定把所有的库stop，重新集群系统，最后集群恢复正常，对外提供服务正常，查询集群服务正常："></a>6、查看节点1应用连接是正常的，但是dml操作一直hang主，没有任何结果，重新启动应用程序问题照旧。感觉集群状态虽然查询正常，但是已经不能提供对外服务了，最后决定把所有的库stop，重新集群系统，最后集群恢复正常，对外提供服务正常，查询集群服务正常：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select * from performance_schema.replication_group_members;</span><br><span class="line">+---------------------------+--------------------------------------+-------------+-------------+--------------+</span><br><span class="line">| CHANNEL_NAME              | MEMBER_ID                            | MEMBER_HOST | MEMBER_PORT | MEMBER_STATE |</span><br><span class="line">+---------------------------+--------------------------------------+-------------+-------------+--------------+</span><br><span class="line">| group_replication_applier | 77039511-8e42-11e8-b6d4-000d3aa1a189 | mw-mysql-1  |        3306 | ONLINE       |</span><br><span class="line">| group_replication_applier | 81143c99-8e3d-11e8-a501-000d3aa1b575 | mw-mysql-2  |        3306 | ONLINE       |</span><br><span class="line">| group_replication_applier | 8bab920f-8e3d-11e8-a045-000d3aa09b70 | mw-mysql-3  |        3306 | ONLINE       |</span><br><span class="line">+---------------------------+--------------------------------------+-------------+-------------+--------------+</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/28/Old incarnation found while trying to add node/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/25/mysql数据库使用innobackupex和mysqldump备份恢复的对比/"><span>[Mysql] mysql数据库使用innobackupex和mysqldump备份恢复的对比</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/25/mysql数据库使用innobackupex和mysqldump备份恢复的对比/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-25T14:30:00.000Z">
+          2018-10-25
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、查看原库数据文件大小："><a href="#1、查看原库数据文件大小：" class="headerlink" title="1、查看原库数据文件大小："></a>1、查看原库数据文件大小：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">du -sh *|grep data</span><br><span class="line">23G	data</span><br></pre></td></tr></table></figure>
+<h4 id="2、使用innodbackex备份数据"><a href="#2、使用innodbackex备份数据" class="headerlink" title="2、使用innodbackex备份数据"></a>2、使用innodbackex备份数据</h4><p>在percona官方下载xtrabackup软件，并解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;www.percona.com&#x2F;downloads&#x2F;XtraBackup&#x2F;Percona-XtraBackup-2.4.9&#x2F;binary&#x2F;tarball&#x2F;percona-xtrabackup-2.4.9-Linux-x86_64.tar.gz</span><br><span class="line">tar -zxvf percona-xtrabackup-2.4.9-Linux-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>开始执行备份，指定配置文件、用户名、密码、端口、备份的目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;innobackupex --defaults-file&#x3D;&#x2F;etc&#x2F;my.cnf --user&#x3D;root --password&#x3D;12345678 --port&#x3D;3306 &#x2F;data&#x2F;</span><br></pre></td></tr></table></figure>
+<p>（总体耗时25分钟左右，备份文件大小23G）</p>
+<h4 id="3、采用innodbackex备份出来的数据去恢复-将数据文件拷贝到节点1-执行恢复操作"><a href="#3、采用innodbackex备份出来的数据去恢复-将数据文件拷贝到节点1-执行恢复操作" class="headerlink" title="3、采用innodbackex备份出来的数据去恢复,将数据文件拷贝到节点1,执行恢复操作:"></a>3、采用innodbackex备份出来的数据去恢复,将数据文件拷贝到节点1,执行恢复操作:</h4><p>先把事务日志恢复（–apply-log）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;soft&#x2F;percona-xtrabackup&#x2F;bin&#x2F;innobackupex --defaults-file&#x3D;&#x2F;etc&#x2F;my.cnf --user&#x3D;root --password&#x3D;12345678 --port&#x3D;3306 --apply-log &#x2F;data&#x2F;2018-09-14_13-34-38</span><br></pre></td></tr></table></figure>
+<p>恢复数据之前需要清除数据目录下的所有数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf &#x2F;data&#x2F;mysql&#x2F;data&#x2F;*</span><br></pre></td></tr></table></figure>
+<p>开始恢复数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;soft&#x2F;percona-xtrabackup&#x2F;bin&#x2F;innobackupex --defaults-file&#x3D;&#x2F;etc&#x2F;my.cnf --user&#x3D;root --password&#x3D;12345678 --port&#x3D;3306 --copy-back --rsync &#x2F;data&#x2F;2018-09-14_13-34-38</span><br></pre></td></tr></table></figure>
+<p>数据恢复完成之后，删除datadir下的事务日志log文件（innodb引擎才会有）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; cd &#x2F;data&#x2F;mysql&#x2F;data</span><br><span class="line">shell &gt; rm -rf ib_logfile*</span><br></pre></td></tr></table></figure>
+<p>设置数据目录权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; chown -R mysql:mysql &#x2F;data&#x2F;mysql&#x2F;data</span><br><span class="line">shell &gt; &#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqld_safe --defaults-file&#x3D;&#x2F;data&#x2F;mysql&#x2F;etc&#x2F;my.cnf &amp;</span><br></pre></td></tr></table></figure>
+<p>启动节点1的mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;init.d&#x2F;mysql restart</span><br></pre></td></tr></table></figure>
+<p>恢复总体耗时（35分钟）</p>
+<h4 id="4、原库使用mysqldump方法备份一份数据，用于恢复节点2："><a href="#4、原库使用mysqldump方法备份一份数据，用于恢复节点2：" class="headerlink" title="4、原库使用mysqldump方法备份一份数据，用于恢复节点2："></a>4、原库使用mysqldump方法备份一份数据，用于恢复节点2：</h4><p>原库操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;mysql&#x2F;bin&#x2F;mysqldump --all-databases --set-gtid-purged&#x3D;ON --single-transaction -uroot -p12345678 &gt; &#x2F;db&#x2F;test.dump</span><br></pre></td></tr></table></figure>
+<p>备份需要指定–set-gtid-purged=ON参数在备份文件中输出global.gtid_purged信息，<br>指定–single-transaction参数避免备份过程中产生锁<br>（备份耗时10分钟，备份文件大小11G）</p>
+<h4 id="5、将mysqldump备份出的数据拷贝到节点2，节点2进行恢复操作："><a href="#5、将mysqldump备份出的数据拷贝到节点2，节点2进行恢复操作：" class="headerlink" title="5、将mysqldump备份出的数据拷贝到节点2，节点2进行恢复操作："></a>5、将mysqldump备份出的数据拷贝到节点2，节点2进行恢复操作：</h4><p> 如果从库@@GLOBAL.GTID_EXECUTED值不为空需要执行reset master;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@db 07:55:  [(none)]&gt; stop group_replication;</span><br><span class="line">Query OK, 0 rows affected (1.01 sec)</span><br><span class="line">root@db 07:55:  [(none)]&gt; reset master;</span><br><span class="line">Query OK, 0 rows affected (0.05 sec)</span><br></pre></td></tr></table></figure>
+<p>开始执行恢复</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@dax-mysql-mha bin]# mysql -u root -p12345678 &lt; &#x2F;data&#x2F;test.dump</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br></pre></td></tr></table></figure>
+<p>总体耗时（60分钟左右）</p>
+<h4 id="6、关于使用mysqldump备份恢复和innobackupex备份恢复的比较："><a href="#6、关于使用mysqldump备份恢复和innobackupex备份恢复的比较：" class="headerlink" title="6、关于使用mysqldump备份恢复和innobackupex备份恢复的比较："></a>6、关于使用mysqldump备份恢复和innobackupex备份恢复的比较：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数据文件目录大小23G情况下，mysqldump逻辑备份出来数据大小11G，备份耗时十分钟，恢复耗时一小时；</span><br><span class="line">innobackupex物理备份备份出来数据大小23G，备份耗时25分钟，恢复耗时35分钟。</span><br><span class="line">使用物理备份备份时间比逻辑备份时间较长，但恢复时间会小于逻辑备份时间,数据量比较大的情况下使用innobackupex会更好一点。</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/25/mysql数据库使用innobackupex和mysqldump备份恢复的对比/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/25/安装mysqlclient客户端/"><span>[Mysql] yum安装mysql-client客户端(centos7)</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/25/安装mysqlclient客户端/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-25T14:30:00.000Z">
+          2018-10-25
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、配置yum源"><a href="#1、配置yum源" class="headerlink" title="1、配置yum源"></a>1、配置yum源</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;[mysql80-community]</span><br><span class="line">name&#x3D;MySQL 8.0 Community Server</span><br><span class="line">baseurl&#x3D;http:&#x2F;&#x2F;repo.mysql.com&#x2F;yum&#x2F;mysql-8.0-community&#x2F;el&#x2F;7&#x2F;\$basearch&#x2F;</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">gpgkey&#x3D;file:&#x2F;&#x2F;&#x2F;etc&#x2F;pki&#x2F;rpm-gpg&#x2F;RPM-GPG-KEY-mysql&quot; &gt; &#x2F;etc&#x2F;yum.repos.d&#x2F;mysql-community.repo</span><br></pre></td></tr></table></figure>
+<h4 id="2、查看配置文件是否正确"><a href="#2、查看配置文件是否正确" class="headerlink" title="2、查看配置文件是否正确:"></a>2、查看配置文件是否正确:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more &#x2F;etc&#x2F;yum.repos.d&#x2F;mysql-community.repo</span><br></pre></td></tr></table></figure>
+<h4 id="3、安装mysql-client："><a href="#3、安装mysql-client：" class="headerlink" title="3、安装mysql-client："></a>3、安装mysql-client：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum install mysql-community-client</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/25/安装mysqlclient客户端/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/25/mysql-MGR集群配置/"><span>[Mysql] mysql-MGR集群配置</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/25/mysql-MGR集群配置/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-25T14:06:00.000Z">
+          2018-10-25
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="前提须知：mgr限制条件"><a href="#前提须知：mgr限制条件" class="headerlink" title="前提须知：mgr限制条件"></a>前提须知：mgr限制条件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">仅支持InnoDB表，并且每张表一定要有一个主键，用于做write set的冲突检测；必须打开GTID特性，二进制日志格式必须设置为ROW，用于选主与write set</span><br><span class="line">COMMIT可能会导致失败，类似于快照事务隔离级别的失败场景</span><br><span class="line">目前一个MGR集群最多支持9个节点</span><br><span class="line">不支持外键于save point特性，无法做全局间的约束检测与部分部分回滚</span><br><span class="line">二进制日志不支持binlog event checksum</span><br></pre></td></tr></table></figure>
+<h4 id="0、修改每个节点hosts文件，如下面所示-三个节点均需修改"><a href="#0、修改每个节点hosts文件，如下面所示-三个节点均需修改" class="headerlink" title="0、修改每个节点hosts文件，如下面所示(三个节点均需修改)"></a>0、修改每个节点hosts文件，如下面所示(三个节点均需修改)</h4><p>[root@dax-mysql-master log]# cat /etc/hosts</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">10.0.7.53   dax-mysql-master</span><br><span class="line">10.0.7.50   dax-mysql-slave</span><br><span class="line">10.0.7.51   dax-mysql-mha</span><br></pre></td></tr></table></figure>
+<h4 id="1、修改三个节点的my-cnf配置文件，在-mysqld-后添加如下信息，local-address这一行配置为自己的ip地址，其他不变"><a href="#1、修改三个节点的my-cnf配置文件，在-mysqld-后添加如下信息，local-address这一行配置为自己的ip地址，其他不变" class="headerlink" title="1、修改三个节点的my.cnf配置文件，在[mysqld]后添加如下信息，local_address这一行配置为自己的ip地址，其他不变"></a>1、修改三个节点的my.cnf配置文件，在[mysqld]后添加如下信息，local_address这一行配置为自己的ip地址，其他不变</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">master_info_repository &#x3D; &quot;TABLE&quot;</span><br><span class="line">relay_log_info_repository &#x3D; &quot;TABLE&quot;</span><br><span class="line">transaction_write_set_extraction &#x3D; &quot;XXHASH64&quot;</span><br><span class="line">slave_parallel_workers &#x3D; 2</span><br><span class="line">slave_preserve_commit_order &#x3D; 1</span><br><span class="line">slave_parallel_type &#x3D; &quot;LOGICAL_CLOCK&quot;</span><br><span class="line">binlog_checksum &#x3D; NONE</span><br><span class="line">#group_replication_allow_local_disjoint_gtids_join &#x3D; ON</span><br><span class="line">#group_replication_auto_increment_increment &#x3D; 1</span><br><span class="line">loose-group_replication_group_name &#x3D; &quot;867fee38-746b-11e8-b006-000d3a800ed3&quot;</span><br><span class="line">loose-group_replication_start_on_boot &#x3D; off</span><br><span class="line">loose-group_replication_local_address &#x3D; &quot;dax-mysql-mha:24901&quot;</span><br><span class="line">loose-group_replication_group_seeds &#x3D; &quot;dax-mysql-master:24901,dax-mysql-slave:24901,dax-mysql-mha:24901&quot;</span><br><span class="line">loose-group_replication_bootstrap_group &#x3D; off</span><br></pre></td></tr></table></figure>
+<p>集群参数详解：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#group_replication_auto_increment_increment &#x3D; 1 单主模式下可以设置为1（每个节点都要设置，不设置默认仍然为7）</span><br><span class="line">#loose-用于上述group_replication变量 的前缀 指示服务器在服务器启动时尚未加载组复制插件时继续启动。</span><br><span class="line">#配置会 transaction_write_set_extraction 指示服务器为每个事务处理它必须收集写入集并使用XXHASH64散列算法将其编码为 散列。</span><br><span class="line">#配置会 group_replication_group_name 告诉插件它正在加入或创建的组名为“aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa”。</span><br><span class="line">#值 group_replication_group_name 必须是有效的UUID。在二进制日志中为组复制事件设置GTID时，此UUID在内部使用。使用SELECT UUID();生成一个UUID。</span><br><span class="line">#配置 group_replication_start_on_boot 指示插件在服务器启动时不自动启动操作。这在设置组复制时很重要，因为它可以确保您可以在手动启动#插件之前配置服务器。成员配置完成后，您可以将其设置 group_replication_start_on_boot 为开启，以便在服务器引导时自动启动组复制。</span><br><span class="line">#配置 group_replication_local_address 告诉插件使用网络地址127.0.0.1和端口24901与组中的其他成员进行内部通信。</span><br></pre></td></tr></table></figure>
+<p>添加完参数之后重启数据库（三个节点均需重启）</p>
+<h4 id="2、主节点1-dax-mysql-master-执行："><a href="#2、主节点1-dax-mysql-master-执行：" class="headerlink" title="2、主节点1(dax-mysql-master)执行："></a>2、主节点1(dax-mysql-master)执行：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; </span><br><span class="line">SET SQL_LOG_BIN&#x3D;0;</span><br><span class="line">CREATE USER repl@&#39;%&#39; IDENTIFIED BY &#39;12345678&#39;;</span><br><span class="line">GRANT REPLICATION SLAVE ON *.* TO repl@&#39;%&#39;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line">SET SQL_LOG_BIN&#x3D;1;</span><br><span class="line">CHANGE MASTER TO MASTER_USER&#x3D;&#39;repl&#39;, MASTER_PASSWORD&#x3D;&#39;12345678&#39; FOR CHANNEL &#39;group_replication_recovery&#39;;</span><br><span class="line">#安装组复制插件</span><br><span class="line">INSTALL PLUGIN group_replication SONAME &#39;group_replication.so&#39;;</span><br><span class="line">#查看插件是否安装成功</span><br><span class="line">SHOW PLUGINS;</span><br></pre></td></tr></table></figure>
+<p>插件安装完成之后，将配置文件注释的那两行#去掉，重启数据库，并启动组复制进程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#启动组复制</span><br><span class="line">SET GLOBAL group_replication_bootstrap_group&#x3D;ON;</span><br><span class="line">START GROUP_REPLICATION;</span><br><span class="line">SET GLOBAL group_replication_bootstrap_group&#x3D;OFF;</span><br><span class="line">#查看组成员</span><br><span class="line">SELECT * FROM performance_schema.replication_group_members;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-1、创建数据，可在添加其他节点之前加，或者之后加（测试在节点之前加，添加其他节点后，会自动同步）-该步骤可选择性执行"><a href="#2-1、创建数据，可在添加其他节点之前加，或者之后加（测试在节点之前加，添加其他节点后，会自动同步）-该步骤可选择性执行" class="headerlink" title="2.1、创建数据，可在添加其他节点之前加，或者之后加（测试在节点之前加，添加其他节点后，会自动同步）(该步骤可选择性执行)"></a>2.1、创建数据，可在添加其他节点之前加，或者之后加（测试在节点之前加，添加其他节点后，会自动同步）(该步骤可选择性执行)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;</span><br><span class="line">CREATE DATABASE test1;</span><br><span class="line">USE test;</span><br><span class="line">CREATE TABLE t4 (c1 INT PRIMARY KEY, c2 TEXT NOT NULL);</span><br><span class="line">INSERT INTO t4 VALUES (1, &#39;Luis&#39;);</span><br><span class="line">检查表t1和二进制日志的内容。</span><br><span class="line">SELECT * FROM t4;</span><br><span class="line">SHOW BINLOG EVENTS;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、从节点2（dax-mysql-slave）执行"><a href="#3、从节点2（dax-mysql-slave）执行" class="headerlink" title="3、从节点2（dax-mysql-slave）执行:"></a>3、从节点2（dax-mysql-slave）执行:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SET SQL_LOG_BIN&#x3D;0;</span><br><span class="line">CREATE USER repl@&#39;%&#39; IDENTIFIED BY &#39;12345678&#39;;</span><br><span class="line">GRANT REPLICATION SLAVE ON *.* TO repl@&#39;%&#39;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line">SET SQL_LOG_BIN&#x3D;1;</span><br><span class="line">CHANGE MASTER TO MASTER_USER&#x3D;&#39;repl&#39;, MASTER_PASSWORD&#x3D;&#39;12345678&#39; FOR CHANNEL &#39;group_replication_recovery&#39;;</span><br><span class="line">INSTALL PLUGIN group_replication SONAME &#39;group_replication.so&#39;;</span><br><span class="line">show plugins;</span><br></pre></td></tr></table></figure>
+<p>将配置文件注释的那两行#去掉，重启数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;START GROUP_REPLICATION;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4、从节点3-dax-mysql-mha-执行"><a href="#4、从节点3-dax-mysql-mha-执行" class="headerlink" title="4、从节点3(dax-mysql-mha)执行:"></a>4、从节点3(dax-mysql-mha)执行:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SET SQL_LOG_BIN&#x3D;0;</span><br><span class="line">CREATE USER repl@&#39;%&#39; IDENTIFIED BY &#39;12345678&#39;;</span><br><span class="line">GRANT REPLICATION SLAVE ON *.* TO repl@&#39;%&#39;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line">SET SQL_LOG_BIN&#x3D;1;</span><br><span class="line">CHANGE MASTER TO MASTER_USER&#x3D;&#39;repl&#39;, MASTER_PASSWORD&#x3D;&#39;12345678&#39; FOR CHANNEL &#39;group_replication_recovery&#39;;</span><br><span class="line">INSTALL PLUGIN group_replication SONAME &#39;group_replication.so&#39;;</span><br><span class="line">show plugins;</span><br></pre></td></tr></table></figure>
+<p>将配置文件注释的那两行#去掉，重启数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;START GROUP_REPLICATION;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、安装mysql-shell-只在主节点执行便可"><a href="#5、安装mysql-shell-只在主节点执行便可" class="headerlink" title="5、安装mysql-shell(只在主节点执行便可)"></a>5、安装mysql-shell(只在主节点执行便可)</h4><p>下载mysql-shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;Downloads&#x2F;MySQL-Shell&#x2F;mysql-shell-8.0.11-linux-glibc2.12-x86-64bit.tar.gz</span><br></pre></td></tr></table></figure>
+<p>MySQL Shell用来配置服务器以供InnoDB集群使用的供应脚本需要访问Python版本2.7。对于沙箱部署，在用于部署的单台机器上需要Python，生产部署需要在每个服务器实例上使用Python。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mysql-shell-8.0.11-linux-glibc2.12-x86-64bit.tar.gz</span><br><span class="line">mv mysql-shell-8.0.11-linux-glibc2.12-x86-64bit mysql-shell</span><br></pre></td></tr></table></figure>
+<p>主节点1（dax-mysql-master),连接主节点,授权repl用户集群管理权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL PRIVILEGES ON mysql_innodb_cluster_metadata.* TO repl@&#39;%&#39; identified by &#39;12345678&#39; WITH GRANT OPTION;</span><br><span class="line">GRANT RELOAD, SHUTDOWN, PROCESS, FILE, SUPER, REPLICATION SLAVE, REPLICATION CLIENT, CREATE USER ON *.* TO repl@&#39;%&#39; identified by &#39;12345678&#39; WITH GRANT OPTION;</span><br><span class="line">GRANT SELECT ON *.* TO repl@&#39;%&#39; identified by &#39;12345678&#39; WITH GRANT OPTION;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<p>通过mysql-shell连接到主节点1配置集群:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;soft&#x2F;mysql-shell&#x2F;bin&#x2F;mysqlsh --uri repl@dax-mysql-master:3306</span><br><span class="line">&lt;输入用户名</span><br><span class="line">mysql-shell&gt;dba.verbose&#x3D;2</span><br><span class="line">创建集群</span><br><span class="line">mysql-shell&gt;var cluster &#x3D; dba.createCluster(&#39;prodCluster&#39;, &#123;adoptFromGR: true&#125;);</span><br><span class="line">查看集群状态</span><br><span class="line">mysql-shell&gt;cluster &#x3D; dba.getCluster(&quot;prodCluster&quot;)</span><br><span class="line">mysql-shell&gt;cluster.status()</span><br></pre></td></tr></table></figure>
+
+<h4 id="6、在应用端安装mysql-router"><a href="#6、在应用端安装mysql-router" class="headerlink" title="6、在应用端安装mysql-router"></a>6、在应用端安装mysql-router</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo bash</span><br><span class="line">mkdir -p &#x2F;data&#x2F;soft</span><br><span class="line">cd &#x2F;data&#x2F;soft</span><br><span class="line">wget https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;Downloads&#x2F;MySQL-Router&#x2F;mysql-router-8.0.11-linux-glibc2.12-x86-64bit.tar.gz</span><br><span class="line">tar -zxvf mysql-router-8.0.11-linux-glibc2.12-x86-64bit.tar.gz</span><br><span class="line">mv  mysql-router-8.0.11-linux-glibc2.12-x86-64bit  mysql-router</span><br></pre></td></tr></table></figure>
+<p>配置mysqlrouter</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;soft&#x2F;mysql-router&#x2F;bin&#x2F;mysqlrouter --bootstrap repl@10.5.0.6:3306 --directory &#x2F;data&#x2F;soft&#x2F;myrouter --user&#x3D;root --conf-use-sockets --force</span><br></pre></td></tr></table></figure>
+<p>在/data/soft/myrouter目录下生成关于mysqlrouter的配置文件，用于记录用于连接到mgr集群<br>其中mysqlrouter.conf配置文件内容如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">[metadata_cache:prodCluster]</span><br><span class="line">router_id&#x3D;7</span><br><span class="line">bootstrap_server_addresses&#x3D;mysql:&#x2F;&#x2F;dax-mysql-slave:3306,mysql:&#x2F;&#x2F;dax-mysql-master</span><br><span class="line">:3306,mysql:&#x2F;&#x2F;dax-mysql-mha:3306</span><br><span class="line">user&#x3D;mysql_router7_umuf7ikos8fp</span><br><span class="line">metadata_cluster&#x3D;prodCluster</span><br><span class="line">ttl&#x3D;5</span><br><span class="line"></span><br><span class="line">[routing:prodCluster_default_rw]</span><br><span class="line">bind_address&#x3D;0.0.0.0</span><br><span class="line">bind_port&#x3D;6446</span><br><span class="line">socket&#x3D;&#x2F;tmp&#x2F;myrouter&#x2F;mysql.sock</span><br><span class="line">destinations&#x3D;metadata-cache:&#x2F;&#x2F;prodCluster&#x2F;default?role&#x3D;PRIMARY</span><br><span class="line">routing_strategy&#x3D;round-robin</span><br><span class="line">protocol&#x3D;classic</span><br><span class="line"></span><br><span class="line">[routing:prodCluster_default_ro]</span><br><span class="line">bind_address&#x3D;0.0.0.0</span><br><span class="line">bind_port&#x3D;6447</span><br><span class="line">socket&#x3D;&#x2F;tmp&#x2F;myrouter&#x2F;mysqlro.sock</span><br><span class="line">destinations&#x3D;metadata-cache:&#x2F;&#x2F;prodCluster&#x2F;default?role&#x3D;SECONDARY</span><br><span class="line">routing_strategy&#x3D;round-robin</span><br><span class="line">protocol&#x3D;classic</span><br><span class="line"></span><br><span class="line">[routing:prodCluster_default_x_rw]</span><br><span class="line">bind_address&#x3D;0.0.0.0</span><br><span class="line">bind_port&#x3D;64460</span><br><span class="line">socket&#x3D;&#x2F;tmp&#x2F;myrouter&#x2F;mysqlx.sock</span><br><span class="line">destinations&#x3D;metadata-cache:&#x2F;&#x2F;prodCluster&#x2F;default?role&#x3D;PRIMARY</span><br><span class="line">routing_strategy&#x3D;round-robin</span><br><span class="line">protocol&#x3D;x</span><br><span class="line"></span><br><span class="line">[routing:prodCluster_default_x_ro]</span><br><span class="line">bind_address&#x3D;0.0.0.0</span><br><span class="line">bind_port&#x3D;64470</span><br><span class="line">socket&#x3D;&#x2F;tmp&#x2F;myrouter&#x2F;mysqlxro.sock</span><br><span class="line">destinations&#x3D;metadata-cache:&#x2F;&#x2F;prodCluster&#x2F;default?role&#x3D;SECONDARY</span><br><span class="line">routing_strategy&#x3D;round-robin</span><br><span class="line">protocol&#x3D;x</span><br></pre></td></tr></table></figure>
+<p>启动mysqlrouter命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;soft&#x2F;myrouter&#x2F;start.sh</span><br><span class="line">netstat -tunlp|grep mysql</span><br></pre></td></tr></table></figure>
+<p>加入开机启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;</span><br><span class="line">rm -rf &#x2F;data&#x2F;soft&#x2F;myrouter&#x2F;mysqlrouter.pid </span><br><span class="line">&#x2F;data&#x2F;soft&#x2F;myrouter&#x2F;start.sh &quot; &gt;&gt; &#x2F;etc&#x2F;rc.local</span><br><span class="line">cat &#x2F;etc&#x2F;rc.local</span><br></pre></td></tr></table></figure>
+<p>授权脚本执行权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x &#x2F;etc&#x2F;rc.d&#x2F;rc.local</span><br><span class="line">ll &#x2F;etc&#x2F;rc.d&#x2F;rc.local</span><br></pre></td></tr></table></figure>
+
+<p>####7、测试连接库是否有问题，并查看连接的库是主还是从<br>连接读写库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -h 127.0.0.1 -P 6446 -p</span><br></pre></td></tr></table></figure>
+<p>连接只读库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -h 127.0.0.1 -P 6447 -p</span><br></pre></td></tr></table></figure>
+
+<h4 id="8、查看集群状态"><a href="#8、查看集群状态" class="headerlink" title="8、查看集群状态"></a>8、查看集群状态</h4><p>查看组成员</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM performance_schema.replication_group_members;</span><br></pre></td></tr></table></figure>
+<p>查看主节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW STATUS LIKE &#39;group_replication_primary_member&#39;;</span><br></pre></td></tr></table></figure>
+<p>或者使用如下方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set global show_compatibility_56 &#x3D; on;</span><br><span class="line">select MEMBER_HOST from performance_schema.replication_group_members where MEMBER_ID&#x3D;(select VARIABLE_VALUE from information_schema.global_status where variable_name&#x3D;&#39;GROUP_REPLICATION_PRIMARY_MEMBER&#39;);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/25/mysql-MGR集群配置/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/25/一台服务器安装多个mysql数据库程序/"><span>[Mysql] 一台服务器安装多个mysql数据库程序</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/25/一台服务器安装多个mysql数据库程序/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-25T03:17:00.000Z">
+          2018-10-25
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、已安装第一个mysql程序的相关信息："><a href="#1、已安装第一个mysql程序的相关信息：" class="headerlink" title="1、已安装第一个mysql程序的相关信息："></a>1、已安装第一个mysql程序的相关信息：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">端口：3306</span><br><span class="line">目录：&#x2F;data&#x2F;mysql&#x2F;</span><br><span class="line">配置文件:&#x2F;etc&#x2F;my.cnf</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、新建用于第二个mysql程序的目录："><a href="#2、新建用于第二个mysql程序的目录：" class="headerlink" title="2、新建用于第二个mysql程序的目录："></a>2、新建用于第二个mysql程序的目录：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;data&#x2F;twomysql</span><br></pre></td></tr></table></figure>
+<p>将安装包解压到twomysql目录（下载地址<a href="https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.22-linux-glibc2.12-x86_64.tar.gz）" target="_blank" rel="noopener">https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.22-linux-glibc2.12-x86_64.tar.gz）</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mysql-5.7.22-linux-glibc2.12-x86_64.tar.gz -C &#x2F;data&#x2F;twomysql</span><br><span class="line">cd &#x2F;data&#x2F;twomysql</span><br><span class="line">mv mysql-5.7.22-linux-glibc2.12-x86_64 twomysql</span><br></pre></td></tr></table></figure>
+
+<p>创建相关数据、日志、配置文件目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;log</span><br><span class="line">touch &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;log&#x2F;mysqld.log</span><br><span class="line">chown -R mysql.mysql &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;log</span><br><span class="line">mkdir -p &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;data</span><br><span class="line">chown -R mysql.mysql &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;data</span><br><span class="line">mkdir -p &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp</span><br><span class="line">chown -R mysql.mysql &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp</span><br><span class="line">mkdir -p &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;etc</span><br><span class="line">chown -R mysql.mysql &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;etc</span><br><span class="line">cd &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;etc</span><br></pre></td></tr></table></figure>
+
+<p>配置文件信息如下，端口设为3307，目录设置跟上面创建的目录匹配：<br>vim my.cnf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">port    &#x3D; 3307</span><br><span class="line">socket    &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp&#x2F;mysql.sock</span><br><span class="line">[mysql]</span><br><span class="line">prompt&#x3D;&quot;\u@db \R:\m:\s [\d]&gt; &quot;</span><br><span class="line">no-auto-rehash</span><br><span class="line">[mysqld]</span><br><span class="line">user    &#x3D; mysql</span><br><span class="line">port    &#x3D; 3307</span><br><span class="line">basedir    &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql</span><br><span class="line">datadir    &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;data</span><br><span class="line">socket    &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp&#x2F;mysql.sock</span><br><span class="line">pid-file &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp&#x2F;mysql.pid</span><br><span class="line">character-set-server &#x3D; utf8mb4</span><br><span class="line">skip_name_resolve &#x3D; 1</span><br><span class="line">open_files_limit    &#x3D; 65535</span><br><span class="line">back_log &#x3D; 1024</span><br><span class="line">max_connections &#x3D; 2000</span><br><span class="line">max_connect_errors &#x3D; 100</span><br><span class="line">net_read_timeout &#x3D; 30</span><br><span class="line">net_write_timeout &#x3D; 60</span><br><span class="line">slave_net_timeout &#x3D; 90</span><br><span class="line">table_open_cache &#x3D; 1024</span><br><span class="line">table_definition_cache &#x3D; 1024</span><br><span class="line">table_open_cache_instances &#x3D; 64</span><br><span class="line">thread_stack &#x3D; 512K</span><br><span class="line">external-locking &#x3D; FALSE</span><br><span class="line">max_allowed_packet &#x3D; 32M</span><br><span class="line">sort_buffer_size &#x3D; 4M</span><br><span class="line">join_buffer_size &#x3D; 4M</span><br><span class="line">thread_cache_size &#x3D; 768</span><br><span class="line">query_cache_size &#x3D; 0</span><br><span class="line">query_cache_type &#x3D; 0</span><br><span class="line">interactive_timeout &#x3D; 600</span><br><span class="line">wait_timeout &#x3D; 600</span><br><span class="line">tmp_table_size &#x3D; 32M</span><br><span class="line">max_heap_table_size &#x3D; 32M</span><br><span class="line">slow_query_log &#x3D; 1</span><br><span class="line">slow_query_log_file &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;log&#x2F;slow.log</span><br><span class="line">log-error &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;log&#x2F;error.log</span><br><span class="line">long_query_time &#x3D; 0.1</span><br><span class="line">server-id &#x3D; 3306101</span><br><span class="line">log-bin &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;log&#x2F;mysql-binlog</span><br><span class="line">sync_binlog &#x3D; 1</span><br><span class="line">binlog_cache_size &#x3D; 4M</span><br><span class="line">max_binlog_cache_size &#x3D; 1G</span><br><span class="line">max_binlog_size &#x3D; 1G</span><br><span class="line">expire_logs_days &#x3D; 7</span><br><span class="line">gtid_mode &#x3D; on</span><br><span class="line">enforce_gtid_consistency &#x3D; 1</span><br><span class="line">log_slave_updates</span><br><span class="line">binlog_format &#x3D; row</span><br><span class="line">relay_log_recovery &#x3D; 1</span><br><span class="line">relay-log &#x3D; relay-log</span><br><span class="line">relay-log-purge &#x3D; 1</span><br><span class="line">key_buffer_size &#x3D; 32M</span><br><span class="line">read_buffer_size &#x3D; 8M</span><br><span class="line">read_rnd_buffer_size &#x3D; 4M</span><br><span class="line">bulk_insert_buffer_size &#x3D; 64M</span><br><span class="line">lock_wait_timeout &#x3D; 60</span><br><span class="line">explicit_defaults_for_timestamp &#x3D; 1</span><br><span class="line">innodb_thread_concurrency &#x3D; 0</span><br><span class="line">innodb_sync_spin_loops &#x3D; 100</span><br><span class="line">innodb_spin_wait_delay &#x3D; 30</span><br><span class="line">transaction_isolation &#x3D; REPEATABLE-READ</span><br><span class="line">innodb_buffer_pool_size &#x3D; 2048M</span><br><span class="line">innodb_buffer_pool_instances &#x3D; 8</span><br><span class="line">innodb_buffer_pool_load_at_startup &#x3D; 1</span><br><span class="line">innodb_buffer_pool_dump_at_shutdown &#x3D; 1</span><br><span class="line">innodb_data_file_path &#x3D; ibdata1:1G:autoextend</span><br><span class="line">innodb_flush_log_at_trx_commit &#x3D; 1</span><br><span class="line">innodb_log_buffer_size &#x3D; 32M</span><br><span class="line">innodb_log_file_size &#x3D; 1G</span><br><span class="line">innodb_log_files_in_group &#x3D; 3</span><br><span class="line">innodb_max_undo_log_size &#x3D; 4G</span><br><span class="line">innodb_io_capacity &#x3D; 4000</span><br><span class="line">innodb_io_capacity_max &#x3D; 8000</span><br><span class="line">innodb_flush_neighbors &#x3D; 0</span><br><span class="line">innodb_write_io_threads &#x3D; 8</span><br><span class="line">innodb_read_io_threads &#x3D; 8</span><br><span class="line">innodb_purge_threads &#x3D; 4</span><br><span class="line">innodb_page_cleaners &#x3D; 4</span><br><span class="line">innodb_open_files &#x3D; 65535</span><br><span class="line">innodb_max_dirty_pages_pct &#x3D; 50</span><br><span class="line">innodb_flush_method &#x3D; O_DIRECT</span><br><span class="line">innodb_lru_scan_depth &#x3D; 4000</span><br><span class="line">innodb_checksum_algorithm &#x3D; crc32</span><br><span class="line">innodb_lock_wait_timeout &#x3D; 30</span><br><span class="line">innodb_rollback_on_timeout &#x3D; 1</span><br><span class="line">innodb_print_all_deadlocks &#x3D; 1</span><br><span class="line">innodb_file_per_table &#x3D; 1</span><br><span class="line">innodb_online_alter_log_max_size &#x3D; 4G</span><br><span class="line">internal_tmp_disk_storage_engine &#x3D; InnoDB</span><br><span class="line">innodb_stats_on_metadata &#x3D; 0</span><br><span class="line">innodb_status_file &#x3D; 1</span><br><span class="line">innodb_status_output &#x3D; 0</span><br><span class="line">innodb_status_output_locks &#x3D; 0</span><br><span class="line">performance_schema &#x3D; 1</span><br><span class="line">performance_schema_instrument &#x3D; &#39;%&#x3D;on&#39;</span><br><span class="line">lower_case_table_names &#x3D; 1</span><br><span class="line">explicit_defaults_for_timestamp &#x3D; off</span><br><span class="line">sql_mode &#x3D; STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION</span><br><span class="line">[mysqldump]</span><br><span class="line">quick</span><br><span class="line">max_allowed_packet &#x3D; 32M</span><br><span class="line">[mysql.server]</span><br><span class="line">basedir&#x3D;&#x2F;data&#x2F;twomysql&#x2F;twomysql</span><br></pre></td></tr></table></figure>
+<h4 id="3、初始化数据库"><a href="#3、初始化数据库" class="headerlink" title="3、初始化数据库"></a>3、初始化数据库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;mysql-files</span><br><span class="line">sudo chown mysql:mysql &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;mysql-files</span><br><span class="line">sudo chmod 750 &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;mysql-files</span><br></pre></td></tr></table></figure>
+<p>设置无密码登录，在后面在重新创建密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;bin&#x2F;mysqld  --defaults-file&#x3D;&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;etc&#x2F;my.cnf --initialize-insecure --user&#x3D;mysql </span><br><span class="line">sudo &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;bin&#x2F;mysql_ssl_rsa_setup</span><br></pre></td></tr></table></figure>
+<h4 id="4、初始化完成之后，启动数据库："><a href="#4、初始化完成之后，启动数据库：" class="headerlink" title="4、初始化完成之后，启动数据库："></a>4、初始化完成之后，启动数据库：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;bin&#x2F;mysqld_safe --defaults-file&#x3D;&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;etc&#x2F;my.cnf &amp;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/U6azYpM.png" alt=""><br><img src="https://i.imgur.com/hHEuSC0.png" alt=""></p>
+<h4 id="5、修改用户密码"><a href="#5、修改用户密码" class="headerlink" title="5、修改用户密码"></a>5、修改用户密码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;bin&#x2F;mysqladmin -u root -P 3307  -S &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp&#x2F;mysql.sock password 123456</span><br></pre></td></tr></table></figure>
+<h4 id="6、登录mysql，需要输入密码："><a href="#6、登录mysql，需要输入密码：" class="headerlink" title="6、登录mysql，需要输入密码："></a>6、登录mysql，需要输入密码：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;bin&#x2F;mysql --socket&#x3D;&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp&#x2F;mysql.sock --port&#x3D;3307 -p</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/25/一台服务器安装多个mysql数据库程序/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/24/hp交换机启用snmp，并添加到zabbix监控/"><span>[Zabbix] zabbix监控hp-switch</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/24/hp交换机启用snmp，并添加到zabbix监控/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-24T07:51:00.000Z">
+          2018-10-24
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、通过console口、telnet、ssh连接到switch的命令行，登录具有管理员权限的用户。使用system-view进入特权模式"><a href="#1、通过console口、telnet、ssh连接到switch的命令行，登录具有管理员权限的用户。使用system-view进入特权模式" class="headerlink" title="1、通过console口、telnet、ssh连接到switch的命令行，登录具有管理员权限的用户。使用system-view进入特权模式"></a>1、通过console口、telnet、ssh连接到switch的命令行，登录具有管理员权限的用户。使用system-view进入特权模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># system-view</span><br></pre></td></tr></table></figure>
+<h4 id="2、配置snmp服务，设置版本、联系人信息、设备位置、团体名"><a href="#2、配置snmp服务，设置版本、联系人信息、设备位置、团体名" class="headerlink" title="2、配置snmp服务，设置版本、联系人信息、设备位置、团体名"></a>2、配置snmp服务，设置版本、联系人信息、设备位置、团体名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># snmp-agent</span><br><span class="line"># snmp-agent sys-info version v2c</span><br><span class="line"># snmp-agent sys-info contact Zamasu &lt;zamasu@dbsuper.com&gt;</span><br><span class="line"># snmp-agent sys-info location Universe10 - IT Room</span><br><span class="line"># snmp-agent community read GokuBlack</span><br></pre></td></tr></table></figure>
+<h4 id="3、保存配置信息："><a href="#3、保存配置信息：" class="headerlink" title="3、保存配置信息："></a>3、保存配置信息：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#save</span><br></pre></td></tr></table></figure>
+<h4 id="4、保存完成之后hp交换机snmp服务已经配置完成，下面测试zabbix服务器和hp交换机之间的snmp团体名。在zabbix安装snmp测试snmp服务："><a href="#4、保存完成之后hp交换机snmp服务已经配置完成，下面测试zabbix服务器和hp交换机之间的snmp团体名。在zabbix安装snmp测试snmp服务：" class="headerlink" title="4、保存完成之后hp交换机snmp服务已经配置完成，下面测试zabbix服务器和hp交换机之间的snmp团体名。在zabbix安装snmp测试snmp服务："></a>4、保存完成之后hp交换机snmp服务已经配置完成，下面测试zabbix服务器和hp交换机之间的snmp团体名。在zabbix安装snmp测试snmp服务：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># yum install snmp(apt-get install snmp)</span><br><span class="line"># snmpwalk -v2c -c GokuBlack 192.168.0.200</span><br></pre></td></tr></table></figure>
+<p>192.168.0.200为hp交换机的地址<br>下面为snmpwalk输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SNMPv2-MIB::sysDescr.0 &#x3D; STRING: HPE V1910-48G Switch Software Version 5.20, Release 1519P03</span><br><span class="line">Copyright(c) 2010-2017 Hewlett Packard Enterprise Development, L.P.</span><br><span class="line">SNMPv2-MIB::sysObjectID.0 &#x3D; OID: SNMPv2-SMI::enterprises.25506.11.1.85</span><br><span class="line">DISMAN-EVENT-MIB::sysUpTimeInstance &#x3D; Timeticks: (197804302) 22 days, 21:27:23.02</span><br><span class="line">SNMPv2-MIB::sysContact.0 &#x3D; STRING: Zamasu &lt;zamasu@dbsuper.com&gt;</span><br><span class="line">SNMPv2-MIB::sysName.0 &#x3D; STRING: TECH-SW01</span><br><span class="line">SNMPv2-MIB::sysLocation.0 &#x3D; STRING: Universe10 - IT Room</span><br></pre></td></tr></table></figure>
+<h4 id="5、配置zabbix仪表板："><a href="#5、配置zabbix仪表板：" class="headerlink" title="5、配置zabbix仪表板："></a>5、配置zabbix仪表板：</h4><p>创建主机<br><img src="https://i.imgur.com/zOCoL44.png" alt=""><br><img src="https://i.imgur.com/wknK4aG.jpg" alt=""><br>下面配置snmp团体名用于zabbix连接hp交换机<br><img src="https://i.imgur.com/THDB2A8.jpg" alt=""><br>根据对应的交换机型号，去zabbix官网下载对应得模板：<br><a href="http://www.zabbix.org/wiki/Zabbix_Templates，点击[跳转](http://www.zabbix.org/wiki/Zabbix_Templates)" target="_blank" rel="noopener">http://www.zabbix.org/wiki/Zabbix_Templates，点击[跳转](http://www.zabbix.org/wiki/Zabbix_Templates)</a></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/zabbix/">zabbix</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/24/hp交换机启用snmp，并添加到zabbix监控/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
+    <h3 class="article-title"><a href="/2018/10/22/oracle 定期删除trace文件/"><span>[Oracle] oracle 定期删除trace文件</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/22/oracle 定期删除trace文件/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-22T11:05:00.000Z">
+          2018-10-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="oracle-定期删除trace文件"><a href="#oracle-定期删除trace文件" class="headerlink" title="oracle 定期删除trace文件"></a>oracle 定期删除trace文件</h4><p>cat del_trace.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">#oracle 11gR2 rdbms</span><br><span class="line"></span><br><span class="line">#声明oracle环境变量</span><br><span class="line">export ORACLE_BASE&#x3D;&#x2F;u01&#x2F;app&#x2F;oracle</span><br><span class="line">export ORACLE_HOME&#x3D;$ORACLE_BASE&#x2F;product&#x2F;11.2.0.4&#x2F;dbhome_1</span><br><span class="line">#声明主机名</span><br><span class="line">export HOST_NAME&#x3D;&#96;hostname&#96;</span><br><span class="line">#声明日期，用于删除几天前的文件</span><br><span class="line">export DAYS&#x3D;7</span><br><span class="line"></span><br><span class="line">#一台服务器装有多个实例，可使用循环进行删除</span><br><span class="line">for dbname in instancea instanceb</span><br><span class="line">do</span><br><span class="line">export DB_NAME&#x3D;$dbname</span><br><span class="line">export DB_UNIQUE_NAME&#x3D;$&#123;DB_NAME&#125;</span><br><span class="line">export ORACLE_SID&#x3D;$&#123;DB_NAME&#125;</span><br><span class="line">#当前实例为rac模式节点1，启用该变量</span><br><span class="line">#export ORACLE_SID&#x3D;$&#123;DB_NAME&#125;1</span><br><span class="line">#当前实例为rac模式节点2，启用该变量</span><br><span class="line">#export ORACLE_SID&#x3D;$&#123;DB_NAME&#125;2</span><br><span class="line"></span><br><span class="line">#指定存放日志的路径</span><br><span class="line">DIAGNOSTIC_DEST&#x3D;$&#123;ORACLE_BASE&#125;</span><br><span class="line"></span><br><span class="line">#如果audit_trail_dest的一个默认值不生效，会使用下面第二个默认值：</span><br><span class="line">AUDIT_FILE_DEST&#x3D;$&#123;ORACLE_BASE&#125;&#x2F;admin&#x2F;$&#123;DB_NAME&#125;&#x2F;adump</span><br><span class="line"></span><br><span class="line">#删除audit_trail_dest第一个默认值下的审计日志，并删除7天前的日志</span><br><span class="line">find $&#123;ORACLE_HOME&#125;&#x2F;rdbms&#x2F;audit -name &quot;$&#123;ORACLE_SID&#125;_*.aud&quot; -mtime +$&#123;DAYS&#125; -exec rm -f &#123;&#125; \;</span><br><span class="line">#如果audit_trail_dest的一个默认值不生效，查找第二个默认值下的审计日志，并删除7天前的日志：</span><br><span class="line">find $&#123;AUDIT_FILE_DEST&#125; -name &quot;$&#123;ORACLE_SID&#125;_*.aud&quot; -mtime +$&#123;DAYS&#125; -exec rm -f &#123;&#125; \;</span><br><span class="line">#删除指定路径alert下的文件</span><br><span class="line">find $&#123;DIAGNOSTIC_DEST&#125;&#x2F;diag&#x2F;rdbms&#x2F;$&#123;DB_UNIQUE_NAME&#125;&#x2F;$&#123;ORACLE_SID&#125;&#x2F;alert -name &quot;log_[0-9]*.xml&quot; -mtime +$&#123;DAYS&#125; -exec rm -f &#123;&#125; \;</span><br><span class="line">#删除指定路径trace下的文件</span><br><span class="line">find $&#123;DIAGNOSTIC_DEST&#125;&#x2F;diag&#x2F;rdbms&#x2F;$&#123;DB_UNIQUE_NAME&#125;&#x2F;$&#123;ORACLE_SID&#125;&#x2F;trace -name &quot;$&#123;ORACLE_SID&#125;_*.tr[c|m]&quot; -mtime +$&#123;DAYS&#125; -exec rm -f &#123;&#125; \;</span><br><span class="line">find $&#123;DIAGNOSTIC_DEST&#125;&#x2F;diag&#x2F;rdbms&#x2F;$&#123;DB_UNIQUE_NAME&#125;&#x2F;$&#123;ORACLE_SID&#125;&#x2F;trace -name &quot;cdmp_*&quot; -mtime +$&#123;DAYS&#125; -exec rm -rf &#123;&#125; \;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>将该脚本，添加到cron下每日定期删除</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/22/oracle 定期删除trace文件/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+
+<nav class="pagination">
+  
+  <a href="/page/10/" class="pagination-prev">上一页</a>
+  
+  
+  <a href="/page/12/" class="pagination-next">下一页</a>
+  
+</nav>
+            </main>
+            <div class="sidebar
+                    col-lg-3 col-lg-offset-0
+                    col-md-3 col-md-offset-0
+                    col-sm-12
+                    col-xs-12
+                    sidebar-container
+                ">
+
+                <div class="sidebar-container">
+
+
+
+<div class="search-container">
+<form class="site-search-form">
+    <span class="glyphicon glyphicon-search"></span><input type="text" id="local-search-input" class="st-search-input" placeholder="Search..." />
+</form>
+<div id="local-search-result" class="local-search-result-cls"></div>
+</div>
+<script type="text/javascript" id="local.search.active">
+var inputArea       = document.querySelector("#local-search-input");
+inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script>
+
+
+
+
+    <div class="categories-container" style="margin-top:40px;">
+        <p>归档:</p>
+            
+    </div>
+
+
+
+
+    <div class="social-container" style="margin-top:40px;">
+        <p>Links:</p>
+            
+                
+                    <li class="social-item"><i class="fa fa-fw fa-github"></i><a href="https://github.com/zeven0707">GitHub</a></li>
+                
+            
+    </div>
+
+</div>
+            </div>
+          </div>
+        </div>
+        
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/BosenY/Lap" target="_blank">Lap</a>
+    <br/><span id="busuanzi_container_site_uv"> 
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+    </br>
+    
+      
+        &copy; 2020 zeven0707&#39;s blog
+      
+    
+  </p>
+</footer>
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-92842840-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+  </div>
+
+</div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/draw-something/dist/draw.min.js"></script>
+  <script>
+    let maxNum = Number.parseInt('30')
+    let iconText = '❤'
+    let color = 'red'
+    new Draw({maxNum, iconText, color})
+  </script>
+
+<script src="/js/index.js"></script>
+<script src="/js/search.js"></script>
+
+</body>
+</html>
