@@ -112,6 +112,76 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2019/09/21/oracle11.2.0.4数据库修改用户名称/"><span>[Oracle]oracle11.2.0.4数据库修改用户名称</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/oracle11.2.0.4数据库修改用户名称/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T15:19:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <p>1、用sysdba账号登入数据库，然后查询到要更改的用户信息</p>
+<p><code>SELECT user#,name FROM user$;</code></p>
+<p>2、更改用户名并提交</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">USER</span>$ <span class="keyword">SET</span> <span class="keyword">NAME</span>=<span class="string">'VTEBANK'</span> <span class="keyword">WHERE</span> <span class="keyword">user</span><span class="comment">#=84;</span></span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
+
+<p>3、强制刷新</p>
+<p><code>ALTER SYSTEM CHECKPOINT;</code><br><code>ALTER SYSTEM FLUSH SHARED_POOL;</code></p>
+<p>4、更新用户的密码</p>
+<p><code>ALTER USER VTEBANK IDENTIFIED BY VTEBANK;</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/oracle11.2.0.4数据库修改用户名称/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2019/09/21/oracle Blob字段转字符串/"><span>[Oracle]oracle Blob字段转字符串</span></a></h3>
     
   
@@ -734,71 +804,6 @@ var _hmt = _hmt || [];
   
     
     <h3 class="article-read"><a href="/2019/09/21/oracle exp导出报错EXP-00091Exporting questionable statistics/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2019/09/21/oracle Cluster Verification Utility(cvu)参考/"><span>[Oracle]oracle Cluster Verification Utility(cvu)参考</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/09/21/oracle Cluster Verification Utility(cvu)参考/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-09-21T12:53:00.000Z">
-          2019-09-21
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <h1 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h1><p>cvu工具用于数据库安装、补丁升级、其他系统变更等操作之前的系统检查。</p>
-<h1 id="2、使用详情"><a href="#2、使用详情" class="headerlink" title="2、使用详情"></a>2、使用详情</h1><p>cvu包含两个脚本runcluvfy.sh和cluvfy.sh<br>runcluvfy.sh:用于安装GI和Database之前运行（位于grid安装包解压出来的目录下）<br>cluvfy.sh：用于GI安装完成之后，Database安装的系统检查（位于$GRID_HOME/bin目录下）</p>
-<p>note*****使用runcluvfy脚本时建议添加-verbose参数来获取到详细的参数。</p>
-<h1 id="3、使用下面语句检查预安装之前步骤是否完成"><a href="#3、使用下面语句检查预安装之前步骤是否完成" class="headerlink" title="3、使用下面语句检查预安装之前步骤是否完成"></a>3、使用下面语句检查预安装之前步骤是否完成</h1><p>一般使用方法<br>$ ./runcluvfy.sh stage -pre crsinst -fixup -n rac1,rac2 -verbose<br>指定一个修复文件的生成目录<br>./runcluvfy.sh stage -pre crsinst -fixup -fixupdir /tmp/fixit.sh -n rac1,rac2 -verbose<br>如果不指定版本，cvu会按照11.2的要求检查，指定版本按下面方法：<br>$ ./runcluvfy.sh stage -pre crsinst -n node1,node2,node3 -r 10gR2</p>
-
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/oracle/">oracle</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2019/09/21/oracle Cluster Verification Utility(cvu)参考/"><span>点击阅读</span></a></h3>
     
   
 </article>

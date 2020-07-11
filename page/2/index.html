@@ -112,6 +112,68 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2019/09/22/linux查看磁盘是sata还是ssd/"><span>[linux] linux查看磁盘是sata还是ssd</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/linux查看磁盘是sata还是ssd/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T14:15:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <p><code>cat /sys/block/sda/queue/rotational</code><br>1表示普通硬盘<br>0表示ssd</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/linux查看磁盘是sata还是ssd/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2019/09/22/linux增加swap空间/"><span>[linux] linux增加swap空间</span></a></h3>
     
   
@@ -698,76 +760,6 @@ READ COMMITTED：默认级别的事物隔离级别。如果当前执行的dml中
   
     
     <h3 class="article-read"><a href="/2019/09/22/oracle 事物隔离级别(isolation level)/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2019/09/22/oracle archive log语法解析/"><span>[Oracle]oracle archive log</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/09/22/oracle archive log语法解析/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-09-22T13:10:00.000Z">
-          2019-09-22
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <h1 id="1、archive-log-语法"><a href="#1、archive-log-语法" class="headerlink" title="1、archive log 语法"></a>1、archive log 语法</h1><p><code>ARCHIVE LOG {LIST | STOP} | {START | NEXT | ALL | integer } [TO destination]</code></p>
-<p>停止或者启动在线重做日志的自动归档，手动归档指定的redo log files,或者显示redo log文件信息。</p>
-<h1 id="2、list：查看当前redo-log-file的归档范围，当前日志组文件的序列号，当前的归档地址，如果数据库使用归档模式并且自动归档，显示如下"><a href="#2、list：查看当前redo-log-file的归档范围，当前日志组文件的序列号，当前的归档地址，如果数据库使用归档模式并且自动归档，显示如下" class="headerlink" title="2、list：查看当前redo log file的归档范围，当前日志组文件的序列号，当前的归档地址，如果数据库使用归档模式并且自动归档，显示如下"></a>2、list：查看当前redo log file的归档范围，当前日志组文件的序列号，当前的归档地址，如果数据库使用归档模式并且自动归档，显示如下</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ARCHIVE LOG LIST</span><br><span class="line">Database log mode              Archive Mode</span><br><span class="line">Automatic archival             Enabled</span><br><span class="line">Archive destination            &#x2F;vobs&#x2F;oracle&#x2F;dbs&#x2F;arch</span><br><span class="line">Oldest online log sequence     221</span><br><span class="line">Next log sequence to archive   222</span><br><span class="line">Current log sequence           222</span><br></pre></td></tr></table></figure>
-
-<p>上面显示当前的日志序列号和下一个日志序列号相同，表示automatic archival已经归档了所有的日志组到当前的日志组。</p>
-<p>如果是使用了归档模式，但是禁用了自动归档，那么显示可能如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Oldest online log sequence            222</span><br><span class="line">Next log sequence to archive          222</span><br><span class="line">Current log sequence                  225</span><br></pre></td></tr></table></figure>
-
-<p>启动非归档模式，使用list查看是看不到Next log sequence to archive的信息的。</p>
-<h1 id="2、stop：禁用自动归档。"><a href="#2、stop：禁用自动归档。" class="headerlink" title="2、stop：禁用自动归档。"></a>2、stop：禁用自动归档。</h1><pre><code>如果实例在归档模式并且redo log文件组满了，数据库会处于停止状态，直到redo日志文件被归档（手动归档archive log next或者archive log all）（该参数在11g已经被弃用）</code></pre><h1 id="3、start：启用自动归档（该参数在11g已经被弃用）。"><a href="#3、start：启用自动归档（该参数在11g已经被弃用）。" class="headerlink" title="3、start：启用自动归档（该参数在11g已经被弃用）。"></a>3、start：启用自动归档（该参数在11g已经被弃用）。</h1><pre><code>启动后台进程arch执行自动归档。如果arch被启动和一个文件名被提供，指定的文件名变为新的默认归档地址。如果log_archive_start设置为true，实例自动的时候自动arch进程自动启动。(log_archive_start参数在10g已经被弃用，但是这个参数还被保留，在10g之后不管该参数为flase还是true，数据库都是自动归档的)</code></pre><h1 id="4、next：手动归档下一个被填满但是未归档的redo-log-file。"><a href="#4、next：手动归档下一个被填满但是未归档的redo-log-file。" class="headerlink" title="4、next：手动归档下一个被填满但是未归档的redo log file。"></a>4、next：手动归档下一个被填满但是未归档的redo log file。</h1><h1 id="5、all：手动归档所有的被填满但是未归档的redo-log-file。"><a href="#5、all：手动归档所有的被填满但是未归档的redo-log-file。" class="headerlink" title="5、all：手动归档所有的被填满但是未归档的redo log file。"></a>5、all：手动归档所有的被填满但是未归档的redo log file。</h1><h1 id="6、由非归档模式启动到归档模式"><a href="#6、由非归档模式启动到归档模式" class="headerlink" title="6、由非归档模式启动到归档模式"></a>6、由非归档模式启动到归档模式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">11:35:35 SYS@ boston&gt; archive log list;</span><br><span class="line">Database log mode	       No Archive Mode</span><br><span class="line">Automatic archival	       Disabled</span><br><span class="line">Archive destination	       USE_DB_RECOVERY_FILE_DEST</span><br><span class="line">Oldest online log sequence     565</span><br><span class="line">Current log sequence	       567</span><br><span class="line">11:35:58 SYS@ boston&gt; shutdown immediate</span><br><span class="line">ORA-01109: database not open</span><br><span class="line">Database dismounted.</span><br><span class="line">ORACLE instance shut down.</span><br><span class="line">11:36:11 SYS@ boston&gt; startup mount</span><br><span class="line">ORACLE instance started.</span><br><span class="line">Total System Global Area 1603411968 bytes</span><br><span class="line">Fixed Size		    2253664 bytes</span><br><span class="line">Variable Size		  587205792 bytes</span><br><span class="line">Database Buffers	 1006632960 bytes</span><br><span class="line">Redo Buffers		    7319552 bytes</span><br><span class="line">Database mounted.</span><br><span class="line">11:36:34 SYS@ boston&gt; alter database archivelog;</span><br><span class="line">Database altered.</span><br><span class="line">Elapsed: 00:00:00.04</span><br><span class="line">11:37:10 SYS@ boston&gt; alter database open;</span><br><span class="line">Database altered.</span><br><span class="line">Elapsed: 00:00:02.41</span><br><span class="line">11:37:21 SYS@ boston&gt; archive log list;</span><br><span class="line">Database log mode	       Archive Mode</span><br><span class="line">Automatic archival	       Enabled</span><br><span class="line">Archive destination	       USE_DB_RECOVERY_FILE_DEST</span><br><span class="line">Oldest online log sequence     565</span><br><span class="line">Next log sequence to archive   567</span><br><span class="line">Current log sequence	       567</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/oracle/">oracle</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2019/09/22/oracle archive log语法解析/"><span>点击阅读</span></a></h3>
     
   
 </article>
