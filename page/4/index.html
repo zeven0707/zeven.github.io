@@ -112,6 +112,71 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2019/09/21/ORA-00845报错/"><span>[Oracle]oracle启动报错ORA-00845</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/ORA-00845报错/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T15:22:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、当oracle下pfile文件中设置的memory-target参数设置的值大于-dev-shm参数时就会提示错误"><a href="#1、当oracle下pfile文件中设置的memory-target参数设置的值大于-dev-shm参数时就会提示错误" class="headerlink" title="1、当oracle下pfile文件中设置的memory_target参数设置的值大于/dev/shm参数时就会提示错误"></a>1、当oracle下pfile文件中设置的memory_target参数设置的值大于/dev/shm参数时就会提示错误</h1><p><code>ORA-00845: MEMORY_TARGET not supported on this system</code></p>
+<h1 id="2、这是需要调整-dev-shm参数使其大于或者等于memory-target参数"><a href="#2、这是需要调整-dev-shm参数使其大于或者等于memory-target参数" class="headerlink" title="2、这是需要调整/dev/shm参数使其大于或者等于memory_target参数"></a>2、这是需要调整/dev/shm参数使其大于或者等于memory_target参数</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mount -t tmpfs shmfs -o size=22288M /dev/shm</span><br><span class="line">mount -o remount,size=22288M /dev/shm</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、为保证系统重启，参数恢复为默认，需要添加到-etc-fstab下："><a href="#3、为保证系统重启，参数恢复为默认，需要添加到-etc-fstab下：" class="headerlink" title="3、为保证系统重启，参数恢复为默认，需要添加到/etc/fstab下："></a>3、为保证系统重启，参数恢复为默认，需要添加到/etc/fstab下：</h1><p><code>tmpfs /dev/shm tmpfs  defaults,size=22288M      0 0</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/ORA-00845报错/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2019/09/21/oracle11.2.0.4数据库修改用户名称/"><span>[Oracle]oracle11.2.0.4数据库修改用户名称</span></a></h3>
     
   
@@ -737,73 +802,6 @@ var _hmt = _hmt || [];
   
     
     <h3 class="article-read"><a href="/2019/09/21/oracle远程漏洞投毒扫描工具Metasploit/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2019/09/21/oracle exp导出报错EXP-00091Exporting questionable statistics/"><span>[Oracle] oracle exp导出报错EXP-00091: Exporting questionable statistics</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/09/21/oracle exp导出报错EXP-00091Exporting questionable statistics/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-09-21T14:29:00.000Z">
-          2019-09-21
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <h1 id="1、报错原因"><a href="#1、报错原因" class="headerlink" title="1、报错原因"></a>1、报错原因</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据库字符集与当前系统NLS_LANG参数不匹配</span><br></pre></td></tr></table></figure>
-
-<h1 id="2、解决方法"><a href="#2、解决方法" class="headerlink" title="2、解决方法"></a>2、解决方法</h1><p>查看数据库的字符集</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> userenv(<span class="string">'language'</span>) <span class="keyword">from</span> dual;</span><br><span class="line">USERENV('LANGUAGE')</span><br><span class="line"><span class="comment">------------------------------------------------------------------------------------------------------------------------------------------------------------</span></span><br><span class="line">AMERICAN_AMERICA.ZHS16GBK</span><br></pre></td></tr></table></figure>
-
-<p>声明NLS_LANG参数<br><code>export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK</code><br>再次执行导出<br><code>exp \&quot;/ as sysdba \&quot; tables=sys.aud$ file=/tmp/cbi1_daochu.dmp</code></p>
-
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/oracle/">oracle</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2019/09/21/oracle exp导出报错EXP-00091Exporting questionable statistics/"><span>点击阅读</span></a></h3>
     
   
 </article>

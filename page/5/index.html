@@ -112,6 +112,73 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2019/09/21/oracle exp导出报错EXP-00091Exporting questionable statistics/"><span>[Oracle] oracle exp导出报错EXP-00091: Exporting questionable statistics</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/oracle exp导出报错EXP-00091Exporting questionable statistics/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T14:29:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、报错原因"><a href="#1、报错原因" class="headerlink" title="1、报错原因"></a>1、报错原因</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据库字符集与当前系统NLS_LANG参数不匹配</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、解决方法"><a href="#2、解决方法" class="headerlink" title="2、解决方法"></a>2、解决方法</h1><p>查看数据库的字符集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> userenv(<span class="string">'language'</span>) <span class="keyword">from</span> dual;</span><br><span class="line">USERENV('LANGUAGE')</span><br><span class="line"><span class="comment">------------------------------------------------------------------------------------------------------------------------------------------------------------</span></span><br><span class="line">AMERICAN_AMERICA.ZHS16GBK</span><br></pre></td></tr></table></figure>
+
+<p>声明NLS_LANG参数<br><code>export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK</code><br>再次执行导出<br><code>exp \&quot;/ as sysdba \&quot; tables=sys.aud$ file=/tmp/cbi1_daochu.dmp</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/oracle exp导出报错EXP-00091Exporting questionable statistics/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2019/09/21/oracle Cluster Verification Utility(cvu)参考/"><span>[Oracle]oracle Cluster Verification Utility(cvu)参考</span></a></h3>
     
   
@@ -786,81 +853,6 @@ var _hmt = _hmt || [];
   
     
     <h3 class="article-read"><a href="/2019/04/17/rman retore and recover/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2019/04/15/rman_backup/"><span>[Oracle] 使用rman进行备份（全量、增量）</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/04/15/rman_backup/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-04-15T10:57:00.000Z">
-          2019-04-15
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <h1 id="0、修改rman默认配置参数"><a href="#0、修改rman默认配置参数" class="headerlink" title="0、修改rman默认配置参数"></a>0、修改rman默认配置参数</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CONFIGURE RETENTION POLICY TO REDUNDANCY 3; # 冗余三份</span><br><span class="line">CONFIGURE BACKUP OPTIMIZATION ON; #开启备份自动优化</span><br><span class="line">CONFIGURE ARCHIVELOG DELETION POLICY TO BACKED UP 2 TIMES TO DISK; #归档日志删除策略，备份过两次可以删除</span><br><span class="line">CONFIGURE CONTROLFILE AUTOBACKUP ON; #控制文件自动备份</span><br></pre></td></tr></table></figure>
-
-<h1 id="1、数据库备份完之后，不删除归档，不删除多余备份"><a href="#1、数据库备份完之后，不删除归档，不删除多余备份" class="headerlink" title="1、数据库备份完之后，不删除归档，不删除多余备份"></a>1、数据库备份完之后，不删除归档，不删除多余备份</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## sh rman_backup.sh ORACLE_SID(实例名)</span></span></span><br><span class="line">export ORACLE_BASE=$&#123;ORACLE_BASE&#125;</span><br><span class="line">export ORACLE_HOME=$&#123;ORACLE_HOME&#125;</span><br><span class="line">export ORACLE_SID=$1</span><br><span class="line">export PATH=$ORACLE_HOME/bin:$ORACLE_HOME/OPatch:$PATH</span><br><span class="line">backuptime=`date +"%Y%m%d-%H%M%S"`</span><br><span class="line">backuppath=/tmp/backuporacle</span><br><span class="line">if [ ! -d $&#123;backuppath&#125; ];then</span><br><span class="line">   sudo mkdir -p $&#123;backuppath&#125;</span><br><span class="line">else</span><br><span class="line">   :</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">ORACLE_HOME/bin/rman target / <span class="built_in">log</span>=<span class="variable">$&#123;backuppath&#125;</span>/full_backup_<span class="variable">$&#123;backuptime&#125;</span>.<span class="built_in">log</span> &lt;&lt;EOF</span></span><br><span class="line">run&#123;</span><br><span class="line">allocate channel c1 device type disk;</span><br><span class="line">allocate channel c2 device type disk;</span><br><span class="line">allocate channel c3 device type disk;</span><br><span class="line">allocate channel c4 device type disk;</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup as compressed backupset full database format '/tmp/backuporacle/db_%d_%T_%U';</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup archivelog all format '/tmp/backuporacle/arch_%d_%T_%s_%p.bak';</span><br><span class="line">backup current controlfile format '/tmp/backuporacle/ctl_%d_%T_%s_%p.bak';</span><br><span class="line">release channel c1;</span><br><span class="line">release channel c2;</span><br><span class="line">release channel c3;</span><br><span class="line">release channel c4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-
-<h1 id="2、数据库备份完之后，直接删除归档（备份达到两次的归档不会再被备份，删除归档时会被删除"><a href="#2、数据库备份完之后，直接删除归档（备份达到两次的归档不会再被备份，删除归档时会被删除" class="headerlink" title="2、数据库备份完之后，直接删除归档（备份达到两次的归档不会再被备份，删除归档时会被删除"></a>2、数据库备份完之后，直接删除归档（备份达到两次的归档不会再被备份，删除归档时会被删除</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## sh rman_backup.sh ORACLE_SID(实例名)</span></span></span><br><span class="line">export ORACLE_BASE=$&#123;ORACLE_BASE&#125;</span><br><span class="line">export ORACLE_HOME=$&#123;ORACLE_HOME&#125;</span><br><span class="line">export ORACLE_SID=$1</span><br><span class="line">export PATH=$ORACLE_HOME/bin:$ORACLE_HOME/OPatch:$PATH</span><br><span class="line">backuptime=`date +"%Y%m%d-%H%M%S"`</span><br><span class="line">backuppath=/tmp/backuporacle</span><br><span class="line">if [ ! -d $&#123;backuppath&#125; ];then</span><br><span class="line">   sudo mkdir -p $&#123;backuppath&#125;</span><br><span class="line">else</span><br><span class="line">   :</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">ORACLE_HOME/bin/rman target / <span class="built_in">log</span>=<span class="variable">$&#123;backuppath&#125;</span>/full_backup_<span class="variable">$&#123;backuptime&#125;</span>.<span class="built_in">log</span> &lt;&lt;EOF</span></span><br><span class="line">run&#123;</span><br><span class="line">allocate channel c1 device type disk;</span><br><span class="line">allocate channel c2 device type disk;</span><br><span class="line">allocate channel c3 device type disk;</span><br><span class="line">allocate channel c4 device type disk;</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup as compressed backupset full database format '/tmp/backuporacle/db_%d_%T_%U';</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup archivelog all format '/tmp/backuporacle/arch_%d_%T_%s_%p.bak' delete all input;</span><br><span class="line">backup current controlfile format '/tmp/backuporacle/ctl_%d_%T_%s_%p.bak';</span><br><span class="line">release channel c1;</span><br><span class="line">release channel c2;</span><br><span class="line">release channel c3;</span><br><span class="line">release channel c4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-
-<h1 id="3、根据冗余策略，删除多余的备份、删除多余的归档"><a href="#3、根据冗余策略，删除多余的备份、删除多余的归档" class="headerlink" title="3、根据冗余策略，删除多余的备份、删除多余的归档"></a>3、根据冗余策略，删除多余的备份、删除多余的归档</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## sh rman_backup.sh ORACLE_SID(实例名)</span></span></span><br><span class="line">export ORACLE_BASE=$&#123;ORACLE_BASE&#125;</span><br><span class="line">export ORACLE_HOME=$&#123;ORACLE_HOME&#125;</span><br><span class="line">export ORACLE_SID=$1</span><br><span class="line">export PATH=$ORACLE_HOME/bin:$ORACLE_HOME/OPatch:$PATH</span><br><span class="line">backuptime=`date +"%Y%m%d-%H%M%S"`</span><br><span class="line">backuppath=/tmp/backuporacle</span><br><span class="line">if [ ! -d $&#123;backuppath&#125; ];then</span><br><span class="line">   sudo mkdir -p $&#123;backuppath&#125;</span><br><span class="line">else</span><br><span class="line">   :</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">ORACLE_HOME/bin/rman target / <span class="built_in">log</span>=<span class="variable">$&#123;backuppath&#125;</span>/full_backup_<span class="variable">$&#123;backuptime&#125;</span>.<span class="built_in">log</span> &lt;&lt;EOF</span></span><br><span class="line">run&#123;</span><br><span class="line">allocate channel c1 device type disk;</span><br><span class="line">allocate channel c2 device type disk;</span><br><span class="line">allocate channel c3 device type disk;</span><br><span class="line">allocate channel c4 device type disk;</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup as compressed backupset full database format '/tmp/backuporacle/db_%d_%T_%U';</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup archivelog all format '/tmp/backuporacle/arch_%d_%T_%s_%p.bak' delete all input;</span><br><span class="line">backup current controlfile format '/tmp/backuporacle/ctl_%d_%T_%s_%p.bak';</span><br><span class="line">delete noprompt obsolete;</span><br><span class="line">release channel c1;</span><br><span class="line">release channel c2;</span><br><span class="line">release channel c3;</span><br><span class="line">release channel c4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-
-<h1 id="4、增量备份数据库"><a href="#4、增量备份数据库" class="headerlink" title="4、增量备份数据库"></a>4、增量备份数据库</h1><h2 id="4-1、level-0-增量数据库备份"><a href="#4-1、level-0-增量数据库备份" class="headerlink" title="4.1、level 0 增量数据库备份"></a>4.1、level 0 增量数据库备份</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">### sh rman_backup.sh ORACLE_SID(实例名)</span><br><span class="line">export ORACLE_BASE&#x3D;$&#123;ORACLE_BASE&#125;</span><br><span class="line">export ORACLE_HOME&#x3D;$&#123;ORACLE_HOME&#125;</span><br><span class="line">export ORACLE_SID&#x3D;$1</span><br><span class="line">export PATH&#x3D;$ORACLE_HOME&#x2F;bin:$ORACLE_HOME&#x2F;OPatch:$PATH</span><br><span class="line">backuptime&#x3D;&#96;date +&quot;%Y%m%d-%H%M%S&quot;&#96;</span><br><span class="line">backuppath&#x3D;&#x2F;tmp&#x2F;backuporacle</span><br><span class="line">if [ ! -d $&#123;backuppath&#125; ];then</span><br><span class="line">    sudo mkdir -p $&#123;backuppath&#125;</span><br><span class="line">else</span><br><span class="line">   :</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">$ORACLE_HOME&#x2F;bin&#x2F;rman target &#x2F; log&#x3D;$&#123;backuppath&#125;&#x2F;full_backup_$&#123;backuptime&#125;.log &lt;&lt;EOF</span><br><span class="line">run&#123;</span><br><span class="line">allocate channel c1 device type disk;</span><br><span class="line">allocate channel c2 device type disk;</span><br><span class="line">allocate channel c3 device type disk;</span><br><span class="line">allocate channel c4 device type disk;</span><br><span class="line">sql &#39;alter system archive log current&#39;;</span><br><span class="line">BACKUP INCREMENTAL LEVEL 0 DATABASE FORMAT &#39;&#x2F;tmp&#x2F;backuporacle&#x2F;db_%d_%T_%U&#39;;</span><br><span class="line">sql &#39;alter system archive log current&#39;;</span><br><span class="line">backup archivelog all format &#39;&#x2F;tmp&#x2F;backuporacle&#x2F;arch_%d_%T_%s_%p.bak&#39; delete all input;</span><br><span class="line">backup current controlfile format &#39;&#x2F;tmp&#x2F;backuporacle&#x2F;ctl_%d_%T_%s_%p.bak&#39;;</span><br><span class="line">delete noprompt obsolete;</span><br><span class="line">release channel c1;</span><br><span class="line">release channel c2;</span><br><span class="line">release channel c3;</span><br><span class="line">release channel c4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-2、level-1-差异增量备份数据库"><a href="#4-2、level-1-差异增量备份数据库" class="headerlink" title="4.2、level 1 差异增量备份数据库"></a>4.2、level 1 差异增量备份数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">### sh rman_backup.sh ORACLE_SID(实例名)</span><br><span class="line">export ORACLE_BASE&#x3D;$&#123;ORACLE_BASE&#125;</span><br><span class="line">export ORACLE_HOME&#x3D;$&#123;ORACLE_HOME&#125;</span><br><span class="line">export ORACLE_SID&#x3D;$1</span><br><span class="line">export PATH&#x3D;$ORACLE_HOME&#x2F;bin:$ORACLE_HOME&#x2F;OPatch:$PATH</span><br><span class="line">backuptime&#x3D;&#96;date +&quot;%Y%m%d-%H%M%S&quot;&#96;</span><br><span class="line">backuppath&#x3D;&#x2F;tmp&#x2F;backuporacle</span><br><span class="line">if [ ! -d $&#123;backuppath&#125; ];then</span><br><span class="line">   sudo mkdir -p $&#123;backuppath&#125;</span><br><span class="line">else</span><br><span class="line">   :</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">$ORACLE_HOME&#x2F;bin&#x2F;rman target &#x2F; log&#x3D;$&#123;backuppath&#125;&#x2F;full_backup_$&#123;backuptime&#125;.log &lt;&lt;EOF</span><br><span class="line">run&#123;</span><br><span class="line">allocate channel c1 device type disk;</span><br><span class="line">allocate channel c2 device type disk;</span><br><span class="line">allocate channel c3 device type disk;</span><br><span class="line">allocate channel c4 device type disk;</span><br><span class="line">sql &#39;alter system archive log current&#39;;</span><br><span class="line">BACKUP INCREMENTAL LEVEL 1 DATABASE FORMAT &#39;&#x2F;tmp&#x2F;backuporacle&#x2F;db_%d_%T_%U&#39;;</span><br><span class="line">sql &#39;alter system archive log current&#39;;</span><br><span class="line">backup archivelog all format &#39;&#x2F;tmp&#x2F;backuporacle&#x2F;arch_%d_%T_%s_%p.bak&#39; delete all input;</span><br><span class="line">backup current controlfile format &#39;&#x2F;tmp&#x2F;backuporacle&#x2F;ctl_%d_%T_%s_%p.bak&#39;;</span><br><span class="line">delete noprompt obsolete;</span><br><span class="line">release channel c1;</span><br><span class="line">release channel c2;</span><br><span class="line">release channel c3;</span><br><span class="line">release channel c4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-3、level-1-累积增量备份数据库"><a href="#4-3、level-1-累积增量备份数据库" class="headerlink" title="4.3、level 1 累积增量备份数据库"></a>4.3、level 1 累积增量备份数据库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## sh rman_backup.sh ORACLE_SID(实例名)</span></span></span><br><span class="line">export ORACLE_BASE=$&#123;ORACLE_BASE&#125;</span><br><span class="line">export ORACLE_HOME=$&#123;ORACLE_HOME&#125;</span><br><span class="line">export ORACLE_SID=$1</span><br><span class="line">export PATH=$ORACLE_HOME/bin:$ORACLE_HOME/OPatch:$PATH</span><br><span class="line">backuptime=`date +"%Y%m%d-%H%M%S"`</span><br><span class="line">backuppath=/tmp/backuporacle</span><br><span class="line">if [ ! -d $&#123;backuppath&#125; ];then</span><br><span class="line">   sudo mkdir -p $&#123;backuppath&#125;</span><br><span class="line">else</span><br><span class="line">   :</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">ORACLE_HOME/bin/rman target / <span class="built_in">log</span>=<span class="variable">$&#123;backuppath&#125;</span>/full_backup_<span class="variable">$&#123;backuptime&#125;</span>.<span class="built_in">log</span> &lt;&lt;EOF</span></span><br><span class="line">run&#123;</span><br><span class="line">allocate channel c1 device type disk;</span><br><span class="line">allocate channel c2 device type disk;</span><br><span class="line">allocate channel c3 device type disk;</span><br><span class="line">allocate channel c4 device type disk;</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">BACKUP INCREMENTAL LEVEL 1 CUMULATIVE DATABASE FORMAT '/tmp/backuporacle/db_%d_%T_%U';</span><br><span class="line">sql 'alter system archive log current';</span><br><span class="line">backup archivelog all format '/tmp/backuporacle/arch_%d_%T_%s_%p.bak' delete all input;</span><br><span class="line">backup current controlfile format '/tmp/backuporacle/ctl_%d_%T_%s_%p.bak';</span><br><span class="line">delete noprompt obsolete;</span><br><span class="line">release channel c1;</span><br><span class="line">release channel c2;</span><br><span class="line">release channel c3;</span><br><span class="line">release channel c4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-4、可以查看增量备份的的数据大小，如果增量备份文件超过了20-，建议使用全量备份"><a href="#4-4、可以查看增量备份的的数据大小，如果增量备份文件超过了20-，建议使用全量备份" class="headerlink" title="4.4、可以查看增量备份的的数据大小，如果增量备份文件超过了20%，建议使用全量备份"></a>4.4、可以查看增量备份的的数据大小，如果增量备份文件超过了20%，建议使用全量备份</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>   <span class="keyword">FILE</span><span class="comment">#, INCREMENTAL_LEVEL, COMPLETION_TIME,</span></span><br><span class="line">         BLOCKS, DATAFILE_BLOCKS</span><br><span class="line"><span class="keyword">FROM</span>     V$BACKUP_DATAFILE</span><br><span class="line"><span class="keyword">WHERE</span>    INCREMENTAL_LEVEL &gt; <span class="number">0</span></span><br><span class="line"><span class="keyword">AND</span>      BLOCKS / DATAFILE_BLOCKS &gt; <span class="number">.2</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> COMPLETION_TIME;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/oracle/">oracle</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2019/04/15/rman_backup/"><span>点击阅读</span></a></h3>
     
   
 </article>

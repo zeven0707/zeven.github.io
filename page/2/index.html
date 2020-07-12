@@ -112,6 +112,68 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2019/09/22/curl请求返回http_code和响应时间/"><span>[linux] curl请求返回http_code和响应时间</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/curl请求返回http_code和响应时间/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T14:16:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <p><code>curl -o /dev/null -s -w %{http_code}:%{http_connect}:%{content_type}:%{time_namelookup}:%{time_redirect}:%{time_pretransfer}:%{time_connect}:%{time_starttransfer}:%{time_total}:%{speed_download}  http://www.baidu.com</code><br>或者<br><code>curl -o /dev/null -s -w %{http_code}:%{time_connect}:%{time_starttransfer}:%{time_total} http://www.baidu.com</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/curl请求返回http_code和响应时间/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2019/09/22/linux查看磁盘是sata还是ssd/"><span>[linux] linux查看磁盘是sata还是ssd</span></a></h3>
     
   
@@ -697,69 +759,6 @@ var _hmt = _hmt || [];
   
     
     <h3 class="article-read"><a href="/2019/09/22/docker centos中文乱码问题/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2019/09/22/oracle 事物隔离级别(isolation level)/"><span>[Oracle]oracle 事物隔离级别(isolation level)</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/09/22/oracle 事物隔离级别(isolation level)/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-09-22T13:13:00.000Z">
-          2019-09-22
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <h1 id="1、oracle支持两种事务隔离级别"><a href="#1、oracle支持两种事务隔离级别" class="headerlink" title="1、oracle支持两种事务隔离级别"></a>1、oracle支持两种事务隔离级别</h1><p><code>ISOLATION_LEVEL = {SERIALIZABLE | READ COMMITTED}</code></p>
-<h1 id="2、ISOLATION-LEVEL参数仅为会话级别的参数，不能配置在初始化文件中"><a href="#2、ISOLATION-LEVEL参数仅为会话级别的参数，不能配置在初始化文件中" class="headerlink" title="2、ISOLATION_LEVEL参数仅为会话级别的参数，不能配置在初始化文件中"></a>2、ISOLATION_LEVEL参数仅为会话级别的参数，不能配置在初始化文件中</h1><pre><code>SERIALIZABLE：指定当前会话的事物隔离级别为串行化，在这个模式下，如果执行一条dml语句去更新某一行，而这一行切好被另一个串行化的事物去更新没有提交，那么这条dml语句会失败。
-READ COMMITTED：默认级别的事物隔离级别。如果当前执行的dml中需要的行别其他事物锁住，dml语句会等待锁释放。</code></pre>
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/oracle/">oracle</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2019/09/22/oracle 事物隔离级别(isolation level)/"><span>点击阅读</span></a></h3>
     
   
 </article>

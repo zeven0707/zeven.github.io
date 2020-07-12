@@ -112,6 +112,69 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2019/09/22/oracle 事物隔离级别(isolation level)/"><span>[Oracle]oracle 事物隔离级别(isolation level)</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/oracle 事物隔离级别(isolation level)/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T13:13:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、oracle支持两种事务隔离级别"><a href="#1、oracle支持两种事务隔离级别" class="headerlink" title="1、oracle支持两种事务隔离级别"></a>1、oracle支持两种事务隔离级别</h1><p><code>ISOLATION_LEVEL = {SERIALIZABLE | READ COMMITTED}</code></p>
+<h1 id="2、ISOLATION-LEVEL参数仅为会话级别的参数，不能配置在初始化文件中"><a href="#2、ISOLATION-LEVEL参数仅为会话级别的参数，不能配置在初始化文件中" class="headerlink" title="2、ISOLATION_LEVEL参数仅为会话级别的参数，不能配置在初始化文件中"></a>2、ISOLATION_LEVEL参数仅为会话级别的参数，不能配置在初始化文件中</h1><pre><code>SERIALIZABLE：指定当前会话的事物隔离级别为串行化，在这个模式下，如果执行一条dml语句去更新某一行，而这一行切好被另一个串行化的事物去更新没有提交，那么这条dml语句会失败。
+READ COMMITTED：默认级别的事物隔离级别。如果当前执行的dml中需要的行别其他事物锁住，dml语句会等待锁释放。</code></pre>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/oracle 事物隔离级别(isolation level)/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2019/09/22/oracle archive log语法解析/"><span>[Oracle]oracle archive log</span></a></h3>
     
   
@@ -803,71 +866,6 @@ mmnl:manageability monitor lite process：当ash的buffer满了,把sga下的ash�
   
     
     <h3 class="article-read"><a href="/2019/09/21/expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2019/09/21/ORA-00845报错/"><span>[Oracle]oracle启动报错ORA-00845</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/09/21/ORA-00845报错/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-09-21T15:22:00.000Z">
-          2019-09-21
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <h1 id="1、当oracle下pfile文件中设置的memory-target参数设置的值大于-dev-shm参数时就会提示错误"><a href="#1、当oracle下pfile文件中设置的memory-target参数设置的值大于-dev-shm参数时就会提示错误" class="headerlink" title="1、当oracle下pfile文件中设置的memory_target参数设置的值大于/dev/shm参数时就会提示错误"></a>1、当oracle下pfile文件中设置的memory_target参数设置的值大于/dev/shm参数时就会提示错误</h1><p><code>ORA-00845: MEMORY_TARGET not supported on this system</code></p>
-<h1 id="2、这是需要调整-dev-shm参数使其大于或者等于memory-target参数"><a href="#2、这是需要调整-dev-shm参数使其大于或者等于memory-target参数" class="headerlink" title="2、这是需要调整/dev/shm参数使其大于或者等于memory_target参数"></a>2、这是需要调整/dev/shm参数使其大于或者等于memory_target参数</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mount -t tmpfs shmfs -o size=22288M /dev/shm</span><br><span class="line">mount -o remount,size=22288M /dev/shm</span><br></pre></td></tr></table></figure>
-
-<h1 id="3、为保证系统重启，参数恢复为默认，需要添加到-etc-fstab下："><a href="#3、为保证系统重启，参数恢复为默认，需要添加到-etc-fstab下：" class="headerlink" title="3、为保证系统重启，参数恢复为默认，需要添加到/etc/fstab下："></a>3、为保证系统重启，参数恢复为默认，需要添加到/etc/fstab下：</h1><p><code>tmpfs /dev/shm tmpfs  defaults,size=22288M      0 0</code></p>
-
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/oracle/">oracle</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2019/09/21/ORA-00845报错/"><span>点击阅读</span></a></h3>
     
   
 </article>
