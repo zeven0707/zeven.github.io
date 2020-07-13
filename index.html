@@ -112,6 +112,66 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2020/07/13/mysql delete语句使用where in不走索引的问题解决/"><span>mysql delete语句使用where in不走索引的问题解决</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2020/07/13/mysql delete语句使用where in不走索引的问题解决/" rel="bookmark">
+        <time class="entry-date published" datetime="2020-07-13T08:09:42.868Z">
+          2020-07-13
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <p>mysql delete语句使用where in不走索引的问题解决<br>1、背景介绍：<br>想要删除某个表中重复行的数据<br>先使用聚合函数查询到哪些数据是重复的:<br><code>select update_time from test_data  group by update_time having count(1) &gt; 1;</code><br>然后使用下面的sql语句去执行删除，发现执行了10多分钟一直没有执行完成，就把这个进程给终止了<br><code>delete from test_data where update_time in (select update_time from (select update_time from test_data  group by update_time having count(1) &gt; 1 limit 1000) as t);</code><br>然后查看这个sql的执行计划<br>explain delete from test_data where update_time in (select update_time from (select update_time from test_data  group by update_time having count(1) &gt; 1) as t);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@db 09:01:  [tmp_opa_user]&gt; explain delete from test_data where update_time in (select update_time from (select update_time from test_data  group by update_time having count(1) &gt; 1 limit 1000) as t);</span><br><span class="line">+------+--------------------+------------+----------------+---------------+-----------------+---------+------+--------+-------------+</span><br><span class="line">| id   | select_type        | table      | type           | possible_keys | key             | key_len | ref  | rows   | Extra       |</span><br><span class="line">+------+--------------------+------------+----------------+---------------+-----------------+---------+------+--------+-------------+</span><br><span class="line">|    1 | PRIMARY            | test_data  | ALL            | NULL          | NULL            | NULL    | NULL | 260022 | Using where |</span><br><span class="line">|    2 | DEPENDENT SUBQUERY | &lt;derived3&gt; | index_subquery | key0          | key0            | 5       | func | 100    |             |</span><br><span class="line">|    3 | DERIVED            | test_data  | index          | NULL          | idx_update_time | 5       | NULL | 260022 | Using index |</span><br><span class="line">+------+--------------------+------------+----------------+---------------+-----------------+---------+------+--------+-------------+</span><br><span class="line">3 rows in set (0.000 sec)</span><br></pre></td></tr></table></figure>
+<p>发现1执行delete删除的时候不走索引，因此执行的时间很久。</p>
+<p>2、更改delete删除方法，使用delete inner join的方法:<br>sql如下:<br> explain delete a from test_data a inner join  (select update_time from (select update_time from test_data  group by update_time having count(1) &gt; 1) as t)  d on d.update_time = a.update_time;<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> root@db 09:02:  [tmp_opa_user]&gt;  explain delete a from test_data a inner join  (select update_time from (select update_time from test_data  group by update_time having count(1) &gt; 1) as t)  d on d.update_time &#x3D; a.update_time;</span><br><span class="line">+------+-------------+------------+-------+-----------------+-----------------+---------+---------------+--------+-------------+</span><br><span class="line">| id   | select_type | table      | type  | possible_keys   | key             | key_len | ref           | rows   | Extra       |</span><br><span class="line">+------+-------------+------------+-------+-----------------+-----------------+---------+---------------+--------+-------------+</span><br><span class="line">|    1 | PRIMARY     | &lt;derived2&gt; | ALL   | NULL            | NULL            | NULL    | NULL          | 100    |             |</span><br><span class="line">|    1 | PRIMARY     | a          | ref   | idx_update_time | idx_update_time | 5       | d.update_time | 1      |             |</span><br><span class="line">|    2 | DERIVED     | &lt;derived3&gt; | ALL   | NULL            | NULL            | NULL    | NULL          | 100    |             |</span><br><span class="line">|    3 | DERIVED     | test_data  | index | NULL            | idx_update_time | 5       | NULL          | 260022 | Using index |</span><br><span class="line">+------+-------------+------------+-------+-----------------+-----------------+---------+---------------+--------+-------------+</span><br><span class="line">4 rows in set (0.000 sec)</span><br></pre></td></tr></table></figure><br>执行计划提示1执行删除的时候使用了索引:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@db 09:06:  [tmp_opa_user]&gt; delete a from test_data a inner join  (select update_time from (select update_time from test_data  group by update_time having count(1) &gt; 1) as t)  d on d.update_time &#x3D; a.update_time;</span><br><span class="line">Query OK, 55327 rows affected (1.360 sec)</span><br></pre></td></tr></table></figure>
+<p>删除5万条数据执行了1.3s<br>如果感觉一次性删除数据量太大，可以使用limit来限制条数,例如:<br><code>delete a from test_data a inner join  (select update_time from (select update_time from test_data  group by update_time having count(1) &gt; 1) as t limit 1000 )  d on d.update_time = a.update_time;</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2020/07/13/mysql delete语句使用where in不走索引的问题解决/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2020/07/12/raw.githubusercontent.com无法访问问题 /"><span>raw.githubusercontent.com无法访问问题 </span></a></h3>
     
   
@@ -737,68 +797,6 @@ var _hmt = _hmt || [];
   
     
     <h3 class="article-read"><a href="/2019/09/22/linux 内核参数tcp_tw_reuse、tcp_tw_recycle、tcp_timestam/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2019/09/22/linux使用netstat统计网络连接状态信息/"><span>[linux] linux使用netstat统计网络连接状态信息</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/09/22/linux使用netstat统计网络连接状态信息/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-09-22T14:35:00.000Z">
-          2019-09-22
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <p><code>netstat -a | awk &#39;/^tcp/ {++S[$NF]} END {for(a in S) print a,S[a]}&#39;</code><br>或者<br><code>netstat -a |grep ^tcp | awk &#39;{++S[$NF]} END {for(a in S) print a,S[a]}&#39;</code><br>{++S[$NF] 的意思是 统计每行最后一个出现的次数，至少一次，放入数组中</p>
-
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/linux/">linux</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2019/09/22/linux使用netstat统计网络连接状态信息/"><span>点击阅读</span></a></h3>
     
   
 </article>

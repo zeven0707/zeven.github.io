@@ -112,6 +112,79 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2019/09/21/expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508/"><span>[Oracle]expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T15:25:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、使用expdp导出命令"><a href="#1、使用expdp导出命令" class="headerlink" title="1、使用expdp导出命令"></a>1、使用expdp导出命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">With the Partitioning, Real Application Clusters, Automatic Storage Management, OLAP,</span><br><span class="line">Data Mining and Real Application Testing options</span><br><span class="line">Starting "ZEVEN"."SYS_EXPORT_SCHEMA_01":  zeven/********</span><br><span class="line">dumpfile=zeven.dmpdirectory=exp_data_dir cluster=n </span><br><span class="line">ORA-39014: One or more workers have prematurely exited.</span><br><span class="line">ORA-39029: worker 1 with process name "DW00" prematurely terminated</span><br><span class="line">ORA-31671: Worker process DW00 had an unhandled exception.</span><br><span class="line">ORA-04063: package body "SYS.KUPW$WORKER" has errors</span><br><span class="line">ORA-06508: PL/SQL: could not find program unit being called: "SYS.KUPW$WORKER"</span><br><span class="line">ORA-06512: at line 2</span><br><span class="line">Job "ZEVEN"."SYS_EXPORT_SCHEMA_01" stopped due to fatal error at Tue Sep 3 14:29:49 2019 elapsed 0 00:00:30</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、查看SYS-KUPW-WORKE包的状态"><a href="#2、查看SYS-KUPW-WORKE包的状态" class="headerlink" title="2、查看SYS.KUPW$WORKE包的状态"></a>2、查看SYS.KUPW$WORKE包的状态</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">15:19:08 SYS@ oibs11&gt; select owner,object_name,object_type,status from dba_objects where status &lt;&gt; 'VALID' order by object_name;</span><br><span class="line"></span><br><span class="line">OWNER							     OBJECT_NAME													            OBJECT_TYPE			     STATUS</span><br><span class="line"><span class="comment">------------------------------------------------------------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------------------------------------- --------------</span></span><br><span class="line">.....</span><br><span class="line">SYS							     KUPW$WORKER													            PACKAGE BODY			     INVALID</span><br><span class="line">......</span><br><span class="line">10 rows selected.</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、根据mos提示执行下面脚本"><a href="#3、根据mos提示执行下面脚本" class="headerlink" title="3、根据mos提示执行下面脚本"></a>3、根据mos提示执行下面脚本</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">15:15:33 SYS@ oibs11&gt; @?/rdbms/admin/prvtbpw.plb;</span><br><span class="line">Warning: Package Body created <span class="keyword">with</span> compilation errors.</span><br><span class="line">Elapsed: <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.72</span></span><br><span class="line"><span class="number">15</span>:<span class="number">16</span>:<span class="number">05</span> <span class="keyword">SYS</span>@ oibs11&gt; <span class="keyword">show</span> <span class="keyword">errors</span>;</span><br><span class="line">Errors for PACKAGE BODY KUPW$WORKER:</span><br><span class="line">LINE/COL ERROR</span><br><span class="line"><span class="comment">-------- -----------------------------------------------------------------</span></span><br><span class="line">22308/5  PL/SQL: SQL Statement ignored</span><br><span class="line">22308/34 PL/SQL: ORA-00942: table or view does not exist</span><br></pre></td></tr></table></figure>
+
+<p>提示报错，表或者视图不存在，执行下面两个脚本</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@?/rdbms/admin/catdpb.sql</span><br><span class="line">@?/rdbms/admin/utlrp.sql</span><br></pre></td></tr></table></figure>
+
+<p>执行正常，再次查看包的状态,包恢复正常</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">15:35:14 SYS@ boston&gt; select owner,object_name,object_type,status from dba_objects where status = 'VALID' and object_name = 'KUPW$WORKER';</span><br><span class="line"></span><br><span class="line">OWNER			       OBJECT_NAME															OBJECT_TYPE	    STATUS</span><br><span class="line"><span class="comment">------------------------------ -------------------------------------------------------------------------------------------------------------------------------- ------------------- -------</span></span><br><span class="line">SYS			       KUPW$WORKER															PACKAGE 	    VALID</span><br><span class="line">SYS			       KUPW$WORKER															PACKAGE BODY	    VALID</span><br></pre></td></tr></table></figure>
+
+<h1 id="4、再次执行导出服务，恢复正常"><a href="#4、再次执行导出服务，恢复正常" class="headerlink" title="4、再次执行导出服务，恢复正常"></a>4、再次执行导出服务，恢复正常</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave tmp]$ expdp te/te12345678  dumpfile=zeven.dmp directory=exp_data_dir cluster=n logfile=expdp_zeven.log</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Sep 3 15:10:46 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Starting "TE"."SYS_EXPORT_SCHEMA_01":  te/******** dumpfile=zeven.dmp directory=exp_data_dir cluster=n logfile=expdp_zeven.log</span><br><span class="line">Estimate in progress using BLOCKS method...</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA</span><br><span class="line">Total estimation using BLOCKS method: 0 KB</span><br><span class="line">Processing object type SCHEMA_EXPORT/USER</span><br><span class="line">Processing object type SCHEMA_EXPORT/SYSTEM_GRANT</span><br><span class="line">Processing object type SCHEMA_EXPORT/ROLE_GRANT</span><br><span class="line">Processing object type SCHEMA_EXPORT/DEFAULT_ROLE</span><br><span class="line">Processing object type SCHEMA_EXPORT/PASSWORD_HISTORY</span><br><span class="line">Processing object type SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/TABLE</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/COMMENT</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/INDEX/INDEX</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS</span><br><span class="line">. . exported "TE"."TEST1"                                    0 KB       0 rows</span><br><span class="line">Master table "TE"."SYS_EXPORT_SCHEMA_01" successfully loaded/unloaded</span><br><span class="line">******************************************************************************</span><br><span class="line">Dump file set for TE.SYS_EXPORT_SCHEMA_01 is:</span><br><span class="line">  /tmp/backup/zeven.dmp</span><br><span class="line">Job "TE"."SYS_EXPORT_SCHEMA_01" successfully completed at Tue Sep 3 15:11:06 2019 elapsed 0 00:00:19</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2019/09/21/ORA-00845报错/"><span>[Oracle]oracle启动报错ORA-00845</span></a></h3>
     
   
@@ -713,95 +786,6 @@ var _hmt = _hmt || [];
   
     
     <h3 class="article-read"><a href="/2019/09/21/oracle查看asm磁盘使用情况/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2019/09/21/oracle远程漏洞投毒扫描工具Metasploit/"><span>[Oracle] oracle远程漏洞投毒扫描工具</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/09/21/oracle远程漏洞投毒扫描工具Metasploit/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-09-21T14:43:00.000Z">
-          2019-09-21
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <h1 id="1、安装扫描工具"><a href="#1、安装扫描工具" class="headerlink" title="1、安装扫描工具"></a>1、安装扫描工具</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; \</span><br><span class="line">chmod 755 msfinstall &amp;&amp; \</span><br><span class="line">./msfinstall</span><br></pre></td></tr></table></figure>
-
-<h1 id="2、扫描相应的数据库"><a href="#2、扫描相应的数据库" class="headerlink" title="2、扫描相应的数据库"></a>2、扫描相应的数据库</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[root@node3 soft]# msfconsole</span><br><span class="line">[-] ***rting the Metasploit Framework console...|</span><br><span class="line">[-] * WARNING: No database support: No database YAML file</span><br><span class="line">[-] ***</span><br><span class="line">      .:okOOOkdc'           'cdkOOOko:.</span><br><span class="line">    .xOOOOOOOOOOOOc       cOOOOOOOOOOOOx.</span><br><span class="line">   :OOOOOOOOOOOOOOOk,   ,kOOOOOOOOOOOOOOO:</span><br><span class="line">  'OOOOOOOOOkkkkOOOOO: :OOOOOOOOOOOOOOOOOO'</span><br><span class="line">  oOOOOOOOO.    .oOOOOoOOOOl.    ,OOOOOOOOo</span><br><span class="line">  dOOOOOOOO.      .cOOOOOc.      ,OOOOOOOOx</span><br><span class="line">  lOOOOOOOO.         ;d;         ,OOOOOOOOl</span><br><span class="line">  .OOOOOOOO.   .;           ;    ,OOOOOOOO.</span><br><span class="line">   cOOOOOOO.   .OOc.     'oOO.   ,OOOOOOOc</span><br><span class="line">    oOOOOOO.   .OOOO.   :OOOO.   ,OOOOOOo</span><br><span class="line">     lOOOOO.   .OOOO.   :OOOO.   ,OOOOOl</span><br><span class="line">      ;OOOO'   .OOOO.   :OOOO.   ;OOOO;</span><br><span class="line">       .dOOo   .OOOOocccxOOOO.   xOOd.</span><br><span class="line">         ,kOl  .OOOOOOOOOOOOO. .dOk,</span><br><span class="line">           :kk;.OOOOOOOOOOOOO.cOk:</span><br><span class="line">             ;kOOOOOOOOOOOOOOOk:</span><br><span class="line">               ,xOOOOOOOOOOOx,</span><br><span class="line">                 .lOOOOOOOl.</span><br><span class="line">                    ,dOd,</span><br><span class="line">                      .</span><br><span class="line"></span><br><span class="line">       =[ metasploit v5.0.27-dev-                         ]</span><br><span class="line">+ -- --=[ 1895 exploits - 1067 auxiliary - 329 post       ]</span><br><span class="line">+ -- --=[ 547 payloads - 44 encoders - 10 nops            ]</span><br><span class="line">+ -- --=[ 2 evasion                                       ]</span><br></pre></td></tr></table></figure>
-
-<p>指定扫描数据库的ip地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msf5 &gt;  use auxiliary&#x2F;scanner&#x2F;oracle&#x2F;tnspoison_checker</span><br><span class="line">msf5 auxiliary(scanner&#x2F;oracle&#x2F;tnspoison_checker) &gt; set rhosts 192.168.168.177</span><br><span class="line">rhosts &#x3D;&gt; 192.168.168.177</span><br></pre></td></tr></table></figure>
-
-<p>查看配置选项</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">msf5 auxiliary(scanner&#x2F;oracle&#x2F;tnspoison_checker) &gt; show options</span><br><span class="line">Module options (auxiliary&#x2F;scanner&#x2F;oracle&#x2F;tnspoison_checker):</span><br><span class="line"></span><br><span class="line">   Name     Current Setting  Required  Description</span><br><span class="line">   ----     ---------------  --------  -----------</span><br><span class="line">   RHOSTS   192.168.168.177  yes       The target address range or CIDR identifier</span><br><span class="line">   RPORT    1521             yes       The target port (TCP)</span><br><span class="line">   THREADS  1                yes       The number of concurrent threads</span><br></pre></td></tr></table></figure>
-
-<p>进行漏洞扫描</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msf5 auxiliary(scanner&#x2F;oracle&#x2F;tnspoison_checker) &gt; run</span><br><span class="line">[+] 192.168.168.177:1521 - 192.168.168.177:1521 is vulnerable</span><br><span class="line">[*] 192.168.168.177:1521 - Scanned 1 of 1 hosts (100% complete)</span><br><span class="line">[*] Auxiliary module execution completed</span><br></pre></td></tr></table></figure>
-
-<p>根据提示177该服务器是易受攻击的，说明存在漏洞<br>下面是具体进行渗透测试：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">msf5 auxiliary(scanner&#x2F;oracle&#x2F;tnspoison_checker) &gt; use auxiliary&#x2F;admin&#x2F;oracle&#x2F;tnscmd</span><br><span class="line">msf5 auxiliary(admin&#x2F;oracle&#x2F;tnscmd) &gt; set rhosts 192.168.168.177</span><br><span class="line">rhosts &#x3D;&gt; 192.168.168.177</span><br><span class="line">msf5 auxiliary(admin&#x2F;oracle&#x2F;tnscmd) &gt; show options</span><br><span class="line">Module options (auxiliary&#x2F;admin&#x2F;oracle&#x2F;tnscmd):</span><br><span class="line"></span><br><span class="line">   Name    Current Setting                   Required  Description</span><br><span class="line">   ----    ---------------                   --------  -----------</span><br><span class="line">   CMD     (CONNECT_DATA&#x3D;(COMMAND&#x3D;VERSION))  no        Something like ping, version, status, etc..</span><br><span class="line">   RHOSTS  192.168.168.177                   yes       The target address range or CIDR identifier</span><br><span class="line">   RPORT   1521                              yes       The target port (TCP)</span><br><span class="line"></span><br><span class="line">msf5 auxiliary(admin&#x2F;oracle&#x2F;tnscmd) &gt; run</span><br><span class="line">[*] Running module against 192.168.168.177</span><br><span class="line"></span><br><span class="line">[*] 192.168.168.177:1521 - Sending &#39;(CONNECT_DATA&#x3D;(COMMAND&#x3D;VERSION))&#39; to 192.168.168.177:1521</span><br><span class="line">[*] 192.168.168.177:1521 - writing 90 bytes.</span><br><span class="line">[*] 192.168.168.177:1521 - reading</span><br><span class="line">[*] 192.168.168.177:1521 - .e......&quot;..Y(DESCRIPTION&#x3D;(TMP&#x3D;)(VSNNUM&#x3D;186647552)(ERR&#x3D;1189)(ERROR_STACK&#x3D;(ERROR&#x3D;(CODE&#x3D;1189)(EMFI&#x3D;4))))</span><br><span class="line">[*] Auxiliary module execution completed</span><br></pre></td></tr></table></figure>
-
-<p>修改oracle服务端的监听配置文件listener.ora,增加下列内容<br>单实例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">VALID_NODE_CHECKING_REGISTRATION_LISTENER &#x3D;ON</span><br><span class="line">REGISTRATION_INVITED_NODES_LISTENER&#x3D;(192.168.168.177)</span><br></pre></td></tr></table></figure>
-
-<p>多实例<br>listener.ora文件添加如下内容（RAC)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">VALID_NODE_CHECKING_REGISTRATION_LISTENER_SCAN*&#x3D;ON</span><br><span class="line">VALID_NODE_CHECKING_REGISTRATION_LISTENER_SCAN2&#x3D;ON</span><br><span class="line">VALID_NODE_CHECKING_REGISTRATION_LISTENER_SCAN1&#x3D;ON</span><br><span class="line">VALID_NODE_CHECKING_REGISTRATION_LISTENER &#x3D;ON</span><br><span class="line">REGISTRATION_INVITED_NODES_LISTENER&#x3D;(两台host的IP都列进来)</span><br></pre></td></tr></table></figure>
-
-<p>重新加载监听</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsnrctl reload</span><br></pre></td></tr></table></figure>
-
-<p>再次重新检测</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">msf5 auxiliary(admin&#x2F;oracle&#x2F;tnscmd) &gt; use auxiliary&#x2F;scanner&#x2F;oracle&#x2F;tnspoison_checker</span><br><span class="line">msf5 auxiliary(scanner&#x2F;oracle&#x2F;tnspoison_checker) &gt;  set rhosts 192.168.168.177</span><br><span class="line">rhosts &#x3D;&gt; 192.168.168.177</span><br><span class="line">msf5 auxiliary(scanner&#x2F;oracle&#x2F;tnspoison_checker) &gt; show options</span><br><span class="line"></span><br><span class="line">Module options (auxiliary&#x2F;scanner&#x2F;oracle&#x2F;tnspoison_checker):</span><br><span class="line"></span><br><span class="line">   Name     Current Setting  Required  Description</span><br><span class="line">   ----     ---------------  --------  -----------</span><br><span class="line">   RHOSTS   192.168.168.177  yes       The target address range or CIDR identifier</span><br><span class="line">   RPORT    1521             yes       The target port (TCP)</span><br><span class="line">   THREADS  1                yes       The number of concurrent threads</span><br><span class="line"></span><br><span class="line">msf5 auxiliary(scanner&#x2F;oracle&#x2F;tnspoison_checker) &gt; run</span><br><span class="line"></span><br><span class="line">[-] 192.168.168.177:1521 - 192.168.168.177:1521 is not vulnerable</span><br><span class="line">[*] 192.168.168.177:1521 - Scanned 1 of 1 hosts (100% complete)</span><br><span class="line">[*] Auxiliary module execution completed</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/oracle/">oracle</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2019/09/21/oracle远程漏洞投毒扫描工具Metasploit/"><span>点击阅读</span></a></h3>
     
   
 </article>

@@ -112,6 +112,84 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2018/10/25/一台服务器安装多个mysql数据库程序/"><span>[Mysql] 一台服务器安装多个mysql数据库程序</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/10/25/一台服务器安装多个mysql数据库程序/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-10-25T03:17:00.000Z">
+          2018-10-25
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h4 id="1、已安装第一个mysql程序的相关信息："><a href="#1、已安装第一个mysql程序的相关信息：" class="headerlink" title="1、已安装第一个mysql程序的相关信息："></a>1、已安装第一个mysql程序的相关信息：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">端口：3306</span><br><span class="line">目录：&#x2F;data&#x2F;mysql&#x2F;</span><br><span class="line">配置文件:&#x2F;etc&#x2F;my.cnf</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、新建用于第二个mysql程序的目录："><a href="#2、新建用于第二个mysql程序的目录：" class="headerlink" title="2、新建用于第二个mysql程序的目录："></a>2、新建用于第二个mysql程序的目录：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;data&#x2F;twomysql</span><br></pre></td></tr></table></figure>
+<p>将安装包解压到twomysql目录（下载地址<a href="https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.22-linux-glibc2.12-x86_64.tar.gz）" target="_blank" rel="noopener">https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.22-linux-glibc2.12-x86_64.tar.gz）</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mysql-5.7.22-linux-glibc2.12-x86_64.tar.gz -C &#x2F;data&#x2F;twomysql</span><br><span class="line">cd &#x2F;data&#x2F;twomysql</span><br><span class="line">mv mysql-5.7.22-linux-glibc2.12-x86_64 twomysql</span><br></pre></td></tr></table></figure>
+
+<p>创建相关数据、日志、配置文件目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;log</span><br><span class="line">touch &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;log&#x2F;mysqld.log</span><br><span class="line">chown -R mysql.mysql &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;log</span><br><span class="line">mkdir -p &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;data</span><br><span class="line">chown -R mysql.mysql &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;data</span><br><span class="line">mkdir -p &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp</span><br><span class="line">chown -R mysql.mysql &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp</span><br><span class="line">mkdir -p &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;etc</span><br><span class="line">chown -R mysql.mysql &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;etc</span><br><span class="line">cd &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;etc</span><br></pre></td></tr></table></figure>
+
+<p>配置文件信息如下，端口设为3307，目录设置跟上面创建的目录匹配：<br>vim my.cnf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">port    &#x3D; 3307</span><br><span class="line">socket    &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp&#x2F;mysql.sock</span><br><span class="line">[mysql]</span><br><span class="line">prompt&#x3D;&quot;\u@db \R:\m:\s [\d]&gt; &quot;</span><br><span class="line">no-auto-rehash</span><br><span class="line">[mysqld]</span><br><span class="line">user    &#x3D; mysql</span><br><span class="line">port    &#x3D; 3307</span><br><span class="line">basedir    &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql</span><br><span class="line">datadir    &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;data</span><br><span class="line">socket    &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp&#x2F;mysql.sock</span><br><span class="line">pid-file &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp&#x2F;mysql.pid</span><br><span class="line">character-set-server &#x3D; utf8mb4</span><br><span class="line">skip_name_resolve &#x3D; 1</span><br><span class="line">open_files_limit    &#x3D; 65535</span><br><span class="line">back_log &#x3D; 1024</span><br><span class="line">max_connections &#x3D; 2000</span><br><span class="line">max_connect_errors &#x3D; 100</span><br><span class="line">net_read_timeout &#x3D; 30</span><br><span class="line">net_write_timeout &#x3D; 60</span><br><span class="line">slave_net_timeout &#x3D; 90</span><br><span class="line">table_open_cache &#x3D; 1024</span><br><span class="line">table_definition_cache &#x3D; 1024</span><br><span class="line">table_open_cache_instances &#x3D; 64</span><br><span class="line">thread_stack &#x3D; 512K</span><br><span class="line">external-locking &#x3D; FALSE</span><br><span class="line">max_allowed_packet &#x3D; 32M</span><br><span class="line">sort_buffer_size &#x3D; 4M</span><br><span class="line">join_buffer_size &#x3D; 4M</span><br><span class="line">thread_cache_size &#x3D; 768</span><br><span class="line">query_cache_size &#x3D; 0</span><br><span class="line">query_cache_type &#x3D; 0</span><br><span class="line">interactive_timeout &#x3D; 600</span><br><span class="line">wait_timeout &#x3D; 600</span><br><span class="line">tmp_table_size &#x3D; 32M</span><br><span class="line">max_heap_table_size &#x3D; 32M</span><br><span class="line">slow_query_log &#x3D; 1</span><br><span class="line">slow_query_log_file &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;log&#x2F;slow.log</span><br><span class="line">log-error &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;log&#x2F;error.log</span><br><span class="line">long_query_time &#x3D; 0.1</span><br><span class="line">server-id &#x3D; 3306101</span><br><span class="line">log-bin &#x3D; &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;log&#x2F;mysql-binlog</span><br><span class="line">sync_binlog &#x3D; 1</span><br><span class="line">binlog_cache_size &#x3D; 4M</span><br><span class="line">max_binlog_cache_size &#x3D; 1G</span><br><span class="line">max_binlog_size &#x3D; 1G</span><br><span class="line">expire_logs_days &#x3D; 7</span><br><span class="line">gtid_mode &#x3D; on</span><br><span class="line">enforce_gtid_consistency &#x3D; 1</span><br><span class="line">log_slave_updates</span><br><span class="line">binlog_format &#x3D; row</span><br><span class="line">relay_log_recovery &#x3D; 1</span><br><span class="line">relay-log &#x3D; relay-log</span><br><span class="line">relay-log-purge &#x3D; 1</span><br><span class="line">key_buffer_size &#x3D; 32M</span><br><span class="line">read_buffer_size &#x3D; 8M</span><br><span class="line">read_rnd_buffer_size &#x3D; 4M</span><br><span class="line">bulk_insert_buffer_size &#x3D; 64M</span><br><span class="line">lock_wait_timeout &#x3D; 60</span><br><span class="line">explicit_defaults_for_timestamp &#x3D; 1</span><br><span class="line">innodb_thread_concurrency &#x3D; 0</span><br><span class="line">innodb_sync_spin_loops &#x3D; 100</span><br><span class="line">innodb_spin_wait_delay &#x3D; 30</span><br><span class="line">transaction_isolation &#x3D; REPEATABLE-READ</span><br><span class="line">innodb_buffer_pool_size &#x3D; 2048M</span><br><span class="line">innodb_buffer_pool_instances &#x3D; 8</span><br><span class="line">innodb_buffer_pool_load_at_startup &#x3D; 1</span><br><span class="line">innodb_buffer_pool_dump_at_shutdown &#x3D; 1</span><br><span class="line">innodb_data_file_path &#x3D; ibdata1:1G:autoextend</span><br><span class="line">innodb_flush_log_at_trx_commit &#x3D; 1</span><br><span class="line">innodb_log_buffer_size &#x3D; 32M</span><br><span class="line">innodb_log_file_size &#x3D; 1G</span><br><span class="line">innodb_log_files_in_group &#x3D; 3</span><br><span class="line">innodb_max_undo_log_size &#x3D; 4G</span><br><span class="line">innodb_io_capacity &#x3D; 4000</span><br><span class="line">innodb_io_capacity_max &#x3D; 8000</span><br><span class="line">innodb_flush_neighbors &#x3D; 0</span><br><span class="line">innodb_write_io_threads &#x3D; 8</span><br><span class="line">innodb_read_io_threads &#x3D; 8</span><br><span class="line">innodb_purge_threads &#x3D; 4</span><br><span class="line">innodb_page_cleaners &#x3D; 4</span><br><span class="line">innodb_open_files &#x3D; 65535</span><br><span class="line">innodb_max_dirty_pages_pct &#x3D; 50</span><br><span class="line">innodb_flush_method &#x3D; O_DIRECT</span><br><span class="line">innodb_lru_scan_depth &#x3D; 4000</span><br><span class="line">innodb_checksum_algorithm &#x3D; crc32</span><br><span class="line">innodb_lock_wait_timeout &#x3D; 30</span><br><span class="line">innodb_rollback_on_timeout &#x3D; 1</span><br><span class="line">innodb_print_all_deadlocks &#x3D; 1</span><br><span class="line">innodb_file_per_table &#x3D; 1</span><br><span class="line">innodb_online_alter_log_max_size &#x3D; 4G</span><br><span class="line">internal_tmp_disk_storage_engine &#x3D; InnoDB</span><br><span class="line">innodb_stats_on_metadata &#x3D; 0</span><br><span class="line">innodb_status_file &#x3D; 1</span><br><span class="line">innodb_status_output &#x3D; 0</span><br><span class="line">innodb_status_output_locks &#x3D; 0</span><br><span class="line">performance_schema &#x3D; 1</span><br><span class="line">performance_schema_instrument &#x3D; &#39;%&#x3D;on&#39;</span><br><span class="line">lower_case_table_names &#x3D; 1</span><br><span class="line">explicit_defaults_for_timestamp &#x3D; off</span><br><span class="line">sql_mode &#x3D; STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION</span><br><span class="line">[mysqldump]</span><br><span class="line">quick</span><br><span class="line">max_allowed_packet &#x3D; 32M</span><br><span class="line">[mysql.server]</span><br><span class="line">basedir&#x3D;&#x2F;data&#x2F;twomysql&#x2F;twomysql</span><br></pre></td></tr></table></figure>
+<h4 id="3、初始化数据库"><a href="#3、初始化数据库" class="headerlink" title="3、初始化数据库"></a>3、初始化数据库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;mysql-files</span><br><span class="line">sudo chown mysql:mysql &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;mysql-files</span><br><span class="line">sudo chmod 750 &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;mysql-files</span><br></pre></td></tr></table></figure>
+<p>设置无密码登录，在后面在重新创建密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;bin&#x2F;mysqld  --defaults-file&#x3D;&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;etc&#x2F;my.cnf --initialize-insecure --user&#x3D;mysql </span><br><span class="line">sudo &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;bin&#x2F;mysql_ssl_rsa_setup</span><br></pre></td></tr></table></figure>
+<h4 id="4、初始化完成之后，启动数据库："><a href="#4、初始化完成之后，启动数据库：" class="headerlink" title="4、初始化完成之后，启动数据库："></a>4、初始化完成之后，启动数据库：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;bin&#x2F;mysqld_safe --defaults-file&#x3D;&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;etc&#x2F;my.cnf &amp;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/U6azYpM.png" alt=""><br><img src="https://i.imgur.com/hHEuSC0.png" alt=""></p>
+<h4 id="5、修改用户密码"><a href="#5、修改用户密码" class="headerlink" title="5、修改用户密码"></a>5、修改用户密码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;bin&#x2F;mysqladmin -u root -P 3307  -S &#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp&#x2F;mysql.sock password 123456</span><br></pre></td></tr></table></figure>
+<h4 id="6、登录mysql，需要输入密码："><a href="#6、登录mysql，需要输入密码：" class="headerlink" title="6、登录mysql，需要输入密码："></a>6、登录mysql，需要输入密码：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;bin&#x2F;mysql --socket&#x3D;&#x2F;data&#x2F;twomysql&#x2F;twomysql&#x2F;tmp&#x2F;mysql.sock --port&#x3D;3307 -p</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/mysql/">mysql</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2018/10/25/一台服务器安装多个mysql数据库程序/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2018/10/24/hp交换机启用snmp，并添加到zabbix监控/"><span>[Zabbix] zabbix监控hp-switch</span></a></h3>
     
   
@@ -812,103 +890,6 @@ var _hmt = _hmt || [];
   
     
     <h3 class="article-read"><a href="/2018/09/26/mysql 勿操作drop table之后，利用mysqldump备份和binlog去恢复/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2018/09/14/cassandra安装部署/"><span>[Cassandra] cassandra安装部署及日常使用命令</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/09/14/cassandra安装部署/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-09-14T09:31:00.000Z">
-          2018-09-14
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <h3 id="1、添加yum源"><a href="#1、添加yum源" class="headerlink" title="1、添加yum源"></a>1、添加yum源</h3><p>vim /etc/yum.repos.d/cassandra.repo</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[cassandra]</span><br><span class="line">name&#x3D;Apache Cassandra</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;www.apache.org&#x2F;dist&#x2F;cassandra&#x2F;redhat&#x2F;311x&#x2F;</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">repo_gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;www.apache.org&#x2F;dist&#x2F;cassandra&#x2F;KEYS</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、安装cassandra数据库"><a href="#2、安装cassandra数据库" class="headerlink" title="2、安装cassandra数据库"></a>2、安装cassandra数据库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install cassandra -y</span><br></pre></td></tr></table></figure>
-
-<h3 id="3、修改配置文件-etc-cassandra-conf-cassandra-yaml"><a href="#3、修改配置文件-etc-cassandra-conf-cassandra-yaml" class="headerlink" title="3、修改配置文件/etc/cassandra/conf/cassandra.yaml"></a>3、修改配置文件/etc/cassandra/conf/cassandra.yaml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cluster_name: &#39;My Cluster&#39;</span><br><span class="line">hints_directory: &#x2F;data&#x2F;cassandra&#x2F;hints</span><br><span class="line">data_file_directories:     </span><br><span class="line">        - &#x2F;data&#x2F;cassandra&#x2F;dbdata</span><br><span class="line">commitlog_directory: &#x2F;data&#x2F;cassandra&#x2F;commitlog</span><br><span class="line">saved_caches_directory: &#x2F;data&#x2F;cassandra&#x2F;caches</span><br><span class="line"></span><br><span class="line">         - seeds: &quot;10.10.8.3,10.10.8.4,10.10.8.5&quot;</span><br><span class="line">listen_address: dax-mysql-mha</span><br><span class="line">rpc_address: dax-mysql-mha</span><br></pre></td></tr></table></figure>
-<p>每个节点需要修改的基本参数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cluster_name:修改集群名称</span><br><span class="line">修改存放目录hint、data、log</span><br><span class="line">seeds:添加节点ip</span><br><span class="line">listen_address：修改为本地ip地址</span><br><span class="line">rpc_address：修改为本地ip地址</span><br></pre></td></tr></table></figure>
-<p>配置文件部分参数解释：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">cluster_name: &#39;Test Cluster&#39;</span><br><span class="line">storage_port: 7000</span><br><span class="line">listen_address: dax-mysql-mha</span><br><span class="line">start_native_transport: true              #开启native协议 </span><br><span class="line">native_transport_port: 9042              #客户端的交互端口 </span><br><span class="line">data_file_directories:</span><br><span class="line">    - &#x2F;data&#x2F;cassandra&#x2F;dbdata              # 数据位置，多盘的话可以写多个目录 </span><br><span class="line">commitlog_directory:</span><br><span class="line">    - &#x2F;data&#x2F;cassandra&#x2F;commitlog          #commitlog的路径，与data目录分开磁盘，提高性能</span><br><span class="line">saved_caches_directory:</span><br><span class="line">    - &#x2F;data&#x2F;cassandra&#x2F;caches              #缓存数据目录 </span><br><span class="line">commitlog_sync: batch                    #批量记录commitlog，每隔一段时间将数据commitlog</span><br><span class="line">commitlog_sync_batch_window_in_ms: 2      #batch模式下，批量操作缓存的时间间隔</span><br><span class="line">#commitlog_sync: periodic                #周期记录commitlog，每一次有数据更新都commitlog</span><br><span class="line">#commitlog_sync_period_in_ms: 10000      #periodic模式，刷新commitlog的时间间隔</span><br><span class="line"> rpc_address: dax-mysql-mha</span><br></pre></td></tr></table></figure>
-
-<h3 id="4、创建配置文件内指定的相关目录："><a href="#4、创建配置文件内指定的相关目录：" class="headerlink" title="4、创建配置文件内指定的相关目录："></a>4、创建配置文件内指定的相关目录：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/cassandra/hints</span><br><span class="line">mkdir -p /data/cassandra/dbdata</span><br><span class="line">mkdir -p /data/cassandra/commitlog</span><br><span class="line">mkdir -p /data/cassandra/caches</span><br><span class="line">chmod 777 -R /data/cassandra</span><br></pre></td></tr></table></figure>
-<h3 id="5、启动数据库，并添加到开机启动："><a href="#5、启动数据库，并添加到开机启动：" class="headerlink" title="5、启动数据库，并添加到开机启动："></a>5、启动数据库，并添加到开机启动：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service cassandra start</span><br><span class="line">chkconfig cassandra on</span><br></pre></td></tr></table></figure>
-<p>查看运行状态</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nodetool status</span><br></pre></td></tr></table></figure>
-<p>进入控制台,9042端口为默认控制台端口，可自行修改配置文件设置：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cqlsh ip 9042</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="6、如果没有修改cluster-name启动该数据库，之后想要修改cluster-name需要使用下面方法去修改："><a href="#6、如果没有修改cluster-name启动该数据库，之后想要修改cluster-name需要使用下面方法去修改：" class="headerlink" title="6、如果没有修改cluster-name启动该数据库，之后想要修改cluster-name需要使用下面方法去修改："></a>6、如果没有修改cluster-name启动该数据库，之后想要修改cluster-name需要使用下面方法去修改：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">进入控制台：</span><br><span class="line">UPDATE system.local SET cluster_name &#x3D; &#39;daxcluster&#39; where key&#x3D;&#39;local&#39;;</span><br><span class="line">bash $ .&#x2F;nodetool flush</span><br><span class="line">修改cassandra.yaml配置文件cluster配置参数</span><br><span class="line">cluster_name: &#39;daxcluster&#39;</span><br><span class="line">重启cassandra</span><br><span class="line">&#x2F;etc&#x2F;init.d&#x2F;cassandra restart</span><br></pre></td></tr></table></figure>
-
-<h3 id="7、给数据库设置用户名密码"><a href="#7、给数据库设置用户名密码" class="headerlink" title="7、给数据库设置用户名密码"></a>7、给数据库设置用户名密码</h3><p>1）、首先修改配置文件 cassandra.yaml<br>把默认的authenticator: AllowAllAuthenticator运行所有人登录设置为用密码登录：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">authenticator: PasswordAuthenticator</span><br></pre></td></tr></table></figure>
-<p>2）、登录cassandra创建用户<br>使用默认账户登录cassandra</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cqlsh -ucassandra -pcassandra ip 9042</span><br></pre></td></tr></table></figure>
-<p>创建用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER test WITH PASSWORD &#39;test&#39; SUPERUSER;</span><br></pre></td></tr></table></figure>
-<p>3）、使用新用户登录</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cqlsh -utest -ptest ip 9042</span><br></pre></td></tr></table></figure>
-<p>删除默认帐号：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP USER cassandra;</span><br></pre></td></tr></table></figure>
-<p>4）、java使用用户名密码访问cassandra</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Cluster cluster = Cluster.builder()</span><br><span class="line">.addContactPoint(<span class="string">"192.168.22.161"</span>)</span><br><span class="line">.withCredentials(<span class="string">"myusername"</span>, <span class="string">"mypassword"</span>)</span><br><span class="line">.build();</span><br></pre></td></tr></table></figure>
-
-<h3 id="8、账号权限分配命令"><a href="#8、账号权限分配命令" class="headerlink" title="8、账号权限分配命令"></a>8、账号权限分配命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">授权：</span><br><span class="line">GRANT permission_name PERMISSION ON resource TO user_name;</span><br><span class="line">GRANT ALL PERMISSIONS ON resource TO user_name;</span><br><span class="line">收回权限：</span><br><span class="line">REVOKE permission_name PERMISSION ON resource FROM user_name;</span><br><span class="line">REVOKE ALL PERMISSIONS ON resource FROM user_name;</span><br><span class="line">查看权限：</span><br><span class="line">LIST permission_name PERMISSION ON resource OF user_name NORECURSIVE;</span><br><span class="line">LIST ALL PERMISSIONS ON resource OF user_name NORECURSIVE;</span><br><span class="line">其中，</span><br><span class="line">permission_name为：  ALL&#x2F;ALTER&#x2F;AUTHORIZE&#x2F;CREATE&#x2F;DROP&#x2F;MODIFY&#x2F;SELECT</span><br><span class="line">resource为：ALL KEYSPACES&#x2F;KEYSPACE keyspace_name&#x2F;TABLE keyspace_name.table_name</span><br></pre></td></tr></table></figure>
-<h3 id="9、其他使用命令："><a href="#9、其他使用命令：" class="headerlink" title="9、其他使用命令："></a>9、其他使用命令：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">desc KEYSPACEs</span><br><span class="line">枚举所有数据库</span><br><span class="line">list users;</span><br><span class="line">查看所有用户</span><br><span class="line">show version;</span><br><span class="line">显示当前cqlsh,cassandra，cql spec,native protocol 版本信息</span><br><span class="line">show host;</span><br><span class="line">显示当前集群节点的ip地址和端口</span><br><span class="line">SHOW SESSION &lt;session id&gt;</span><br><span class="line">跟踪一个会话信息</span><br><span class="line">SOURCE &#39;&#x2F;home&#x2F;thobbs&#x2F;commands.cql&#39;</span><br><span class="line">读取文件内容，执行cql语句</span><br><span class="line">CAPTURE &#39;&lt;file&gt;&#39;;</span><br><span class="line">将会话查询内容指定到一个文件内</span><br><span class="line">CAPTURE OFF;</span><br><span class="line">停止将查询结果指定到文件内，使其正常输出到屏幕上</span><br><span class="line">CAPTURE;</span><br><span class="line">查看当前抓取信息是否指定到什么目录下</span><br></pre></td></tr></table></figure>
-<h3 id="10、如果nodetool-decommission命令将某节点提出-执行结束之后，如果需要把节点再重新加入集群，需要把数据目录下数据删除掉，重启cassandra服务。"><a href="#10、如果nodetool-decommission命令将某节点提出-执行结束之后，如果需要把节点再重新加入集群，需要把数据目录下数据删除掉，重启cassandra服务。" class="headerlink" title="10、如果nodetool decommission命令将某节点提出,执行结束之后，如果需要把节点再重新加入集群，需要把数据目录下数据删除掉，重启cassandra服务。"></a>10、如果nodetool decommission命令将某节点提出,执行结束之后，如果需要把节点再重新加入集群，需要把数据目录下数据删除掉，重启cassandra服务。</h3>
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/Cassandra/">Cassandra</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2018/09/14/cassandra安装部署/"><span>点击阅读</span></a></h3>
     
   
 </article>

@@ -112,6 +112,68 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2019/09/22/linux使用netstat统计网络连接状态信息/"><span>[linux] linux使用netstat统计网络连接状态信息</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/linux使用netstat统计网络连接状态信息/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T14:35:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <p><code>netstat -a | awk &#39;/^tcp/ {++S[$NF]} END {for(a in S) print a,S[a]}&#39;</code><br>或者<br><code>netstat -a |grep ^tcp | awk &#39;{++S[$NF]} END {for(a in S) print a,S[a]}&#39;</code><br>{++S[$NF] 的意思是 统计每行最后一个出现的次数，至少一次，放入数组中</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/linux使用netstat统计网络连接状态信息/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2019/09/22/curl请求返回http_code和响应时间/"><span>[linux] curl请求返回http_code和响应时间</span></a></h3>
     
   
@@ -698,67 +760,6 @@ var _hmt = _hmt || [];
   
     
     <h3 class="article-read"><a href="/2019/09/22/docker容器save、load/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2019/09/22/docker centos中文乱码问题/"><span>[linux] docker centos中文乱码问题</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/09/22/docker centos中文乱码问题/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-09-22T13:26:00.000Z">
-          2019-09-22
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">localedef -i zh_CN -f UTF-<span class="number">8</span> zh_CN.UTF-<span class="number">8</span></span><br><span class="line">yum -y install kde-l10n-Chinese &amp;&amp; yum -y reinstall glibc-common</span><br><span class="line">localedef -c -f UTF-<span class="number">8</span> -i zh_CN zh_CN.utf8</span><br><span class="line">export LC_ALL=zh_CN.utf8</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/linux/">linux</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2019/09/22/docker centos中文乱码问题/"><span>点击阅读</span></a></h3>
     
   
 </article>

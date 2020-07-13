@@ -112,6 +112,67 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2019/09/22/docker centos中文乱码问题/"><span>[linux] docker centos中文乱码问题</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/docker centos中文乱码问题/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T13:26:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">localedef -i zh_CN -f UTF-<span class="number">8</span> zh_CN.UTF-<span class="number">8</span></span><br><span class="line">yum -y install kde-l10n-Chinese &amp;&amp; yum -y reinstall glibc-common</span><br><span class="line">localedef -c -f UTF-<span class="number">8</span> -i zh_CN zh_CN.utf8</span><br><span class="line">export LC_ALL=zh_CN.utf8</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/docker centos中文乱码问题/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2019/09/22/oracle 事物隔离级别(isolation level)/"><span>[Oracle]oracle 事物隔离级别(isolation level)</span></a></h3>
     
   
@@ -793,79 +854,6 @@ mmnl:manageability monitor lite process：当ash的buffer满了,把sga下的ash�
   
     
     <h3 class="article-read"><a href="/2019/09/21/ORACLE EXP导出提示EXP-00091 Exporting questionable statistics/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2019/09/21/expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508/"><span>[Oracle]expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/09/21/expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-09-21T15:25:00.000Z">
-          2019-09-21
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <h1 id="1、使用expdp导出命令"><a href="#1、使用expdp导出命令" class="headerlink" title="1、使用expdp导出命令"></a>1、使用expdp导出命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">With the Partitioning, Real Application Clusters, Automatic Storage Management, OLAP,</span><br><span class="line">Data Mining and Real Application Testing options</span><br><span class="line">Starting "ZEVEN"."SYS_EXPORT_SCHEMA_01":  zeven/********</span><br><span class="line">dumpfile=zeven.dmpdirectory=exp_data_dir cluster=n </span><br><span class="line">ORA-39014: One or more workers have prematurely exited.</span><br><span class="line">ORA-39029: worker 1 with process name "DW00" prematurely terminated</span><br><span class="line">ORA-31671: Worker process DW00 had an unhandled exception.</span><br><span class="line">ORA-04063: package body "SYS.KUPW$WORKER" has errors</span><br><span class="line">ORA-06508: PL/SQL: could not find program unit being called: "SYS.KUPW$WORKER"</span><br><span class="line">ORA-06512: at line 2</span><br><span class="line">Job "ZEVEN"."SYS_EXPORT_SCHEMA_01" stopped due to fatal error at Tue Sep 3 14:29:49 2019 elapsed 0 00:00:30</span><br></pre></td></tr></table></figure>
-
-<h1 id="2、查看SYS-KUPW-WORKE包的状态"><a href="#2、查看SYS-KUPW-WORKE包的状态" class="headerlink" title="2、查看SYS.KUPW$WORKE包的状态"></a>2、查看SYS.KUPW$WORKE包的状态</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">15:19:08 SYS@ oibs11&gt; select owner,object_name,object_type,status from dba_objects where status &lt;&gt; 'VALID' order by object_name;</span><br><span class="line"></span><br><span class="line">OWNER							     OBJECT_NAME													            OBJECT_TYPE			     STATUS</span><br><span class="line"><span class="comment">------------------------------------------------------------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------------------------------------- --------------</span></span><br><span class="line">.....</span><br><span class="line">SYS							     KUPW$WORKER													            PACKAGE BODY			     INVALID</span><br><span class="line">......</span><br><span class="line">10 rows selected.</span><br></pre></td></tr></table></figure>
-
-<h1 id="3、根据mos提示执行下面脚本"><a href="#3、根据mos提示执行下面脚本" class="headerlink" title="3、根据mos提示执行下面脚本"></a>3、根据mos提示执行下面脚本</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">15:15:33 SYS@ oibs11&gt; @?/rdbms/admin/prvtbpw.plb;</span><br><span class="line">Warning: Package Body created <span class="keyword">with</span> compilation errors.</span><br><span class="line">Elapsed: <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.72</span></span><br><span class="line"><span class="number">15</span>:<span class="number">16</span>:<span class="number">05</span> <span class="keyword">SYS</span>@ oibs11&gt; <span class="keyword">show</span> <span class="keyword">errors</span>;</span><br><span class="line">Errors for PACKAGE BODY KUPW$WORKER:</span><br><span class="line">LINE/COL ERROR</span><br><span class="line"><span class="comment">-------- -----------------------------------------------------------------</span></span><br><span class="line">22308/5  PL/SQL: SQL Statement ignored</span><br><span class="line">22308/34 PL/SQL: ORA-00942: table or view does not exist</span><br></pre></td></tr></table></figure>
-
-<p>提示报错，表或者视图不存在，执行下面两个脚本</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@?/rdbms/admin/catdpb.sql</span><br><span class="line">@?/rdbms/admin/utlrp.sql</span><br></pre></td></tr></table></figure>
-
-<p>执行正常，再次查看包的状态,包恢复正常</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">15:35:14 SYS@ boston&gt; select owner,object_name,object_type,status from dba_objects where status = 'VALID' and object_name = 'KUPW$WORKER';</span><br><span class="line"></span><br><span class="line">OWNER			       OBJECT_NAME															OBJECT_TYPE	    STATUS</span><br><span class="line"><span class="comment">------------------------------ -------------------------------------------------------------------------------------------------------------------------------- ------------------- -------</span></span><br><span class="line">SYS			       KUPW$WORKER															PACKAGE 	    VALID</span><br><span class="line">SYS			       KUPW$WORKER															PACKAGE BODY	    VALID</span><br></pre></td></tr></table></figure>
-
-<h1 id="4、再次执行导出服务，恢复正常"><a href="#4、再次执行导出服务，恢复正常" class="headerlink" title="4、再次执行导出服务，恢复正常"></a>4、再次执行导出服务，恢复正常</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[oracle@dax-mysql-slave tmp]$ expdp te/te12345678  dumpfile=zeven.dmp directory=exp_data_dir cluster=n logfile=expdp_zeven.log</span><br><span class="line">Export: Release 11.2.0.4.0 - Production on Tue Sep 3 15:10:46 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Starting "TE"."SYS_EXPORT_SCHEMA_01":  te/******** dumpfile=zeven.dmp directory=exp_data_dir cluster=n logfile=expdp_zeven.log</span><br><span class="line">Estimate in progress using BLOCKS method...</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA</span><br><span class="line">Total estimation using BLOCKS method: 0 KB</span><br><span class="line">Processing object type SCHEMA_EXPORT/USER</span><br><span class="line">Processing object type SCHEMA_EXPORT/SYSTEM_GRANT</span><br><span class="line">Processing object type SCHEMA_EXPORT/ROLE_GRANT</span><br><span class="line">Processing object type SCHEMA_EXPORT/DEFAULT_ROLE</span><br><span class="line">Processing object type SCHEMA_EXPORT/PASSWORD_HISTORY</span><br><span class="line">Processing object type SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/TABLE</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/COMMENT</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/INDEX/INDEX</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT</span><br><span class="line">Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS</span><br><span class="line">. . exported "TE"."TEST1"                                    0 KB       0 rows</span><br><span class="line">Master table "TE"."SYS_EXPORT_SCHEMA_01" successfully loaded/unloaded</span><br><span class="line">******************************************************************************</span><br><span class="line">Dump file set for TE.SYS_EXPORT_SCHEMA_01 is:</span><br><span class="line">  /tmp/backup/zeven.dmp</span><br><span class="line">Job "TE"."SYS_EXPORT_SCHEMA_01" successfully completed at Tue Sep 3 15:11:06 2019 elapsed 0 00:00:19</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/oracle/">oracle</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2019/09/21/expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508/"><span>点击阅读</span></a></h3>
     
   
 </article>
