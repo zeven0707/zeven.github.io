@@ -144,7 +144,7 @@ var _hmt = _hmt || [];
       
           <p>#!/bin/bash<br>#ip和端口<br>ipaddress=$1<br>port=$2<br>#需要执行的次数<br>total=$3</p>
 <p>if [ -z ${ipaddress} ] || [ -z ${port} ] || [ -z ${total} ];then<br>    echo -e “请按正确格式数据参数:’sh batch_telnet.sh ip port 执行次数’”<br>    exit<br>else<br>    :<br>fi<br>countsuccess=0<br>countfail=0</p>
-<p>for((i=1;i&lt;=${total};i++))<br>do<br>   echo “” |telnet ${ipaddress} ${port} &gt; /tmp/telnet.log<br>   numcount=<code>tail -1 /tmp/telnet.log |grep -e &#39;\^]&#39;|wc -l</code><br>   if [ ${numcount} == 1 ];then<br>         echo -e “访问${ipaddress}:${port}成功，无异常!”<br>         let countsuccess+=1<br>   else<br>         echo -e “访问${ipaddress}:${port}失败，检查ip和port是否正确！”<br>         let countfail+=1<br>   fi<br>   sleep 2<br>done<br>succesper=$((${countsuccess}<em>100/${total}))<br>failper=$((${countfail}</em>100/${total}))<br>echo “总共执行次数${total},成功次数${countsuccess},成功比例${succesper}%,失败次数${countfail},失败比例${failper}%”</p>
+<p>for((i=1;i&lt;=${total};i++))<br>do<br>   echo “” |telnet ${ipaddress} ${port} &gt; /tmp/telnet.log<br>   numcount=<code>cat /tmp/telnet.log |grep -e &#39;Escape character&#39;|wc -l</code><br>   if [ ${numcount} == 1 ];then<br>         echo -e “访问${ipaddress}:${port}成功，无异常!”<br>         let countsuccess+=1<br>   else<br>         echo -e “访问${ipaddress}:${port}失败，检查ip和port是否正确！”<br>         let countfail+=1<br>   fi<br>   sleep 2<br>done<br>succesper=$((${countsuccess}<em>100/${total}))<br>failper=$((${countfail}</em>100/${total}))<br>echo “总共执行次数${total},成功次数${countsuccess},成功比例${succesper}%,失败次数${countfail},失败比例${failper}%”</p>
 
       
     </div>
