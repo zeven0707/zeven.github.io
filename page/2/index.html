@@ -112,6 +112,72 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2019/09/22/linux 内核参数tcp_tw_reuse、tcp_tw_recycle、tcp_timestam/"><span>[linux] linux 内核参数tcp_tw_reuse、tcp_tw_recycle、tcp_timestamp详解</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/22/linux 内核参数tcp_tw_reuse、tcp_tw_recycle、tcp_timestam/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-22T14:37:00.000Z">
+          2019-09-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、参数概述"><a href="#1、参数概述" class="headerlink" title="1、参数概述"></a>1、参数概述</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tcp_tw_reuse：允许将TIME-WAIT sockets重新用于新的TCP连接，默认为0，表示关闭</span><br><span class="line">tcp_tw_recycle：表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭</span><br><span class="line">tcp_timestamps：tcp时间戳</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、查看三个参数当前的状态"><a href="#2、查看三个参数当前的状态" class="headerlink" title="2、查看三个参数当前的状态"></a>2、查看三个参数当前的状态</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; sysctl -a|grep -E &quot;tcp_timestamp|tw_reuse|tw_recycle&quot;</span><br><span class="line">net.ipv4.tcp_timestamps &#x3D; 1</span><br><span class="line">net.ipv4.tcp_tw_recycle &#x3D; 0</span><br><span class="line">net.ipv4.tcp_tw_reuse &#x3D; 0</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、参数解析"><a href="#3、参数解析" class="headerlink" title="3、参数解析"></a>3、参数解析</h1><p>tcp_tw_reuse：仅在TCP套接字作为客户端，调用connect时起作用。绝大部分的TCP服务器，应该不会有大量主动连接的动作（或许会连接DB等，但一般也是长连接）。因此这个选项对于TCP服务来说，基本上是无用的，完全是没必要打开。只有服务器作为客户端，发起一下短小事务的连接的时候该参数才能凸显作用。必须启用net.ipv4.tcp_timestamps参数，才允许重用TIME_WAIT套接字，tcp_tw_reuse参数才会起作用。<br>tcp_tw_recycle：这种回收参数，在nat环境过会存在重大问题，丢弃大量的可用连接。例如：公司使用LVS做负载均衡，通常是前面一台LVS，后面多台后端服务器，这其实就是NAT，当请求到达LVS后，它修改地址数据后便转发给后端服务器，但不会修改时间戳数据，对于后端服务器来说，请求的源地址就是LVS的地址，加上端口会复用，所以从后端服务器的角度看，原本不同客户端的请求经过LVS的转发，就可能会被认为是同一个连接，加之不同客户端的时间可能不一致，所以就会出现时间戳错乱的现象，于是后面的数据包就被丢弃了，具体的表现通常是是客户端明明发送的SYN，但服务端就是不响应ACK。<br>因此在nat环境下建议禁用该参数。<br>禁用方式：<br><code>echo 0 &gt; /proc/sys/net/ipv4/tcp_tw_recycle;</code><br>可以保留tcp_timestamps参数，默认是开启的，只要把tcp_tw_recycle参数禁用了回收机制就不起作用了。<br>当然也可以把这个参数禁用，禁用命令如下：<br><code>sysctl -w net.ipv4.tcp_timestamps=0</code></p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/linux/">linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/22/linux 内核参数tcp_tw_reuse、tcp_tw_recycle、tcp_timestam/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2019/09/22/linux使用netstat统计网络连接状态信息/"><span>[linux] linux使用netstat统计网络连接状态信息</span></a></h3>
     
   
@@ -695,71 +761,6 @@ var _hmt = _hmt || [];
   
     
     <h3 class="article-read"><a href="/2019/09/22/docker更换默认的根目录/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2019/09/22/docker容器save、load/"><span>[linux] docker容器save、load</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/09/22/docker容器save、load/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-09-22T13:27:00.000Z">
-          2019-09-22
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <h1 id="1、查看要保存的镜像"><a href="#1、查看要保存的镜像" class="headerlink" title="1、查看要保存的镜像"></a>1、查看要保存的镜像</h1><p><code>docker images</code></p>
-<h1 id="2、保存镜像"><a href="#2、保存镜像" class="headerlink" title="2、保存镜像"></a>2、保存镜像</h1><p> <code>docker save zeven0707/jenkins:v4 -o /data/jenkins.tar</code></p>
-<h1 id="3、在新的服务器加载镜像"><a href="#3、在新的服务器加载镜像" class="headerlink" title="3、在新的服务器加载镜像"></a>3、在新的服务器加载镜像</h1><p><code>docker load -i jenkins.tar</code></p>
-<h1 id="4、启动镜像"><a href="#4、启动镜像" class="headerlink" title="4、启动镜像"></a>4、启动镜像</h1><p><code>docker run -dti --names=jenkins -p 10000:8080 -p 50000:50000 zeven0707/jenkins:v4</code></p>
-
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/linux/">linux</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2019/09/22/docker容器save、load/"><span>点击阅读</span></a></h3>
     
   
 </article>

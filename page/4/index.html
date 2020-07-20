@@ -112,6 +112,72 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2019/09/21/ORACLE EXP导出提示EXP-00091 Exporting questionable statistics/"><span>[Oracle]ORACLE EXP导出提示EXP-00091 Exporting questionable statistics</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/09/21/ORACLE EXP导出提示EXP-00091 Exporting questionable statistics/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-09-21T15:30:00.000Z">
+          2019-09-21
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、问题原因"><a href="#1、问题原因" class="headerlink" title="1、问题原因"></a>1、问题原因</h1><p>该提示是因为当前的环境变量NLS_LANG和数据库字符language不一致造成的，查看当前的数据字符集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">10:56:39 SYS@ boston&gt; Select userenv('LANGUAGE') FROM DUAL;</span><br><span class="line">USERENV('LANGUAGE')</span><br><span class="line"><span class="comment">----------------------------------------------------</span></span><br><span class="line">AMERICAN_AMERICA.ZHS16GBK</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、查看当前的环境变量NLS-LANG"><a href="#2、查看当前的环境变量NLS-LANG" class="headerlink" title="2、查看当前的环境变量NLS_LANG"></a>2、查看当前的环境变量NLS_LANG</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">[oracle@node3 bin]$ echo $NLS_LANG</span><br><span class="line"></span><br><span class="line">[oracle@node3 bin]$</span><br><span class="line">值为空，设置该值于数据库字符集语言一致，再次使用exp导出</span><br><span class="line">[oracle@node3 bin]$ export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK</span><br><span class="line">[oracle@node3 bin]$ ./exp test/Test12345678@boston177 file=/tmp/daochu.dmp log=/tmp/daochu.log</span><br><span class="line">Export: Release 11.2.0.3.0 - Production on Thu Sep 5 10:57:41 2019</span><br><span class="line">Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.</span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line">Export done in ZHS16GBK character set and AL16UTF16 NCHAR character set</span><br><span class="line">About to export specified users ...</span><br><span class="line">. exporting pre-schema procedural objects and actions</span><br><span class="line">. exporting foreign function library names for user TEST</span><br><span class="line">. exporting PUBLIC type synonyms</span><br><span class="line">. exporting private type synonyms</span><br><span class="line">. exporting object type definitions for user TEST</span><br><span class="line">About to export TEST's objects ...</span><br><span class="line">. exporting database links</span><br><span class="line">. exporting sequence numbers</span><br><span class="line">. exporting cluster definitions</span><br><span class="line">. about to export TEST's tables via Conventional Path ...</span><br><span class="line">. . exporting table                           TEST          3 rows exported</span><br><span class="line">. . exporting table                          TEST1          0 rows exported</span><br><span class="line">. . exporting table                          TEST2          0 rows exported</span><br><span class="line">. exporting synonyms</span><br><span class="line">. exporting views</span><br><span class="line">. exporting stored procedures</span><br><span class="line">. exporting operators</span><br><span class="line">. exporting referential integrity constraints</span><br><span class="line">. exporting triggers</span><br><span class="line">. exporting indextypes</span><br><span class="line">. exporting bitmap, functional and extensible indexes</span><br><span class="line">. exporting posttables actions</span><br><span class="line">. exporting materialized views</span><br><span class="line">. exporting snapshot logs</span><br><span class="line">. exporting job queues</span><br><span class="line">. exporting refresh groups and children</span><br><span class="line">. exporting dimensions</span><br><span class="line">. exporting post-schema procedural objects and actions</span><br><span class="line">. exporting statistics</span><br><span class="line">Export terminated successfully without warnings.</span><br></pre></td></tr></table></figure>
+<p>导出正常</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/09/21/ORACLE EXP导出提示EXP-00091 Exporting questionable statistics/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2019/09/21/expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508/"><span>[Oracle]expdp导出报错ORA-39014 ORA-39029 ORA-04063 ORA-06508</span></a></h3>
     
   
@@ -723,69 +789,6 @@ var _hmt = _hmt || [];
   
     
     <h3 class="article-read"><a href="/2019/09/21/数据库驱动程序Oracle's Driver (Thin)与Oracle's Driver(Thin XA)的区别/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2019/09/21/oracle查看asm磁盘使用情况/"><span>[Oracle] oracle查看asm磁盘使用情况</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/09/21/oracle查看asm磁盘使用情况/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-09-21T14:46:00.000Z">
-          2019-09-21
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">col total_size for a10;</span><br><span class="line">col free_size for a20;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">name</span>,total_mb/<span class="number">1024</span> || <span class="string">'G'</span> <span class="keyword">as</span> total_size , free_mb/<span class="number">1024</span> || <span class="string">'G'</span> <span class="keyword">as</span> free_size <span class="keyword">from</span> v$asm_diskgroup;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/oracle/">oracle</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2019/09/21/oracle查看asm磁盘使用情况/"><span>点击阅读</span></a></h3>
     
   
 </article>

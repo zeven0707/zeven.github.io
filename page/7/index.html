@@ -112,6 +112,110 @@ var _hmt = _hmt || [];
 
   
     
+    <h3 class="article-title"><a href="/2019/03/22/关于oracle rac环境下sequence参数cache、nocache、order、noorder/"><span>[Oracle] 关于oracle-rac环境下sequence参数cache、nocache、order、noorder的实验。</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2019/03/22/关于oracle rac环境下sequence参数cache、nocache、order、noorder/" rel="bookmark">
+        <time class="entry-date published" datetime="2019-03-22T09:46:00.000Z">
+          2019-03-22
+        </time>
+      </a>
+    </span>
+    <br />
+    
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+          <h1 id="1、默认值"><a href="#1、默认值" class="headerlink" title="1、默认值"></a>1、默认值</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cache 20</span><br><span class="line">noorder</span><br></pre></td></tr></table></figure>
+<h4 id="2、默认情况下"><a href="#2、默认情况下" class="headerlink" title="2、默认情况下"></a>2、默认情况下</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create sequence t0_seq start with 1 maxvalue 100;</span><br></pre></td></tr></table></figure>
+<p>rac1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">16:46:40 SCOTT@ testcadb1&gt; select t0_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 1</span><br><span class="line">Elapsed: 00:00:00.02</span><br><span class="line">16:46:41 SCOTT@ testcadb1&gt; select t0_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 2</span><br><span class="line">Elapsed: 00:00:00.00</span><br><span class="line">16:46:47 SCOTT@ testcadb1&gt; select t0_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 3</span><br></pre></td></tr></table></figure>
+<p>rac2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">16:47:01 SCOTT@ testcadb2&gt; select t0_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	21</span><br><span class="line">Elapsed: 00:00:00.14</span><br><span class="line">16:47:02 SCOTT@ testcadb2&gt; select t0_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	22</span><br><span class="line">Elapsed: 00:00:00.01</span><br><span class="line">16:47:04 SCOTT@ testcadb2&gt; select t0_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	23</span><br></pre></td></tr></table></figure>
+<h4 id="3、指定cache大小"><a href="#3、指定cache大小" class="headerlink" title="3、指定cache大小"></a>3、指定cache大小</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create sequence t1_seq start with 1 maxvalue 100 cache 10;</span><br></pre></td></tr></table></figure>
+<p>rac1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">16:39:03 SCOTT@ testcadb1&gt; select t1_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 1</span><br><span class="line">Elapsed: 00:00:00.09</span><br><span class="line">16:40:10 SCOTT@ testcadb1&gt; select t1_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 2</span><br><span class="line">Elapsed: 00:00:00.00</span><br><span class="line">16:40:16 SCOTT@ testcadb1&gt; select t1_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 3</span><br></pre></td></tr></table></figure>
+<p>rac2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">16:39:56 SCOTT@ testcadb2&gt; select t1_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	11</span><br><span class="line">Elapsed: 00:00:00.16</span><br><span class="line">16:39:57 SCOTT@ testcadb2&gt; select t1_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	12</span><br><span class="line">Elapsed: 00:00:00.01</span><br><span class="line">16:40:18 SCOTT@ testcadb2&gt; select t1_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	13</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、指定cache和order"><a href="#3、指定cache和order" class="headerlink" title="3、指定cache和order"></a>3、指定cache和order</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create sequence t2_seq start with 1 maxvalue 100 cache 15 order;</span><br></pre></td></tr></table></figure>
+<p>rac1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">17:07:16 SCOTT@ testcadb1&gt; select t2_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 1</span><br><span class="line">Elapsed: 00:00:00.03</span><br><span class="line">17:07:31 SCOTT@ testcadb1&gt; select t2_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 2</span><br><span class="line">Elapsed: 00:00:00.01</span><br><span class="line">17:07:33 SCOTT@ testcadb1&gt; select t2_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 3</span><br></pre></td></tr></table></figure>
+<p>rac2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">17:07:37 SCOTT@ testcadb2&gt; select t2_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 4</span><br><span class="line">Elapsed: 00:00:00.03</span><br><span class="line">17:07:38 SCOTT@ testcadb2&gt; select t2_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 5</span><br><span class="line">Elapsed: 00:00:00.00</span><br><span class="line">17:07:40 SCOTT@ testcadb2&gt; select t2_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 6</span><br></pre></td></tr></table></figure>
+<p>rac1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">17:07:33 SCOTT@ testcadb1&gt; select t2_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 7</span><br><span class="line">Elapsed: 00:00:00.00</span><br><span class="line">17:08:19 SCOTT@ testcadb1&gt; select t2_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 8</span><br></pre></td></tr></table></figure>
+<p>rac2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">17:07:40 SCOTT@ testcadb2&gt; select t2_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 9</span><br><span class="line">Elapsed: 00:00:00.01</span><br><span class="line">17:08:39 SCOTT@ testcadb2&gt; select t2_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	10</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、指定nocache和noorder"><a href="#4、指定nocache和noorder" class="headerlink" title="4、指定nocache和noorder"></a>4、指定nocache和noorder</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create sequence t3_seq start with 1 maxvalue 100 nocache  noorder;</span><br></pre></td></tr></table></figure>
+<p>rac1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">17:10:30 SCOTT@ testcadb1&gt; select t3_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 1</span><br><span class="line">Elapsed: 00:00:00.07</span><br><span class="line">17:10:45 SCOTT@ testcadb1&gt; select t3_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 2</span><br><span class="line">Elapsed: 00:00:00.02</span><br></pre></td></tr></table></figure>
+<p>rac2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">17:10:55 SCOTT@ testcadb2&gt; select t3_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 3</span><br><span class="line">Elapsed: 00:00:00.08</span><br><span class="line">17:10:57 SCOTT@ testcadb2&gt; select t3_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 4</span><br><span class="line">Elapsed: 00:00:00.01</span><br></pre></td></tr></table></figure>
+<p>rac1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">17:10:47 SCOTT@ testcadb1&gt; select t3_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 5</span><br></pre></td></tr></table></figure>
+<p>rac2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">17:10:58 SCOTT@ testcadb2&gt; select t3_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 6</span><br><span class="line">Elapsed: 00:00:00.02</span><br><span class="line">17:11:02 SCOTT@ testcadb2&gt; select t3_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 7</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、指定nocache和order"><a href="#5、指定nocache和order" class="headerlink" title="5、指定nocache和order"></a>5、指定nocache和order</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create sequence t4_seq start with 1 maxvalue 100 nocache  order;</span><br></pre></td></tr></table></figure>
+<p>rac1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">17:13:04 SCOTT@ testcadb1&gt; select t4_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 1</span><br><span class="line">Elapsed: 00:00:00.01</span><br><span class="line">17:13:04 SCOTT@ testcadb1&gt; select t4_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 2</span><br></pre></td></tr></table></figure>
+<p>rac2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">17:13:12 SCOTT@ testcadb2&gt; select t4_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 3</span><br><span class="line">Elapsed: 00:00:00.05</span><br><span class="line">17:13:13 SCOTT@ testcadb2&gt; select t4_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 4</span><br><span class="line">Elapsed: 00:00:00.03</span><br><span class="line">17:13:15 SCOTT@ testcadb2&gt; select t4_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 5</span><br></pre></td></tr></table></figure>
+<p>rac1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">17:13:05 SCOTT@ testcadb1&gt; select t4_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 6</span><br><span class="line">Elapsed: 00:00:00.02</span><br><span class="line">17:13:18 SCOTT@ testcadb1&gt; select t4_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 7</span><br></pre></td></tr></table></figure>
+<p>rac2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">17:13:15 SCOTT@ testcadb2&gt; select t4_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 8</span><br><span class="line">Elapsed: 00:00:00.02</span><br><span class="line">17:13:21 SCOTT@ testcadb2&gt; select t4_seq.nextval from dual;</span><br><span class="line">   NEXTVAL</span><br><span class="line">----------</span><br><span class="line">	 9</span><br></pre></td></tr></table></figure>
+<h4 id="6、关于cache和nocache在并发比较大的情况下的取值效率，参考链接"><a href="#6、关于cache和nocache在并发比较大的情况下的取值效率，参考链接" class="headerlink" title="6、关于cache和nocache在并发比较大的情况下的取值效率，参考链接"></a>6、关于cache和nocache在并发比较大的情况下的取值效率，<a href="http://www.eygle.com/archives/2012/05/oracle_rac_sequence_cache.html" target="_blank" rel="noopener">参考链接</a></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cache和nocache参数取值效率对比</span><br><span class="line">RAC两个会话分别处于不同node同时并发循环间断去取4万个值  ：            </span><br><span class="line">nocache：           　　  2100s</span><br><span class="line">cache ＝1000：　　       55s</span><br></pre></td></tr></table></figure>
+<h4 id="7、结论"><a href="#7、结论" class="headerlink" title="7、结论"></a>7、结论</h4><p>根据上面实验可以看到，在rac环境下，使用cache noorder，各个节点缓存的序列是不同的，因此获取到的序列值也不同。使用cache order方式创建的序列，多个实例缓存的相同的序列，很容易存在序列资源争用的问题，因此性能会比noorder 差很多。在非严格要求下建议不要使用order。更要避免使用nocache noorder。<br>在RAC情况下，使用cache可以尽量调大一点值（默认为20），使用频繁的序列Cache值增加到10000或者更高到50000。</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/oracle/">oracle</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+  
+    
+    <h3 class="article-read"><a href="/2019/03/22/关于oracle rac环境下sequence参数cache、nocache、order、noorder/"><span>点击阅读</span></a></h3>
+    
+  
+</article>
+
+
+
+
+
+  <article class="article-container ">
+
+  
+    
     <h3 class="article-title"><a href="/2019/03/22/oracle基于rowid删除重复行/"><span>[Oracle] oracle基于rowid删除重复行</span></a></h3>
     
   
@@ -809,77 +913,6 @@ var _hmt = _hmt || [];
   
     
     <h3 class="article-read"><a href="/2019/02/14/oracle-DB_NAME、DB_UNIQUE_NAME、GLOBAL_NAME、INSTANCE_NAME、SERVICE_NAME详解/"><span>点击阅读</span></a></h3>
-    
-  
-</article>
-
-
-
-
-
-  <article class="article-container ">
-
-  
-    
-    <h3 class="article-title"><a href="/2019/02/13/cassandra使用nodetool decommission之后发现丢失数据的解决办法/"><span>[Cassandra] cassandra使用nodetool decommission之后发现丢失数据的解决办法</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2019/02/13/cassandra使用nodetool decommission之后发现丢失数据的解决办法/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-02-13T06:12:00.000Z">
-          2019-02-13
-        </time>
-      </a>
-    </span>
-    <br />
-    
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-          <h4 id="1、故事背景"><a href="#1、故事背景" class="headerlink" title="1、故事背景"></a>1、故事背景</h4><p>当某一个节点执行nodetool decommission时，这个节点会被退役，该节点上的数据会流到其他正在活动的节点，但是该节点上的数据不会被清除，会保留在数据文件下。当发现剩余的的节点下未完全同步该退役的节点，可使用以下办法尝试去恢复数据。<br>被退役节点为（A），活动节点为（B）</p>
-<h4 id="2、尝试重新启动A节点，报错如下："><a href="#2、尝试重新启动A节点，报错如下：" class="headerlink" title="2、尝试重新启动A节点，报错如下："></a>2、尝试重新启动A节点，报错如下：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">This node was decommissioned and will not rejoin the ring unless cassandra.override_decommission&#x3D;true has been set, or all existing data is removed and th</span><br><span class="line">e node is bootstrapped again</span><br><span class="line">Fatal configuration error; unable to start server.  See log for stacktrace.</span><br><span class="line">ERROR [main] 2019-02-12 06:03:30,000 CassandraDaemon.java:749 - Fatal configuration error</span><br><span class="line">org.apache.cassandra.exceptions.ConfigurationException: This node was decommissioned and will not rejoin the ring unless cassandra.override_decommission&#x3D;t</span><br><span class="line">rue has been set, or all existing data is removed and the node is bootstrapped again</span><br></pre></td></tr></table></figure>
-<h4 id="3、报错提示要么删除目录下的所有数据，要么使用override-decommission-true参数启动，下面以添加参数启动，启动正常，启动命令："><a href="#3、报错提示要么删除目录下的所有数据，要么使用override-decommission-true参数启动，下面以添加参数启动，启动正常，启动命令：" class="headerlink" title="3、报错提示要么删除目录下的所有数据，要么使用override_decommission=true参数启动，下面以添加参数启动，启动正常，启动命令："></a>3、报错提示要么删除目录下的所有数据，要么使用override_decommission=true参数启动，下面以添加参数启动，启动正常，启动命令：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cassandra -Dcassandra.override_decommission&#x3D;true -R</span><br></pre></td></tr></table></figure>
-<h4 id="4、但是启动完成之后发现，只存在system相关的keyspaces，其它数据没办法加载出来"><a href="#4、但是启动完成之后发现，只存在system相关的keyspaces，其它数据没办法加载出来" class="headerlink" title="4、但是启动完成之后发现，只存在system相关的keyspaces，其它数据没办法加载出来"></a>4、但是启动完成之后发现，只存在system相关的keyspaces，其它数据没办法加载出来</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cdax@cqlsh&gt; desc keyspaces;</span><br><span class="line">system_auth system_distributed system_schema  system system_traces</span><br></pre></td></tr></table></figure>
-<h4 id="5、因为要恢复的keyspace–“test”数据目录存在，尝试使用sstableloader去加载数据文件："><a href="#5、因为要恢复的keyspace–“test”数据目录存在，尝试使用sstableloader去加载数据文件：" class="headerlink" title="5、因为要恢复的keyspace–“test”数据目录存在，尝试使用sstableloader去加载数据文件："></a>5、因为要恢复的keyspace–“test”数据目录存在，尝试使用sstableloader去加载数据文件：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sstableloader -d 127.0.0.1 &#x2F;tmp&#x2F;test&#x2F;trade_event-8d5d68508fe211e88a9ca166a7412712</span><br></pre></td></tr></table></figure>
-<h4 id="6、提示当前节点下不存在test-trade-event表，需要自己先手动创建该表，去B节点上执行desc-test-trade-event-查看建表语句，重新在A节点创建该表。"><a href="#6、提示当前节点下不存在test-trade-event表，需要自己先手动创建该表，去B节点上执行desc-test-trade-event-查看建表语句，重新在A节点创建该表。" class="headerlink" title="6、提示当前节点下不存在test.trade_event表，需要自己先手动创建该表，去B节点上执行desc test_trade_event,查看建表语句，重新在A节点创建该表。"></a>6、提示当前节点下不存在test.trade_event表，需要自己先手动创建该表，去B节点上执行desc test_trade_event,查看建表语句，重新在A节点创建该表。</h4><p>创建完成之后再次执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sstableloader -d 127.0.0.1 &#x2F;tmp&#x2F;test&#x2F;trade_event-8d5d68508fe211e88a9ca166a7412712</span><br></pre></td></tr></table></figure>
-<h4 id="7、文件下的数据全部导入test-trade-event表下面，然后使用copy将该表下面的数据全部导入到某一单独文件下："><a href="#7、文件下的数据全部导入test-trade-event表下面，然后使用copy将该表下面的数据全部导入到某一单独文件下：" class="headerlink" title="7、文件下的数据全部导入test.trade_event表下面，然后使用copy将该表下面的数据全部导入到某一单独文件下："></a>7、文件下的数据全部导入test.trade_event表下面，然后使用copy将该表下面的数据全部导入到某一单独文件下：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy trade_event to &#39;&#x2F;tmp&#x2F;trade_event.sql&#39; with header&#x3D;true;</span><br></pre></td></tr></table></figure>
-<h4 id="8、恢复之前须知："><a href="#8、恢复之前须知：" class="headerlink" title="8、恢复之前须知："></a>8、恢复之前须知：</h4><p>copy from操作并不会覆盖掉以前所有旧的数据，只会将A节点存在，B节点不存的数据导入到B节点。但是如果是B和A两个节点主键相同，其他字段数据不同，使用copy from的情况下，A节点的数据会覆盖掉B节点的数据。<br>因为我们decommission节点之后，启动应用发现缺少数据，导致应用无法起来，这种情况下B节点没有最新数据插入，因此可以执行copy from操作。如果无法确定B节点是否有新的数据插入，建议先根据某个表对应的时间戳先校验，确保没有最新数据插入的情况下，再使用上面的方法执行。</p>
-<h4 id="9、导出完成之后，将导出的文件拷贝到B节点，之后再B节点上执行copy-from操作将数据恢复："><a href="#9、导出完成之后，将导出的文件拷贝到B节点，之后再B节点上执行copy-from操作将数据恢复：" class="headerlink" title="9、导出完成之后，将导出的文件拷贝到B节点，之后再B节点上执行copy from操作将数据恢复："></a>9、导出完成之后，将导出的文件拷贝到B节点，之后再B节点上执行copy from操作将数据恢复：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COPY trade_event FROM &#39;&#x2F;home&#x2F;test&#x2F;trade_event.sql&#39; WITH HEADER &#x3D; TRUE ;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/cassandra/">cassandra</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-  
-    
-    <h3 class="article-read"><a href="/2019/02/13/cassandra使用nodetool decommission之后发现丢失数据的解决办法/"><span>点击阅读</span></a></h3>
     
   
 </article>
